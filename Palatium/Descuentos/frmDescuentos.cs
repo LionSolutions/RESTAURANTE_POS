@@ -23,20 +23,15 @@ namespace Palatium
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
             btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         //FUNCION PARA CONCATENAR
@@ -84,7 +79,6 @@ namespace Palatium
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al concatenar los valores.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         fin: { }
@@ -233,7 +227,6 @@ namespace Palatium
             if (txt_valor.Text == "")
             {
                 ok.LblMensaje.Text = "Favor ingrese el valor de porcentaje para realizar el descuento";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 txt_valor.Focus();
             }

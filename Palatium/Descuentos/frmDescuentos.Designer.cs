@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDescuentos));
             this.panel2 = new System.Windows.Forms.Panel();
             this.txt_valor = new System.Windows.Forms.TextBox();
             this.btnPunto = new System.Windows.Forms.Button();
@@ -81,10 +80,9 @@
             // 
             // btnPunto
             // 
-            this.btnPunto.BackColor = System.Drawing.Color.Transparent;
-            this.btnPunto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPunto.BackgroundImage")));
-            this.btnPunto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPunto.FlatAppearance.BorderSize = 0;
+            this.btnPunto.BackColor = System.Drawing.Color.Navy;
+            this.btnPunto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPunto.FlatAppearance.BorderSize = 2;
             this.btnPunto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPunto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPunto.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -101,10 +99,9 @@
             // 
             // btnIngresar
             // 
-            this.btnIngresar.BackColor = System.Drawing.Color.Transparent;
-            this.btnIngresar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnIngresar.BackgroundImage")));
-            this.btnIngresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnIngresar.FlatAppearance.BorderSize = 0;
+            this.btnIngresar.BackColor = System.Drawing.Color.Navy;
+            this.btnIngresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnIngresar.FlatAppearance.BorderSize = 2;
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -123,10 +120,9 @@
             // 
             // btnBackSpace
             // 
-            this.btnBackSpace.BackColor = System.Drawing.Color.Transparent;
-            this.btnBackSpace.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBackSpace.BackgroundImage")));
-            this.btnBackSpace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBackSpace.FlatAppearance.BorderSize = 0;
+            this.btnBackSpace.BackColor = System.Drawing.Color.Navy;
+            this.btnBackSpace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnBackSpace.FlatAppearance.BorderSize = 2;
             this.btnBackSpace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBackSpace.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -143,10 +139,9 @@
             // 
             // btn7
             // 
-            this.btn7.BackColor = System.Drawing.Color.Transparent;
-            this.btn7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn7.BackgroundImage")));
-            this.btn7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn7.FlatAppearance.BorderSize = 0;
+            this.btn7.BackColor = System.Drawing.Color.Navy;
+            this.btn7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn7.FlatAppearance.BorderSize = 2;
             this.btn7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn7.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -162,10 +157,9 @@
             // 
             // btn8
             // 
-            this.btn8.BackColor = System.Drawing.Color.Transparent;
-            this.btn8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn8.BackgroundImage")));
-            this.btn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn8.FlatAppearance.BorderSize = 0;
+            this.btn8.BackColor = System.Drawing.Color.Navy;
+            this.btn8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn8.FlatAppearance.BorderSize = 2;
             this.btn8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn8.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -181,10 +175,9 @@
             // 
             // btn0
             // 
-            this.btn0.BackColor = System.Drawing.Color.Transparent;
-            this.btn0.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn0.BackgroundImage")));
-            this.btn0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn0.FlatAppearance.BorderSize = 0;
+            this.btn0.BackColor = System.Drawing.Color.Navy;
+            this.btn0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn0.FlatAppearance.BorderSize = 2;
             this.btn0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn0.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn0.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -200,10 +193,9 @@
             // 
             // btn9
             // 
-            this.btn9.BackColor = System.Drawing.Color.Transparent;
-            this.btn9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn9.BackgroundImage")));
-            this.btn9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn9.FlatAppearance.BorderSize = 0;
+            this.btn9.BackColor = System.Drawing.Color.Navy;
+            this.btn9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn9.FlatAppearance.BorderSize = 2;
             this.btn9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn9.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -219,10 +211,9 @@
             // 
             // btn3
             // 
-            this.btn3.BackColor = System.Drawing.Color.Transparent;
-            this.btn3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn3.BackgroundImage")));
-            this.btn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn3.FlatAppearance.BorderSize = 0;
+            this.btn3.BackColor = System.Drawing.Color.Navy;
+            this.btn3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn3.FlatAppearance.BorderSize = 2;
             this.btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -238,10 +229,9 @@
             // 
             // btn4
             // 
-            this.btn4.BackColor = System.Drawing.Color.Transparent;
-            this.btn4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn4.BackgroundImage")));
-            this.btn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn4.FlatAppearance.BorderSize = 0;
+            this.btn4.BackColor = System.Drawing.Color.Navy;
+            this.btn4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn4.FlatAppearance.BorderSize = 2;
             this.btn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -257,10 +247,9 @@
             // 
             // btn2
             // 
-            this.btn2.BackColor = System.Drawing.Color.Transparent;
-            this.btn2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn2.BackgroundImage")));
-            this.btn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn2.FlatAppearance.BorderSize = 0;
+            this.btn2.BackColor = System.Drawing.Color.Navy;
+            this.btn2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn2.FlatAppearance.BorderSize = 2;
             this.btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -276,10 +265,9 @@
             // 
             // btn5
             // 
-            this.btn5.BackColor = System.Drawing.Color.Transparent;
-            this.btn5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn5.BackgroundImage")));
-            this.btn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn5.FlatAppearance.BorderSize = 0;
+            this.btn5.BackColor = System.Drawing.Color.Navy;
+            this.btn5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn5.FlatAppearance.BorderSize = 2;
             this.btn5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -295,10 +283,9 @@
             // 
             // btn1
             // 
-            this.btn1.BackColor = System.Drawing.Color.Transparent;
-            this.btn1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn1.BackgroundImage")));
-            this.btn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn1.FlatAppearance.BorderSize = 0;
+            this.btn1.BackColor = System.Drawing.Color.Navy;
+            this.btn1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn1.FlatAppearance.BorderSize = 2;
             this.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -314,10 +301,9 @@
             // 
             // btn6
             // 
-            this.btn6.BackColor = System.Drawing.Color.Transparent;
-            this.btn6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn6.BackgroundImage")));
-            this.btn6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn6.FlatAppearance.BorderSize = 0;
+            this.btn6.BackColor = System.Drawing.Color.Navy;
+            this.btn6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn6.FlatAppearance.BorderSize = 2;
             this.btn6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn6.ForeColor = System.Drawing.SystemColors.ControlLightLight;

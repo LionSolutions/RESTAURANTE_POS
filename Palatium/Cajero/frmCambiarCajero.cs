@@ -67,7 +67,6 @@ namespace Palatium.Cajero
                     else
                     {
                         ok.LblMensaje.Text = "No existe un registro en el sistema. Comuníquese con el administrador del sistema.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -75,7 +74,6 @@ namespace Palatium.Cajero
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
 
@@ -85,7 +83,6 @@ namespace Palatium.Cajero
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

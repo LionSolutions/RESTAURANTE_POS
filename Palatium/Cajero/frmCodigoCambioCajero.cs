@@ -52,7 +52,6 @@ namespace Palatium.Cajero
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -64,7 +63,6 @@ namespace Palatium.Cajero
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -96,10 +94,9 @@ namespace Palatium.Cajero
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString()) == iIdCajero)
+                        if (Convert.ToInt32(dtConsulta.Rows[0][0].ToString()) == iIdCajero)
                         {
                             ok.LblMensaje.Text = "Los datos ingresados corresponden al cajero en línea.";
-                            ok.ShowInTaskbar = false;
                             ok.ShowDialog();
 
                             txtClave.Clear();
@@ -108,21 +105,20 @@ namespace Palatium.Cajero
 
                         else
                         {
-                            if (actualizarRegistro(Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString())) == true)
+                            if (actualizarRegistro(Convert.ToInt32(dtConsulta.Rows[0][0].ToString())) == true)
                             {
-                                Program.CAJERO_ID = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                                Program.sNombreCajero = dtConsulta.Rows[0].ItemArray[1].ToString();
-                                Program.sNombreUsuario = dtConsulta.Rows[0].ItemArray[1].ToString();
-                                Program.sEstadoUsuario = dtConsulta.Rows[0].ItemArray[4].ToString();
-                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[3].ToString());
+                                Program.CAJERO_ID = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                                Program.sNombreCajero = dtConsulta.Rows[0][1].ToString();
+                                Program.sNombreUsuario = dtConsulta.Rows[0][1].ToString();
+                                Program.sEstadoUsuario = dtConsulta.Rows[0][4].ToString();
+                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0][3].ToString());
 
-                                Program.sDatosMaximo[0] = dtConsulta.Rows[0].ItemArray[1].ToString();
+                                Program.sDatosMaximo[0] = dtConsulta.Rows[0][1].ToString();
                                 Program.sDatosMaximo[1] = Environment.MachineName.ToString();
-                                Program.sDatosMaximo[2] = dtConsulta.Rows[0].ItemArray[4].ToString();
+                                Program.sDatosMaximo[2] = dtConsulta.Rows[0][4].ToString();
 
 
                                 ok.LblMensaje.Text = "Bienvenido (a)\n\n" + Program.sNombreUsuario;
-                                ok.ShowInTaskbar = false;
                                 ok.ShowDialog();
                                 this.DialogResult = DialogResult.OK;
                             }
@@ -132,7 +128,6 @@ namespace Palatium.Cajero
                     else
                     {
                         ok.LblMensaje.Text = "No existe un cajero registrado con los datos ingresados.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -140,7 +135,6 @@ namespace Palatium.Cajero
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
             }
@@ -148,7 +142,6 @@ namespace Palatium.Cajero
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -260,7 +253,6 @@ namespace Palatium.Cajero
             if (txtClave.Text == "")
             {
                 ok.LblMensaje.Text = "Favor ingrese la clave para proceder con la consulta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -294,7 +286,6 @@ namespace Palatium.Cajero
                 if (txtClave.Text.Trim() == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese la clave para proceder con la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 

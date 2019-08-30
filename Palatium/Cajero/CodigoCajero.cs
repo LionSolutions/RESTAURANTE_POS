@@ -62,20 +62,15 @@ namespace Palatium
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
             btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         #endregion
@@ -246,7 +241,6 @@ namespace Palatium
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -342,7 +336,6 @@ namespace Palatium
                                     textBoxcodigo.Focus();
                                     goto fin;
                                 }
-
 
                                 Program.sNombreUsuario = dtConsulta.Rows[0].ItemArray[2].ToString();
                                 Program.sEstadoUsuario = dtConsulta.Rows[0].ItemArray[5].ToString();
@@ -966,7 +959,6 @@ namespace Palatium
                 if (textBoxcodigo.Text.Trim() == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese la clave para proceder con la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 

@@ -92,7 +92,7 @@ namespace Palatium
             sSql += "and CP.fecha_orden = '" + sFechaActual + "'" + Environment.NewLine;
             sSql += "and CP.id_pos_jornada = " + Program.iJORNADA + Environment.NewLine;
             sSql += "and CP.id_pos_cajero = " + Program.CAJERO_ID + Environment.NewLine;
-            sSql += "and CP.estado_orden in ('Abierta', 'Pre-Cuenta')" + Environment.NewLine;
+            sSql += "and CP.estado_orden in ('Abierta', 'Pre-Cuenta', 'Cerrada')" + Environment.NewLine;
 
             if (iOp == 1)
             {
@@ -113,7 +113,7 @@ namespace Palatium
             {
                 if (dtConsulta.Rows.Count > 0)
                 {
-                    //iOrdenesJornada = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    //iOrdenesJornada = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
 
                     //Button[] boton = new Button[iCuenta];
                     //Button[] boton1 = new Button[iCuenta];
@@ -130,25 +130,25 @@ namespace Palatium
                         //==========================================================================================================
 
                         //POSICIÒN 0 = orden.id_pedido
-                        iIdPedido = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[0].ToString());
+                        iIdPedido = Convert.ToInt32(dtConsulta.Rows[i][0].ToString());
                         //POSICION 1 = numero_pedido                        
-                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[1].ToString());
+                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[i][1].ToString());
                         //POSICION 2 = id_pos_mesa
-                        iIdPosMesa = dtConsulta.Rows[i].ItemArray[2].ToString();
+                        iIdPosMesa = dtConsulta.Rows[i][2].ToString();
                         //POSICION 3 = mesa.descripcion
-                        sNombreMesa = dtConsulta.Rows[i].ItemArray[3].ToString();
+                        sNombreMesa = dtConsulta.Rows[i][3].ToString();
                         //POSICION 4 = nombre del cajero
-                        sNombreCajero = dtConsulta.Rows[i].ItemArray[4].ToString();
+                        sNombreCajero = dtConsulta.Rows[i][4].ToString();
                         //POSICION 5 = tipo de orden
-                        sTipoOrden = dtConsulta.Rows[i].ItemArray[5].ToString();
+                        sTipoOrden = dtConsulta.Rows[i][5].ToString();
                         //POSICION 6 = fecha de apertura de la orden 
-                        sFechaIngresoOrden = dtConsulta.Rows[i].ItemArray[6].ToString();
+                        sFechaIngresoOrden = dtConsulta.Rows[i][6].ToString();
                         //POSICION 7 = orden.estado_orden
-                        sEstadoOrden = dtConsulta.Rows[i].ItemArray[7].ToString();
+                        sEstadoOrden = dtConsulta.Rows[i][7].ToString();
                         //POSICION 8 = mesa.descripcion
-                        iNumeroPersonas = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[8].ToString());
+                        iNumeroPersonas = Convert.ToInt32(dtConsulta.Rows[i][8].ToString());
                         //POSICION 9 = cuenta diarias
-                        iNumeroCuentaDiaria = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[9].ToString());
+                        iNumeroCuentaDiaria = Convert.ToInt32(dtConsulta.Rows[i][9].ToString());
                         //==========================================================================================================
 
 
@@ -205,7 +205,7 @@ namespace Palatium
 
                                 int iBandera = 0;
 
-                                if (dtConsulta.Rows[0].ItemArray[5].ToString() == "Pre-Cuenta")
+                                if (dtConsulta.Rows[0][5].ToString() == "Pre-Cuenta")
                                 {
                                     //Program.Orden[j][8] = "Abierta";
                                     iBandera = 1;
@@ -219,15 +219,19 @@ namespace Palatium
 
                                 //sSql = "select sum((OD.PRECIO_UNIDAD * OD.CANTIDAD) * (" + Convert.ToDouble(Program.iva + Program.recargo + 1) +")) TOTAL from pos_orden O, pos_detalle_orden OD " +
                                 //       "WHERE (O.ID_POS_ORDEN = OD.ID_POS_ORDEN) AND O.ID_POS_ORDEN = " + iIdPedido + " and OD.estado = 'A'";
-
-                                sSql = "select sum(DP.cantidad * DP.precio_unitario * (" + Convert.ToDouble(Program.iva + Program.servicio + 1) + ")) total from cv403_det_pedidos as DP, cv403_cab_pedidos as CP " +
-                                       "where (CP.id_pedido = DP.id_pedido) and CP.id_pedido = " + iIdPedido + " and CP.estado = 'A' and DP.estado = 'A'";
+                                sSql = "";
+                                sSql += "select sum(DP.cantidad * DP.precio_unitario * (" + Convert.ToDouble(Program.iva + Program.servicio + 1) + ")) total" + Environment.NewLine;
+                                sSql += "from cv403_det_pedidos as DP, cv403_cab_pedidos as CP " + Environment.NewLine;
+                                sSql += "where (CP.id_pedido = DP.id_pedido)" + Environment.NewLine;
+                                sSql += "and CP.id_pedido = " + iIdPedido + Environment.NewLine;
+                                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                                sSql += "and DP.estado = 'A'";
 
                                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsultaMesa, sSql);
 
                                 if (bRespuesta == true)
                                 {
-                                    DSumaDetalleOrden = Convert.ToDouble(dtConsultaMesa.Rows[0].ItemArray[0].ToString());
+                                    DSumaDetalleOrden = Convert.ToDouble(dtConsultaMesa.Rows[0][0].ToString());
                                 }
 
 
@@ -290,7 +294,6 @@ namespace Palatium
             else
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }
@@ -302,7 +305,6 @@ namespace Palatium
             //MOSTRAR EL FORMULARIO DE MOTIVO DE CANCELACIÒN
             Button botonsel = sender as Button;
             MotivoCancelación cancelar = new MotivoCancelación(botonsel.Name);
-            cancelar.ShowInTaskbar = false;
             cancelar.ShowDialog();
 
             if (cancelar.DialogResult == DialogResult.OK)
@@ -316,7 +318,6 @@ namespace Palatium
             //MOSTRAR EL FORMULARIO DE MOTIVO DE CANCELACIÒN
             Button botonsel = sender as Button;
             MotivoCancelación cancelar = new MotivoCancelación(botonsel.Name);
-            cancelar.ShowInTaskbar = false;
             cancelar.ShowDialog();
 
             if (cancelar.DialogResult == DialogResult.OK)
@@ -339,7 +340,7 @@ namespace Palatium
                 sSql += "from cv403_cab_pedidos" + Environment.NewLine;
                 sSql += "where id_pos_jornada = " + Program.iJORNADA + Environment.NewLine;
                 sSql += "and fecha_orden = ' " + sFechaActual + "'" + Environment.NewLine;
-                sSql += "and estado_orden in('Abierta', 'Pre-Cuenta')";
+                sSql += "and estado_orden in('Abierta', 'Pre-Cuenta'. 'Cerrada')";
 
                 dtConsulta = new DataTable();
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
@@ -348,7 +349,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        if (dtConsulta.Rows[0].ItemArray[0].ToString() == "0")
+                        if (dtConsulta.Rows[0][0].ToString() == "0")
                         {
                             mostrarBotones();
                         }

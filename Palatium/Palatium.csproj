@@ -317,6 +317,18 @@
     <Compile Include="DashBoard\frmNuevoDashboard.Designer.cs">
       <DependentUpon>frmNuevoDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empresa\frmClienteEmpresarial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmClienteEmpresarial.Designer.cs">
+      <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empresa\frmModalClienteEmpresarial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmModalClienteEmpresarial.Designer.cs">
+      <DependentUpon>frmModalClienteEmpresarial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facturacion_Electronica\frmTipoAmbiente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1998,6 +2010,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DashBoard\frmNuevoDashboard.resx">
       <DependentUpon>frmNuevoDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmClienteEmpresarial.resx">
+      <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmModalClienteEmpresarial.resx">
+      <DependentUpon>frmModalClienteEmpresarial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion_Electronica\frmTipoAmbiente.resx">
       <DependentUpon>frmTipoAmbiente.cs</DependentUpon>

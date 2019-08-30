@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblFechaCaja = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtTotalCortesias = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtDiferencia = new System.Windows.Forms.TextBox();
+            this.txtCuentasPorCobrar = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtTotalCaja = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -176,7 +176,7 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.txtTotalCortesias);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.txtDiferencia);
+            this.groupBox2.Controls.Add(this.txtCuentasPorCobrar);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.txtTotalCaja);
             this.groupBox2.Controls.Add(this.label10);
@@ -239,8 +239,8 @@
             // 
             // txtValorPagoGrid
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.txtValorPagoGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.txtValorPagoGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.txtValorPagoGrid.Frozen = true;
             this.txtValorPagoGrid.HeaderText = "VALOR";
             this.txtValorPagoGrid.Name = "txtValorPagoGrid";
@@ -413,10 +413,10 @@
             // 
             // dataGridViewCheckBoxColumn1
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.NullValue = false;
-            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.NullValue = false;
+            this.dataGridViewCheckBoxColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCheckBoxColumn1.HeaderText = "";
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
             this.dataGridViewCheckBoxColumn1.Width = 50;
@@ -430,8 +430,8 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn2.HeaderText = "VALOR";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -565,18 +565,18 @@
             this.label13.TabIndex = 22;
             this.label13.Text = "Total en Cortesías:";
             // 
-            // txtDiferencia
+            // txtCuentasPorCobrar
             // 
-            this.txtDiferencia.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.txtDiferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiferencia.Location = new System.Drawing.Point(557, 123);
-            this.txtDiferencia.Name = "txtDiferencia";
-            this.txtDiferencia.ReadOnly = true;
-            this.txtDiferencia.Size = new System.Drawing.Size(196, 22);
-            this.txtDiferencia.TabIndex = 21;
-            this.txtDiferencia.Text = "0.00";
-            this.txtDiferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDiferencia.Visible = false;
+            this.txtCuentasPorCobrar.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.txtCuentasPorCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCuentasPorCobrar.Location = new System.Drawing.Point(557, 123);
+            this.txtCuentasPorCobrar.Name = "txtCuentasPorCobrar";
+            this.txtCuentasPorCobrar.ReadOnly = true;
+            this.txtCuentasPorCobrar.Size = new System.Drawing.Size(196, 22);
+            this.txtCuentasPorCobrar.TabIndex = 21;
+            this.txtCuentasPorCobrar.Text = "0.00";
+            this.txtCuentasPorCobrar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCuentasPorCobrar.Visible = false;
             // 
             // label11
             // 
@@ -585,9 +585,9 @@
             this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label11.Location = new System.Drawing.Point(415, 126);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 16);
+            this.label11.Size = new System.Drawing.Size(130, 16);
             this.label11.TabIndex = 20;
-            this.label11.Text = "Diferencia:";
+            this.label11.Text = "Cuentas por Cobrar::";
             this.label11.Visible = false;
             // 
             // txtTotalCaja
@@ -993,7 +993,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTotalCortesias;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtDiferencia;
+        private System.Windows.Forms.TextBox txtCuentasPorCobrar;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtTotalCaja;
         private System.Windows.Forms.Label label10;

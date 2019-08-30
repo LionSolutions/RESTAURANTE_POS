@@ -19,20 +19,11 @@ namespace Palatium.Descuentos
             InitializeComponent();
         }
 
-
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtMotivo, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (txtMotivo.Text == "")
             {
                 ok.LblMensaje.Text = "Debe ingresar un motivo de la cancelación del pedido.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 txtMotivo.Focus();
             }
@@ -53,7 +44,6 @@ namespace Palatium.Descuentos
         {
             if (Program.iActivaTeclado == 1)
             {
-                activaTeclado();
                 this.ActiveControl = label1;
             }
 
