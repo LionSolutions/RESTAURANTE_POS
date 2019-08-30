@@ -28,12 +28,6 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtBuscar, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA VERIFICAR SI YA ESTÁ EMITIDA UNA FACTURA EN UNA ORDEN
         private int validarPedido()
         {
@@ -71,13 +65,11 @@ namespace Palatium.Facturador
                 {
                     return 0;
                 }
-
             }
 
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -126,7 +118,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -147,7 +138,6 @@ namespace Palatium.Facturador
                     ok.LblMensaje.Text = "Favor ingrese el número de la factura.";
                 }
 
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -174,7 +164,6 @@ namespace Palatium.Facturador
                 else
                 {
                     ok.LblMensaje.Text = "No existen registros con los datos proporcionados";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     txtBuscar.Clear();
                     txtBuscar.Focus();
@@ -235,10 +224,7 @@ namespace Palatium.Facturador
 
         private void frmBuscarTicket_Load(object sender, EventArgs e)
         {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
+            
         }
     }
 }

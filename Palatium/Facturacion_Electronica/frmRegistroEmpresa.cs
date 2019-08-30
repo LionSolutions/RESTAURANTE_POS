@@ -330,7 +330,6 @@ namespace Palatium.Facturacion_Electronica
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.lblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     return;
                 }
@@ -442,8 +441,8 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "contadorGeneral = '" + txtContadorGeneral.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "rucContador = '" + txtRUCContador.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "matriculaContador = '" + txtMatriculaContador.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "usuario_ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql += "terminal_ingreso= '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
+                //sSql += "usuario_ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                //sSql += "terminal_ingreso= '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
                 sSql += "fecha_ingreso= GETDATE()" + Environment.NewLine;
                 sSql += "where idEmpresa = " + iIdEmpresa;
 

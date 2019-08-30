@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabCon_MetodoPago = new System.Windows.Forms.TabControl();
-            this.tabPag_MetodoPago = new System.Windows.Forms.TabPage();
             this.Grb_listReMetodoPago = new System.Windows.Forms.GroupBox();
             this.btnBuscarMetodoPago = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -46,35 +44,13 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblCodigoMetodoPago = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.tabCon_MetodoPago.SuspendLayout();
-            this.tabPag_MetodoPago.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbFormasPagos = new MisControles.ComboDatos();
             this.Grb_listReMetodoPago.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.Grb_opcioMetodoPago.SuspendLayout();
             this.Grb_DatoMetodoPago.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabCon_MetodoPago
-            // 
-            this.tabCon_MetodoPago.Controls.Add(this.tabPag_MetodoPago);
-            this.tabCon_MetodoPago.Location = new System.Drawing.Point(-3, -1);
-            this.tabCon_MetodoPago.Name = "tabCon_MetodoPago";
-            this.tabCon_MetodoPago.SelectedIndex = 0;
-            this.tabCon_MetodoPago.Size = new System.Drawing.Size(840, 333);
-            this.tabCon_MetodoPago.TabIndex = 2;
-            // 
-            // tabPag_MetodoPago
-            // 
-            this.tabPag_MetodoPago.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.tabPag_MetodoPago.Controls.Add(this.Grb_listReMetodoPago);
-            this.tabPag_MetodoPago.Controls.Add(this.Grb_opcioMetodoPago);
-            this.tabPag_MetodoPago.Controls.Add(this.Grb_DatoMetodoPago);
-            this.tabPag_MetodoPago.Location = new System.Drawing.Point(4, 22);
-            this.tabPag_MetodoPago.Name = "tabPag_MetodoPago";
-            this.tabPag_MetodoPago.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPag_MetodoPago.Size = new System.Drawing.Size(832, 307);
-            this.tabPag_MetodoPago.TabIndex = 0;
-            this.tabPag_MetodoPago.Text = "Método de Pago";
             // 
             // Grb_listReMetodoPago
             // 
@@ -82,7 +58,7 @@
             this.Grb_listReMetodoPago.Controls.Add(this.btnBuscarMetodoPago);
             this.Grb_listReMetodoPago.Controls.Add(this.txtBuscar);
             this.Grb_listReMetodoPago.Controls.Add(this.dgvDatos);
-            this.Grb_listReMetodoPago.Location = new System.Drawing.Point(409, 19);
+            this.Grb_listReMetodoPago.Location = new System.Drawing.Point(404, 12);
             this.Grb_listReMetodoPago.Name = "Grb_listReMetodoPago";
             this.Grb_listReMetodoPago.Size = new System.Drawing.Size(415, 276);
             this.Grb_listReMetodoPago.TabIndex = 5;
@@ -129,7 +105,7 @@
             this.Grb_opcioMetodoPago.Controls.Add(this.btnLimpiarMetodoPago);
             this.Grb_opcioMetodoPago.Controls.Add(this.btnAnularMetodoPago);
             this.Grb_opcioMetodoPago.Controls.Add(this.btnNuevoMetodoPago);
-            this.Grb_opcioMetodoPago.Location = new System.Drawing.Point(17, 206);
+            this.Grb_opcioMetodoPago.Location = new System.Drawing.Point(12, 199);
             this.Grb_opcioMetodoPago.Name = "Grb_opcioMetodoPago";
             this.Grb_opcioMetodoPago.Size = new System.Drawing.Size(386, 89);
             this.Grb_opcioMetodoPago.TabIndex = 4;
@@ -186,6 +162,8 @@
             // 
             // Grb_DatoMetodoPago
             // 
+            this.Grb_DatoMetodoPago.Controls.Add(this.label1);
+            this.Grb_DatoMetodoPago.Controls.Add(this.cmbFormasPagos);
             this.Grb_DatoMetodoPago.Controls.Add(this.cmbEstado);
             this.Grb_DatoMetodoPago.Controls.Add(this.lblEstaMetodoPago);
             this.Grb_DatoMetodoPago.Controls.Add(this.lblDescrMetodoPago);
@@ -193,7 +171,7 @@
             this.Grb_DatoMetodoPago.Controls.Add(this.lblCodigoMetodoPago);
             this.Grb_DatoMetodoPago.Controls.Add(this.txtCodigo);
             this.Grb_DatoMetodoPago.Enabled = false;
-            this.Grb_DatoMetodoPago.Location = new System.Drawing.Point(17, 19);
+            this.Grb_DatoMetodoPago.Location = new System.Drawing.Point(12, 12);
             this.Grb_DatoMetodoPago.Name = "Grb_DatoMetodoPago";
             this.Grb_DatoMetodoPago.Size = new System.Drawing.Size(386, 171);
             this.Grb_DatoMetodoPago.TabIndex = 3;
@@ -208,9 +186,9 @@
             this.cmbEstado.Items.AddRange(new object[] {
             "ACTIVO",
             "INACTIVO"});
-            this.cmbEstado.Location = new System.Drawing.Point(101, 120);
+            this.cmbEstado.Location = new System.Drawing.Point(139, 117);
             this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(107, 21);
+            this.cmbEstado.Size = new System.Drawing.Size(146, 21);
             this.cmbEstado.TabIndex = 10;
             // 
             // lblEstaMetodoPago
@@ -219,7 +197,7 @@
             this.lblEstaMetodoPago.BackColor = System.Drawing.Color.Transparent;
             this.lblEstaMetodoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstaMetodoPago.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblEstaMetodoPago.Location = new System.Drawing.Point(17, 121);
+            this.lblEstaMetodoPago.Location = new System.Drawing.Point(27, 118);
             this.lblEstaMetodoPago.Name = "lblEstaMetodoPago";
             this.lblEstaMetodoPago.Size = new System.Drawing.Size(48, 15);
             this.lblEstaMetodoPago.TabIndex = 7;
@@ -231,7 +209,7 @@
             this.lblDescrMetodoPago.BackColor = System.Drawing.Color.Transparent;
             this.lblDescrMetodoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescrMetodoPago.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblDescrMetodoPago.Location = new System.Drawing.Point(15, 67);
+            this.lblDescrMetodoPago.Location = new System.Drawing.Point(27, 64);
             this.lblDescrMetodoPago.Name = "lblDescrMetodoPago";
             this.lblDescrMetodoPago.Size = new System.Drawing.Size(75, 15);
             this.lblDescrMetodoPago.TabIndex = 5;
@@ -240,11 +218,10 @@
             // txtDescripcion
             // 
             this.txtDescripcion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDescripcion.Location = new System.Drawing.Point(101, 66);
+            this.txtDescripcion.Location = new System.Drawing.Point(139, 63);
             this.txtDescripcion.MaxLength = 20;
-            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(267, 48);
+            this.txtDescripcion.Size = new System.Drawing.Size(193, 20);
             this.txtDescripcion.TabIndex = 4;
             // 
             // lblCodigoMetodoPago
@@ -253,7 +230,7 @@
             this.lblCodigoMetodoPago.BackColor = System.Drawing.Color.Transparent;
             this.lblCodigoMetodoPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCodigoMetodoPago.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblCodigoMetodoPago.Location = new System.Drawing.Point(16, 42);
+            this.lblCodigoMetodoPago.Location = new System.Drawing.Point(27, 38);
             this.lblCodigoMetodoPago.Name = "lblCodigoMetodoPago";
             this.lblCodigoMetodoPago.Size = new System.Drawing.Size(49, 15);
             this.lblCodigoMetodoPago.TabIndex = 3;
@@ -262,12 +239,32 @@
             // txtCodigo
             // 
             this.txtCodigo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCodigo.Location = new System.Drawing.Point(101, 40);
+            this.txtCodigo.Location = new System.Drawing.Point(139, 37);
             this.txtCodigo.MaxLength = 20;
             this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.Size = new System.Drawing.Size(107, 20);
+            this.txtCodigo.Size = new System.Drawing.Size(146, 20);
             this.txtCodigo.TabIndex = 2;
             this.txtCodigo.Leave += new System.EventHandler(this.txtCodigoCajero_Leave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(27, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 15);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "SRI Forma Pago:";
+            // 
+            // cmbFormasPagos
+            // 
+            this.cmbFormasPagos.FormattingEnabled = true;
+            this.cmbFormasPagos.Location = new System.Drawing.Point(139, 90);
+            this.cmbFormasPagos.Name = "cmbFormasPagos";
+            this.cmbFormasPagos.Size = new System.Drawing.Size(193, 21);
+            this.cmbFormasPagos.TabIndex = 13;
             // 
             // FInformacionMetodoPago
             // 
@@ -275,16 +272,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(839, 338);
-            this.Controls.Add(this.tabCon_MetodoPago);
+            this.ClientSize = new System.Drawing.Size(826, 295);
+            this.Controls.Add(this.Grb_listReMetodoPago);
+            this.Controls.Add(this.Grb_opcioMetodoPago);
+            this.Controls.Add(this.Grb_DatoMetodoPago);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FInformacionMetodoPago";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Módulo de Configuración de Métodos de Pago";
             this.Load += new System.EventHandler(this.FInformacionMetodoPago_Load);
-            this.tabCon_MetodoPago.ResumeLayout(false);
-            this.tabPag_MetodoPago.ResumeLayout(false);
             this.Grb_listReMetodoPago.ResumeLayout(false);
             this.Grb_listReMetodoPago.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
@@ -297,8 +294,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabCon_MetodoPago;
-        private System.Windows.Forms.TabPage tabPag_MetodoPago;
         private System.Windows.Forms.GroupBox Grb_listReMetodoPago;
         private System.Windows.Forms.Button btnBuscarMetodoPago;
         private System.Windows.Forms.TextBox txtBuscar;
@@ -315,5 +310,7 @@
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label lblCodigoMetodoPago;
         private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.Label label1;
+        private MisControles.ComboDatos cmbFormasPagos;
     }
 }

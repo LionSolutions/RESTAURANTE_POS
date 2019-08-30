@@ -82,9 +82,13 @@ namespace Palatium.Formularios
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
 
-                //sSql = "select idempresa,nombrecomercial from sis_empresa";
-                sSql = "select idempresa,isnull(nombrecomercial, razonsocial) nombre_comercial, * from sis_empresa where idempresa = " + Program.iIdEmpresa;
+                sSql = "";
+                sSql += "select idempresa,isnull(nombrecomercial, razonsocial) nombre_comercial, *" + Environment.NewLine;
+                sSql += "from sis_empresa" + Environment.NewLine;
+                sSql += "where idempresa = " + Program.iIdEmpresa;
+
                 cmbEmpresa.llenar(dtConsulta, sSql);
+
                 if (cmbEmpresa.Items.Count > 0)
                 {
                     cmbEmpresa.SelectedIndex = 1;
@@ -94,7 +98,6 @@ namespace Palatium.Formularios
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 

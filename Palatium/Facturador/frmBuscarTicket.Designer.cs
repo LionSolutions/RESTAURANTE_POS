@@ -34,7 +34,6 @@
             this.rbdFactura = new System.Windows.Forms.RadioButton();
             this.rbdTicket = new System.Windows.Forms.RadioButton();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.grupoDatos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,12 +116,6 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // frmBuscarTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +147,5 @@
         private System.Windows.Forms.GroupBox grupoDatos;
         private System.Windows.Forms.RadioButton rbdFactura;
         private System.Windows.Forms.RadioButton rbdTicket;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
     }
 }

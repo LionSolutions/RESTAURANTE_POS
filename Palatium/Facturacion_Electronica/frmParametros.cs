@@ -27,6 +27,7 @@ namespace Palatium.Facturacion_Electronica
         string sEstado;
 
         int iIdParametro;
+        int iManejaSSL;
         
         public frmParametros()
         {
@@ -41,13 +42,13 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
-                sSql = sSql + "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
-                sSql = sSql + "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
-                sSql = sSql + "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
-                sSql = sSql + "certificado_palabra_clave, Estado, id_cel_parametro" + Environment.NewLine;
-                sSql = sSql + "from cel_parametro" + Environment.NewLine;
-                sSql = sSql + "where estado in ('A', 'N')";
+                sSql += "select correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
+                sSql += "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
+                sSql += "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
+                sSql += "certificado_palabra_clave, Estado, id_cel_parametro, maneja_ssl" + Environment.NewLine;
+                sSql += "from cel_parametro" + Environment.NewLine;
+                sSql += "where estado in ('A', 'N')";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -73,11 +74,27 @@ namespace Palatium.Facturacion_Electronica
                         txtPasswordCertificado.Text = dtConsulta.Rows[0][12].ToString();
 
                         if (dtConsulta.Rows[0][13].ToString() == "A")
+                        {
                             cmbEstado.SelectedIndex = 0;
+                        }
+
                         else
+                        {
                             cmbEstado.SelectedIndex = 1;
+                        }
 
                         iIdParametro = Convert.ToInt32(dtConsulta.Rows[0][14].ToString());
+
+                        if (Convert.ToInt32(dtConsulta.Rows[0]["maneja_ssl"].ToString()) == 1)
+                        {
+                            chkSSL.Checked = true;
+                        }
+
+                        else
+                        {
+                            chkSSL.Checked = false;
+                        }
+
                         bActualizar = true;
 
                         chkMostrarPasswordCuenta.Checked = false;
@@ -122,6 +139,7 @@ namespace Palatium.Facturacion_Electronica
             iIdParametro = 0;
             chkMostrarPasswordCuenta.Checked = false;
             chkPasswordCertificado.Checked = false;
+            chkSSL.Checked = false;
             txtCuenta.Focus();
         }
 
@@ -139,22 +157,22 @@ namespace Palatium.Facturacion_Electronica
                 }
 
                 sSql = "";
-                sSql = sSql + "insert into cel_parametro(" + Environment.NewLine;
-                sSql = sSql + "correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
-                sSql = sSql + "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
-                sSql = sSql + "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
-                sSql = sSql + "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
-                sSql = sSql + "certificado_palabra_clave, estado, fecha_ingreso," + Environment.NewLine;
-                sSql = sSql + "usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
-                sSql = sSql + "values(" + Environment.NewLine;
-                sSql = sSql + "'" + txtCuenta.Text.Trim() + "', '" + txtPasswordCuenta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtSmtp.Text.Trim() + "', " + Convert.ToInt32(txtPuerto.Text.Trim()) + "," + Environment.NewLine;
-                sSql = sSql + "'" + txtCorreoCopia.Text.Trim() + "', '" + txtCorreoConsumidorFinal.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtCorreoAmbientePruebas.Text.Trim() + "', '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtConsultaPruebas.Text.Trim() + "', '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtConsultaProduccion.Text.Trim() + "', '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtPasswordCertificado.Text.Trim() + "', 'A', GETDATE()," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+                sSql += "insert into cel_parametro(" + Environment.NewLine;
+                sSql += "correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
+                sSql += "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
+                sSql += "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
+                sSql += "certificado_palabra_clave, maneja_ssl, estado, fecha_ingreso," + Environment.NewLine;
+                sSql += "usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values(" + Environment.NewLine;
+                sSql += "'" + txtCuenta.Text.Trim() + "', '" + txtPasswordCuenta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtSmtp.Text.Trim() + "', " + Convert.ToInt32(txtPuerto.Text.Trim()) + "," + Environment.NewLine;
+                sSql += "'" + txtCorreoCopia.Text.Trim() + "', '" + txtCorreoConsumidorFinal.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtCorreoAmbientePruebas.Text.Trim() + "', '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtConsultaPruebas.Text.Trim() + "', '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtConsultaProduccion.Text.Trim() + "', '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtPasswordCertificado.Text.Trim() + "', " + iManejaSSL + ", 'A', GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 //EJECUTA EL QUERY DE INSERCIÓN
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -195,22 +213,23 @@ namespace Palatium.Facturacion_Electronica
                 }
 
                 sSql = "";
-                sSql = sSql + "update cel_parametro set" + Environment.NewLine;
-                sSql = sSql + "correo_que_envia = '" + txtCuenta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "correo_palabra_clave = '" + txtPasswordCuenta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "correo_smtp = '" + txtSmtp.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "correo_puerto = " + Convert.ToInt32(txtPuerto.Text.Trim()) + "," + Environment.NewLine;
-                sSql = sSql + "correo_con_copia = '" + txtCorreoCopia.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "correo_consumidor_final = '" + txtCorreoConsumidorFinal.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "correo_ambiente_prueba = '" + txtCorreoAmbientePruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "ws_envio_pruebas = '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "ws_consulta_pruebas = '" + txtConsultaPruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "ws_envio_produccion = '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "ws_consulta_produccion = '" + txtConsultaProduccion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "certificado_ruta = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "certificado_palabra_clave = '" + txtPasswordCertificado.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "estado = '" + sEstado + "'" + Environment.NewLine;
-                sSql = sSql + "where id_cel_parametro = " + iIdParametro;
+                sSql += "update cel_parametro set" + Environment.NewLine;
+                sSql += "correo_que_envia = '" + txtCuenta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "correo_palabra_clave = '" + txtPasswordCuenta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "correo_smtp = '" + txtSmtp.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "correo_puerto = " + Convert.ToInt32(txtPuerto.Text.Trim()) + "," + Environment.NewLine;
+                sSql += "correo_con_copia = '" + txtCorreoCopia.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "correo_consumidor_final = '" + txtCorreoConsumidorFinal.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba = '" + txtCorreoAmbientePruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "ws_envio_pruebas = '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "ws_consulta_pruebas = '" + txtConsultaPruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "ws_envio_produccion = '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "ws_consulta_produccion = '" + txtConsultaProduccion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "certificado_ruta = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "certificado_palabra_clave = '" + txtPasswordCertificado.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "maneja_ssl 0 = " + iManejaSSL + "," + Environment.NewLine;
+                sSql += "estado = '" + sEstado + "'" + Environment.NewLine;
+                sSql += "where id_cel_parametro = " + iIdParametro;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -385,7 +404,17 @@ namespace Palatium.Facturacion_Electronica
             }
 
             else
-            {       
+            {
+                if (chkSSL.Checked == true)
+                {
+                    iManejaSSL = 1;
+                }
+
+                else
+                {
+                    iManejaSSL = 0;
+                }
+
                 if (bActualizar == true)
                 {
                     if (cmbEstado.Text == "ACTIVO")

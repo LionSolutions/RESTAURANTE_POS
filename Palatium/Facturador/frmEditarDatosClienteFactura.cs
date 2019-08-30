@@ -64,20 +64,15 @@ namespace Palatium.Facturador
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
             btnProceso.ForeColor = Color.Black;
-
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         #endregion
@@ -120,12 +115,12 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
-                        txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        sAutorizacion = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
-                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString());
+                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                        txtIdentificacion.Text = dtConsulta.Rows[0][2].ToString();
+                        sAutorizacion = dtConsulta.Rows[0][3].ToString();
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0][4].ToString());
+                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
                         return 1;
                     }
 
@@ -145,7 +140,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -180,12 +174,12 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
-                        txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        sAutorizacion = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
-                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString());
+                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                        txtIdentificacion.Text = dtConsulta.Rows[0][2].ToString();
+                        sAutorizacion = dtConsulta.Rows[0][3].ToString();
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0][4].ToString());
+                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
                         return 1;
                     }
 
@@ -205,7 +199,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -219,10 +212,9 @@ namespace Palatium.Facturador
         {
             try
             {
-
                 if (llenarDataTable(1) == true)
                 {
-                    if (dtConsulta.Rows[0].ItemArray[63].ToString() == "1")
+                    if (dtConsulta.Rows[0][63].ToString() == "1")
                     {
                         if (Program.iFacturacionElectronica == 1)
                         {
@@ -244,7 +236,7 @@ namespace Palatium.Facturador
                         }
                     }
 
-                    else if (dtConsulta.Rows[0].ItemArray[63].ToString() == "2")
+                    else if (dtConsulta.Rows[0][63].ToString() == "2")
                     {
                         sRetorno = notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada");
                         sRetorno = sRetorno + "".PadLeft(22, ' ') + "TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(12, ' ');
@@ -356,7 +348,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -389,26 +380,26 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        txtNombres.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtApellidos.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtMail.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtDireccion.Text = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        sCiudad = dtConsulta.Rows[0].ItemArray[8].ToString();
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        txtNombres.Text = dtConsulta.Rows[0][2].ToString();
+                        txtApellidos.Text = dtConsulta.Rows[0][3].ToString();
+                        txtMail.Text = dtConsulta.Rows[0][4].ToString();
+                        txtDireccion.Text = dtConsulta.Rows[0][5].ToString();
+                        sCiudad = dtConsulta.Rows[0][8].ToString();
 
-                        if (dtConsulta.Rows[0].ItemArray[6].ToString() != "")
+                        if (dtConsulta.Rows[0][6].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][6].ToString();
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[7].ToString() != "")
+                        else if (dtConsulta.Rows[0][7].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[7].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][7].ToString();
                         }
 
                         else
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[9].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][9].ToString();
                         }
 
                         btnGuardar.Enabled = true;
@@ -419,7 +410,6 @@ namespace Palatium.Facturador
                     else
                     {
                         frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-                        nuevoCliente.ShowInTaskbar = false;
                         nuevoCliente.ShowDialog();
 
                         if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -715,7 +705,6 @@ namespace Palatium.Facturador
                     ok.LblMensaje.Text = "Favor ingrese el número de la nota de venta.";
                 }
 
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -891,7 +880,6 @@ namespace Palatium.Facturador
         private void btnEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-            nuevoCliente.ShowInTaskbar = false;
             nuevoCliente.ShowDialog();
 
             if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -936,7 +924,6 @@ namespace Palatium.Facturador
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             frmControlDatosCliente controlClientes = new frmControlDatosCliente();
-            controlClientes.ShowInTaskbar = false;
             controlClientes.ShowDialog();
 
             if (controlClientes.DialogResult == DialogResult.OK)
@@ -954,7 +941,6 @@ namespace Palatium.Facturador
             if ((txtIdentificacion.Text == "") && (txtApellidos.Text == ""))
             {
                 ok.LblMensaje.Text = "Favor ingrese los datos del cliente para la factura.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
             else

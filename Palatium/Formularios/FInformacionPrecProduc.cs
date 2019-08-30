@@ -65,7 +65,6 @@ namespace Palatium.Formularios
         public FInformacionPrecProduc()
         {
             InitializeComponent();
-
         }
 
         private void FInformacionPrecProduc_Load(object sender, EventArgs e)
@@ -140,8 +139,8 @@ namespace Palatium.Formularios
                 iIdProduc = ayuda1.IdProducto;
                 txtIdProduc.Text = ayuda1.CodigoProducto;
                 txtDescripcionProduc.Text = ayuda1.NombreProducto;
-
             }
+
             else
             {
                 Formularios.FAyudaPreciosProductosProduc ayuda1 = new Formularios.FAyudaPreciosProductosProduc(iIdCategoria, iCodigoCategoria);
@@ -151,8 +150,6 @@ namespace Palatium.Formularios
                 txtIdProduc.Text = ayuda1.CodigoProducto;
                 txtDescripcionProduc.Text = ayuda1.NombreProducto;
             }
-
-
         }
 
         private void btnListCategoria_Click(object sender, EventArgs e)
@@ -526,7 +523,6 @@ namespace Palatium.Formularios
         private void dgvListPreciosProductos_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             sCambio = dgvListPreciosProductos.CurrentCell.Value.ToString();
-
         }
 
         private void dgvListPreciosProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)

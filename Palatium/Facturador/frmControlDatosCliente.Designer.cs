@@ -44,7 +44,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblCuentaRegistros = new System.Windows.Forms.Label();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
@@ -250,12 +249,6 @@
             this.lblCuentaRegistros.TabIndex = 131;
             this.lblCuentaRegistros.Text = "0 Registros Encontrados";
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // frmControlDatosCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,6 +296,5 @@
         private System.Windows.Forms.DataGridView dgvDatos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblCuentaRegistros;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
     }
 }

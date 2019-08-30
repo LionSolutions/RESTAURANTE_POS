@@ -63,6 +63,7 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblcodigoOriOrd = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.chkCuentaPorCobrar = new System.Windows.Forms.CheckBox();
             this.tabCon_PosOriOrd.SuspendLayout();
             this.tabPag_PosOriOrd.SuspendLayout();
             this.Grb_listRePosOriOrd.SuspendLayout();
@@ -209,6 +210,7 @@
             // 
             // grupoDatos
             // 
+            this.grupoDatos.Controls.Add(this.chkCuentaPorCobrar);
             this.grupoDatos.Controls.Add(this.chkManejaServicio);
             this.grupoDatos.Controls.Add(this.grupoPago);
             this.grupoDatos.Controls.Add(this.cmbModoDelivery);
@@ -239,7 +241,7 @@
             // chkManejaServicio
             // 
             this.chkManejaServicio.AutoSize = true;
-            this.chkManejaServicio.Location = new System.Drawing.Point(188, 156);
+            this.chkManejaServicio.Location = new System.Drawing.Point(18, 174);
             this.chkManejaServicio.Name = "chkManejaServicio";
             this.chkManejaServicio.Size = new System.Drawing.Size(102, 17);
             this.chkManejaServicio.TabIndex = 33;
@@ -323,7 +325,7 @@
             // chkRepartidorExterno
             // 
             this.chkRepartidorExterno.AutoSize = true;
-            this.chkRepartidorExterno.Location = new System.Drawing.Point(188, 133);
+            this.chkRepartidorExterno.Location = new System.Drawing.Point(188, 128);
             this.chkRepartidorExterno.Name = "chkRepartidorExterno";
             this.chkRepartidorExterno.Size = new System.Drawing.Size(129, 17);
             this.chkRepartidorExterno.TabIndex = 6;
@@ -399,7 +401,7 @@
             // chkGeneraFactura
             // 
             this.chkGeneraFactura.AutoSize = true;
-            this.chkGeneraFactura.Location = new System.Drawing.Point(19, 156);
+            this.chkGeneraFactura.Location = new System.Drawing.Point(19, 151);
             this.chkGeneraFactura.Name = "chkGeneraFactura";
             this.chkGeneraFactura.Size = new System.Drawing.Size(100, 17);
             this.chkGeneraFactura.TabIndex = 5;
@@ -410,7 +412,7 @@
             // chkDelivery
             // 
             this.chkDelivery.AutoSize = true;
-            this.chkDelivery.Location = new System.Drawing.Point(19, 133);
+            this.chkDelivery.Location = new System.Drawing.Point(19, 128);
             this.chkDelivery.Name = "chkDelivery";
             this.chkDelivery.Size = new System.Drawing.Size(146, 17);
             this.chkDelivery.TabIndex = 4;
@@ -483,6 +485,16 @@
             this.txtCodigo.TabIndex = 1;
             this.txtCodigo.Leave += new System.EventHandler(this.Txt_CodigoPosOriOrd_Leave);
             // 
+            // chkCuentaPorCobrar
+            // 
+            this.chkCuentaPorCobrar.AutoSize = true;
+            this.chkCuentaPorCobrar.Location = new System.Drawing.Point(188, 151);
+            this.chkCuentaPorCobrar.Name = "chkCuentaPorCobrar";
+            this.chkCuentaPorCobrar.Size = new System.Drawing.Size(112, 17);
+            this.chkCuentaPorCobrar.TabIndex = 35;
+            this.chkCuentaPorCobrar.Text = "Cuenta por Cobrar";
+            this.chkCuentaPorCobrar.UseVisualStyleBackColor = true;
+            // 
             // FInformacionPosOriOrd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -549,5 +561,6 @@
         private Controles.Auxiliares.DB_Ayuda dbAyudaPersona;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkManejaServicio;
+        private System.Windows.Forms.CheckBox chkCuentaPorCobrar;
     }
 }

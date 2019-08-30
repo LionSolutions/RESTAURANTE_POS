@@ -207,6 +207,7 @@ namespace Palatium
         //VARIBALE QUE PERMITE APLICAR RECARGO A TARJETAS
         public static int iAplicaRecargoTarjeta;
         public static decimal dbPorcentajeRecargoTarjeta;
+        public static int iComprobanteNotaEntrega;
 
         public static int iCortar = 0;
         public static int iIdPersonaFacturador;

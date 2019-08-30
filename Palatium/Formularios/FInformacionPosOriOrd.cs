@@ -31,9 +31,8 @@ namespace Palatium.Formularios
         int iGeneraFactura;
         int iIdOrigenOrden;
         int iIdManejaServicio;
-
         int iServicioConsulta;
-
+        int iCuentaPorCobrar;
 
         public FInformacionPosOriOrd()
         {
@@ -58,9 +57,9 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql = sSql + "select isnull(maneja_servicio, 0)" + Environment.NewLine;
-                sSql = sSql + "from pos_parametro" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select isnull(maneja_servicio, 0)" + Environment.NewLine;
+                sSql += "from pos_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -71,7 +70,7 @@ namespace Palatium.Formularios
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iServicioConsulta = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iServicioConsulta = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                         
                         if (iServicioConsulta == 1)
                         {
@@ -110,10 +109,10 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_persona, ltrim(apellidos + ' ' + isnull(nombres, '')) as apellidos, identificacion" + Environment.NewLine;
-                sSql = sSql + "from tp_personas" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and id_persona = " + iIdPersona;
+                sSql += "select id_persona, ltrim(apellidos + ' ' + isnull(nombres, '')) as apellidos, identificacion" + Environment.NewLine;
+                sSql += "from tp_personas" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
+                sSql += "and id_persona = " + iIdPersona;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -125,8 +124,8 @@ namespace Palatium.Formularios
                     if (dtConsulta.Rows.Count > 0)
                     {
                         dbAyudaPersona.iId = iIdPersona;
-                        dbAyudaPersona.txtDatos.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        dbAyudaPersona.txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
+                        dbAyudaPersona.txtDatos.Text = dtConsulta.Rows[0][1].ToString();
+                        dbAyudaPersona.txtIdentificacion.Text = dtConsulta.Rows[0][2].ToString();
                     }
 
                     else
@@ -158,8 +157,8 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_persona, ltrim(apellidos + ' ' + isnull(nombres,'')) as apellidos, identificacion" + Environment.NewLine;
-                sSql = sSql + "from tp_personas where estado = 'A'";
+                sSql += "select id_persona, ltrim(apellidos + ' ' + isnull(nombres,'')) as apellidos, identificacion" + Environment.NewLine;
+                sSql += "from tp_personas where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
@@ -188,9 +187,9 @@ namespace Palatium.Formularios
                 dtConsulta = new DataTable();
 
                 sSql = "";
-                sSql = sSql + "select id_pos_modo_delivery, descripcion" + Environment.NewLine;
-                sSql = sSql + "from pos_modo_delivery" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select id_pos_modo_delivery, descripcion" + Environment.NewLine;
+                sSql += "from pos_modo_delivery" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 cmbModoDelivery.llenar(dtConsulta, sSql);
 
@@ -214,9 +213,9 @@ namespace Palatium.Formularios
                 dtConsulta = new DataTable();
 
                 sSql = "";
-                sSql = sSql + "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
-                sSql = sSql + "from pos_tipo_forma_cobro" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
+                sSql += "from pos_tipo_forma_cobro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 cmbFormasCobros.llenar(dtConsulta, sSql);
 
@@ -266,21 +265,22 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql = sSql + "select codigo as CODIGO, descripcion as DESCRIPCION," + Environment.NewLine;
-                sSql = sSql + "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
-                sSql = sSql + "id_pos_origen_orden, presenta_opcion_delivery, genera_factura," + Environment.NewLine;
-                sSql = sSql + "repartidor_externo, isnull(imagen, '') imagen, id_pos_modo_delivery," + Environment.NewLine;
-                sSql = sSql + "isnull(id_pos_tipo_forma_cobro, 0), isnull(id_persona, 0), maneja_servicio" + Environment.NewLine;
-                sSql = sSql + "from pos_origen_orden" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
+                sSql += "select codigo as CODIGO, descripcion as DESCRIPCION," + Environment.NewLine;
+                sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
+                sSql += "id_pos_origen_orden, presenta_opcion_delivery, genera_factura," + Environment.NewLine;
+                sSql += "repartidor_externo, isnull(imagen, '') imagen, id_pos_modo_delivery," + Environment.NewLine;
+                sSql += "isnull(id_pos_tipo_forma_cobro, 0), isnull(id_persona, 0), maneja_servicio," + Environment.NewLine;
+                sSql += "cuenta_por_cobrar" + Environment.NewLine;
+                sSql += "from pos_origen_orden" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
 
                 if (iOp == 1)
                 {
-                    sSql = sSql + "and codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
-                    sSql = sSql + "or descripcion like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "and codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "or descripcion like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
                 }
 
-                sSql = sSql + "order by id_pos_origen_orden";
+                sSql += "order by id_pos_origen_orden";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -302,6 +302,7 @@ namespace Palatium.Formularios
                     dgvDatos.Columns[9].Visible = false;
                     dgvDatos.Columns[10].Visible = false;
                     dgvDatos.Columns[11].Visible = false;
+                    dgvDatos.Columns[12].Visible = false;
                 }
 
                 else
@@ -323,45 +324,44 @@ namespace Palatium.Formularios
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
-                //=======================================================================================================
                 
                 sSql = "";
-                sSql = sSql + "insert into pos_origen_orden (" + Environment.NewLine;
-                sSql = sSql + "codigo, descripcion, genera_factura, id_pos_modo_delivery," + Environment.NewLine;
-                sSql = sSql + "presenta_opcion_delivery, repartidor_externo, imagen, id_pos_tipo_forma_cobro," + Environment.NewLine;
-                sSql = sSql + "id_persona, maneja_servicio, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
-                sSql = sSql + "values(" + Environment.NewLine;
-                sSql = sSql + "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + iGeneraFactura + ", " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + ", " + Environment.NewLine;
-                sSql = sSql + iDelivery + ", " + iRepartidor + ", '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "insert into pos_origen_orden (" + Environment.NewLine;
+                sSql += "codigo, descripcion, genera_factura, id_pos_modo_delivery," + Environment.NewLine;
+                sSql += "presenta_opcion_delivery, repartidor_externo, imagen, id_pos_tipo_forma_cobro," + Environment.NewLine;
+                sSql += "id_persona, maneja_servicio, cuenta_por_cobrar, estado, fecha_ingreso," + Environment.NewLine;
+                sSql += "usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values(" + Environment.NewLine;
+                sSql += "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += iGeneraFactura + ", " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + ", " + Environment.NewLine;
+                sSql += iDelivery + ", " + iRepartidor + ", '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
 
                 if (iGeneraFactura == 1)
                 {
-                    sSql = sSql + "null, null," + Environment.NewLine;
+                    sSql += "null, null," + Environment.NewLine;
                 }
 
                 else
                 {
                     if (dbAyudaPersona.iId == 0)
                     {
-                        sSql = sSql + Convert.ToInt32(cmbFormasCobros.SelectedValue) + ", null," + Environment.NewLine;
+                        sSql += Convert.ToInt32(cmbFormasCobros.SelectedValue) + ", null," + Environment.NewLine;
                     }
 
                     else
                     {
-                        sSql = sSql + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + dbAyudaPersona.iId + "," + Environment.NewLine;
+                        sSql += Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + dbAyudaPersona.iId + "," + Environment.NewLine;
                     }
                 }
 
-                sSql = sSql + iIdManejaServicio + ", 'A', GETDATE()," +  Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+                sSql += iIdManejaServicio + ", " + iCuentaPorCobrar + ", 'A', GETDATE()," +  Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -377,6 +377,7 @@ namespace Palatium.Formularios
                 grupoDatos.Enabled = false;
                 btnNuevo.Text = "Nuevo";
                 limpiarTodo();
+                return;
             }
 
             catch (Exception ex)
@@ -390,8 +391,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-            fin: { }
         }
 
         //FUNCION PARA MODIFICAR REGISTROS EN LA BASE DE DATOS
@@ -400,47 +399,46 @@ namespace Palatium.Formularios
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
-                //=======================================================================================================
 
                 sSql = "";
-                sSql = sSql + "update pos_origen_orden set" + Environment.NewLine;
-                sSql = sSql + "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "genera_factura = " + iGeneraFactura + "," + Environment.NewLine;
-                sSql = sSql + "id_pos_modo_delivery = " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + "," + Environment.NewLine;
-                sSql = sSql + "presenta_opcion_delivery = " + iDelivery + "," + Environment.NewLine;
-                sSql = sSql + "repartidor_externo = " + iRepartidor + "," + Environment.NewLine;
-                sSql = sSql + "imagen = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "maneja_servicio = " + iIdManejaServicio + "," + Environment.NewLine;
+                sSql += "update pos_origen_orden set" + Environment.NewLine;
+                sSql += "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "genera_factura = " + iGeneraFactura + "," + Environment.NewLine;
+                sSql += "id_pos_modo_delivery = " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + "," + Environment.NewLine;
+                sSql += "presenta_opcion_delivery = " + iDelivery + "," + Environment.NewLine;
+                sSql += "repartidor_externo = " + iRepartidor + "," + Environment.NewLine;
+                sSql += "imagen = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "maneja_servicio = " + iIdManejaServicio + "," + Environment.NewLine;
+                sSql += "cuenta_por_cobrar = " + iCuentaPorCobrar + "," + Environment.NewLine;
 
                 if (iGeneraFactura == 1)
                 {
-                    sSql = sSql + "id_pos_tipo_forma_cobro = null," + Environment.NewLine;
-                    sSql = sSql + "id_persona = null" + Environment.NewLine;
+                    sSql += "id_pos_tipo_forma_cobro = null," + Environment.NewLine;
+                    sSql += "id_persona = null" + Environment.NewLine;
                 }
 
                 else
                 {
-                    sSql = sSql + "id_pos_tipo_forma_cobro = " + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + Environment.NewLine;
+                    sSql += "id_pos_tipo_forma_cobro = " + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + Environment.NewLine;
 
                     if (dbAyudaPersona.iId == 0)
                     {
-                        sSql = sSql + "id_persona = null" + Environment.NewLine;
+                        sSql += "id_persona = null" + Environment.NewLine;
                     }
 
                     else
                     {
-                        sSql = sSql + "id_persona = " + dbAyudaPersona.iId + Environment.NewLine;
+                        sSql += "id_persona = " + dbAyudaPersona.iId + Environment.NewLine;
                     }
                 }
 
-                sSql = sSql + "where id_pos_origen_orden = " +  iIdOrigenOrden;
+                sSql += "where id_pos_origen_orden = " +  iIdOrigenOrden;
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -456,6 +454,7 @@ namespace Palatium.Formularios
                 grupoDatos.Enabled = false;
                 btnNuevo.Text = "Nuevo";
                 limpiarTodo();
+                return;
             }
 
             catch (Exception ex)
@@ -469,8 +468,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         //FUNCION PARA ELIMINAR REGISTROS EN LA BASE DE DATOS
@@ -479,22 +476,20 @@ namespace Palatium.Formularios
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
-                //=======================================================================================================
 
                 sSql = "";
-                sSql = sSql + "update pos_origen_orden set" + Environment.NewLine;
-                sSql = sSql + "estado = 'E'," + Environment.NewLine;
-                sSql = sSql + "fecha_anula = GETDATE()," + Environment.NewLine;
-                sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
-                sSql = sSql + "where id_pos_origen_orden = " + iIdOrigenOrden;
+                sSql += "update pos_origen_orden set" + Environment.NewLine;
+                sSql += "estado = 'E'," + Environment.NewLine;
+                sSql += "fecha_anula = GETDATE()," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
+                sSql += "where id_pos_origen_orden = " + iIdOrigenOrden;
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -510,6 +505,7 @@ namespace Palatium.Formularios
                 grupoDatos.Enabled = false;
                 btnNuevo.Text = "Nuevo";
                 limpiarTodo();
+                return;
             }
 
             catch (Exception ex)
@@ -523,8 +519,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         #endregion
@@ -534,14 +528,14 @@ namespace Palatium.Formularios
             dbAyudaPersona.limpiar();
 
             sSql = "";
-            sSql = sSql + "select id_pos_origen_orden, descripcion, id_pos_modo_delivery," + Environment.NewLine;
-            sSql = sSql + "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
-            sSql = sSql + "presenta_opcion_delivery, genera_factura," + Environment.NewLine;
-            sSql = sSql + "repartidor_externo, isnull(imagen, '') imagen," + Environment.NewLine;
-            sSql = sSql + "id_pos_tipo_forma_cobro, id_persona" + Environment.NewLine;
-            sSql = sSql + "from pos_origen_orden" + Environment.NewLine;
-            sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-            sSql = sSql + "and codigo = '" + txtCodigo.Text.Trim() + "'";
+            sSql += "select id_pos_origen_orden, descripcion, id_pos_modo_delivery," + Environment.NewLine;
+            sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
+            sSql += "presenta_opcion_delivery, genera_factura," + Environment.NewLine;
+            sSql += "repartidor_externo, isnull(imagen, '') imagen," + Environment.NewLine;
+            sSql += "id_pos_tipo_forma_cobro, id_persona, cuenta_por_cobrar" + Environment.NewLine;
+            sSql += "from pos_origen_orden" + Environment.NewLine;
+            sSql += "where estado = 'A'" + Environment.NewLine;
+            sSql += "and codigo = '" + txtCodigo.Text.Trim() + "'";
 
             dtConsulta = new DataTable();
             dtConsulta.Clear();
@@ -552,12 +546,12 @@ namespace Palatium.Formularios
             {
                 if (dtConsulta.Rows.Count > 0)
                 {
-                    iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                    txtDescripcion.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                    cmbModoDelivery.SelectedValue = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
-                    cmbEstado.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
+                    iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                    txtDescripcion.Text = dtConsulta.Rows[0][1].ToString();
+                    cmbModoDelivery.SelectedValue = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
+                    cmbEstado.Text = dtConsulta.Rows[0][3].ToString();
 
-                    if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString()) == 1)
+                    if (Convert.ToInt32(dtConsulta.Rows[0][4].ToString()) == 1)
                     {
                         chkDelivery.Checked = true;
                     }
@@ -567,7 +561,7 @@ namespace Palatium.Formularios
                         chkDelivery.Checked = false;
                     }
 
-                    if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString()) == 1)
+                    if (Convert.ToInt32(dtConsulta.Rows[0][5].ToString()) == 1)
                     {
                         chkGeneraFactura.Checked = true;
                         llenarComboPagos();
@@ -578,11 +572,11 @@ namespace Palatium.Formularios
                     {
                         chkGeneraFactura.Checked = false;
                         grupoPago.Enabled = true;
-                        llenarDbAyuda(Convert.ToInt32(dtConsulta.Rows[0].ItemArray[9].ToString()));
-                        cmbFormasCobros.SelectedValue = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[8].ToString());
+                        llenarDbAyuda(Convert.ToInt32(dtConsulta.Rows[0][9].ToString()));
+                        cmbFormasCobros.SelectedValue = Convert.ToInt32(dtConsulta.Rows[0][8].ToString());
                     }
 
-                    if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[6].ToString()) == 1)
+                    if (Convert.ToInt32(dtConsulta.Rows[0][6].ToString()) == 1)
                     {
                         chkRepartidorExterno.Checked = true;
                     }
@@ -592,9 +586,9 @@ namespace Palatium.Formularios
                         chkRepartidorExterno.Checked = false;
                     }
 
-                    if (dtConsulta.Rows[0].ItemArray[7].ToString() != "")
+                    if (dtConsulta.Rows[0][7].ToString() != "")
                     {
-                        txtRuta.Text = dtConsulta.Rows[0].ItemArray[7].ToString();
+                        txtRuta.Text = dtConsulta.Rows[0][7].ToString();
                         imgLogo.Image = Image.FromFile(txtRuta.Text.Trim());
                         imgLogo.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
@@ -606,6 +600,16 @@ namespace Palatium.Formularios
                             imgLogo.Image.Dispose();
                             imgLogo.Image = null;
                         }
+                    }
+
+                    if (Convert.ToInt32(dtConsulta.Rows[0]["cuenta_por_cobrar"].ToString()) == 1)
+                    {
+                        chkCuentaPorCobrar.Checked = true;
+                    }
+
+                    else
+                    {
+                        chkCuentaPorCobrar.Checked = false;
                     }
 
                     btnNuevo.Text = "Actualizar";
@@ -644,7 +648,7 @@ namespace Palatium.Formularios
 
         private void Txt_CodigoPosOriOrd_Leave(object sender, EventArgs e)
         {
-            txtCodigo.LostFocus += new EventHandler(Txt_Codigo_LostFocus);
+
         }
 
         private void Btn_CerrarPosOriOrd_Click(object sender, EventArgs e)
@@ -740,6 +744,15 @@ namespace Palatium.Formularios
                     iIdManejaServicio = 0;
                 }
 
+                if (chkCuentaPorCobrar.Checked == true)
+                {
+                    iCuentaPorCobrar  = 1;
+                }
+
+                else
+                {
+                    iCuentaPorCobrar = 0;
+                }
 
                 if (btnNuevo.Text == "Guardar")
                 {
@@ -773,8 +786,8 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql = sSql + "select * from cv403_cab_pedidos" + Environment.NewLine;
-                sSql = sSql + "where id_pos_origen_orden = "+dgvDatos.CurrentRow.Cells[3].Value.ToString();
+                sSql += "select * from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where id_pos_origen_orden = "+dgvDatos.CurrentRow.Cells[3].Value.ToString();
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -895,6 +908,16 @@ namespace Palatium.Formularios
             else
             {
                 chkManejaServicio.Checked = false;
+            }
+
+            if (Convert.ToInt32(dgvDatos.CurrentRow.Cells[12].Value.ToString()) == 1)
+            {
+                chkCuentaPorCobrar.Checked = true;
+            }
+
+            else
+            {
+                chkCuentaPorCobrar.Checked = false;
             }
 
             txtDescripcion.Focus();

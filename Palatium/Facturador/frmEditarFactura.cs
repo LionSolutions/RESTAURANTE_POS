@@ -85,13 +85,6 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtIdentificacion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.TxtNumeroFactura, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA CONSULTAR LOS DATOS DEL CORREO DEL EMISOR
         private void consultarDatosMail()
         {
@@ -113,13 +106,13 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sCorreoEmisor = dtConsulta.Rows[0].ItemArray[0].ToString();
-                        sCorreoCopia1 = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        sCorreoCopia2 = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        sPalabraClave = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        sSmtp = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        sPuerto = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        sManejaSSL = dtConsulta.Rows[0].ItemArray[6].ToString();
+                        sCorreoEmisor = dtConsulta.Rows[0][0].ToString();
+                        sCorreoCopia1 = dtConsulta.Rows[0][1].ToString();
+                        sCorreoCopia2 = dtConsulta.Rows[0][2].ToString();
+                        sPalabraClave = dtConsulta.Rows[0][3].ToString();
+                        sSmtp = dtConsulta.Rows[0][4].ToString();
+                        sPuerto = dtConsulta.Rows[0][5].ToString();
+                        sManejaSSL = dtConsulta.Rows[0][6].ToString();
 
                         consultarNombreComercial();
                     }
@@ -162,8 +155,8 @@ namespace Palatium.Facturador
 
                 if (bRespuesta == true)
                 {
-                    sNombreComercial = dtConsulta.Rows[0].ItemArray[0].ToString();
-                    sRazonSocial = dtConsulta.Rows[0].ItemArray[1].ToString();
+                    sNombreComercial = dtConsulta.Rows[0][0].ToString();
+                    sRazonSocial = dtConsulta.Rows[0][1].ToString();
                     iOp = 1;
                 }
 
@@ -283,7 +276,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        //iIdPosMovimientoCaja = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        //iIdPosMovimientoCaja = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
@@ -294,7 +287,7 @@ namespace Palatium.Facturador
                             sSql = sSql + "fecha_anula = GETDATE()," + Environment.NewLine;
                             sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
                             sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
-                            sSql = sSql + "where id_pos_movimiento_caja = " + Convert.ToInt32(dtConsulta.Rows[i].ItemArray[0].ToString()) + Environment.NewLine;
+                            sSql = sSql + "where id_pos_movimiento_caja = " + Convert.ToInt32(dtConsulta.Rows[i][0].ToString()) + Environment.NewLine;
 
 
                             if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -331,7 +324,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iNumeroMovimiento = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iNumeroMovimiento = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     }
                 }
 
@@ -358,9 +351,9 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
-                        sFacturaRecuperada = dtConsulta.Rows[0].ItemArray[2].ToString() + "-" + dtConsulta.Rows[0].ItemArray[3].ToString() + "-" + dtConsulta.Rows[0].ItemArray[4].ToString().PadLeft(9, '0');
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                        sFacturaRecuperada = dtConsulta.Rows[0][2].ToString() + "-" + dtConsulta.Rows[0][3].ToString() + "-" + dtConsulta.Rows[0][4].ToString().PadLeft(9, '0');
                     }
                 }
 
@@ -425,9 +418,9 @@ namespace Palatium.Facturador
                     sSql = sSql + "values (1, " + Program.iIdEmpresa + ", " + Program.iIdLocalidad + Environment.NewLine;
                     sSql = sSql + ", " + Program.iIdPersonaMovimiento + ", " + iIdPersona + ", " + iIdCaja + ", 1 " + Environment.NewLine;
                     sSql = sSql + ", '" + sFecha + "', GETDATE(), " + Program.iMoneda + ", " + Environment.NewLine;
-                    sSql = sSql + Convert.ToDouble(dtAuxiliar.Rows[i].ItemArray[1].ToString()) + ", '" + ("COBRO No. CUENTA " + iNumeroPedido.ToString() + " (" + dtAuxiliar.Rows[i].ItemArray[0].ToString() + ")") + "', '" + Environment.NewLine;
+                    sSql = sSql + Convert.ToDouble(dtAuxiliar.Rows[i][1].ToString()) + ", '" + ("COBRO No. CUENTA " + iNumeroPedido.ToString() + " (" + dtAuxiliar.Rows[i][0].ToString() + ")") + "', '" + Environment.NewLine;
                     sSql = sSql + sFacturaRecuperada.Trim() + "', " + Environment.NewLine;
-                    sSql = sSql + Convert.ToInt32(dtAuxiliar.Rows[i].ItemArray[5].ToString()) + ", " + Program.iJORNADA + ", 'A', " + Environment.NewLine;
+                    sSql = sSql + Convert.ToInt32(dtAuxiliar.Rows[i][5].ToString()) + ", " + Program.iJORNADA + ", 'A', " + Environment.NewLine;
                     sSql = sSql + "GETDATE(), '" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -520,15 +513,15 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        txtIdentificacionActual.Text = dtConsulta.Rows[0].ItemArray[16].ToString();
-                        txtNombresActual.Text = (dtConsulta.Rows[0].ItemArray[17].ToString() + " " + dtConsulta.Rows[0].ItemArray[18].ToString()).Trim();
-                        txtTelefonoActual.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtDireccionActual.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtMailActual.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
-                        sNumeroFacturaActual = dtConsulta.Rows[0].ItemArray[37].ToString();
-                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[63].ToString());
-                        sFacturaActual = dtConsulta.Rows[0].ItemArray[53].ToString() + "-" + dtConsulta.Rows[0].ItemArray[54].ToString() + "-" + dtConsulta.Rows[0].ItemArray[37].ToString().PadLeft(9, '0');
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        txtIdentificacionActual.Text = dtConsulta.Rows[0][16].ToString();
+                        txtNombresActual.Text = (dtConsulta.Rows[0][17].ToString() + " " + dtConsulta.Rows[0][18].ToString()).Trim();
+                        txtTelefonoActual.Text = dtConsulta.Rows[0][4].ToString();
+                        txtDireccionActual.Text = dtConsulta.Rows[0][3].ToString();
+                        txtMailActual.Text = dtConsulta.Rows[0][6].ToString();
+                        sNumeroFacturaActual = dtConsulta.Rows[0][37].ToString();
+                        iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0][63].ToString());
+                        sFacturaActual = dtConsulta.Rows[0][53].ToString() + "-" + dtConsulta.Rows[0][54].ToString() + "-" + dtConsulta.Rows[0][37].ToString().PadLeft(9, '0');
 
                         if (iIdTipoComprobante == 1)
                         {
@@ -598,21 +591,21 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        txtNombres.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtApellidos.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtMail.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtDireccion.Text = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        sCiudad = dtConsulta.Rows[0].ItemArray[8].ToString();
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        txtNombres.Text = dtConsulta.Rows[0][2].ToString();
+                        txtApellidos.Text = dtConsulta.Rows[0][3].ToString();
+                        txtMail.Text = dtConsulta.Rows[0][4].ToString();
+                        txtDireccion.Text = dtConsulta.Rows[0][5].ToString();
+                        sCiudad = dtConsulta.Rows[0][8].ToString();
 
-                        if (dtConsulta.Rows[0].ItemArray[6].ToString() != "")
+                        if (dtConsulta.Rows[0][6].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][6].ToString();
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[7].ToString() != "")
+                        else if (dtConsulta.Rows[0][7].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[7].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][7].ToString();
                         }
 
                         else
@@ -630,7 +623,6 @@ namespace Palatium.Facturador
                         //ok.ShowDialog();
 
                         frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-                        nuevoCliente.ShowInTaskbar = false;
                         nuevoCliente.ShowDialog();
 
                         if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -812,24 +804,24 @@ namespace Palatium.Facturador
                     }
                     else
                     {
-                        txtfacturacion.Text = dtConsulta.Rows[0].ItemArray[1].ToString() + "-" + dtConsulta.Rows[0].ItemArray[2].ToString();
-                        TxtNumeroFactura.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
+                        txtfacturacion.Text = dtConsulta.Rows[0][1].ToString() + "-" + dtConsulta.Rows[0][2].ToString();
+                        TxtNumeroFactura.Text = dtConsulta.Rows[0][3].ToString();
 
 
-                        txtfacturacion.Text = dtConsulta.Rows[0].ItemArray[1].ToString() + "-" + dtConsulta.Rows[0].ItemArray[2].ToString();
+                        txtfacturacion.Text = dtConsulta.Rows[0][1].ToString() + "-" + dtConsulta.Rows[0][2].ToString();
 
                         if (iIdTipoComprobante == 1)
                         {
-                            TxtNumeroFactura.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
+                            TxtNumeroFactura.Text = dtConsulta.Rows[0][3].ToString();
                         }
 
                         else if (iIdTipoComprobante == 2)
                         {
-                            TxtNumeroFactura.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
+                            TxtNumeroFactura.Text = dtConsulta.Rows[0][4].ToString();
                         }
 
-                        iNumeroMovimientoCaja = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString());
-                        iIdLocalidadImpresora = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[6].ToString());
+                        iNumeroMovimientoCaja = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
+                        iIdLocalidadImpresora = Convert.ToInt32(dtConsulta.Rows[0][6].ToString());
 
                     }
                 }
@@ -903,7 +895,7 @@ namespace Palatium.Facturador
                 if (conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql) == true)
                 {
                     if (dtConsulta.Rows.Count > 0)
-                        iIdPedido = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdPedido = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     else
                     {
                         goto reversa;
@@ -943,7 +935,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdDespacho = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdDespacho = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     }
                     else
                     {
@@ -983,7 +975,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdEventoCobro = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdEventoCobro = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     }
                     else
                     {
@@ -1081,7 +1073,6 @@ namespace Palatium.Facturador
             catch (Exception exc)
             {
                 catchMensaje.LblMensaje.Text = exc.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto reversa;
             }
@@ -1510,7 +1501,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iCorrelativo_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iCorrelativo_F = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     }
 
                     else
@@ -1543,8 +1534,8 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdFacturaPedido_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdPedido_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
+                        iIdFacturaPedido_F = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdPedido_F = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
                     }
 
                     else
@@ -1595,8 +1586,8 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdDespachoPedido_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdDespacho_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
+                        iIdDespachoPedido_F = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdDespacho_F = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
                     }
 
                     else
@@ -1758,8 +1749,8 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdDocumentoPorCobrar_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdEventoCobro_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
+                        iIdDocumentoPorCobrar_F = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdEventoCobro_F = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
                     }
 
                     else
@@ -1815,7 +1806,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 
@@ -1828,12 +1818,7 @@ namespace Palatium.Facturador
         #endregion
 
         private void frmEditarFactura_Load(object sender, EventArgs e)
-        {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
-
+        {            
             consultarDatosMail();
             cargarDatosFactura();
             datosFactura();
@@ -1862,7 +1847,6 @@ namespace Palatium.Facturador
             if ((txtIdentificacion.Text == "") && (txtApellidos.Text == ""))
             {
                 ok.LblMensaje.Text = "Favor ingrese los datos del cliente para la factura.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -1916,7 +1900,6 @@ namespace Palatium.Facturador
         private void btnEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-            nuevoCliente.ShowInTaskbar = false;
             nuevoCliente.ShowDialog();
 
             if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -1967,7 +1950,6 @@ namespace Palatium.Facturador
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             frmControlDatosCliente controlClientes = new frmControlDatosCliente();
-            controlClientes.ShowInTaskbar = false;
             controlClientes.ShowDialog();
 
             if (controlClientes.DialogResult == DialogResult.OK)

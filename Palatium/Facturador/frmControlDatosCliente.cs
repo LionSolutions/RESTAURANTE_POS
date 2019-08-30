@@ -35,15 +35,6 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtIdentificacion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNombres, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtTelefono, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtDireccion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA COLUMNAS
         private void columnasGrid()
         {            
@@ -124,7 +115,6 @@ namespace Palatium.Facturador
                         columnasGrid();
 
                         lblCuentaRegistros.Text = dgvDatos.Rows.Count.ToString() + " Registros Encontrados.";
-                        //ok.ShowInTaskbar = false;
                         //ok.ShowDialog();
                         goto fin;
                     }
@@ -134,7 +124,6 @@ namespace Palatium.Facturador
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al recuperar los registros.";
                     //lblCuentaRegistros.Text = dgvDatos.Rows.Count.ToString() + " Registros Encontrados.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     goto fin;
                 }
@@ -144,7 +133,6 @@ namespace Palatium.Facturador
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 //lblCuentaRegistros.Text = dgvDatos.Rows.Count.ToString() + " Registros Encontrados.";
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto fin;
             }
@@ -305,7 +293,6 @@ namespace Palatium.Facturador
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), false);
-            nuevoCliente.ShowInTaskbar = false;
             nuevoCliente.ShowDialog();
 
             if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -320,13 +307,11 @@ namespace Palatium.Facturador
             if (dgvDatos.Rows.Count == 0)
             {
                 ok.LblMensaje.Text = "No se ha seleccionado ningún registro para editar la información.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
             else
             {
                 frmNuevoCliente nuevoCliente = new frmNuevoCliente(dgvDatos.CurrentRow.Cells[1].Value.ToString(), false);
-                nuevoCliente.ShowInTaskbar = false;
                 nuevoCliente.ShowDialog();
 
                 if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -339,12 +324,6 @@ namespace Palatium.Facturador
 
         private void frmControlDatosCliente_Load(object sender, EventArgs e)
         {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
-
-
             this.ActiveControl = txtIdentificacion;
         }
 

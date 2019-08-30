@@ -69,7 +69,6 @@
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblTipoComprobante = new System.Windows.Forms.Label();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -135,7 +134,10 @@
             // 
             // btnLimpiar
             // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Navy;
+            this.btnLimpiar.FlatAppearance.BorderSize = 2;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnLimpiar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnLimpiar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.Image")));
             this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnLimpiar.Location = new System.Drawing.Point(21, 133);
@@ -144,12 +146,15 @@
             this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
+            this.btnGuardar.BackColor = System.Drawing.Color.Navy;
+            this.btnGuardar.FlatAppearance.BorderSize = 2;
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnGuardar.Location = new System.Drawing.Point(21, 19);
@@ -158,12 +163,15 @@
             this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Aceptar";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnSalir
             // 
+            this.btnSalir.BackColor = System.Drawing.Color.Navy;
+            this.btnSalir.FlatAppearance.BorderSize = 2;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
             this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSalir.Location = new System.Drawing.Point(21, 247);
@@ -172,7 +180,7 @@
             this.btnSalir.TabIndex = 5;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // label7
@@ -318,7 +326,10 @@
             // 
             // btnVerFactura
             // 
+            this.btnVerFactura.BackColor = System.Drawing.Color.Navy;
+            this.btnVerFactura.FlatAppearance.BorderSize = 2;
             this.btnVerFactura.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerFactura.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnVerFactura.Image = global::Palatium.Properties.Resources.buscar_botnon;
             this.btnVerFactura.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnVerFactura.Location = new System.Drawing.Point(659, 68);
@@ -327,7 +338,7 @@
             this.btnVerFactura.TabIndex = 6;
             this.btnVerFactura.Text = "Factura";
             this.btnVerFactura.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnVerFactura.UseVisualStyleBackColor = true;
+            this.btnVerFactura.UseVisualStyleBackColor = false;
             this.btnVerFactura.Click += new System.EventHandler(this.btnVerFactura_Click);
             // 
             // groupBox2
@@ -558,12 +569,6 @@
             this.lblTipoComprobante.Text = "Comprobante";
             this.lblTipoComprobante.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // frmEditarFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -642,6 +647,5 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lblTipoComprobante;
         private System.Windows.Forms.CheckBox chkPasaporte;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
     }
 }

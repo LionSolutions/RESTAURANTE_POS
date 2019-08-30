@@ -26,6 +26,8 @@ namespace Palatium.Facturacion_Electronica
         string sNombre;
         string sUnidad;
         string sDirectorio;
+        string sCorreoConsumidorFinal;
+        string sCorreoAmbientePruebas;
 
         int iCol_Correlativo;
         int iCol_Codigo;
@@ -33,9 +35,10 @@ namespace Palatium.Facturacion_Electronica
         int iNumeroDecimales;
         int iIdPersona;
         int iIdFactura;
+        int iIdTipoAmbiente;
+        int iIdTipoEmision;
 
         bool bRespuesta;
-
         
         double dbVUnidad;
         double dbPocenDescuento;
@@ -182,7 +185,8 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "CP.Porcentaje_IVA, PR.codigo,NP.nombre, UNIDAD.codigo Unidad, isnull(DP.comentario,'') Comentario, DP.precio_unitario," + Environment.NewLine;
                 sSql += "DP.Cantidad,Case when DP.precio_unitario=0 then 0 else round(100*DP.valor_Dscto/DP.precio_unitario,2) end Pct_Dscto," + Environment.NewLine;
                 sSql += "DP.valor_Dscto, DP.valor_ICE, DP.valor_IVA, DP.Comentario, DP.Id_Det_Pedido, F.fecha_factura, Case when PR.Expira = 1 Then 1 Else 0 End Expira," + Environment.NewLine;
-                sSql += "F.id_persona, TP.identificacion, rtrim(TP.apellidos + ' ' + TP.nombres) cliente, F.id_localidad, DP.valor_otro, F.id_factura, TP.correo_electronico" + Environment.NewLine;
+                sSql += "F.id_persona, TP.identificacion, rtrim(TP.apellidos + ' ' + TP.nombres) cliente, F.id_localidad, DP.valor_otro, F.id_factura, TP.correo_electronico," + Environment.NewLine;
+                sSql += "TP.correo_electronico, F.id_tipo_emision, F.id_tipo_ambiente" + Environment.NewLine;
                 sSql += "From cv403_facturas F, cv403_facturas_pedidos FP, cv403_cab_pedidos CP, cv403_det_pedidos DP, cv401_productos PR, cv401_nombre_productos NP," + Environment.NewLine;
                 sSql += "tp_codigos UNIDAD, tp_codigos CO, tp_codigos CODI, cv403_vendedores VENDE, cv403_formas_pagos FORPAGO, vta_tipocomprobante TIPOCO," + Environment.NewLine;
                 sSql += "tp_personas TP" + Environment.NewLine;
@@ -214,61 +218,62 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtDireccion.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        txtTelefono.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtCiudad.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtFabricante.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtRefOt.Text = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        txtObser.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
-                        cmbMonedaFactura.Text = dtConsulta.Rows[0].ItemArray[7].ToString();
-                        cmbTipoPago.Text = dtConsulta.Rows[0].ItemArray[8].ToString();
-                        txtFechaVcto.Text = dtConsulta.Rows[0].ItemArray[9].ToString();
-                        txtPesoNeto.Text = dtConsulta.Rows[0].ItemArray[11].ToString();
-                        txtPesoBruto.Text = dtConsulta.Rows[0].ItemArray[12].ToString();
-                        txtNExportacion.Text = dtConsulta.Rows[0].ItemArray[13].ToString();
-                        txtPartidaArancelaria.Text = dtConsulta.Rows[0].ItemArray[14].ToString();
-                        cmbAutSri.Text = dtConsulta.Rows[0].ItemArray[15].ToString();
-                        cmbFormato.Text = dtConsulta.Rows[0].ItemArray[16].ToString();
-                        cmbVendedor.Text = dtConsulta.Rows[0].ItemArray[18].ToString();
-                        cmbTipoCliente.Text = dtConsulta.Rows[0].ItemArray[19].ToString();
-                        txtPorcientoDescuento.Text = dtConsulta.Rows[0].ItemArray[20].ToString();
-                        txtFecha.Text = dtConsulta.Rows[0].ItemArray[34].ToString();
-                        dbAyudaCliente.iId = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[36].ToString());
-                        dbAyudaCliente.txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[37].ToString();
-                        dbAyudaCliente.txtDatos.Text = dtConsulta.Rows[0].ItemArray[38].ToString();
-                        cmbLocalidad2.SelectedValue = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[39].ToString());
-                        txtMail.Text = dtConsulta.Rows[0].ItemArray[42].ToString();
+                        txtDireccion.Text = dtConsulta.Rows[0]["Direccion_Factura"].ToString();
+                        txtTelefono.Text = dtConsulta.Rows[0]["Telefono_Factura"].ToString();
+                        txtCiudad.Text = dtConsulta.Rows[0]["Ciudad_Factura"].ToString();
+                        txtFabricante.Text = dtConsulta.Rows[0]["Fabricante"].ToString();
+                        txtRefOt.Text = dtConsulta.Rows[0]["Referencia"].ToString();
+                        txtObser.Text = dtConsulta.Rows[0]["Comentarios"].ToString();
+                        cmbMonedaFactura.Text = dtConsulta.Rows[0]["Moneda"].ToString();
+                        cmbTipoPago.Text = dtConsulta.Rows[0]["Forma_Pago"].ToString();
+                        txtFechaVcto.Text = dtConsulta.Rows[0]["fecha_vcto"].ToString();
+                        txtPesoNeto.Text = dtConsulta.Rows[0]["Peso_Neto"].ToString();
+                        txtPesoBruto.Text = dtConsulta.Rows[0]["Peso_Bruto"].ToString();
+                        txtNExportacion.Text = dtConsulta.Rows[0]["numero_exportacion"].ToString();
+                        txtPartidaArancelaria.Text = dtConsulta.Rows[0]["partida_arancelaria"].ToString();
+                        cmbAutSri.Text = dtConsulta.Rows[0]["idformulariossri"].ToString();
+                        cmbFormato.Text = dtConsulta.Rows[0]["Formato"].ToString();
+                        cmbVendedor.Text = dtConsulta.Rows[0]["Vendedor"].ToString();
+                        cmbTipoCliente.Text = dtConsulta.Rows[0]["Tipo_cliente"].ToString();
+                        txtPorcientoDescuento.Text = dtConsulta.Rows[0]["Porcentaje_Dscto"].ToString();
+                        txtFecha.Text = dtConsulta.Rows[0]["fecha_factura"].ToString();
+                        dbAyudaCliente.iId = Convert.ToInt32(dtConsulta.Rows[0]["id_persona"].ToString());
+                        dbAyudaCliente.txtIdentificacion.Text = dtConsulta.Rows[0]["identificacion"].ToString();
+                        dbAyudaCliente.txtDatos.Text = dtConsulta.Rows[0]["cliente"].ToString();
+                        cmbLocalidad2.SelectedValue = (object)Convert.ToInt32(dtConsulta.Rows[0]["id_localidad"].ToString());
+                        txtMail.Text = dtConsulta.Rows[0]["correo_electronico"].ToString();
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0]["id_persona"].ToString());
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0]["id_factura"].ToString());
+                        iIdTipoAmbiente = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_ambiente"].ToString());
+                        iIdTipoEmision = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_emision"].ToString());
 
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[41].ToString());
-
-                        dbSumaDescuento = 0;
-                        dbSumaServicio = 0;
-                        dbSubtotalBruto = 0;
-                        dbSumaIva = 0;
-                        dbTotal = 0;
-                        dbSubtotalNeto = 0;
+                        dbSumaDescuento = 0.0;
+                        dbSumaServicio = 0.0;
+                        dbSubtotalBruto = 0.0;
+                        dbSumaIva = 0.0;
+                        dbTotal = 0.0;
+                        dbSubtotalNeto = 0.0;
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            sCodigo = dtConsulta.Rows[i].ItemArray[22].ToString();
+                            sCodigo = dtConsulta.Rows[i]["codigo"].ToString();
 
-                            if (dtConsulta.Rows[i].ItemArray[25].ToString() == "")
+                            if (dtConsulta.Rows[i]["Comentario"].ToString() == "")
                             {
-                                sNombre = dtConsulta.Rows[i].ItemArray[23].ToString();
+                                sNombre = dtConsulta.Rows[i]["Comentario"].ToString();
                             }
 
                             else
                             {
-                                sNombre = dtConsulta.Rows[i].ItemArray[25].ToString();
+                                sNombre = dtConsulta.Rows[i]["nombre"].ToString();
                             }
-                            
-                            sUnidad = dtConsulta.Rows[i].ItemArray[24].ToString();
-                            dbVUnidad = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[26].ToString());
-                            dbPocenDescuento = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[28].ToString());
-                            dbValorDescuento = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[29].ToString());
-                            dbCantidad = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[27].ToString());
-                            dbServicio = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[40].ToString());
+
+                            sUnidad = dtConsulta.Rows[i]["Unidad"].ToString();
+                            dbVUnidad = Convert.ToDouble(dtConsulta.Rows[i]["precio_unitario"].ToString());
+                            dbPocenDescuento = Convert.ToDouble(dtConsulta.Rows[i]["Pct_Dscto"].ToString());
+                            dbValorDescuento = Convert.ToDouble(dtConsulta.Rows[i]["valor_Dscto"].ToString());
+                            dbCantidad = Convert.ToDouble(dtConsulta.Rows[i]["Cantidad"].ToString());
+                            dbServicio = Convert.ToDouble(dtConsulta.Rows[i]["valor_otro"].ToString());
 
                             if (dbPocenDescuento == 100)
                             {
@@ -283,7 +288,7 @@ namespace Palatium.Facturacion_Electronica
                             dbSubtotalBruto = dbSubtotalBruto + (dbCantidad * dbVUnidad);
                             dbSumaDescuento = dbSumaDescuento + (dbCantidad * dbValorDescuento);
                             dbSumaServicio = dbSumaServicio + (dbCantidad * dbServicio);
-                            dbSumaIva = dbSumaIva + (dbCantidad * Convert.ToDouble(dtConsulta.Rows[i].ItemArray[31].ToString()));
+                            dbSumaIva = dbSumaIva + (dbCantidad * Convert.ToDouble(dtConsulta.Rows[i][31].ToString()));
 
 
                             dgvReimpresionFactura.Rows.Add(sCodigo, sNombre, sUnidad, dbCantidad.ToString("N2"), dbVUnidad.ToString("N2"),
@@ -321,9 +326,9 @@ namespace Palatium.Facturacion_Electronica
                         {
                             if (dtConsulta.Rows.Count > 0)
                             {
-                                txtNSerie1.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                                txtNSerie2.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                                txtNAut.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
+                                txtNSerie1.Text = dtConsulta.Rows[0][1].ToString();
+                                txtNSerie2.Text = dtConsulta.Rows[0][2].ToString();
+                                txtNAut.Text = dtConsulta.Rows[0][3].ToString();
                             }
                         }
 
@@ -390,7 +395,12 @@ namespace Palatium.Facturacion_Electronica
         {
             try
             {
-                sSql = "select codigo, nombres from cel_directorio where id_directorio = 1 and estado = 'A'";
+                sSql = "";
+                sSql += "select codigo, nombres" + Environment.NewLine;
+                sSql += "from cel_directorio" + Environment.NewLine;
+                sSql += "where id_directorio = 1" + Environment.NewLine;
+                sSql += "and estado = 'A'";
+
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
 
@@ -400,7 +410,7 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sDirectorio = dtConsulta.Rows[0].ItemArray[1].ToString();
+                        sDirectorio = dtConsulta.Rows[0][1].ToString();
                         return true;
                     }
 
@@ -439,7 +449,7 @@ namespace Palatium.Facturacion_Electronica
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -463,7 +473,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.ShowDialog();
 
                 txtMail.ReadOnly = true;
-                goto fin;
+                return; ;
             }
 
             catch(Exception ex)
@@ -477,9 +487,50 @@ namespace Palatium.Facturacion_Electronica
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
+        }
 
-            fin: {}
+        //FUNCION PARA CARGAR LOS PARAMETROS DE CONFIGURACION DE COMPROBANTES ELECTRONICOS
+        private void parametrosFacturacion()
+        {
+            try
+            {
+                sSql = "";
+                sSql += "select correo_consumidor_final, correo_ambiente_prueba" + Environment.NewLine;
+                sSql += "from cel_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == true)
+                {
+                    if (dtConsulta.Rows.Count > 0)
+                    {
+                        sCorreoConsumidorFinal = dtConsulta.Rows[0]["correo_consumidor_final"].ToString();
+                        sCorreoAmbientePruebas = dtConsulta.Rows[0]["correo_ambiente_prueba"].ToString();
+                    }
+
+                    else
+                    {
+                        sCorreoConsumidorFinal = "";
+                        sCorreoAmbientePruebas = "";
+                    }
+                }
+
+                else
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.Message;
+                catchMensaje.ShowDialog();
+            }
         }
 
         #endregion
@@ -489,6 +540,7 @@ namespace Palatium.Facturacion_Electronica
             llenarComboLocalidad();
             llenarComboVendedor();
             llenarComboMoneda();
+            parametrosFacturacion();
             llenarInstruccionesSQL();
         }
 
@@ -547,7 +599,7 @@ namespace Palatium.Facturacion_Electronica
                 if (buscarDirectorio() == true)
                 {
                     //xml.GSub_GenerarFacturaXML(iIdFactur, 0, "1", "1", @"C:", "FACTURA", 2, "elvis.geovanni@hotmail.com", "elvis.geovanni@hotmail.com");
-                    generar.GSub_GenerarFacturaXML(dbAyudaFacturas.iId, 0, "1", "1", sDirectorio, "FACTURA", iNumeroDecimales, "elvis.geovanni@hotmail.com", "elvis.geovanni@hotmail.com");
+                    generar.GSub_GenerarFacturaXML(dbAyudaFacturas.iId, 0, iIdTipoEmision.ToString(), iIdTipoAmbiente.ToString(), sDirectorio, "FACTURA", iNumeroDecimales, sCorreoConsumidorFinal, sCorreoAmbientePruebas);
                 }
             }
         }

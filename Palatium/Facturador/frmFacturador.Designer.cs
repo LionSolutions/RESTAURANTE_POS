@@ -71,7 +71,6 @@
             this.lblEtiqueta = new System.Windows.Forms.Label();
             this.dgvFormasPago = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.timerBlink = new System.Windows.Forms.Timer(this.components);
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -306,10 +305,10 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.BackgroundImage")));
-            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpiar.BackColor = System.Drawing.Color.Navy;
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.FlatAppearance.BorderSize = 2;
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -322,18 +321,17 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolTipMensaje.SetToolTip(this.btnLimpiar, "Clic aquí para limpiar");
-            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             this.btnLimpiar.MouseEnter += new System.EventHandler(this.btnLimpiar_MouseEnter);
             this.btnLimpiar.MouseLeave += new System.EventHandler(this.btnLimpiar_MouseLeave);
             // 
             // btnGuardar
             // 
-            this.btnGuardar.BackColor = System.Drawing.Color.Transparent;
-            this.btnGuardar.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGuardar.BackColor = System.Drawing.Color.Navy;
+            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.FlatAppearance.BorderSize = 2;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -353,10 +351,10 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSalir.BackgroundImage")));
-            this.btnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSalir.BackColor = System.Drawing.Color.Navy;
+            this.btnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.BorderSize = 2;
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -369,7 +367,7 @@
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolTipMensaje.SetToolTip(this.btnSalir, "Clic aquí para salir");
-            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             this.btnSalir.MouseEnter += new System.EventHandler(this.btnSalir_MouseEnter);
             this.btnSalir.MouseLeave += new System.EventHandler(this.btnSalir_MouseLeave);
@@ -453,10 +451,9 @@
             // 
             // btnEditarFactura
             // 
-            this.btnEditarFactura.BackColor = System.Drawing.Color.Transparent;
-            this.btnEditarFactura.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnEditarFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEditarFactura.FlatAppearance.BorderSize = 0;
+            this.btnEditarFactura.BackColor = System.Drawing.Color.Navy;
+            this.btnEditarFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnEditarFactura.FlatAppearance.BorderSize = 2;
             this.btnEditarFactura.Image = global::Palatium.Properties.Resources.editar_img;
             this.btnEditarFactura.Location = new System.Drawing.Point(338, 32);
             this.btnEditarFactura.Name = "btnEditarFactura";
@@ -561,7 +558,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvFormasPago.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvFormasPago.EnableHeadersVisualStyles = false;
-            this.dgvFormasPago.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.dgvFormasPago.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dgvFormasPago.Location = new System.Drawing.Point(348, 450);
             this.dgvFormasPago.Name = "dgvFormasPago";
             this.dgvFormasPago.ReadOnly = true;
@@ -581,12 +578,6 @@
             // 
             this.timerBlink.Enabled = true;
             this.timerBlink.Tick += new System.EventHandler(this.timerBlink_Tick);
-            // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
             // 
             // frmFacturador
             // 
@@ -668,6 +659,5 @@
         private DevComponents.DotNetBar.Controls.DataGridViewX dgvFormasPago;
         private System.Windows.Forms.Timer timerBlink;
         private System.Windows.Forms.CheckBox chkPasaporte;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
     }
 }

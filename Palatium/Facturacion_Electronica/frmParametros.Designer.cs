@@ -84,6 +84,7 @@
             this.labelX11 = new DevComponents.DotNetBar.LabelX();
             this.labelX33 = new DevComponents.DotNetBar.LabelX();
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
+            this.chkSSL = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,6 +94,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.groupBox1.Controls.Add(this.chkSSL);
             this.groupBox1.Controls.Add(this.labelX20);
             this.groupBox1.Controls.Add(this.labelX19);
             this.groupBox1.Controls.Add(this.labelX18);
@@ -870,6 +872,20 @@
             // 
             this.abrirArchivo.FileName = "openFileDialog1";
             // 
+            // chkSSL
+            // 
+            this.chkSSL.AutoSize = true;
+            // 
+            // 
+            // 
+            this.chkSSL.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.chkSSL.Location = new System.Drawing.Point(317, 94);
+            this.chkSSL.Name = "chkSSL";
+            this.chkSSL.Size = new System.Drawing.Size(84, 15);
+            this.chkSSL.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.chkSSL.TabIndex = 70;
+            this.chkSSL.Text = "Permitir SSL";
+            // 
             // frmParametros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -957,5 +973,6 @@
         private DevComponents.DotNetBar.LabelX labelX22;
         private DevComponents.DotNetBar.LabelX labelX21;
         private System.Windows.Forms.OpenFileDialog abrirArchivo;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkSSL;
     }
 }

@@ -79,7 +79,6 @@ namespace Palatium.Formularios
             {
                 MessageBox.Show("Ocurrió un problema al realizar la consulta");
             }
-
         }
 
 

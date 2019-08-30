@@ -431,10 +431,10 @@ namespace Palatium.Facturacion_Electronica
                     if (sCodigoDocumento == "01")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_facturas set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_factura = " + dB_Ayuda_Facturas.iId;
+                        sSql += "update cv403_facturas set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_factura = " + dB_Ayuda_Facturas.iId;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -449,10 +449,10 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "07")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv405_cab_comprobantes_retencion set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_cab_comprobante_retencion = " + dB_Ayuda_Facturas.iId;
+                        sSql += "update cv405_cab_comprobantes_retencion set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_cab_comprobante_retencion = " + dB_Ayuda_Facturas.iId;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -467,10 +467,10 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "04")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_notas_credito set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_nota_credito = " + dB_Ayuda_Facturas.iId;
+                        sSql += "update cv403_notas_credito set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_nota_credito = " + dB_Ayuda_Facturas.iId;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -485,10 +485,10 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "06")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_guias_remision set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_guia_remision = " + dB_Ayuda_Facturas.iId;
+                        sSql += "update cv403_guias_remision set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_guia_remision = " + dB_Ayuda_Facturas.iId;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -543,10 +543,10 @@ namespace Palatium.Facturacion_Electronica
                 else
                 {
                     sSql = "";
-                    sSql = sSql + "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso," + Environment.NewLine;
-                    sSql = sSql + "id_tipo_ambiente" + Environment.NewLine;
-                    sSql = sSql + "from cv403_facturas " + Environment.NewLine;
-                    sSql = sSql + "where id_factura = " + iIdFactura;
+                    sSql += "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso," + Environment.NewLine;
+                    sSql += "id_tipo_ambiente" + Environment.NewLine;
+                    sSql += "from cv403_facturas " + Environment.NewLine;
+                    sSql += "where id_factura = " + iIdFactura;
 
                     dtConsulta = new DataTable();
                     dtConsulta.Clear();

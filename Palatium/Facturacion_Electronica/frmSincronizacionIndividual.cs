@@ -50,6 +50,8 @@ namespace Palatium.Facturacion_Electronica
         string sDirFirmados;
         string sDirAutorizados;
         string sDirNoAutorizados;
+        string sCorreoConsumidorFinal;
+        string sCorreoAmbientePruebas;
 
         string sIdTipoAmbiente;
         string sIdTipoEmision;
@@ -61,6 +63,12 @@ namespace Palatium.Facturacion_Electronica
         string sDetalleError;
         string sNumeroAutorizacion;
         string sFechaAutorizacion;
+
+        string sWSEnvioPruebas;
+        string sWSConsultaPruebas;
+        string sWSEnvioProduccion;
+        string sWSConsultaProduccion;
+        string sWebService;
 
         string sVersion = "1.0";
         string sUTF = "utf-8";
@@ -75,6 +83,7 @@ namespace Palatium.Facturacion_Electronica
         int iCol_Descripcion;
         int iIdFactura;
         int iIdCambioCombo;
+        int iIdTipoAmbiente;
 
         //VARIABLES PARA EL FIRMADO DEL XML
         string sArchivoFirmar;
@@ -131,12 +140,12 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select TA.codigo" + Environment.NewLine;
-                sSql = sSql + "from sis_empresa E,cel_tipo_ambiente TA" + Environment.NewLine;
-                sSql = sSql + "where E.id_tipo_ambiente = TA.id_tipo_ambiente" + Environment.NewLine;
-                sSql = sSql + "and E.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and TA.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order By TA.codigo";
+                sSql += "select TA.codigo" + Environment.NewLine;
+                sSql += "from sis_empresa E,cel_tipo_ambiente TA" + Environment.NewLine;
+                sSql += "where E.id_tipo_ambiente = TA.id_tipo_ambiente" + Environment.NewLine;
+                sSql += "and E.estado = 'A'" + Environment.NewLine;
+                sSql += "and TA.estado = 'A'" + Environment.NewLine;
+                sSql += "order By TA.codigo";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -147,7 +156,7 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sIdTipoAmbiente = dtConsulta.Rows[0].ItemArray[0].ToString();
+                        sIdTipoAmbiente = dtConsulta.Rows[0][0].ToString();
                     }
 
                     else
@@ -177,12 +186,12 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select TE.codigo" + Environment.NewLine;
-                sSql = sSql + "from sis_empresa E,cel_tipo_emision TE" + Environment.NewLine;
-                sSql = sSql + "where E.id_tipo_emision = TE.id_tipo_emision" + Environment.NewLine;
-                sSql = sSql + "and E.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and TE.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order By TE.codigo";
+                sSql += "select TE.codigo" + Environment.NewLine;
+                sSql += "from sis_empresa E,cel_tipo_emision TE" + Environment.NewLine;
+                sSql += "where E.id_tipo_emision = TE.id_tipo_emision" + Environment.NewLine;
+                sSql += "and E.estado = 'A'" + Environment.NewLine;
+                sSql += "and TE.estado = 'A'" + Environment.NewLine;
+                sSql += "order By TE.codigo";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -193,7 +202,7 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sIdTipoEmision = dtConsulta.Rows[0].ItemArray[0].ToString();
+                        sIdTipoEmision = dtConsulta.Rows[0][0].ToString();
                     }
 
                     else
@@ -243,10 +252,10 @@ namespace Palatium.Facturacion_Electronica
                 dtConsulta.Clear();
 
                 sSql = "";
-                sSql = sSql + "select id_tipo_comprobante, nombres" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order by id_tipo_comprobante";
+                sSql += "select id_tipo_comprobante, nombres" + Environment.NewLine;
+                sSql += "from cel_tipo_comprobante" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
+                sSql += "order by id_tipo_comprobante";
 
                 cmbTipoComprobante.llenar(dtConsulta, sSql);
 
@@ -303,10 +312,11 @@ namespace Palatium.Facturacion_Electronica
                 dtConsulta.Clear();
 
                 sSql = "";
-                sSql = sSql + "select id_tipo_comprobante, nombres " + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order by id_tipo_comprobante";
+                sSql += "select id_tipo_comprobante, nombres " + Environment.NewLine;
+                sSql += "from cel_tipo_comprobante" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
+                sSql += "order by id_tipo_comprobante";
+
                 cmbTipoComprobante.llenar(dtConsulta, sSql);
 
                 if (cmbTipoComprobante.Items.Count > 0)
@@ -333,10 +343,10 @@ namespace Palatium.Facturacion_Electronica
                 dtConsulta.Clear();
 
                 sSql = "";
-                sSql = sSql + "Select id_tipo_ambiente, nombres" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_ambiente" + Environment.NewLine;
-                sSql = sSql + "Where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "Order By codigo";
+                sSql += "Select id_tipo_ambiente, nombres" + Environment.NewLine;
+                sSql += "from cel_tipo_ambiente" + Environment.NewLine;
+                sSql += "Where estado = 'A'" + Environment.NewLine;
+                sSql += "Order By codigo";
 
                 cmbTipoAmbiente.llenar(dtConsulta, sSql);
                 cmbTipoAmbiente_1.llenar(dtConsulta, sSql);
@@ -368,10 +378,10 @@ namespace Palatium.Facturacion_Electronica
                 dtConsulta.Clear();
 
                 sSql = "";
-                sSql = sSql + "Select id_tipo_emision, nombres" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_emision" + Environment.NewLine;
-                sSql = sSql + "Where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "Order By codigo";
+                sSql += "Select id_tipo_emision, nombres" + Environment.NewLine;
+                sSql += "from cel_tipo_emision" + Environment.NewLine;
+                sSql += "Where estado = 'A'" + Environment.NewLine;
+                sSql += "Order By codigo";
 
                 cmbTipoEmision.llenar(dtConsulta, sSql);
 
@@ -398,11 +408,11 @@ namespace Palatium.Facturacion_Electronica
                 P_Ln_correo_puerto_smtp = 0;
 
                 sSql = "";
-                sSql = sSql + "select correo_que_envia,correo_con_copia," + Environment.NewLine;
-                sSql = sSql + "correo_consumidor_final,correo_ambiente_prueba,correo_palabra_clave," + Environment.NewLine;
-                sSql = sSql + "correo_smtp,correo_puerto, maneja_SSL" + Environment.NewLine;
-                sSql = sSql + "from cel_parametro" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select correo_que_envia,correo_con_copia," + Environment.NewLine;
+                sSql += "correo_consumidor_final,correo_ambiente_prueba,correo_palabra_clave," + Environment.NewLine;
+                sSql += "correo_smtp,correo_puerto, maneja_SSL" + Environment.NewLine;
+                sSql += "from cel_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -413,15 +423,15 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        P_St_correo_que_envia = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[0].ToString(), "");
+                        P_St_correo_que_envia = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][0].ToString(), "");
                         P_St_from = P_St_correo_que_envia;
-                        P_St_correo_con_copia = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[1].ToString(), "");
-                        P_St_correo_consumidor_final = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[2].ToString(), "");
-                        P_St_correo_ambiente_prueba = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[3].ToString(), "");
-                        P_St_correo_palabra_clave = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[4].ToString(), "");
-                        P_St_correo_server_smtp = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[5].ToString(), "");
-                        P_Ln_correo_puerto_smtp = Convert.ToInt64(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[6].ToString(), "0"));
-                        P_In_maneja_SSL = Convert.ToInt32(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[7].ToString(), "0"));
+                        P_St_correo_con_copia = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][1].ToString(), "");
+                        P_St_correo_consumidor_final = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][2].ToString(), "");
+                        P_St_correo_ambiente_prueba = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][3].ToString(), "");
+                        P_St_correo_palabra_clave = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][4].ToString(), "");
+                        P_St_correo_server_smtp = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][5].ToString(), "");
+                        P_Ln_correo_puerto_smtp = Convert.ToInt64(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][6].ToString(), "0"));
+                        P_In_maneja_SSL = Convert.ToInt32(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][7].ToString(), "0"));
                         //P_St_fromname = G_St_Nombre_Empresa;
 
                     }
@@ -436,9 +446,9 @@ namespace Palatium.Facturacion_Electronica
 
                 //==================================================================================================
                 sSql = "";
-                sSql = sSql + "select telefono, nombrecomercial" + Environment.NewLine;
-                sSql = sSql + "from sis_empresa" + Environment.NewLine;
-                sSql = sSql + "where idempresa = " + Program.iIdEmpresa;
+                sSql += "select telefono, nombrecomercial" + Environment.NewLine;
+                sSql += "from sis_empresa" + Environment.NewLine;
+                sSql += "where idempresa = " + Program.iIdEmpresa;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -449,8 +459,8 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        P_St_telefono_empresa = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[0].ToString(), "");
-                        P_St_nombre_comercial = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0].ItemArray[1].ToString(), "");
+                        P_St_telefono_empresa = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][0].ToString(), "");
+                        P_St_nombre_comercial = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][1].ToString(), "");
                     }
                 }
 
@@ -479,17 +489,18 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select F.id_factura, VL.nombre_localidad, F.fecha_factura, VL.establecimiento, VL.punto_emision," + Environment.NewLine;
-                sSql = sSql + "NF.numero_factura, ltrim((isnull(P.nombres, '') + ' ' + P.apellidos)) cliente, isnull(P.correo_electronico, '') correo_electronico" + Environment.NewLine;
-                sSql = sSql + "from cv403_facturas F, cv403_numeros_facturas NF, tp_personas P, tp_vw_localidades VL" + Environment.NewLine;
-                sSql = sSql + "where NF.id_factura = F.id_factura" + Environment.NewLine;
-                sSql = sSql + "and F.id_localidad = VL.id_localidad" + Environment.NewLine;
-                sSql = sSql + "and F.id_persona = P.id_persona" + Environment.NewLine;
-                sSql = sSql + "and VL.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
-                sSql = sSql + "and F.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NF.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and P.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and F.id_factura = " + iIdFactura;
+                sSql += "select F.id_factura, VL.nombre_localidad, F.fecha_factura, VL.establecimiento, VL.punto_emision," + Environment.NewLine;
+                sSql += "NF.numero_factura, ltrim((isnull(P.nombres, '') + ' ' + P.apellidos)) cliente," + Environment.NewLine;
+                sSql += "isnull(P.correo_electronico, '') correo_electronico, F.id_tipo_ambiente" + Environment.NewLine;
+                sSql += "from cv403_facturas F, cv403_numeros_facturas NF, tp_personas P, tp_vw_localidades VL" + Environment.NewLine;
+                sSql += "where NF.id_factura = F.id_factura" + Environment.NewLine;
+                sSql += "and F.id_localidad = VL.id_localidad" + Environment.NewLine;
+                sSql += "and F.id_persona = P.id_persona" + Environment.NewLine;
+                sSql += "and VL.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
+                sSql += "and F.estado = 'A'" + Environment.NewLine;
+                sSql += "and NF.estado = 'A'" + Environment.NewLine;
+                sSql += "and P.estado = 'A'" + Environment.NewLine;
+                sSql += "and F.id_factura = " + iIdFactura;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -501,11 +512,12 @@ namespace Palatium.Facturacion_Electronica
                     if (dtConsulta.Rows.Count > 0)
                     {
                         //VARIABLES QUE SE EXTRAE EN LA CONSULTA DE LA FACTURA
-                        sFecha = dtConsulta.Rows[0].ItemArray[2].ToString().Substring(0, 10);
-                        txtNumeroDocumento.Text = sCaracterDocumento + dtConsulta.Rows[0].ItemArray[3].ToString() + dtConsulta.Rows[0].ItemArray[4].ToString() + dtConsulta.Rows[0].ItemArray[5].ToString().PadLeft(9, '0');
-                        sCliente = dtConsulta.Rows[0].ItemArray[6].ToString();
-                        sCorreoCliente = dtConsulta.Rows[0].ItemArray[7].ToString();
+                        sFecha = dtConsulta.Rows[0][2].ToString().Substring(0, 10);
+                        txtNumeroDocumento.Text = sCaracterDocumento + dtConsulta.Rows[0][3].ToString() + dtConsulta.Rows[0][4].ToString() + dtConsulta.Rows[0][5].ToString().PadLeft(9, '0');
+                        sCliente = dtConsulta.Rows[0][6].ToString();
+                        sCorreoCliente = dtConsulta.Rows[0][7].ToString();
                         txtCorreoCliente.Text = sCorreoCliente;
+                        iIdTipoAmbiente = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_ambiente"].ToString());
 
                         return 1;
                     }
@@ -539,11 +551,11 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select nombres" + Environment.NewLine;
-                sSql = sSql + "from cel_directorio" + Environment.NewLine;
-                sSql = sSql + "where id_tipo_comprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order by orden";
+                sSql += "select nombres" + Environment.NewLine;
+                sSql += "from cel_directorio" + Environment.NewLine;
+                sSql += "where id_tipo_comprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
+                sSql += "and estado = 'A'" + Environment.NewLine;
+                sSql += "order by orden";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -554,10 +566,10 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sDirGenerados = dtConsulta.Rows[0].ItemArray[0].ToString();
-                        sDirFirmados = dtConsulta.Rows[1].ItemArray[0].ToString();
-                        sDirAutorizados = dtConsulta.Rows[2].ItemArray[0].ToString();
-                        sDirNoAutorizados = dtConsulta.Rows[3].ItemArray[0].ToString();
+                        sDirGenerados = dtConsulta.Rows[0][0].ToString();
+                        sDirFirmados = dtConsulta.Rows[1][0].ToString();
+                        sDirAutorizados = dtConsulta.Rows[2][0].ToString();
+                        sDirNoAutorizados = dtConsulta.Rows[3][0].ToString();
 
                         if (Convert.ToInt32(cmbTipoComprobante.SelectedValue) == 1)
                         {
@@ -613,6 +625,94 @@ namespace Palatium.Facturacion_Electronica
             }
         }
 
+        //CONSULTAR LOS WEB SERVICE
+        private void consultarWebService()
+        {
+            try
+            {
+                sSql = "";
+                sSql += "select ws_envio_pruebas, ws_consulta_pruebas, ws_envio_produccion, ws_consulta_produccion" + Environment.NewLine;
+                sSql += "from cel_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == true)
+                {
+                    if (dtConsulta.Rows.Count > 0)
+                    {
+                        sWSEnvioPruebas = dtConsulta.Rows[0]["ws_envio_pruebas"].ToString();
+                        sWSConsultaPruebas = dtConsulta.Rows[0]["ws_consulta_pruebas"].ToString();
+                        sWSEnvioProduccion = dtConsulta.Rows[0]["ws_envio_produccion"].ToString();
+                        sWSConsultaProduccion = dtConsulta.Rows[0]["ws_consulta_produccion"].ToString();
+                    }
+
+                    else
+                    {
+                        ok.LblMensaje.Text = "No se ha configurado los parámetros de emisión de comprobantes electrónicos";
+                        ok.ShowDialog();
+                    }
+                }
+                else
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.Message;
+                catchMensaje.ShowDialog();
+            }
+        }
+
+        //FUNCION PARA CARGAR LOS PARAMETROS DE CONFIGURACION DE COMPROBANTES ELECTRONICOS
+        private void parametrosFacturacion()
+        {
+            try
+            {
+                sSql = "";
+                sSql += "select correo_consumidor_final, correo_ambiente_prueba" + Environment.NewLine;
+                sSql += "from cel_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == true)
+                {
+                    if (dtConsulta.Rows.Count > 0)
+                    {
+                        sCorreoConsumidorFinal = dtConsulta.Rows[0]["correo_consumidor_final"].ToString();
+                        sCorreoAmbientePruebas = dtConsulta.Rows[0]["correo_ambiente_prueba"].ToString();
+                    }
+
+                    else
+                    {
+                        sCorreoConsumidorFinal = "";
+                        sCorreoAmbientePruebas = "";
+                    }
+                }
+
+                else
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.Message;
+                catchMensaje.ShowDialog();
+            }
+        }
 
         #endregion
 
@@ -623,7 +723,7 @@ namespace Palatium.Facturacion_Electronica
         {
             try
             {
-                generar.GSub_GenerarFacturaXML(iIdFactura_P, 1, sIdTipoAmbiente, sIdTipoEmision, sDirGenerados, "FACTURA", 2, "elvis.geovanni@hotmail.com", "elvis.geovanni@hotmail.com");
+                generar.GSub_GenerarFacturaXML(iIdFactura_P, 1, sIdTipoAmbiente, sIdTipoEmision, sDirGenerados, "FACTURA", 2, sCorreoConsumidorFinal, sCorreoAmbientePruebas);
                 return true;
             }
 
@@ -679,7 +779,17 @@ namespace Palatium.Facturacion_Electronica
             {
                 sArchivoEnviar = sDirFirmados + @"\" + txtNumeroDocumento.Text.Trim() + ".xml";
 
-                RespuestaSRI respuesta = enviar.EnvioComprobante(sArchivoEnviar);
+                if (iIdTipoAmbiente == 1)
+                {
+                    sWebService = sWSConsultaPruebas;
+                }
+
+                else if (iIdTipoAmbiente == 2)
+                {
+                    sWebService = sWSConsultaProduccion;
+                }
+
+                RespuestaSRI respuesta = enviar.EnvioComprobante(sArchivoEnviar, sWebService);
 
                 sEstadoEnvio = respuesta.Estado;
                
@@ -705,7 +815,17 @@ namespace Palatium.Facturacion_Electronica
 
                 if (sClaveAcceso != "")
                 {
-                    RespuestaSRI respuesta = consultarXML.AutorizacionComprobante(out xmlAut, sClaveAcceso);
+                    if (iIdTipoAmbiente == 1)
+                    {
+                        sWebService = sWSConsultaPruebas;
+                    }
+
+                    else if (iIdTipoAmbiente == 2)
+                    {
+                        sWebService = sWSConsultaProduccion;
+                    }
+
+                    RespuestaSRI respuesta = consultarXML.AutorizacionComprobante(out xmlAut, sClaveAcceso, sWebService);
 
                     //dgvDatos.Rows[iFila_P].Cells["colEstado"].Value = respuesta.Estado;
                     sEstadoEnvio = respuesta.Estado;
@@ -789,9 +909,9 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso " + Environment.NewLine;
-                sSql = sSql + "from cv403_facturas " + Environment.NewLine;
-                sSql = sSql + "where id_factura = " + iIdFactura_P;
+                sSql += "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso " + Environment.NewLine;
+                sSql += "from cv403_facturas " + Environment.NewLine;
+                sSql += "where id_factura = " + iIdFactura_P;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -802,7 +922,7 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return dtConsulta.Rows[0].ItemArray[0].ToString();
+                        return dtConsulta.Rows[0][0].ToString();
                     }
 
                     else
@@ -975,7 +1095,6 @@ namespace Palatium.Facturacion_Electronica
                     if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                     {
                         ok.LblMensaje.Text = "Error al abrir transacción.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
 
@@ -983,16 +1102,15 @@ namespace Palatium.Facturacion_Electronica
                     if (sCodigoDocumento == "01")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_facturas set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + sNumeroAutorizacion + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + Convert.ToDateTime(sFecha).ToString("yyyy/MM/dd") + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_factura = " + iIdFactura;
+                        sSql += "update cv403_facturas set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + sNumeroAutorizacion + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + Convert.ToDateTime(sFecha).ToString("yyyy/MM/dd") + "'" + Environment.NewLine;
+                        sSql += "where id_factura = " + iIdFactura;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                         {
                             catchMensaje.LblMensaje.Text = "No se pudo grabar la autorización de la factura.";
-                            catchMensaje.ShowInTaskbar = false;
                             catchMensaje.ShowDialog();
                             goto reversa;
                         }
@@ -1002,16 +1120,15 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "07")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv405_cab_comprobantes_retencion set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_cab_comprobante_retencion = " + iIdFactura;
+                        sSql += "update cv405_cab_comprobantes_retencion set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_cab_comprobante_retencion = " + iIdFactura;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                         {
                             catchMensaje.LblMensaje.Text = "No se pudo grabar la autorización del comprobante de retención";
-                            catchMensaje.ShowInTaskbar = false;
                             catchMensaje.ShowDialog();
                             goto reversa;
                         }
@@ -1021,16 +1138,15 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "04")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_notas_credito set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_nota_credito = " + iIdFactura;
+                        sSql += "update cv403_notas_credito set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_nota_credito = " + iIdFactura;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                         {
                             catchMensaje.LblMensaje.Text = "No se pudo grabar la autorización de la nota de crédito " + iIdFactura;
-                            catchMensaje.ShowInTaskbar = false;
                             catchMensaje.ShowDialog();
                             goto reversa;
                         }
@@ -1040,16 +1156,15 @@ namespace Palatium.Facturacion_Electronica
                     else if (sCodigoDocumento == "06")
                     {
                         sSql = "";
-                        sSql = sSql + "update cv403_guias_remision set" + Environment.NewLine;
-                        sSql = sSql + "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
-                        sSql = sSql + "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
-                        sSql = sSql + "where id_guia_remision = " + iIdFactura;
+                        sSql += "update cv403_guias_remision set" + Environment.NewLine;
+                        sSql += "autorizacion = '" + txtNumeroAutorizacion.Text.Trim() + "'," + Environment.NewLine;
+                        sSql += "fecha_autorizacion = '" + sFecha + "'" + Environment.NewLine;
+                        sSql += "where id_guia_remision = " + iIdFactura;
 
                         //EJECUTAR LA INSTRUCCIÓN SQL
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                         {
                             catchMensaje.LblMensaje.Text = "No se pudo grabar la Autorización de la guía de remisión.";
-                            catchMensaje.ShowInTaskbar = false;
                             catchMensaje.ShowDialog();
                             goto reversa;
                         }
@@ -1070,7 +1185,6 @@ namespace Palatium.Facturacion_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -1098,6 +1212,8 @@ namespace Palatium.Facturacion_Electronica
             llenarComboTipoEmision();
             consultarTipoAmbiente();
             consultarTipoEmision();
+            consultarWebService();
+            parametrosFacturacion();
             traerparametrosMail();            
 
             limpiar();

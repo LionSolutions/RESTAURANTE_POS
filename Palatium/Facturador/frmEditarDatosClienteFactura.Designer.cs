@@ -36,9 +36,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.grupoDatos = new System.Windows.Forms.GroupBox();
+            this.rbdNotaVenta = new System.Windows.Forms.RadioButton();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.grupoCliente = new System.Windows.Forms.GroupBox();
             this.chkPasaporte = new System.Windows.Forms.CheckBox();
             this.btnEditar = new System.Windows.Forms.LinkLabel();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.btnConsumidorFinal = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.txtApellidos = new System.Windows.Forms.TextBox();
@@ -54,16 +57,13 @@
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.chkEditar = new System.Windows.Forms.CheckBox();
             this.grupoBotones = new System.Windows.Forms.GroupBox();
-            this.rbdNotaVenta = new System.Windows.Forms.RadioButton();
-            this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOcultar = new System.Windows.Forms.Button();
-            this.btnMostrar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnBuscarCliente = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
+            this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.btnOcultar = new System.Windows.Forms.Button();
+            this.btnMostrar = new System.Windows.Forms.Button();
             this.grupoDatos.SuspendLayout();
             this.grupoCliente.SuspendLayout();
             this.grupoBotones.SuspendLayout();
@@ -148,6 +148,32 @@
             this.grupoDatos.TabStop = false;
             this.grupoDatos.Text = "Búsqueda por Número de Ticket";
             // 
+            // rbdNotaVenta
+            // 
+            this.rbdNotaVenta.AutoSize = true;
+            this.rbdNotaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.rbdNotaVenta.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.rbdNotaVenta.Location = new System.Drawing.Point(360, 36);
+            this.rbdNotaVenta.Name = "rbdNotaVenta";
+            this.rbdNotaVenta.Size = new System.Drawing.Size(175, 24);
+            this.rbdNotaVenta.TabIndex = 34;
+            this.rbdNotaVenta.Text = "Por Nota de Venta";
+            this.rbdNotaVenta.UseVisualStyleBackColor = true;
+            this.rbdNotaVenta.CheckedChanged += new System.EventHandler(this.rbdNotaVenta_CheckedChanged);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnBuscar.Image = global::Palatium.Properties.Resources.buscar_botnon;
+            this.btnBuscar.Location = new System.Drawing.Point(395, 71);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(49, 44);
+            this.btnBuscar.TabIndex = 31;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // grupoCliente
             // 
             this.grupoCliente.Controls.Add(this.chkPasaporte);
@@ -198,6 +224,16 @@
             this.btnEditar.Text = "Editar Datos";
             this.btnEditar.Visible = false;
             this.btnEditar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnEditar_LinkClicked);
+            // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.Image = global::Palatium.Properties.Resources.buscar_ico;
+            this.btnBuscarCliente.Location = new System.Drawing.Point(333, 62);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(29, 26);
+            this.btnBuscarCliente.TabIndex = 1;
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // btnConsumidorFinal
             // 
@@ -369,18 +405,95 @@
             this.grupoBotones.TabIndex = 165;
             this.grupoBotones.TabStop = false;
             // 
-            // rbdNotaVenta
+            // btnSalir
             // 
-            this.rbdNotaVenta.AutoSize = true;
-            this.rbdNotaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.rbdNotaVenta.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rbdNotaVenta.Location = new System.Drawing.Point(360, 36);
-            this.rbdNotaVenta.Name = "rbdNotaVenta";
-            this.rbdNotaVenta.Size = new System.Drawing.Size(175, 24);
-            this.rbdNotaVenta.TabIndex = 34;
-            this.rbdNotaVenta.Text = "Por Nota de Venta";
-            this.rbdNotaVenta.UseVisualStyleBackColor = true;
-            this.rbdNotaVenta.CheckedChanged += new System.EventHandler(this.rbdNotaVenta_CheckedChanged);
+            this.btnSalir.BackColor = System.Drawing.Color.Navy;
+            this.btnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatAppearance.BorderSize = 2;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
+            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSalir.Location = new System.Drawing.Point(352, 17);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(99, 83);
+            this.btnSalir.TabIndex = 164;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSalir.MouseEnter += new System.EventHandler(this.btnSalir_MouseEnter);
+            this.btnSalir.MouseLeave += new System.EventHandler(this.btnSalir_MouseLeave);
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.BackColor = System.Drawing.Color.Navy;
+            this.btnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.Enabled = false;
+            this.btnImprimir.FlatAppearance.BorderSize = 2;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnImprimir.Image = global::Palatium.Properties.Resources.impresora_icono;
+            this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnImprimir.Location = new System.Drawing.Point(240, 17);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(99, 83);
+            this.btnImprimir.TabIndex = 163;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            this.btnImprimir.MouseEnter += new System.EventHandler(this.btnImprimir_MouseEnter);
+            this.btnImprimir.MouseLeave += new System.EventHandler(this.btnImprimir_MouseLeave);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Navy;
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiar.FlatAppearance.BorderSize = 2;
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnLimpiar.Image = global::Palatium.Properties.Resources.icono_limpiar;
+            this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnLimpiar.Location = new System.Drawing.Point(128, 17);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(99, 83);
+            this.btnLimpiar.TabIndex = 162;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiar.MouseEnter += new System.EventHandler(this.btnLimpiar_MouseEnter);
+            this.btnLimpiar.MouseLeave += new System.EventHandler(this.btnLimpiar_MouseLeave);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.BackColor = System.Drawing.Color.Navy;
+            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.Enabled = false;
+            this.btnGuardar.FlatAppearance.BorderSize = 2;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
+            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnGuardar.Location = new System.Drawing.Point(16, 17);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(99, 83);
+            this.btnGuardar.TabIndex = 161;
+            this.btnGuardar.Text = "Aceptar";
+            this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            this.btnGuardar.MouseEnter += new System.EventHandler(this.btnGuardar_MouseEnter);
+            this.btnGuardar.MouseLeave += new System.EventHandler(this.btnGuardar_MouseLeave);
             // 
             // btnOcultar
             // 
@@ -411,121 +524,6 @@
             this.btnMostrar.UseVisualStyleBackColor = true;
             this.btnMostrar.Visible = false;
             this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSalir.BackgroundImage")));
-            this.btnSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSalir.Location = new System.Drawing.Point(352, 17);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(99, 83);
-            this.btnSalir.TabIndex = 164;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            this.btnSalir.MouseEnter += new System.EventHandler(this.btnSalir_MouseEnter);
-            this.btnSalir.MouseLeave += new System.EventHandler(this.btnSalir_MouseLeave);
-            // 
-            // btnImprimir
-            // 
-            this.btnImprimir.BackColor = System.Drawing.Color.Transparent;
-            this.btnImprimir.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImprimir.Enabled = false;
-            this.btnImprimir.FlatAppearance.BorderSize = 0;
-            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImprimir.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnImprimir.Image = global::Palatium.Properties.Resources.impresora_icono;
-            this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnImprimir.Location = new System.Drawing.Point(240, 17);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(99, 83);
-            this.btnImprimir.TabIndex = 163;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnImprimir.UseVisualStyleBackColor = false;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            this.btnImprimir.MouseEnter += new System.EventHandler(this.btnImprimir_MouseEnter);
-            this.btnImprimir.MouseLeave += new System.EventHandler(this.btnImprimir_MouseLeave);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLimpiar.BackgroundImage")));
-            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnLimpiar.Image = global::Palatium.Properties.Resources.icono_limpiar;
-            this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnLimpiar.Location = new System.Drawing.Point(128, 17);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(99, 83);
-            this.btnLimpiar.TabIndex = 162;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            this.btnLimpiar.MouseEnter += new System.EventHandler(this.btnLimpiar_MouseEnter);
-            this.btnLimpiar.MouseLeave += new System.EventHandler(this.btnLimpiar_MouseLeave);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.Transparent;
-            this.btnGuardar.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.Enabled = false;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
-            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardar.Location = new System.Drawing.Point(16, 17);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(99, 83);
-            this.btnGuardar.TabIndex = 161;
-            this.btnGuardar.Text = "Aceptar";
-            this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            this.btnGuardar.MouseEnter += new System.EventHandler(this.btnGuardar_MouseEnter);
-            this.btnGuardar.MouseLeave += new System.EventHandler(this.btnGuardar_MouseLeave);
-            // 
-            // btnBuscarCliente
-            // 
-            this.btnBuscarCliente.Image = global::Palatium.Properties.Resources.buscar_ico;
-            this.btnBuscarCliente.Location = new System.Drawing.Point(333, 62);
-            this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(29, 26);
-            this.btnBuscarCliente.TabIndex = 1;
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
-            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBuscar.Image = global::Palatium.Properties.Resources.buscar_botnon;
-            this.btnBuscar.Location = new System.Drawing.Point(395, 71);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(49, 44);
-            this.btnBuscar.TabIndex = 31;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // frmEditarDatosClienteFactura
             // 

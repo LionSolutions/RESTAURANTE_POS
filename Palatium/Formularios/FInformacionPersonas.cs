@@ -67,7 +67,6 @@ namespace Palatium.Formularios
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 //MessageBox.Show("Ocurrió un problema al cargar el combo tipo persona", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -92,7 +91,6 @@ namespace Palatium.Formularios
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 //MessageBox.Show("Ocurriò un problema al realizar la consulta");
             }
@@ -117,7 +115,6 @@ namespace Palatium.Formularios
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 //MessageBox.Show("Ocurrió un problema al realizar la consulta");
             }
@@ -136,7 +133,6 @@ namespace Palatium.Formularios
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 //MessageBox.Show("Ocurriò un problema al realizar la consulta");
             }

@@ -52,6 +52,7 @@ namespace Palatium.Formularios
             txtCodigo.Clear();
             txtDescripcion.Clear();
             cmbEstado.Text = "ACTIVO";
+            llenarComboFormasPagos();
             llenarGrid(0);
         }
 
@@ -59,9 +60,12 @@ namespace Palatium.Formularios
         private void columnasGrid(bool ok)
         {
             dgvDatos.Columns[0].Visible = ok;
+            dgvDatos.Columns[4].Visible = ok;
+            dgvDatos.Columns[0].Visible = ok;
             dgvDatos.Columns[1].Width = 75;
             dgvDatos.Columns[2].Width = 150;
             dgvDatos.Columns[3].Width = 75;
+            dgvDatos.Columns[5].Width = 150;
         }
 
         //FUNCION PARA LLENAR EL GRID
@@ -70,18 +74,22 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql += "select id_pos_metodo_pago, codigo CÓDIGO, descripcion DESCRIPCIÓN," + Environment.NewLine;
-                sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO" + Environment.NewLine;
-                sSql += "from pos_metodo_pago" + Environment.NewLine;
-                sSql += "where estado in ('A', 'N')" + Environment.NewLine;
+                sSql += "select MP.id_pos_metodo_pago, MP.codigo CÓDIGO, MP.descripcion DESCRIPCIÓN," + Environment.NewLine;
+                sSql += "case MP.estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
+                sSql += "isnull(FP.id_sri_forma_pago, 0) id_sri_forma_pago," + Environment.NewLine;
+                sSql += "isnull(FP.descripcion, 'SIN ASIGNAR') FORMA_PAGO" + Environment.NewLine;
+                sSql += "from pos_metodo_pago MP LEFT OUTER JOIN" + Environment.NewLine;
+                sSql += "sri_forma_pago FP ON FP.id_sri_forma_pago = MP.id_sri_forma_pago" + Environment.NewLine;
+                sSql += "and MP.estado in ('A', 'N')" + Environment.NewLine;
+                sSql += "and FP.estado = 'A'" + Environment.NewLine;
                 
                 if (iOp == 1)
                 {
-                    sSql += "and (codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
-                    sSql += "or descripcion like '%" + txtBuscar.Text.Trim() + "%')" + Environment.NewLine;
+                    sSql += "and (MP.codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "or MP.descripcion like '%" + txtBuscar.Text.Trim() + "%')" + Environment.NewLine;
                 }
 
-                sSql += "order by id_pos_metodo_pago";
+                sSql += "order by MP.id_pos_metodo_pago" + Environment.NewLine;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -108,6 +116,29 @@ namespace Palatium.Formularios
             }
         }
 
+        //FUNCION PARA LLENAR EL COMBO DE FORMAS DE PAGO
+        private void llenarComboFormasPagos()
+        {
+            try
+            {
+                sSql = "";
+                sSql += "select id_sri_forma_pago, codigo + ' - ' + descripcion forma_pago" + Environment.NewLine;
+                sSql += "from sri_forma_pago" + Environment.NewLine;
+                sSql += "where estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                cmbFormasPagos.llenar(dtConsulta, sSql);
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.ToString();
+                catchMensaje.ShowDialog();
+            }
+        }
+
         //FUNCION PARA INSERTAR UN REGISTRO
         private void insertarRegistro()
         {
@@ -118,14 +149,16 @@ namespace Palatium.Formularios
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
                 sSql += "insert into pos_metodo_pago (" + Environment.NewLine;
-                sSql += "codigo, descripcion, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "codigo, descripcion, id_sri_forma_pago, estado," + Environment.NewLine;
+                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
-                sSql += "'" + txtCodigo.Text.ToString().Trim() + "', '" + txtDescripcion.Text.ToString().Trim() + "', 'A'," + Environment.NewLine;
+                sSql += "'" + txtCodigo.Text.ToString().Trim() + "', '" + txtDescripcion.Text.ToString().Trim() + "'," + Environment.NewLine;
+                sSql += Convert.ToInt32(cmbFormasPagos.SelectedValue) + "'A'," + Environment.NewLine;
                 sSql += "GETDATE(), '" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -139,7 +172,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro agregado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -149,9 +182,8 @@ namespace Palatium.Formularios
                 goto reversa;
             }
 
-        reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
 
@@ -165,13 +197,14 @@ namespace Palatium.Formularios
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
 
                 sSql = "";
                 sSql += "update pos_metodo_pago set" + Environment.NewLine;
                 sSql += "descripcion = '" + txtDescripcion.Text.Trim().ToUpper() + "'," + Environment.NewLine;
+                sSql += "id_sri_forma_pago = " + Convert.ToInt32(cmbFormasPagos.SelectedValue) + "," + Environment.NewLine;
                 sSql += "estado = '" + sEstado + "'" + Environment.NewLine;
                 sSql += "where id_pos_metodo_pago = " + iIdRegistro + Environment.NewLine;
                 sSql += "and estado in ('A', 'N')";
@@ -188,7 +221,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro actualizado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -198,9 +231,8 @@ namespace Palatium.Formularios
                 goto reversa;
             }
 
-        reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         //FUNCION PARA ELIMINAR UN REGISTRO
@@ -213,7 +245,7 @@ namespace Palatium.Formularios
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -236,7 +268,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -258,6 +290,7 @@ namespace Palatium.Formularios
             txtCodigo.Clear();
             txtDescripcion.Clear();
             cmbEstado.Text = "ACTIVO";
+            llenarComboFormasPagos();
             cmbEstado.Enabled = false;
             llenarGrid(0);
         }
@@ -269,7 +302,7 @@ namespace Palatium.Formularios
             try
             {
                 sSql = "";
-                sSql += "select id_pos_metodo_pago, descripcion," + Environment.NewLine;
+                sSql += "select id_pos_metodo_pago, descripcion, id_sri_forma_pago," + Environment.NewLine;
                 sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end estado" + Environment.NewLine;
                 sSql += "from pos_metodo_pago" + Environment.NewLine;
                 sSql += "where codigo = '" + txtCodigo.Text + "'" + Environment.NewLine;
@@ -286,7 +319,8 @@ namespace Palatium.Formularios
                     {
                         iIdRegistro = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                         txtDescripcion.Text = dtConsulta.Rows[0][1].ToString().ToUpper();
-                        cmbEstado.Text = dtConsulta.Rows[0][2].ToString().ToUpper();
+                        cmbFormasPagos.SelectedValue = dtConsulta.Rows[0][2].ToString();
+                        cmbEstado.Text = dtConsulta.Rows[0][3].ToString().ToUpper();
                         btnAnularMetodoPago.Enabled = true;
                         btnNuevoMetodoPago.Text = "Actualizar";
                         txtCodigo.Enabled = false;
@@ -298,6 +332,7 @@ namespace Palatium.Formularios
                     {
                         iIdRegistro = 0;
                         txtDescripcion.Clear();
+                        cmbFormasPagos.SelectedIndex = 0;
                         cmbEstado.Text = "ACTIVO";
                         btnAnularMetodoPago.Enabled = false;
                         cmbEstado.Enabled = false;
@@ -391,6 +426,13 @@ namespace Palatium.Formularios
                 else if (txtDescripcion.Text == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese la descripción del Método de pago.";
+                    ok.ShowDialog();
+                    txtDescripcion.Focus();
+                }
+
+                else if (Convert.ToInt32(cmbFormasPagos.SelectedValue) == 0)
+                {
+                    ok.LblMensaje.Text = "Favor seleccione la forma de pago.";
                     ok.ShowDialog();
                     txtDescripcion.Focus();
                 }

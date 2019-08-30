@@ -18,8 +18,10 @@ namespace Palatium.Facturador
         DataTable dtConsulta;
         bool bRespuesta;
         string sSql;
+
         int iIdOrden;
         int iRetorno;
+        int iIdFactura;
 
         public frmReimprimirFactura()
         {
@@ -28,24 +30,20 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtBuscar, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA VERIFICAR SI YA ESTÁ EMITIDA UNA FACTURA EN UNA ORDEN
         private int validarPedido()
         {
             try
             {
                 sSql = "";
-                sSql = sSql + "select NCP.id_pedido" + Environment.NewLine;
-                sSql = sSql + "from cv403_numero_cab_pedido NCP, cv403_facturas_pedidos FP" + Environment.NewLine;
-                sSql = sSql + "where FP.id_pedido = NCP.id_pedido" + Environment.NewLine;
-                sSql = sSql + "and FP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NCP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NCP.numero_pedido = " + Convert.ToInt32(txtBuscar.Text.Trim()) + Environment.NewLine;
+                sSql += "select NCP.id_pedido, FP.id_factura" + Environment.NewLine;
+                sSql += "from cv403_numero_cab_pedido NCP INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_cab_pedidos CP ON CP.id_pedido = NCP.id_pedido" + Environment.NewLine;
+                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                sSql += "and NCP.estado = 'A' INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_facturas_pedidos FP ON CP.id_pedido = FP.id_pedido" + Environment.NewLine;
+                sSql += "and FP.estado = 'A'" + Environment.NewLine;
+                sSql += "where NCP.numero_pedido = " + Convert.ToInt32(txtBuscar.Text.Trim()) + Environment.NewLine;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -56,7 +54,8 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0]["id_pedido"].ToString());
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0]["id_factura"].ToString());
                         return 1;
                     }
 
@@ -76,7 +75,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -88,12 +86,14 @@ namespace Palatium.Facturador
             try
             {
                 sSql = "";
-                sSql = sSql + "select FP.id_pedido" + Environment.NewLine;
-                sSql = sSql + "from cv403_numeros_facturas NF, cv403_facturas_pedidos FP" + Environment.NewLine;
-                sSql = sSql + "where NF.id_factura = FP.id_factura" + Environment.NewLine;
-                sSql = sSql + "and NF.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and FP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NF.numero_factura = " + Convert.ToInt32(txtBuscar.Text.Trim());
+                sSql += "select FP.id_pedido, F.id_factura" + Environment.NewLine;
+                sSql += "from cv403_numeros_facturas NF INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_facturas F ON F.id_factura = NF.id_factura" + Environment.NewLine;
+                sSql += "and F.estado = 'A'" + Environment.NewLine;
+                sSql += "and NF.estado = 'A' INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_facturas_pedidos FP ON F.id_factura = FP.id_factura" + Environment.NewLine;
+                sSql += "and FP.estado = 'A'" + Environment.NewLine;
+                sSql += "where NF.numero_factura =  " + Convert.ToInt32(txtBuscar.Text.Trim());
 
 
                 dtConsulta = new DataTable();
@@ -105,7 +105,8 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdOrden = Convert.ToInt32(dtConsulta.Rows[0]["id_pedido"].ToString());
+                        iIdFactura = Convert.ToInt32(dtConsulta.Rows[0]["id_factura"].ToString());
                         return 1;
                     }
 
@@ -125,7 +126,6 @@ namespace Palatium.Facturador
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -146,7 +146,6 @@ namespace Palatium.Facturador
                     ok.LblMensaje.Text = "Favor ingrese el número de la factura.";
                 }
 
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -166,14 +165,12 @@ namespace Palatium.Facturador
                 {
                     //ABRE FORMULARIO
                     Pedidos.frmVerFacturaTextBox factura = new Pedidos.frmVerFacturaTextBox(iIdOrden.ToString(), 0);
-                    factura.ShowInTaskbar = false;
                     factura.ShowDialog();
                 }
 
                 else
                 {
                     ok.LblMensaje.Text = "No existen registros con los datos proporcionados";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     txtBuscar.Clear();
                     txtBuscar.Focus();
@@ -234,10 +231,7 @@ namespace Palatium.Facturador
 
         private void frmReimprimirFactura_Load(object sender, EventArgs e)
         {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
+            
         }
     }
 }

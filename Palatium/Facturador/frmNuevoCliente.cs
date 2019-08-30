@@ -55,21 +55,6 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtIdentificacion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtApellidos, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNombres, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtTelefono, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtMail, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtSector, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtCallePrincipal, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNumeracion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtCalleSecundaria, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtReferencia, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //VERIFICAR SI LA CADENA ES UN NUMERO O UN STRING
         public bool esNumero(object Expression)
         {
@@ -274,24 +259,24 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {   
-                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        txtNombres.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtApellidos.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtMail.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtSector.Text = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        txtCallePrincipal.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
-                        txtNumeracion.Text = dtConsulta.Rows[0].ItemArray[7].ToString();
-                        txtCalleSecundaria.Text = dtConsulta.Rows[0].ItemArray[8].ToString();
-                        txtReferencia.Text = dtConsulta.Rows[0].ItemArray[9].ToString();
+                        iIdPersona = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        txtNombres.Text = dtConsulta.Rows[0][2].ToString();
+                        txtApellidos.Text = dtConsulta.Rows[0][3].ToString();
+                        txtMail.Text = dtConsulta.Rows[0][4].ToString();
+                        txtSector.Text = dtConsulta.Rows[0][5].ToString();
+                        txtCallePrincipal.Text = dtConsulta.Rows[0][6].ToString();
+                        txtNumeracion.Text = dtConsulta.Rows[0][7].ToString();
+                        txtCalleSecundaria.Text = dtConsulta.Rows[0][8].ToString();
+                        txtReferencia.Text = dtConsulta.Rows[0][9].ToString();
 
-                        if (dtConsulta.Rows[0].ItemArray[10].ToString() != "")
+                        if (dtConsulta.Rows[0][10].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[10].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][10].ToString();
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[11].ToString() != "")
+                        else if (dtConsulta.Rows[0][11].ToString() != "")
                         {
-                            txtTelefono.Text = dtConsulta.Rows[0].ItemArray[11].ToString();
+                            txtTelefono.Text = dtConsulta.Rows[0][11].ToString();
                         }
 
                         else
@@ -566,7 +551,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdDireccion = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdDireccion = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
 
                         //ACTUALIZAMOS LA TABLA DE DIRECCIONES
                         sSql = "";
@@ -626,7 +611,7 @@ namespace Palatium.Facturador
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdTelefono = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdTelefono = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                         sSql = "";
                         sSql = sSql + "update tp_telefonos set" + Environment.NewLine;
                         sSql = sSql + "oficina = '" + txtTelefono.Text.Trim() + "'" + Environment.NewLine;
@@ -758,11 +743,6 @@ namespace Palatium.Facturador
                 chkPasaporte.Checked = bPasaporte;
                 consultarRegistro();
                 //txtNombres.Focus();
-            }
-
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
             }
         }
 

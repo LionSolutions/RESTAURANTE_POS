@@ -46,38 +46,28 @@ namespace Palatium.Facturador
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtIdentificacion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA ACTUALIZAR EL ID_PERSONAS EN CV403_CAB_PEDIDOS
         private void actualizarRegistro()
         {
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = sSql + "update cv403_cab_pedidos set" + Environment.NewLine;
                 sSql = sSql + "estado_orden = 'Pagada'," + Environment.NewLine;
                 sSql = sSql + "id_persona = " + iIdPersona + Environment.NewLine;
-                sSql = sSql + " where id_pedido = " + Convert.ToInt32(sIdOrden);
+                sSql = sSql + "where id_pedido = " + Convert.ToInt32(sIdOrden);
 
                 //EJECUCIÓN DE LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -85,7 +75,6 @@ namespace Palatium.Facturador
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
 
                 ok.LblMensaje.Text = "Se ha procedido a ingresar los datos de forma éxitosa.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
 
                 if (ok.DialogResult == DialogResult.OK)
@@ -93,6 +82,7 @@ namespace Palatium.Facturador
                     this.DialogResult = DialogResult.OK;
 
                     this.Close();
+
                     if (Program.iBanderaCerrarVentana == 0)
                     {
                         ord.Close();
@@ -103,25 +93,16 @@ namespace Palatium.Facturador
                     }
                 }
 
-                goto fin;
-
+                return;
             }
 
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
-
-        //=======================================================================================================
-        fin:
-            { }
+        reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
         }
 
         //FUNCION PARA EXTRAER EL NUMERO DE ORDEN
@@ -129,9 +110,13 @@ namespace Palatium.Facturador
         {
             try
             {
-                sSql = "select CP.cuenta, NP.numero_pedido from cv403_cab_pedidos CP, " +
-                       "cv403_numero_cab_pedido NP where NP.id_pedido = CP.id_pedido " +
-                       "and NP.estado = 'A' and CP.estado = 'A' and CP.id_pedido = " + Convert.ToInt32(sIdOrden);
+                sSql = "";
+                sSql += "select CP.cuenta, NP.numero_pedido" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos CP, cv403_numero_cab_pedido NP" + Environment.NewLine;
+                sSql += "where NP.id_pedido = CP.id_pedido " + Environment.NewLine;
+                sSql += "and NP.estado = 'A'" + Environment.NewLine;
+                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                sSql += "and CP.id_pedido = " + sIdOrden;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -143,29 +128,23 @@ namespace Palatium.Facturador
                     if (dtConsulta.Rows.Count > 0)
                     {
                         LblOrden.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        goto fin;
+                        return;
                     }
                 }
 
                 else
                 {
-                    goto reversa;
+                    catchMensaje.LblMensaje.Text = sSql;
+                    catchMensaje.ShowDialog();
                 }
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
-                goto reversa;
+                catchMensaje.LblMensaje.Text = ex.Message;
+                catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                ok.ShowInTaskbar = false;
-                ok.ShowDialog();
-            }
-
-        fin: { }
         }
 
         //FUNCION PARA VALIDAR LA CEDULA O RUC
@@ -265,7 +244,6 @@ namespace Palatium.Facturador
         mensaje:
             {
                 ok.LblMensaje.Text = "El número de identificación ingresado es incorrecto.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 btnGuardar.Enabled = false;
                 txtIdentificacion.Clear();
@@ -347,7 +325,6 @@ namespace Palatium.Facturador
                         //ok.ShowDialog();
 
                         frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-                        nuevoCliente.ShowInTaskbar = false;
                         nuevoCliente.ShowDialog();
 
                         if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -384,7 +361,6 @@ namespace Palatium.Facturador
         mensaje:
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 btnGuardar.Enabled = false;
                 txtIdentificacion.Clear();
@@ -405,11 +381,6 @@ namespace Palatium.Facturador
 
             //LblOrden.Text = sIdOrden;
             LblPagar.Text = "$ " + dTotal.ToString("N2");
-
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
         }
 
         private void btnConsumidorFinal_Click(object sender, EventArgs e)
@@ -431,7 +402,6 @@ namespace Palatium.Facturador
         private void btnEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmNuevoCliente nuevoCliente = new frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
-            nuevoCliente.ShowInTaskbar = false;
             nuevoCliente.ShowDialog();
 
             if (nuevoCliente.DialogResult == DialogResult.OK)
@@ -445,7 +415,6 @@ namespace Palatium.Facturador
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             frmControlDatosCliente controlClientes = new frmControlDatosCliente();
-            controlClientes.ShowInTaskbar = false;
             controlClientes.ShowDialog();
 
             if (controlClientes.DialogResult == DialogResult.OK)
@@ -514,7 +483,6 @@ namespace Palatium.Facturador
         private void btnVisualizarComanda_Click(object sender, EventArgs e)
         {
             Pedidos.frmVerPrecuentaTextBox pedido = new Pedidos.frmVerPrecuentaTextBox(sIdOrden, 0, "Pre-Cuenta");
-            pedido.ShowInTaskbar = false;
             pedido.ShowDialog();
         }
 

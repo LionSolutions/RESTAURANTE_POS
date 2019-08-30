@@ -65,12 +65,8 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnSincronizar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCerrar = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvDatos
@@ -91,7 +87,7 @@
             this.colMail,
             this.colEstado,
             this.colMensaje});
-            this.dgvDatos.Location = new System.Drawing.Point(12, 151);
+            this.dgvDatos.Location = new System.Drawing.Point(12, 116);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.Size = new System.Drawing.Size(1023, 320);
             this.dgvDatos.TabIndex = 0;
@@ -198,7 +194,7 @@
             this.groupBox1.Controls.Add(this.cmbEmpresa);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 47);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1023, 85);
             this.groupBox1.TabIndex = 1;
@@ -357,7 +353,7 @@
             this.lblCuentaRegistros.AutoSize = true;
             this.lblCuentaRegistros.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCuentaRegistros.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblCuentaRegistros.Location = new System.Drawing.Point(137, 487);
+            this.lblCuentaRegistros.Location = new System.Drawing.Point(137, 452);
             this.lblCuentaRegistros.Name = "lblCuentaRegistros";
             this.lblCuentaRegistros.Size = new System.Drawing.Size(178, 16);
             this.lblCuentaRegistros.TabIndex = 133;
@@ -368,7 +364,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label7.Location = new System.Drawing.Point(12, 487);
+            this.label7.Location = new System.Drawing.Point(12, 452);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(119, 16);
             this.label7.TabIndex = 132;
@@ -379,7 +375,7 @@
             this.chkSeleccionar.AutoSize = true;
             this.chkSeleccionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSeleccionar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.chkSeleccionar.Location = new System.Drawing.Point(12, 510);
+            this.chkSeleccionar.Location = new System.Drawing.Point(12, 475);
             this.chkSeleccionar.Name = "chkSeleccionar";
             this.chkSeleccionar.Size = new System.Drawing.Size(212, 20);
             this.chkSeleccionar.TabIndex = 139;
@@ -392,7 +388,7 @@
             this.btnExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcel.Image = global::Palatium.Properties.Resources.excel_png1;
             this.btnExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExcel.Location = new System.Drawing.Point(835, 487);
+            this.btnExcel.Location = new System.Drawing.Point(835, 452);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(94, 43);
             this.btnExcel.TabIndex = 138;
@@ -406,7 +402,7 @@
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.Image = global::Palatium.Properties.Resources.impresora_png;
             this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImprimir.Location = new System.Drawing.Point(733, 487);
+            this.btnImprimir.Location = new System.Drawing.Point(733, 452);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(96, 43);
             this.btnImprimir.TabIndex = 137;
@@ -420,7 +416,7 @@
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiar.Image = global::Palatium.Properties.Resources.limpiar_ico;
             this.btnLimpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiar.Location = new System.Drawing.Point(631, 487);
+            this.btnLimpiar.Location = new System.Drawing.Point(631, 452);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(96, 43);
             this.btnLimpiar.TabIndex = 136;
@@ -434,7 +430,7 @@
             this.btnSincronizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSincronizar.Image = global::Palatium.Properties.Resources.sincronizar_png;
             this.btnSincronizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSincronizar.Location = new System.Drawing.Point(380, 477);
+            this.btnSincronizar.Location = new System.Drawing.Point(380, 442);
             this.btnSincronizar.Name = "btnSincronizar";
             this.btnSincronizar.Size = new System.Drawing.Size(144, 62);
             this.btnSincronizar.TabIndex = 135;
@@ -448,7 +444,7 @@
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Image = global::Palatium.Properties.Resources.salir_ico;
             this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalir.Location = new System.Drawing.Point(935, 487);
+            this.btnSalir.Location = new System.Drawing.Point(935, 452);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(94, 43);
             this.btnSalir.TabIndex = 134;
@@ -457,48 +453,13 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.panel1.Controls.Add(this.btnCerrar);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1047, 40);
-            this.panel1.TabIndex = 140;
-            // 
-            // btnCerrar
-            // 
-            this.btnCerrar.BackColor = System.Drawing.Color.Red;
-            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnCerrar.Location = new System.Drawing.Point(1001, 0);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(46, 40);
-            this.btnCerrar.TabIndex = 1;
-            this.btnCerrar.Text = "X";
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label8.Location = new System.Drawing.Point(337, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(372, 20);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Sincronización de comprobantes electrónicos";
-            // 
             // frmSincronizarFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Teal;
-            this.ClientSize = new System.Drawing.Size(1047, 551);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1047, 516);
             this.Controls.Add(this.chkSeleccionar);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.btnImprimir);
@@ -509,7 +470,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvDatos);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -522,8 +482,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -568,8 +526,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colMail;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMensaje;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.Label label8;
     }
 }

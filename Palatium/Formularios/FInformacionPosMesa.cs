@@ -147,16 +147,16 @@ namespace Palatium.Formularios
                     {
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            sIdMesa = dtConsulta.Rows[i].ItemArray[0].ToString();
-                            sIdSeccion = dtConsulta.Rows[i].ItemArray[1].ToString();
-                            sCodigo = dtConsulta.Rows[i].ItemArray[2].ToString();
-                            sDescripcion = dtConsulta.Rows[i].ItemArray[3].ToString();
-                            sNumeroMesa= dtConsulta.Rows[i].ItemArray[4].ToString();
-                            sDescripcionSeccion = dtConsulta.Rows[i].ItemArray[5].ToString();
-                            sCapacidad = dtConsulta.Rows[i].ItemArray[6].ToString();
-                            sEstado = dtConsulta.Rows[i].ItemArray[7].ToString();
-                            sPosicionX = dtConsulta.Rows[i].ItemArray[8].ToString();
-                            sPosicionY = dtConsulta.Rows[i].ItemArray[9].ToString();
+                            sIdMesa = dtConsulta.Rows[i][0].ToString();
+                            sIdSeccion = dtConsulta.Rows[i][1].ToString();
+                            sCodigo = dtConsulta.Rows[i][2].ToString();
+                            sDescripcion = dtConsulta.Rows[i][3].ToString();
+                            sNumeroMesa= dtConsulta.Rows[i][4].ToString();
+                            sDescripcionSeccion = dtConsulta.Rows[i][5].ToString();
+                            sCapacidad = dtConsulta.Rows[i][6].ToString();
+                            sEstado = dtConsulta.Rows[i][7].ToString();
+                            sPosicionX = dtConsulta.Rows[i][8].ToString();
+                            sPosicionY = dtConsulta.Rows[i][9].ToString();
 
                             dgvDatos.Rows.Add(sIdMesa, sIdSeccion, sCodigo, sDescripcion, 
                                               sNumeroMesa, sDescripcionSeccion, sCapacidad, 
@@ -201,7 +201,7 @@ namespace Palatium.Formularios
 
                 if (bRespuesta == true)
                 {
-                    iCuenta = iCuenta + Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    iCuenta = iCuenta + Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 }
 
                 else
@@ -244,7 +244,7 @@ namespace Palatium.Formularios
 
                 if (bRespuesta == true)
                 {
-                    iCuenta = iCuenta + Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    iCuenta = iCuenta + Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 }
 
                 else
@@ -275,14 +275,14 @@ namespace Palatium.Formularios
                 {
                     ok.LblMensaje.Text = "Ya existe un registro con el con el código de mesa ingresado.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 else if (consultarCodigoMesa() == -1)
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al consultar la existencia del código de mesa ingresado.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 //VERIFICAR LA EXISTENCIA DE LA MESA
@@ -290,14 +290,14 @@ namespace Palatium.Formularios
                 {
                     ok.LblMensaje.Text = "Ya existe un registro con el número de mesa ingresado.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 else if (consultarMesa() == -1)
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al consultar la existencia del número de mesa ingresado.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 //AQUI INICIA LA TRANSACCION
@@ -306,7 +306,7 @@ namespace Palatium.Formularios
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiarTodo();
-                    goto reversa;
+                    return;
                 }
 
                 sSql = "";
@@ -333,7 +333,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro insertado éxitosamente.";
                 ok.ShowDialog();
                 limpiarTodo();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -347,8 +347,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-            fin: {}
         }
 
         //FUNCION PARA MODIFICAR REGISTROS EN LA BASE DE DATOS
@@ -362,7 +360,7 @@ namespace Palatium.Formularios
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiarTodo();
-                    goto reversa;
+                    return;
                 }
 
                 sSql = "";
@@ -387,7 +385,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro actualizado éxitosamente.";
                 ok.ShowDialog();
                 limpiarTodo();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -401,8 +399,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         //FUNCION PARA ELIMINAR REGISTROS EN LA BASE DE DATOS
@@ -416,7 +412,7 @@ namespace Palatium.Formularios
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiarTodo();
-                    goto reversa;
+                    return;
                 }
 
                 sSql = "";
@@ -439,8 +435,7 @@ namespace Palatium.Formularios
                 ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
                 ok.ShowDialog();
                 limpiarTodo();
-                goto fin;
-
+                return;
             }
 
             catch (Exception ex)
@@ -454,8 +449,6 @@ namespace Palatium.Formularios
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         //Función para ver si un registro ya está siendo utilizado
@@ -475,7 +468,7 @@ namespace Palatium.Formularios
 
                 if (bRespuesta == true)
                 {
-                    return Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    return Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 }
 
                 else

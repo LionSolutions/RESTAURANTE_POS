@@ -41,6 +41,8 @@
             this.btnAnular = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.grupoDatos = new System.Windows.Forms.GroupBox();
+            this.cmbTipoVenta = new MisControles.ComboDatos();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -59,8 +61,6 @@
             this.lblcodigoTiForPa = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
-            this.cmbTipoVenta = new MisControles.ComboDatos();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabCon_PosTipForPag.SuspendLayout();
             this.tabPag_PosTipForPag.SuspendLayout();
             this.grupoBusqueda.SuspendLayout();
@@ -228,6 +228,25 @@
             this.grupoDatos.TabStop = false;
             this.grupoDatos.Text = "Datos del Registro";
             // 
+            // cmbTipoVenta
+            // 
+            this.cmbTipoVenta.FormattingEnabled = true;
+            this.cmbTipoVenta.Location = new System.Drawing.Point(100, 209);
+            this.cmbTipoVenta.Name = "cmbTipoVenta";
+            this.cmbTipoVenta.Size = new System.Drawing.Size(216, 21);
+            this.cmbTipoVenta.TabIndex = 23;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(15, 209);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 36);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Tipo de Venta:";
+            // 
             // btnClear
             // 
             this.btnClear.BackColor = System.Drawing.Color.Red;
@@ -355,7 +374,6 @@
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(107, 21);
             this.cmbEstado.TabIndex = 10;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.CmbEstadoPosTipForPag_SelectedIndexChanged);
             // 
             // lblEstaTiForPa
             // 
@@ -410,25 +428,6 @@
             this.txtCodigo.Size = new System.Drawing.Size(216, 20);
             this.txtCodigo.TabIndex = 2;
             this.txtCodigo.Leave += new System.EventHandler(this.Txt_CodigoPosTipForPag_Leave);
-            // 
-            // cmbTipoVenta
-            // 
-            this.cmbTipoVenta.FormattingEnabled = true;
-            this.cmbTipoVenta.Location = new System.Drawing.Point(100, 209);
-            this.cmbTipoVenta.Name = "cmbTipoVenta";
-            this.cmbTipoVenta.Size = new System.Drawing.Size(216, 21);
-            this.cmbTipoVenta.TabIndex = 23;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(15, 209);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 36);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Tipo de Venta:";
             // 
             // FInformacionPosTipForPag
             // 

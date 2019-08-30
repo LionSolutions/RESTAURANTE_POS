@@ -53,7 +53,6 @@ namespace Palatium.Formularios
         decimal dbValorIVA;
         decimal dbValorServicio;
         decimal dbValorTotal;
-
                 
         public FInformeDiarioVentas()
         {
@@ -461,10 +460,7 @@ namespace Palatium.Formularios
                 catchMensaje.ShowDialog();
             }
         }
-
-
         
-
         public void exportarExcel(DataGridView tabla)
         {
             ok.lblMensaje.Text = "Módulo en desarrollo.";

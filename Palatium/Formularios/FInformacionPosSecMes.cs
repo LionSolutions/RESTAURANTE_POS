@@ -210,7 +210,7 @@ namespace Palatium.Formularios
                 {
                     ok.lblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -237,7 +237,7 @@ namespace Palatium.Formularios
                 Grb_Dato.Enabled = false;
                 btnNuevo.Text = "Nuevo";
                 limpiarTodo();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -247,12 +247,7 @@ namespace Palatium.Formularios
                 goto reversa;
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
-
-        fin: { }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
         }
         
         //FUNCION PARA DAR DE BAJA EL REGISTRO
