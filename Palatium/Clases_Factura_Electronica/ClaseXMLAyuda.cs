@@ -89,11 +89,13 @@ namespace Palatium.Clases_Factura_Electronica
                 result.NumeroAutorizacion = GetNodeValue(pathLevelAutorizacion, "numeroAutorizacion", xml_doc);
                 result.FechaAutorizacion = GetNodeValue(pathLevelAutorizacion, "fechaAutorizacion", xml_doc);
                 result.Ambiente = GetNodeValue(pathLevelAutorizacion, "ambiente", xml_doc);
+                result.Comprobante = GetNodeValue(pathLevelAutorizacion, "comprobante", xml_doc);
             }
             else if (result.Estado == "NO AUTORIZADO")
             {
                 result.FechaAutorizacion = GetNodeValue(pathLevelAutorizacion, "fechaAutorizacion", xml_doc);
                 result.Ambiente = GetNodeValue(pathLevelAutorizacion, "ambiente", xml_doc);
+                result.Comprobante = GetNodeValue(pathLevelAutorizacion, "comprobante", xml_doc);
                 result.ErrorIdentificador = GetNodeValue(pathLevelMensajes, "identificador", xml_doc);
                 result.ErrorMensaje = GetNodeValue(pathLevelMensajes, "mensaje", xml_doc);
                 result.ErrorTipo = GetNodeValue(pathLevelMensajes, "tipo", xml_doc);

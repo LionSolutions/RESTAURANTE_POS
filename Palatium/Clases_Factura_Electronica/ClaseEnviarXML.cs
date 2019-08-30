@@ -348,7 +348,6 @@ namespace Palatium.Clases_Factura_Electronica
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
 
@@ -358,7 +357,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.Show();
                 return "";
             }
@@ -383,7 +381,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -400,10 +397,11 @@ namespace Palatium.Clases_Factura_Electronica
         /// <summary>
         /// Envía el xml firmado a los webs services del SRI para su recepción.
         /// </summary>
-        public RespuestaSRI EnvioComprobante (string sRutaXML)
+        public RespuestaSRI EnvioComprobante(string sRutaXML, string sWebService_P)
         {
             RespuestaSRI result = null;
-            string ws_url = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
+            //string ws_url = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
+            string ws_url = sWebService_P;
 
             //Codifica el archivo a base 64
             string bytesEncodeBase64 = ConvertirBase64(sRutaXML);

@@ -59,10 +59,10 @@ namespace Palatium.Facturacion_Electronica
              try
              {
                  sSql = "";
-                 sSql = sSql + "select codigo, nombres" + Environment.NewLine;
-                 sSql = sSql + "from cel_directorio" + Environment.NewLine;
-                 sSql = sSql + "where id_tipo_comprobante = 1" + Environment.NewLine;
-                 sSql = sSql + "and estado = 'A'";
+                 sSql += "select codigo, nombres" + Environment.NewLine;
+                 sSql += "from cel_directorio" + Environment.NewLine;
+                 sSql += "where id_tipo_comprobante = 1" + Environment.NewLine;
+                 sSql += "and estado = 'A'";
 
                  dtConsulta = new DataTable();
                  dtConsulta.Clear();
@@ -73,10 +73,10 @@ namespace Palatium.Facturacion_Electronica
                  {
                      if (dtConsulta.Rows.Count > 0)
                      {
-                         sDirGenerados = dtConsulta.Rows[0].ItemArray[1].ToString();
-                         sDirFirmados = dtConsulta.Rows[1].ItemArray[1].ToString();
-                         sDirAutorizados = dtConsulta.Rows[2].ItemArray[1].ToString();
-                         sDirNoAutorizados = dtConsulta.Rows[3].ItemArray[1].ToString();
+                         sDirGenerados = dtConsulta.Rows[0][1].ToString();
+                         sDirFirmados = dtConsulta.Rows[1][1].ToString();
+                         sDirAutorizados = dtConsulta.Rows[2][1].ToString();
+                         sDirNoAutorizados = dtConsulta.Rows[3][1].ToString();
                          return true;
                      }
 
@@ -110,9 +110,9 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_tipo_comprobante, nombres, codigo" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select id_tipo_comprobante, nombres, codigo" + Environment.NewLine;
+                sSql += "from cel_tipo_comprobante" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -180,9 +180,9 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select codigo" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
+                sSql += "select codigo" + Environment.NewLine;
+                sSql += "from cel_tipo_comprobante" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -193,27 +193,27 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        if (dtConsulta.Rows[0].ItemArray[0].ToString() == "01")
+                        if (dtConsulta.Rows[0][0].ToString() == "01")
                         {
                             sNumeroComprobante = sNumeroComprobante + "F";
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[0].ToString() == "04")
+                        else if (dtConsulta.Rows[0][0].ToString() == "04")
                         {
                             sNumeroComprobante = sNumeroComprobante + "NC";
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[0].ToString() == "05")
+                        else if (dtConsulta.Rows[0][0].ToString() == "05")
                         {
                             sNumeroComprobante = sNumeroComprobante + "ND";
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[0].ToString() == "06")
+                        else if (dtConsulta.Rows[0][0].ToString() == "06")
                         {
                             sNumeroComprobante = sNumeroComprobante + "G";
                         }
 
-                        else if (dtConsulta.Rows[0].ItemArray[0].ToString() == "07")
+                        else if (dtConsulta.Rows[0][0].ToString() == "07")
                         {
                             sNumeroComprobante = sNumeroComprobante + "R";
                         }
@@ -255,24 +255,24 @@ namespace Palatium.Facturacion_Electronica
                 sFechaFinal = Convert.ToDateTime(txtFechaFinal.Text.Trim()).ToString("yyyy/MM/dd");
 
                 sSql = "";
-                sSql = sSql + "select F.id_factura, VL.establecimiento, VL.punto_emision, NF.numero_factura," + Environment.NewLine;
-                sSql = sSql + "(P.nombres + ' ' +P.apellidos ) cliente, P.correo_electronico, F.fecha_factura," + Environment.NewLine;
-                sSql = sSql + "F.clave_acceso, TA.nombres" + Environment.NewLine;
-                sSql = sSql + "from cv403_facturas F, cv403_numeros_facturas NF, tp_personas P, " + Environment.NewLine;
-                sSql = sSql + "tp_vw_localidades VL, cel_tipo_ambiente TA" + Environment.NewLine;
-                sSql = sSql + "where NF.id_factura = F.id_factura" + Environment.NewLine;
-                sSql = sSql + "and F.id_localidad = VL.id_localidad" + Environment.NewLine;
-                sSql = sSql + "and F.id_persona = P.id_persona" + Environment.NewLine;
-                sSql = sSql + "and F.id_tipo_ambiente = TA.id_tipo_ambiente" + Environment.NewLine;
-                sSql = sSql + "and VL.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
-                sSql = sSql + "and F.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NF.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and P.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and TA.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and F.fecha_factura between '" + sFechaInicial + "'" + Environment.NewLine;
-                sSql = sSql + "and '" + sFechaFinal + "'" + Environment.NewLine;
-                sSql = sSql + "and F.idtipocomprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
-                sSql = sSql + "and autorizacion <> ''";
+                sSql += "select F.id_factura, VL.establecimiento, VL.punto_emision, NF.numero_factura," + Environment.NewLine;
+                sSql += "(P.nombres + ' ' +P.apellidos ) cliente, P.correo_electronico, F.fecha_factura," + Environment.NewLine;
+                sSql += "F.clave_acceso, TA.nombres" + Environment.NewLine;
+                sSql += "from cv403_facturas F, cv403_numeros_facturas NF, tp_personas P, " + Environment.NewLine;
+                sSql += "tp_vw_localidades VL, cel_tipo_ambiente TA" + Environment.NewLine;
+                sSql += "where NF.id_factura = F.id_factura" + Environment.NewLine;
+                sSql += "and F.id_localidad = VL.id_localidad" + Environment.NewLine;
+                sSql += "and F.id_persona = P.id_persona" + Environment.NewLine;
+                sSql += "and F.id_tipo_ambiente = TA.id_tipo_ambiente" + Environment.NewLine;
+                sSql += "and VL.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
+                sSql += "and F.estado = 'A'" + Environment.NewLine;
+                sSql += "and NF.estado = 'A'" + Environment.NewLine;
+                sSql += "and P.estado = 'A'" + Environment.NewLine;
+                sSql += "and TA.estado = 'A'" + Environment.NewLine;
+                sSql += "and F.fecha_factura between '" + sFechaInicial + "'" + Environment.NewLine;
+                sSql += "and '" + sFechaFinal + "'" + Environment.NewLine;
+                sSql += "and F.idtipocomprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
+                sSql += "and autorizacion <> ''";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -286,20 +286,20 @@ namespace Palatium.Facturacion_Electronica
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
                             sNumeroComprobante = "";
-                            sNumeroComprobante = sNumeroComprobante + dtConsulta.Rows[i].ItemArray[1].ToString() +
-                                                 dtConsulta.Rows[i].ItemArray[2].ToString() +
-                                                 dtConsulta.Rows[i].ItemArray[3].ToString().PadLeft(9, '0');
+                            sNumeroComprobante = sNumeroComprobante + dtConsulta.Rows[i][1].ToString() +
+                                                 dtConsulta.Rows[i][2].ToString() +
+                                                 dtConsulta.Rows[i][3].ToString().PadLeft(9, '0');
                             
                             dgvDatos.Rows.Add(
                                                 false,                                                
-                                                dtConsulta.Rows[i].ItemArray[0].ToString(),
+                                                dtConsulta.Rows[i][0].ToString(),
                                                 cmbTipoComprobante.Text,
                                                 sNumeroComprobante,
-                                                dtConsulta.Rows[i].ItemArray[4].ToString(),
-                                                dtConsulta.Rows[i].ItemArray[5].ToString(),
-                                                dtConsulta.Rows[i].ItemArray[6].ToString().Substring(0, 10),
-                                                dtConsulta.Rows[i].ItemArray[7].ToString(),
-                                                dtConsulta.Rows[i].ItemArray[8].ToString()
+                                                dtConsulta.Rows[i][4].ToString(),
+                                                dtConsulta.Rows[i][5].ToString(),
+                                                dtConsulta.Rows[i][6].ToString().Substring(0, 10),
+                                                dtConsulta.Rows[i][7].ToString(),
+                                                dtConsulta.Rows[i][8].ToString()
                                 );
                         }
 
@@ -350,7 +350,6 @@ namespace Palatium.Facturacion_Electronica
         private void btnDesde_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtFechaInicial.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)
@@ -371,7 +370,6 @@ namespace Palatium.Facturacion_Electronica
         private void btnHasta_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtFechaFinal.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)

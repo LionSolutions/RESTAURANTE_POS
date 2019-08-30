@@ -325,7 +325,6 @@ namespace Palatium.Clases_Factura_Electronica
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
 
@@ -335,7 +334,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }
@@ -372,7 +370,6 @@ namespace Palatium.Clases_Factura_Electronica
                 else
                 {
                     catchMensaje.LblMensaje.Text = "Error: Recuperando los datos de la tabla contingencia.";
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
             }
@@ -380,7 +377,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -427,7 +423,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "01";
             }
@@ -452,7 +447,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }

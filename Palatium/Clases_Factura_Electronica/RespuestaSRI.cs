@@ -18,6 +18,7 @@ namespace Palatium
         public string FechaAutorizacion { get; set; }
         public string Ambiente { get; set; }
 
+        public string Comprobante { get; set; }
 
         public RespuestaSRI() { }
     }

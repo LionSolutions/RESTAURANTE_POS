@@ -1193,7 +1193,6 @@ namespace Palatium.Clases_Factura_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 

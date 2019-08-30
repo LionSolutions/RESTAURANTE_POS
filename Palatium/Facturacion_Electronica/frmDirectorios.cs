@@ -42,10 +42,10 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_tipo_comprobante, nombres" + Environment.NewLine;
-                sSql = sSql + "from cel_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "Where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "order by id_tipo_comprobante";
+                sSql += "select id_tipo_comprobante, nombres" + Environment.NewLine;
+                sSql += "from cel_tipo_comprobante" + Environment.NewLine;
+                sSql += "Where estado = 'A'" + Environment.NewLine;
+                sSql += "order by id_tipo_comprobante";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -76,15 +76,15 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "Select D.orden 'No.', D.Codigo 'Código', D.Nombres," + Environment.NewLine;
-                sSql = sSql + "case (D.Estado) when 'A' then 'ACTIVO' else 'INACTIVO' end Estado," + Environment.NewLine;
-                sSql = sSql + "D.id_directorio" + Environment.NewLine;
-                sSql = sSql + "From cel_tipo_comprobante C, cel_directorio D" + Environment.NewLine;
-                sSql = sSql + "Where D.id_tipo_comprobante = C.id_tipo_comprobante" + Environment.NewLine;
-                sSql = sSql + "and D.Id_tipo_comprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
-                sSql = sSql + "and D.Estado ='A'" + Environment.NewLine;
-                sSql = sSql + "and C.Estado ='A'" + Environment.NewLine;
-                sSql = sSql + "order by D.orden";
+                sSql += "Select D.orden 'No.', D.Codigo 'Código', D.Nombres," + Environment.NewLine;
+                sSql += "case (D.Estado) when 'A' then 'ACTIVO' else 'INACTIVO' end Estado," + Environment.NewLine;
+                sSql += "D.id_directorio" + Environment.NewLine;
+                sSql += "From cel_tipo_comprobante C, cel_directorio D" + Environment.NewLine;
+                sSql += "Where D.id_tipo_comprobante = C.id_tipo_comprobante" + Environment.NewLine;
+                sSql += "and D.Id_tipo_comprobante = " + Convert.ToInt32(cmbTipoComprobante.SelectedValue) + Environment.NewLine;
+                sSql += "and D.Estado ='A'" + Environment.NewLine;
+                sSql += "and C.Estado ='A'" + Environment.NewLine;
+                sSql += "order by D.orden";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -140,21 +140,20 @@ namespace Palatium.Facturacion_Electronica
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "insert into cel_directorio(" + Environment.NewLine;
-                sSql = sSql + "id_tipo_comprobante, orden, codigo," + Environment.NewLine;
-                sSql = sSql + "nombres, estado, fecha_ingreso," + Environment.NewLine;
-                sSql = sSql + "usuario_ingreso, terminal_ingreso" + Environment.NewLine;
-                sSql = sSql + "values (" + Environment.NewLine;
-                sSql = sSql + iIdComprobante + ", '" + txtOrden.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'" + txtCodigo.Text.Trim() + "', '" + txtDirectorio.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "'A', GETDATE(), '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[1] + "')";
+                sSql += "insert into cel_directorio(" + Environment.NewLine;
+                sSql += "id_tipo_comprobante, orden, codigo," + Environment.NewLine;
+                sSql += "nombres, estado, fecha_ingreso," + Environment.NewLine;
+                sSql += "usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values (" + Environment.NewLine;
+                sSql += iIdComprobante + ", '" + txtOrden.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'" + txtCodigo.Text.Trim() + "', '" + txtDirectorio.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "'A', GETDATE(), '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[1] + "')";
 
                 //EJECUTA EL QUERY DE INSERCION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -169,7 +168,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.ShowDialog();
                 llenarGrid();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -182,8 +181,6 @@ namespace Palatium.Facturacion_Electronica
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         //FUNCION PARA ACTUALIZAR EL REGISTRO
@@ -195,26 +192,24 @@ namespace Palatium.Facturacion_Electronica
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "Update cel_directorio set" + Environment.NewLine;
-                sSql = sSql + "orden = '" + txtOrden.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "Codigo = '" + txtCodigo.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "Nombres = '" + txtDirectorio.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "Usuario_Ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "Terminal_Ingreso = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql = sSql + "Fecha_Ingreso = GetDate()" + Environment.NewLine;
-                sSql = sSql + "Where id_directorio = " + iIdDirectorio;
+                sSql += "Update cel_directorio set" + Environment.NewLine;
+                sSql += "orden = '" + txtOrden.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "Codigo = '" + txtCodigo.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "Nombres = '" + txtDirectorio.Text.Trim() + "'" + Environment.NewLine;
+                //sSql += "Usuario_Ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                //sSql += "Terminal_Ingreso = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
+                //sSql += "Fecha_Ingreso = GetDate()" + Environment.NewLine;
+                sSql += "Where id_directorio = " + iIdDirectorio;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -224,7 +219,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.ShowDialog();
                 llenarGrid();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -237,8 +232,6 @@ namespace Palatium.Facturacion_Electronica
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         //FUNCION PARA ELIMINAR EL REGISTRO
@@ -250,24 +243,22 @@ namespace Palatium.Facturacion_Electronica
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "Update cel_directorio set" + Environment.NewLine;
-                sSql = sSql + "estado = 'E'," + Environment.NewLine;
-                sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql = sSql + "fecha_anula = GetDate()" + Environment.NewLine;
-                sSql = sSql + "Where id_directorio = " + iIdDirectorio;
+                sSql += "Update cel_directorio set" + Environment.NewLine;
+                sSql += "estado = 'E'," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
+                sSql += "fecha_anula = GetDate()" + Environment.NewLine;
+                sSql += "Where id_directorio = " + iIdDirectorio;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -277,7 +268,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.ShowDialog();
                 llenarGrid();
                 limpiar();
-                goto fin;
+                return;
             }
 
             catch (Exception ex)
@@ -290,8 +281,6 @@ namespace Palatium.Facturacion_Electronica
             {
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
             }
-
-        fin: { }
         }
 
         #endregion

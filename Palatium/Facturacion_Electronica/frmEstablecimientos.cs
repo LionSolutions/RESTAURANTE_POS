@@ -41,14 +41,14 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql = sSql + "Select TP.Codigo, TP.valor_texto  +" + Environment.NewLine;
-                sSql = sSql + "case LOC.emite_comprobante_electronico when 1 then ' electronico' else '' end Nombres," + Environment.NewLine;
-                sSql = sSql + "LOC.establecimiento 'Est.',LOC.punto_emision 'Pto. Emi.', LOC.Direccion," + Environment.NewLine;
-                sSql = sSql + "case (LOC.Estado) when 'A' then 'ACTIVO' else 'INACTIVO' end Estado," + Environment.NewLine;
-                sSql = sSql + "LOC.Id_localidad" + Environment.NewLine;
-                sSql = sSql + "From tp_localidades LOC, tp_Codigos TP" + Environment.NewLine;
-                sSql = sSql + "Where LOC.cg_localidad = TP.correlativo and LOC.Estado ='A'" + Environment.NewLine;
-                sSql = sSql + "order by TP.Codigo";
+                sSql += "Select TP.Codigo, TP.valor_texto  +" + Environment.NewLine;
+                sSql += "case LOC.emite_comprobante_electronico when 1 then ' electronico' else '' end Nombres," + Environment.NewLine;
+                sSql += "LOC.establecimiento 'Est.',LOC.punto_emision 'Pto. Emi.', LOC.Direccion," + Environment.NewLine;
+                sSql += "case (LOC.Estado) when 'A' then 'ACTIVO' else 'INACTIVO' end Estado," + Environment.NewLine;
+                sSql += "LOC.Id_localidad" + Environment.NewLine;
+                sSql += "From tp_localidades LOC, tp_Codigos TP" + Environment.NewLine;
+                sSql += "Where LOC.cg_localidad = TP.correlativo and LOC.Estado ='A'" + Environment.NewLine;
+                sSql += "order by TP.Codigo";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -99,14 +99,14 @@ namespace Palatium.Facturacion_Electronica
                 }
 
                 sSql = "";
-                sSql = sSql + "Update tp_localidades Set" + Environment.NewLine;
-                sSql = sSql + "establecimiento= '" + txtEstablecimiento.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "punto_emision= '" + txtPuntoEmision.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "Direccion= '" + txtDireccion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "Usuario_Ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "Terminal_Ingreso = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql = sSql + "Fecha_Ingreso = GetDate()" + Environment.NewLine;
-                sSql = sSql + "Where Id_localidad = " + iIdLocalidad;
+                sSql += "Update tp_localidades Set" + Environment.NewLine;
+                sSql += "establecimiento= '" + txtEstablecimiento.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "punto_emision= '" + txtPuntoEmision.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "Direccion= '" + txtDireccion.Text.Trim() + "'" + Environment.NewLine;
+                //sSql += "Usuario_Ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                //sSql += "Terminal_Ingreso = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
+                //sSql += "Fecha_Ingreso = GetDate()" + Environment.NewLine;
+                sSql += "Where Id_localidad = " + iIdLocalidad;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -154,12 +154,12 @@ namespace Palatium.Facturacion_Electronica
                 }
 
                 sSql = "";
-                sSql = sSql + "Update tp_localidades Set" + Environment.NewLine;
-                sSql = sSql + "estado = 'E'," + Environment.NewLine;
-                sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql = sSql + "fecha_anula = GetDate()" + Environment.NewLine;
-                sSql = sSql + "Where id_directorio = " + iIdLocalidad;
+                sSql += "Update tp_localidades Set" + Environment.NewLine;
+                sSql += "estado = 'E'," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
+                sSql += "fecha_anula = GetDate()" + Environment.NewLine;
+                sSql += "Where id_directorio = " + iIdLocalidad;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))

@@ -407,12 +407,14 @@ namespace Palatium.Clases_Factura_Electronica
                 result.NumeroAutorizacion = GetNodeValue(pathLevelAutorizacion, "numeroAutorizacion", xml_doc);
                 result.FechaAutorizacion = GetNodeValue(pathLevelAutorizacion, "fechaAutorizacion", xml_doc);
                 result.Ambiente = GetNodeValue(pathLevelAutorizacion, "ambiente", xml_doc);
+                result.Comprobante = GetNodeValue(pathLevelAutorizacion, "comprobante", xml_doc);
             }
             else if (result.Estado == "NO AUTORIZADO")
             {
                 result.Estado = GetNodeValue(pathLevelAutorizacion, "estado", xml_doc);
                 result.FechaAutorizacion = GetNodeValue(pathLevelAutorizacion, "fechaAutorizacion", xml_doc);
                 result.Ambiente = GetNodeValue(pathLevelAutorizacion, "ambiente", xml_doc);
+                result.Comprobante = GetNodeValue(pathLevelAutorizacion, "comprobante", xml_doc);
                 result.ErrorIdentificador = GetNodeValue(pathLevelMensajes, "identificador", xml_doc);
                 result.ErrorMensaje = GetNodeValue(pathLevelMensajes, "mensaje", xml_doc);
                 result.ErrorTipo = GetNodeValue(pathLevelMensajes, "tipo", xml_doc);
@@ -466,10 +468,11 @@ namespace Palatium.Clases_Factura_Electronica
         /// <summary>
         /// Envía la clave de acceso a los webs services del SRI para consultar ele estado de autorización.
         /// </summary>
-        public RespuestaSRI AutorizacionComprobante(out XmlDocument xml_doc, string sClaveAcceso)
+        public RespuestaSRI AutorizacionComprobante(out XmlDocument xml_doc, string sClaveAcceso, string sWebService_P)
         {
             RespuestaSRI result = null;
-            string ws_url = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
+            //string ws_url = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
+            string ws_url = sWebService_P;
 
             //Crea el request del web service
             HttpWebRequest request = CreateWebRequest(ws_url, "POST");
