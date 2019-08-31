@@ -37,7 +37,6 @@ namespace Palatium.Informes
         private void btnDesde_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtDesde.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)
@@ -50,7 +49,6 @@ namespace Palatium.Informes
         private void btnHasta_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtHasta.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)
@@ -151,7 +149,6 @@ namespace Palatium.Informes
                             else
                             {
                                 ok.LblMensaje.Text = "Ocurrió un problema al cargar las formas de pago";
-                                ok.ShowInTaskbar = false;
                                 ok.ShowDialog();
                             }
 
@@ -166,14 +163,12 @@ namespace Palatium.Informes
                     else
                     {
                         ok.LblMensaje.Text = "No hay datos para mostrar en el rango de fechas seleccionadas";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al cargar el Reporte";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
@@ -182,7 +177,6 @@ namespace Palatium.Informes
             catch (Exception ex)
             {
                 ok.LblMensaje.Text = ex.ToString();
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }
@@ -273,7 +267,6 @@ namespace Palatium.Informes
                             else
                             {
                                 ok.LblMensaje.Text = "Ocurrió un problema al cargar las formas de pago";
-                                ok.ShowInTaskbar = false;
                                 ok.ShowDialog();
                             }
 
@@ -284,14 +277,12 @@ namespace Palatium.Informes
                     else
                     {
                         ok.LblMensaje.Text = "No hay datos para mostrar en el rango de fechas seleccionadas";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al cargar el grid";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
@@ -300,7 +291,6 @@ namespace Palatium.Informes
             catch (Exception ex)
             {
                 ok.LblMensaje.Text = ex.ToString();
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }
@@ -314,14 +304,12 @@ namespace Palatium.Informes
                 else
                 {
                     ok.LblMensaje.Text = "No hay datos para mostrar";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
             catch (Exception ex)
             {
                 ok.LblMensaje.Text = ex.ToString();
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }

@@ -31,7 +31,6 @@ namespace Palatium.Informes
         private void btnDesde_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtDesde.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)
@@ -44,7 +43,6 @@ namespace Palatium.Informes
         private void btnHasta_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtHasta.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)

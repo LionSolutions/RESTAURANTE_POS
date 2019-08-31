@@ -287,6 +287,7 @@
     <Compile Include="Clases\ClaseLlenarMonedas.cs" />
     <Compile Include="Clases\ClaseNotaVentaFacturador.cs" />
     <Compile Include="Clases\ClaseReporteMateriaPrima.cs" />
+    <Compile Include="Clases_Factura_Electronica\ClaseImprimirFacturaElectronica.cs" />
     <Compile Include="Comida_Rapida\frmComandaComidaRapida.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,11 +324,29 @@
     <Compile Include="Empresa\frmClienteEmpresarial.Designer.cs">
       <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empresa\frmEmpleadosEmpresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmEmpleadosEmpresas.Designer.cs">
+      <DependentUpon>frmEmpleadosEmpresas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empresa\frmModalClienteEmpresarial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Empresa\frmModalClienteEmpresarial.Designer.cs">
       <DependentUpon>frmModalClienteEmpresarial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empresa\frmModalEmpleadoEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmModalEmpleadoEmpresa.Designer.cs">
+      <DependentUpon>frmModalEmpleadoEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empresa\frmSeleccionEmpresaEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmSeleccionEmpresaEmpleado.Designer.cs">
+      <DependentUpon>frmSeleccionEmpresaEmpleado.cs</DependentUpon>
     </Compile>
     <Compile Include="Facturacion_Electronica\frmTipoAmbiente.cs">
       <SubType>Form</SubType>
@@ -2014,8 +2033,17 @@
     <EmbeddedResource Include="Empresa\frmClienteEmpresarial.resx">
       <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmEmpleadosEmpresas.resx">
+      <DependentUpon>frmEmpleadosEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Empresa\frmModalClienteEmpresarial.resx">
       <DependentUpon>frmModalClienteEmpresarial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmModalEmpleadoEmpresa.resx">
+      <DependentUpon>frmModalEmpleadoEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmSeleccionEmpresaEmpleado.resx">
+      <DependentUpon>frmSeleccionEmpresaEmpleado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion_Electronica\frmTipoAmbiente.resx">
       <DependentUpon>frmTipoAmbiente.cs</DependentUpon>
@@ -3023,6 +3051,8 @@
     <None Include="Resources\formatos_impresion_nuevo.png" />
     <None Include="Resources\flujo_clientes_nuevo.png" />
     <None Include="Resources\icono_pagar_almuerzo.ico" />
+    <None Include="Resources\icono_boton_empleado.png" />
+    <None Include="Resources\icono_boton_empresa.png" />
     <Content Include="Resources\icono_sri_2.png" />
     <None Include="Resources\impresoras_menu.png" />
     <None Include="Resources\impresiones_nuevo.png" />

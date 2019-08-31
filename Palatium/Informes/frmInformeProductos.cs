@@ -33,13 +33,11 @@ namespace Palatium.Informes
             if (txtDesde.Text == "")
             {
                 ok.LblMensaje.Text = "Seleccione un fecha de inicio.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
             else if (TxtHasta.Text == "")
             {
                 ok.LblMensaje.Text = "Seleccione un fecha Fin.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -106,7 +104,6 @@ namespace Palatium.Informes
                     {
                       
                         ok.LblMensaje.Text = "No hay productos registrados en el rango de fechas";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
 

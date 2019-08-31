@@ -33,27 +33,24 @@ namespace Palatium.Impresoras
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION PARA CARGAR LAS IMPRESORAS
-
-
         //FUNCION PARA LLENAR EL DATAGRIDVIEW
         private void llenarGrid(int iOp)
         {
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_pos_impresion_comanda as 'ID', codigo as CÓDIGO, descripcion as DESCRIPCION," + Environment.NewLine;
-                sSql = sSql + "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end as ESTADO, isnull(id_pos_impresora, 0)" + Environment.NewLine;
-                sSql = sSql + "from pos_impresion_comanda" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
+                sSql += "select id_pos_impresion_comanda as 'ID', codigo as CÓDIGO, descripcion as DESCRIPCION," + Environment.NewLine;
+                sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end as ESTADO, isnull(id_pos_impresora, 0)" + Environment.NewLine;
+                sSql += "from pos_impresion_comanda" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
 
                 if (iOp == 1)
                 {
-                    sSql = sSql + "and (codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
-                    sSql = sSql + "or descripcion like '%" + txtBuscar.Text.Trim() + "%')";
+                    sSql += "and (codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "or descripcion like '%" + txtBuscar.Text.Trim() + "%')";
                 }
 
-                sSql = sSql + "order by id_pos_impresion_comanda";
+                sSql += "order by id_pos_impresion_comanda";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -142,17 +139,17 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "insert into pos_impresion_comanda (" + Environment.NewLine;
-                sSql = sSql + "codigo, descripcion, id_pos_impresora, estado," + Environment.NewLine;
-                sSql = sSql + "fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
-                sSql = sSql + "values(" + Environment.NewLine;
-                sSql = sSql + "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + Convert.ToInt32(cmbImpresoras.SelectedValue) + ", 'A', GETDATE()," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+                sSql += "insert into pos_impresion_comanda (" + Environment.NewLine;
+                sSql += "codigo, descripcion, id_pos_impresora, estado," + Environment.NewLine;
+                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values(" + Environment.NewLine;
+                sSql += "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += Convert.ToInt32(cmbImpresoras.SelectedValue) + ", 'A', GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -167,6 +164,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro ingresado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
@@ -175,12 +173,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         //FUNCION PARA ACTUALIZAR EN LA BASE DE DATOS
@@ -194,16 +188,15 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "update pos_impresion_comanda set" + Environment.NewLine;
-                sSql = sSql + "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "id_pos_impresora = " + Convert.ToInt32(cmbImpresoras.SelectedValue) + Environment.NewLine;
-                sSql = sSql + "where id_pos_impresion_comanda = " + iIdImpresionComanda + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
-
+                sSql += "update pos_impresion_comanda set" + Environment.NewLine;
+                sSql += "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "id_pos_impresora = " + Convert.ToInt32(cmbImpresoras.SelectedValue) + Environment.NewLine;
+                sSql += "where id_pos_impresion_comanda = " + iIdImpresionComanda + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -218,6 +211,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro actualizado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
@@ -226,12 +220,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         //FUNCION PARA ELIMINAR EN LA BASE DE DATOS
@@ -245,17 +235,16 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
-                sSql = sSql + "update pos_impresion_comanda set" + Environment.NewLine;
-                sSql = sSql + "estado = 'E'," + Environment.NewLine;
-                sSql = sSql + "fecha_anula = GETDATE()," + Environment.NewLine;
-                sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
-                sSql = sSql + "where id_pos_impresion_comanda = " + iIdImpresionComanda;
-
+                sSql += "update pos_impresion_comanda set" + Environment.NewLine;
+                sSql += "estado = 'E'," + Environment.NewLine;
+                sSql += "fecha_anula = GETDATE()," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
+                sSql += "where id_pos_impresion_comanda = " + iIdImpresionComanda;
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -270,6 +259,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
@@ -278,12 +268,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         //FUNCION PARA CONSULTAR SI EL REGISTRO YA SE UTILIZÓ EN UNA TRANSACCION
@@ -292,10 +278,10 @@ namespace Palatium.Impresoras
             try
             {
                 sSql = "";
-                sSql = sSql + "select count(*) cuenta" + Environment.NewLine;
-                sSql = sSql + "from cv403_det_pedidos" + Environment.NewLine;
-                sSql = sSql + "where id_pos_impresion_comanda = " + iIdImpresionComanda + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
+                sSql += "select count(*) cuenta" + Environment.NewLine;
+                sSql += "from cv403_det_pedidos" + Environment.NewLine;
+                sSql += "where id_pos_impresion_comanda = " + iIdImpresionComanda + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();

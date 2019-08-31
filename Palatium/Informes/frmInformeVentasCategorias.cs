@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using Office = Microsoft.Office.Core;
+//using Office = Microsoft.Office.Core;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Palatium.Informes

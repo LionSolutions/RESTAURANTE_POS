@@ -96,7 +96,7 @@ namespace Palatium.Impresoras
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_localidad,nombre_localidad from tp_vw_localidades";
+                sSql = sSql + "select id_localidad, nombre_localidad from tp_vw_localidades";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -215,7 +215,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -244,6 +244,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro ingresado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch(Exception ex)
@@ -252,12 +253,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
 
@@ -272,7 +269,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -284,7 +281,6 @@ namespace Palatium.Impresoras
                 sSql += "id_pos_impresora = " + Convert.ToInt32(cmbImpresoras.SelectedValue) + Environment.NewLine;
                 sSql += "where id_pos_canal_impresion = " + iIdPosCanalImpresion + Environment.NewLine;
                 sSql += "and estado = 'A'";
-
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -299,6 +295,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro actualizado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
@@ -307,12 +304,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
 
@@ -327,7 +320,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -337,7 +330,6 @@ namespace Palatium.Impresoras
                 sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
                 sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
                 sSql = sSql + "where id_pos_impresora = " + iIdPosCanalImpresion;
-
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -352,6 +344,7 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
@@ -360,12 +353,8 @@ namespace Palatium.Impresoras
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         #endregion

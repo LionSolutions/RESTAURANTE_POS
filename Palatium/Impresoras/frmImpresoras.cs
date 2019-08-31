@@ -180,7 +180,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -210,20 +210,18 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro ingresado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch(Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
+                goto reversa;
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
 
@@ -238,7 +236,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -253,7 +251,6 @@ namespace Palatium.Impresoras
                 sSql = sSql + "abrir_cajon = " + iAbrirCajon + Environment.NewLine; 
                 sSql = sSql + "where id_pos_impresora = " + iIdImpresora + Environment.NewLine;
                 sSql = sSql + "and estado = 'A'";
-
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -274,14 +271,10 @@ namespace Palatium.Impresoras
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
+                goto reversa;
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
-
-        fin: { }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
         }
 
         //FUNCION PARA ELIMINAR EN LA BASE DE DATOS
@@ -295,7 +288,7 @@ namespace Palatium.Impresoras
                     ok.LblMensaje.Text = "Error al abrir transacción.";
                     ok.ShowDialog();
                     limpiar();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -305,7 +298,6 @@ namespace Palatium.Impresoras
                 sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
                 sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
                 sSql = sSql + "where id_pos_impresora = " + iIdImpresora;
-
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -320,20 +312,18 @@ namespace Palatium.Impresoras
                 ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
                 ok.ShowDialog();
                 limpiar();
+                return;
             }
 
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
+                goto reversa;
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
 
-        fin: { }
         }
 
         //FUNCION PARA LLENAR EL DATAGRIDVIEW
