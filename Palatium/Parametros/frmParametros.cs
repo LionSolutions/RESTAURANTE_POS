@@ -51,6 +51,29 @@ namespace Palatium.Parametros
 
         #region FUNCIONES DEL USUARIO
 
+        //FUNCION PARA LLENAR EL COMBO DE TIPO DE COMPROBANTES
+        private void llenarComboPComprobantes()
+        {
+            try
+            {
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+                
+                sSql = "";
+                sSql += "select idtipocomprobante, descripcion" + Environment.NewLine;
+                sSql += "from vta_tipocomprobante" + Environment.NewLine;
+                sSql += "where estado = 'A'";
+
+                cmbTipoComprobante.llenar(dtConsulta, sSql);
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.lblMensaje.Text = ex.ToString();
+                catchMensaje.ShowDialog();
+            }
+        }
+
         private bool verificarCampos()
         {
             if (txtIva.Text == "")
@@ -126,6 +149,14 @@ namespace Palatium.Parametros
                 return false;
             }
 
+            else if (Convert.ToInt32(this.cmbTipoComprobante.SelectedValue) == 0)
+            {
+                ok.lblMensaje.Text = "Favor seleccione el tipo de comprobante para Notas de Entrega.";
+                ok.ShowDialog();
+                cmbTipoComprobante.Focus();
+                return false;
+            }
+
             else
             {
                 return true;
@@ -154,7 +185,7 @@ namespace Palatium.Parametros
                 sSql += "codigo_modificador, logo, seleccion_mesero, vista_previa_impresion," + Environment.NewLine;
                 sSql += "opcion_login, habilitar_teclado_touch, demo, descarga_receta,)" + Environment.NewLine;
                 sSql += "contacto_fabricante, sitio_web_fabricante, animacion_mesas," + Environment.NewLine;
-                sSql += "url_contabilidad, rise, numero_personas_default, ruta_reportes)" + Environment.NewLine;
+                sSql += "url_contabilidad, rise, numero_personas_default, ruta_reportes, idtipocomprobante)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += dBAyudaModificadores.iId + ", " + dBAyudaMovilizacion.iId + ", " + dBAyudaNuevoItem.iId + "," + Environment.NewLine;
                 sSql += Convert.ToDouble(txtIva.Text) + ", " + Convert.ToDouble(txtIce.Text) + "," + Environment.NewLine;
@@ -167,7 +198,7 @@ namespace Palatium.Parametros
                 sSql += iVistaPreviaImpresiones + ", " + iUsuarioLogin + ", " + iTecladoTouch + ", " + iVesionDemo + ", " + iUsarReceta + Environment.NewLine;
                 sSql += "'" + txtTelefono.Text.Trim() + "', '" + txtSitioWeb.Text.Trim().ToLower() + "'," + Environment.NewLine;
                 sSql += iAnimacionMesas + ", '" + txtUrlContable.Text.Trim() + "', " + iRISE + "," + Environment.NewLine;
-                sSql += Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + ", '" + txtUrlContable.Text.Trim() + "')";
+                sSql += Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + ", '" + txtUrlContable.Text.Trim() + "', " + cmbTipoComprobante.SelectedValue +")";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
@@ -243,7 +274,8 @@ namespace Palatium.Parametros
                 sSql += "url_contabilidad = '" + txtUrlContable.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "rise = " + iRISE + "," + Environment.NewLine;
                 sSql += "numero_personas_default = " + Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + "," + Environment.NewLine;
-                sSql += "ruta_reportes = '" + txtUrlReportes.Text.Trim() + "'" + Environment.NewLine;
+                sSql += "ruta_reportes = '" + txtUrlReportes.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "idtipocomprobante = " + cmbTipoComprobante.SelectedValue + Environment.NewLine;
                 sSql += "where id_pos_parametro = " + iIdParametro;
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -282,6 +314,7 @@ namespace Palatium.Parametros
         //FUNCION PARA LIMPIAR
         private void limpiar()
         {
+            llenarComboPComprobantes();
             iIdParametro = 0;
             txtIva.Text = "0";
             txtIce.Text = "0";
@@ -367,6 +400,7 @@ namespace Palatium.Parametros
                         iRISE = Convert.ToInt32(dtConsulta.Rows[0][32].ToString());
                         txtNumeroPersonas.Text = dtConsulta.Rows[0][33].ToString();
                         txtUrlReportes.Text = dtConsulta.Rows[0][34].ToString();
+                        cmbTipoComprobante.SelectedValue = dtConsulta.Rows[0]["idtipocomprobante"].ToString();
 
                         if (iLeerMesero == 1)
                         {
@@ -772,6 +806,7 @@ namespace Palatium.Parametros
         private void frmParametros_Load(object sender, EventArgs e)
         {
             llenarDbAyuda();
+            llenarComboPComprobantes();
             cargarParametros();
         }
 

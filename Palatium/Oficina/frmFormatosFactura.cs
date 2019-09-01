@@ -393,7 +393,6 @@ namespace Palatium.Oficina
                         else
                         {
                             ok.LblMensaje.Text = sSql;
-                            ok.ShowInTaskbar = false;
                             ok.ShowDialog();
                         }
                     }

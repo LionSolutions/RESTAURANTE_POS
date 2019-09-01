@@ -76,7 +76,6 @@ namespace Palatium.Oficina
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta. Comuníquese con el administrador";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -84,7 +83,6 @@ namespace Palatium.Oficina
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

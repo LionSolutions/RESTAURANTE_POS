@@ -58,7 +58,7 @@ namespace Palatium.Oficina
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            dSuma = dSuma + Convert.ToDouble(dtConsulta.Rows[i].ItemArray[1].ToString());
+                            dSuma = dSuma + Convert.ToDouble(dtConsulta.Rows[i][1].ToString());
                         }
 
                         dgvDatos.Columns[0].Width = 250;
@@ -72,7 +72,6 @@ namespace Palatium.Oficina
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
             }
@@ -80,7 +79,6 @@ namespace Palatium.Oficina
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

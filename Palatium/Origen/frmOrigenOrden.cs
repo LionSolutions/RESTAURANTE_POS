@@ -45,8 +45,8 @@ namespace Palatium.Origen
             try
             {
                 sSql = "";
-                sSql = sSql + "select * from cv403_cab_pedidos" + Environment.NewLine;
-                sSql = sSql + "where id_pos_origen_orden = " + iIdOrigenOrden;
+                sSql += "select * from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where id_pos_origen_orden = " + iIdOrigenOrden;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -86,8 +86,8 @@ namespace Palatium.Origen
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_persona, ltrim(apellidos + ' ' + isnull(nombres,'')) as apellidos, identificacion" + Environment.NewLine;
-                sSql = sSql + "from tp_personas where estado = 'A'";
+                sSql += "select id_persona, ltrim(apellidos + ' ' + isnull(nombres,'')) as apellidos, identificacion" + Environment.NewLine;
+                sSql += "from tp_personas where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
@@ -117,10 +117,10 @@ namespace Palatium.Origen
             try
             {
                 sSql = "";
-                sSql = sSql + "select id_persona, ltrim(apellidos + ' ' + isnull(nombres, '')) as apellidos, identificacion" + Environment.NewLine;
-                sSql = sSql + "from tp_personas" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and id_persona = " + iIdPersona;
+                sSql += "select id_persona, ltrim(apellidos + ' ' + isnull(nombres, '')) as apellidos, identificacion" + Environment.NewLine;
+                sSql += "from tp_personas" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
+                sSql += "and id_persona = " + iIdPersona;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -168,9 +168,9 @@ namespace Palatium.Origen
                 dtConsulta = new DataTable();
 
                 sSql = "";
-                sSql = sSql + "select id_pos_modo_delivery, descripcion" + Environment.NewLine;
-                sSql = sSql + "from pos_modo_delivery" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select id_pos_modo_delivery, descripcion" + Environment.NewLine;
+                sSql += "from pos_modo_delivery" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 cmbModoDelivery.llenar(dtConsulta, sSql);
 
@@ -195,9 +195,9 @@ namespace Palatium.Origen
                 dtConsulta = new DataTable();
 
                 sSql = "";
-                sSql = sSql + "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
-                sSql = sSql + "from pos_tipo_forma_cobro" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
+                sSql += "from pos_tipo_forma_cobro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 cmbFormasCobros.llenar(dtConsulta, sSql);
 
@@ -220,9 +220,9 @@ namespace Palatium.Origen
             try
             {
                 sSql = "";
-                sSql = sSql + "select isnull(maneja_servicio, 0)" + Environment.NewLine;
-                sSql = sSql + "from pos_parametro" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'";
+                sSql += "select isnull(maneja_servicio, 0)" + Environment.NewLine;
+                sSql += "from pos_parametro" + Environment.NewLine;
+                sSql += "where estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -303,22 +303,22 @@ namespace Palatium.Origen
             try
             {
                 sSql = "";
-                sSql = sSql + "select codigo as CODIGO, descripcion as DESCRIPCION," + Environment.NewLine;
-                sSql = sSql + "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
-                sSql = sSql + "id_pos_origen_orden, presenta_opcion_delivery, genera_factura," + Environment.NewLine;
-                sSql = sSql + "repartidor_externo, isnull(imagen, '') imagen, id_pos_modo_delivery," + Environment.NewLine;
-                sSql = sSql + "isnull(id_pos_tipo_forma_cobro, 0), isnull(id_persona, 0), maneja_servicio," + Environment.NewLine;
-                sSql = sSql + "isnull(porcentaje_descuento_externo, '0') porcentaje_descuento_externo" + Environment.NewLine;
-                sSql = sSql + "from pos_origen_orden" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
+                sSql += "select codigo as CODIGO, descripcion as DESCRIPCION," + Environment.NewLine;
+                sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
+                sSql += "id_pos_origen_orden, presenta_opcion_delivery, genera_factura," + Environment.NewLine;
+                sSql += "repartidor_externo, isnull(imagen, '') imagen, id_pos_modo_delivery," + Environment.NewLine;
+                sSql += "isnull(id_pos_tipo_forma_cobro, 0), isnull(id_persona, 0), maneja_servicio," + Environment.NewLine;
+                sSql += "isnull(porcentaje_descuento_externo, '0') porcentaje_descuento_externo" + Environment.NewLine;
+                sSql += "from pos_origen_orden" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
 
                 if (iOp == 1)
                 {
-                    sSql = sSql + "and codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
-                    sSql = sSql + "or descripcion like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "and codigo like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
+                    sSql += "or descripcion like '%" + txtBuscar.Text.Trim() + "%'" + Environment.NewLine;
                 }
 
-                sSql = sSql + "order by id_pos_origen_orden";
+                sSql += "order by id_pos_origen_orden";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -377,36 +377,36 @@ namespace Palatium.Origen
                 //=======================================================================================================
 
                 sSql = "";
-                sSql = sSql + "insert into pos_origen_orden (" + Environment.NewLine;
-                sSql = sSql + "codigo, descripcion, genera_factura, id_pos_modo_delivery," + Environment.NewLine;
-                sSql = sSql + "presenta_opcion_delivery, repartidor_externo, imagen," + Environment.NewLine;
-                sSql = sSql + "id_pos_tipo_forma_cobro, id_persona, maneja_servicio," + Environment.NewLine;
-                sSql = sSql + "porcentaje_descuento_externo, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
-                sSql = sSql + "values(" + Environment.NewLine;
-                sSql = sSql + "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + iGeneraFactura + ", " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + ", " + Environment.NewLine;
-                sSql = sSql + iDelivery + ", " + iRepartidor + ", '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "insert into pos_origen_orden (" + Environment.NewLine;
+                sSql += "codigo, descripcion, genera_factura, id_pos_modo_delivery," + Environment.NewLine;
+                sSql += "presenta_opcion_delivery, repartidor_externo, imagen," + Environment.NewLine;
+                sSql += "id_pos_tipo_forma_cobro, id_persona, maneja_servicio," + Environment.NewLine;
+                sSql += "porcentaje_descuento_externo, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values(" + Environment.NewLine;
+                sSql += "'" + txtCodigo.Text.Trim() + "', '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += iGeneraFactura + ", " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + ", " + Environment.NewLine;
+                sSql += iDelivery + ", " + iRepartidor + ", '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
 
                 if (iGeneraFactura == 1)
                 {
-                    sSql = sSql + "null, null," + Environment.NewLine;
+                    sSql += "null, null," + Environment.NewLine;
                 }
 
                 else
                 {
                     if (dbAyudaPersona.iId == 0)
                     {
-                        sSql = sSql + Convert.ToInt32(cmbFormasCobros.SelectedValue) + ", null," + Environment.NewLine;
+                        sSql += Convert.ToInt32(cmbFormasCobros.SelectedValue) + ", null," + Environment.NewLine;
                     }
 
                     else
                     {
-                        sSql = sSql + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + dbAyudaPersona.iId + "," + Environment.NewLine;
+                        sSql += Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + dbAyudaPersona.iId + "," + Environment.NewLine;
                     }
                 }
 
-                sSql = sSql + iIdManejaServicio + "," + dPorcentajeDescuento + ", 'A', GETDATE()," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+                sSql += iIdManejaServicio + "," + dPorcentajeDescuento + ", 'A', GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -455,38 +455,38 @@ namespace Palatium.Origen
                 //=======================================================================================================
 
                 sSql = "";
-                sSql = sSql + "update pos_origen_orden set" + Environment.NewLine;
-                sSql = sSql + "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "genera_factura = " + iGeneraFactura + "," + Environment.NewLine;
-                sSql = sSql + "id_pos_modo_delivery = " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + "," + Environment.NewLine;
-                sSql = sSql + "presenta_opcion_delivery = " + iDelivery + "," + Environment.NewLine;
-                sSql = sSql + "repartidor_externo = " + iRepartidor + "," + Environment.NewLine;
-                sSql = sSql + "imagen = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
-                sSql = sSql + "maneja_servicio = " + iIdManejaServicio + "," + Environment.NewLine;
-                sSql = sSql + "porcentaje_descuento_externo = " + dPorcentajeDescuento + "," + Environment.NewLine;
+                sSql += "update pos_origen_orden set" + Environment.NewLine;
+                sSql += "descripcion = '" + txtDescripcion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "genera_factura = " + iGeneraFactura + "," + Environment.NewLine;
+                sSql += "id_pos_modo_delivery = " + Convert.ToInt32(cmbModoDelivery.SelectedValue) + "," + Environment.NewLine;
+                sSql += "presenta_opcion_delivery = " + iDelivery + "," + Environment.NewLine;
+                sSql += "repartidor_externo = " + iRepartidor + "," + Environment.NewLine;
+                sSql += "imagen = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "maneja_servicio = " + iIdManejaServicio + "," + Environment.NewLine;
+                sSql += "porcentaje_descuento_externo = " + dPorcentajeDescuento + "," + Environment.NewLine;
 
                 if (iGeneraFactura == 1)
                 {
-                    sSql = sSql + "id_pos_tipo_forma_cobro = null," + Environment.NewLine;
-                    sSql = sSql + "id_persona = null" + Environment.NewLine;
+                    sSql += "id_pos_tipo_forma_cobro = null," + Environment.NewLine;
+                    sSql += "id_persona = null" + Environment.NewLine;
                 }
 
                 else
                 {
-                    sSql = sSql + "id_pos_tipo_forma_cobro = " + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + Environment.NewLine;
+                    sSql += "id_pos_tipo_forma_cobro = " + Convert.ToInt32(cmbFormasCobros.SelectedValue) + "," + Environment.NewLine;
 
                     if (dbAyudaPersona.iId == 0)
                     {
-                        sSql = sSql + "id_persona = null" + Environment.NewLine;
+                        sSql += "id_persona = null" + Environment.NewLine;
                     }
 
                     else
                     {
-                        sSql = sSql + "id_persona = " + dbAyudaPersona.iId + Environment.NewLine;
+                        sSql += "id_persona = " + dbAyudaPersona.iId + Environment.NewLine;
                     }
                 }
 
-                sSql = sSql + "where id_pos_origen_orden = " + iIdOrigenOrden;
+                sSql += "where id_pos_origen_orden = " + iIdOrigenOrden;
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -535,12 +535,12 @@ namespace Palatium.Origen
                 //=======================================================================================================
 
                 sSql = "";
-                sSql = sSql + "update pos_origen_orden set" + Environment.NewLine;
-                sSql = sSql + "estado = 'E'," + Environment.NewLine;
-                sSql = sSql + "fecha_anula = GETDATE()," + Environment.NewLine;
-                sSql = sSql + "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                sSql = sSql + "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
-                sSql = sSql + "where id_pos_origen_orden = " + iIdOrigenOrden;
+                sSql += "update pos_origen_orden set" + Environment.NewLine;
+                sSql += "estado = 'E'," + Environment.NewLine;
+                sSql += "fecha_anula = GETDATE()," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
+                sSql += "where id_pos_origen_orden = " + iIdOrigenOrden;
 
                 //EJECUTAR INSTRUCCION SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -589,14 +589,14 @@ namespace Palatium.Origen
             dbAyudaPersona.limpiar();
 
             sSql = "";
-            sSql = sSql + "select id_pos_origen_orden, descripcion, id_pos_modo_delivery," + Environment.NewLine;
-            sSql = sSql + "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
-            sSql = sSql + "presenta_opcion_delivery, genera_factura," + Environment.NewLine;
-            sSql = sSql + "repartidor_externo, isnull(imagen, '') imagen," + Environment.NewLine;
-            sSql = sSql + "id_pos_tipo_forma_cobro, id_persona" + Environment.NewLine;
-            sSql = sSql + "from pos_origen_orden" + Environment.NewLine;
-            sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-            sSql = sSql + "and codigo = '" + txtCodigo.Text.Trim() + "'";
+            sSql += "select id_pos_origen_orden, descripcion, id_pos_modo_delivery," + Environment.NewLine;
+            sSql += "case estado when 'A' then 'ACTIVO' else 'INACTIVO' end ESTADO," + Environment.NewLine;
+            sSql += "presenta_opcion_delivery, genera_factura," + Environment.NewLine;
+            sSql += "repartidor_externo, isnull(imagen, '') imagen," + Environment.NewLine;
+            sSql += "id_pos_tipo_forma_cobro, id_persona" + Environment.NewLine;
+            sSql += "from pos_origen_orden" + Environment.NewLine;
+            sSql += "where estado = 'A'" + Environment.NewLine;
+            sSql += "and codigo = '" + txtCodigo.Text.Trim() + "'";
 
             dtConsulta = new DataTable();
             dtConsulta.Clear();

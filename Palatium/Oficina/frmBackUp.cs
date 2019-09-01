@@ -102,7 +102,6 @@ namespace Palatium.Oficina
             try
             {
                 SiNo.lblMensaje.Text = "¿Desea realizar una copia de seguridad de la base de datos " + Program.SQLBDATOS + "?";
-                SiNo.ShowInTaskbar = false;
                 SiNo.ShowDialog();
 
                 if (SiNo.DialogResult == DialogResult.OK)

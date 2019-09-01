@@ -120,7 +120,6 @@ namespace Palatium.Oficina
                     if (dtConsulta.Rows.Count > 0)
                     {
                         ok.LblMensaje.Text = "Ya existe un registro con el codigo o datos ingresados para el equipo " + dtConsulta.Rows[0].ItemArray[3].ToString();
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                         goto fin;
                     }
@@ -129,7 +128,6 @@ namespace Palatium.Oficina
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto fin;
                 }
@@ -137,7 +135,6 @@ namespace Palatium.Oficina
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     goto fin;
                 }
@@ -149,7 +146,6 @@ namespace Palatium.Oficina
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -157,7 +153,6 @@ namespace Palatium.Oficina
                 //si no se ejecuta bien hara un commit
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
                 ok.LblMensaje.Text = "Registro ingresado éxitosamente.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 btnNuevo.Text = "Nuevo";
                 grupoDatos.Enabled = false;
@@ -169,7 +164,6 @@ namespace Palatium.Oficina
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 
@@ -190,7 +184,6 @@ namespace Palatium.Oficina
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     goto fin;
                 }
@@ -205,7 +198,6 @@ namespace Palatium.Oficina
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto reversa;
                 }
@@ -213,7 +205,6 @@ namespace Palatium.Oficina
                 //si no se ejecuta bien hara un commit
                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
                 ok.LblMensaje.Text = "Registro actualizado éxitosamente.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 btnNuevo.Text = "Nuevo";
                 grupoDatos.Enabled = false;
@@ -225,7 +216,6 @@ namespace Palatium.Oficina
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 
@@ -314,7 +304,6 @@ namespace Palatium.Oficina
             try
             {
                 SiNo.LblMensaje.Text = "¿Está seguro que desea eliminar el registro?";
-                SiNo.ShowInTaskbar = false;
                 SiNo.ShowDialog();
 
                 if (SiNo.DialogResult == DialogResult.OK)
@@ -323,7 +312,6 @@ namespace Palatium.Oficina
                     if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                     {
                         ok.LblMensaje.Text = "Error al abrir transacción.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                         goto fin;
                     }
@@ -334,14 +322,12 @@ namespace Palatium.Oficina
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                     {
                         catchMensaje.LblMensaje.Text = sSql;
-                        catchMensaje.ShowInTaskbar = false;
                         catchMensaje.ShowDialog();
                         goto reversa;
                     }
 
                     conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
                     ok.LblMensaje.Text = "Registro eliminado éxitosamente.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     limpiarTodo();
                     goto fin;
@@ -392,28 +378,24 @@ namespace Palatium.Oficina
                 if (txtCodigo.Text == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese el código para el terminal.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
                 else if (txtDescripcion.Text == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese la descripción para el terminal.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
                 else if (txtNombreEquipo.Text == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese el nombre del equipo.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
                 else if (TxtIPAsignada.Text == "")
                 {
                     ok.LblMensaje.Text = "Favor ingrese la IP asignada del equipo.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 

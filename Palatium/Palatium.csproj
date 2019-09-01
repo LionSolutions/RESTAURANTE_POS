@@ -397,6 +397,12 @@
       <DependentUpon>frmNuevoMenuConfiguracion.cs</DependentUpon>
     </Compile>
     <Compile Include="Areas\ClaseCombinarComandas.cs" />
+    <Compile Include="Oficina\frmRegistrarMovimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Oficina\frmRegistrarMovimientos.Designer.cs">
+      <DependentUpon>frmRegistrarMovimientos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedidos\ClaseIngresarCobros.cs" />
     <Compile Include="Pedidos\ClasePagoCompleto.cs" />
     <Compile Include="Pedidos\frmCobrarAlmuerzos.cs">
@@ -2069,6 +2075,9 @@
     <EmbeddedResource Include="Oficina\frmNuevoMenuConfiguracion.resx">
       <DependentUpon>frmNuevoMenuConfiguracion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Oficina\frmRegistrarMovimientos.resx">
+      <DependentUpon>frmRegistrarMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pedidos\frmCobrarAlmuerzos.resx">
       <DependentUpon>frmCobrarAlmuerzos.cs</DependentUpon>
     </EmbeddedResource>
@@ -3053,6 +3062,8 @@
     <None Include="Resources\icono_pagar_almuerzo.ico" />
     <None Include="Resources\icono_boton_empleado.png" />
     <None Include="Resources\icono_boton_empresa.png" />
+    <None Include="Resources\icono_cambio_orden.png" />
+    <None Include="Resources\icono_cliente_empresarial.png" />
     <Content Include="Resources\icono_sri_2.png" />
     <None Include="Resources\impresoras_menu.png" />
     <None Include="Resources\impresiones_nuevo.png" />

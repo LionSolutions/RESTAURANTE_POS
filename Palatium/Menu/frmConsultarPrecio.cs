@@ -41,26 +41,26 @@ namespace Palatium.Menú
             try
             {
                 sSql = "";
-                sSql = sSql + "select P.codigo, NP.nombre, PP.valor, " + Environment.NewLine;
-                sSql = sSql + "(select nombre from cv401_nombre_productos" + Environment.NewLine;
-                sSql = sSql + "where id_producto = P.id_producto_padre) categoria" + Environment.NewLine;
-                sSql = sSql + "from  cv401_productos P, cv401_nombre_productos NP," + Environment.NewLine;
-                sSql = sSql + "cv403_precios_productos PP" + Environment.NewLine;
-                sSql = sSql + "where NP.id_producto = P.id_producto" + Environment.NewLine;
-                sSql = sSql + "and PP.id_producto = P.id_producto" + Environment.NewLine;
-                sSql = sSql + "and P.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and PP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and PP.id_lista_precio = 4" + Environment.NewLine;
+                sSql += "select P.codigo, NP.nombre, PP.valor, " + Environment.NewLine;
+                sSql += "(select nombre from cv401_nombre_productos" + Environment.NewLine;
+                sSql += "where id_producto = P.id_producto_padre) categoria" + Environment.NewLine;
+                sSql += "from  cv401_productos P, cv401_nombre_productos NP," + Environment.NewLine;
+                sSql += "cv403_precios_productos PP" + Environment.NewLine;
+                sSql += "where NP.id_producto = P.id_producto" + Environment.NewLine;
+                sSql += "and PP.id_producto = P.id_producto" + Environment.NewLine;
+                sSql += "and P.estado = 'A'" + Environment.NewLine;
+                sSql += "and NP.estado = 'A'" + Environment.NewLine;
+                sSql += "and PP.estado = 'A'" + Environment.NewLine;
+                sSql += "and PP.id_lista_precio = 4" + Environment.NewLine;
 
                 if (iOp == 0)
                 {
-                    sSql = sSql + "and P.id_producto = " + iIdProducto;
+                    sSql += "and P.id_producto = " + iIdProducto;
                 }
 
                 else if (iOp == 1)
                 {
-                    sSql = sSql + "and P.codigo = '" + txtCodigo.Text.Trim() + "'";
+                    sSql += "and P.codigo = '" + txtCodigo.Text.Trim() + "'";
                 }
 
                 dtConsulta = new DataTable();
@@ -72,11 +72,11 @@ namespace Palatium.Menú
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtCodigo.Text = dtConsulta.Rows[0].ItemArray[0].ToString();
-                        txtDescripcion.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        txtCategoria.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
+                        txtCodigo.Text = dtConsulta.Rows[0][0].ToString();
+                        txtDescripcion.Text = dtConsulta.Rows[0][1].ToString();
+                        txtCategoria.Text = dtConsulta.Rows[0][3].ToString();
 
-                        dSubtotal = Convert.ToDouble(dtConsulta.Rows[0].ItemArray[2].ToString());
+                        dSubtotal = Convert.ToDouble(dtConsulta.Rows[0][2].ToString());
                         dIva = Program.iva * dSubtotal;
                         dTotal = dSubtotal + dIva;
 

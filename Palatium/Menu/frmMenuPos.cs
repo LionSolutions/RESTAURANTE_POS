@@ -53,19 +53,15 @@ namespace Palatium.Menú
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
+            btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         //FUNCION PARA RELLENAR EL ARREGLO DE MAXIMOS
@@ -85,7 +81,7 @@ namespace Palatium.Menú
             {
                 sSql = "";
                 sSql += "select isnull(contacto_fabricante, '0995610690') contacto_fabricante," + Environment.NewLine;
-                sSql += "isnull(sitio_web_fabricante, 'www.aplicsis.com') sitio_web_fabricante" + Environment.NewLine;
+                sSql += "isnull(sitio_web_fabricante, 'www.aplicsis.nets') sitio_web_fabricante" + Environment.NewLine;
                 sSql += "from pos_parametro" + Environment.NewLine;
                 sSql += "where estado = 'A'";
 
@@ -105,7 +101,7 @@ namespace Palatium.Menú
                     else
                     {
                         lblContacto.Text = "CONTACTO: 0995610690";
-                        lblSitioWeb.Text = "www.aplicsis.com";
+                        lblSitioWeb.Text = "www.aplicsis.net";
                     }
                 }
 
@@ -133,13 +129,13 @@ namespace Palatium.Menú
             try
             {
                 sSql = "";
-                sSql = sSql + "select I.path_url, I.numero_impresion, I.puerto_impresora," + Environment.NewLine;
-                sSql = sSql + "I.ip_impresora, I.descripcion, I.cortar_papel, I.abrir_cajon" + Environment.NewLine;
-                sSql = sSql + "from pos_impresora I, pos_formato_factura FF" + Environment.NewLine;
-                sSql = sSql + "where FF.id_pos_impresora = I.id_pos_impresora" + Environment.NewLine;
-                sSql = sSql + "and FF.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and I.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and FF.id_pos_formato_factura = " + Program.iFormatoFactura;
+                sSql += "select I.path_url, I.numero_impresion, I.puerto_impresora," + Environment.NewLine;
+                sSql += "I.ip_impresora, I.descripcion, I.cortar_papel, I.abrir_cajon" + Environment.NewLine;
+                sSql += "from pos_impresora I, pos_formato_factura FF" + Environment.NewLine;
+                sSql += "where FF.id_pos_impresora = I.id_pos_impresora" + Environment.NewLine;
+                sSql += "and FF.estado = 'A'" + Environment.NewLine;
+                sSql += "and I.estado = 'A'" + Environment.NewLine;
+                sSql += "and FF.id_pos_formato_factura = " + Program.iFormatoFactura;
 
                 dtImprimir = new DataTable();
                 dtImprimir.Clear();
@@ -150,13 +146,13 @@ namespace Palatium.Menú
                 {
                     if (dtImprimir.Rows.Count > 0)
                     {
-                        sNombreImpresora = dtImprimir.Rows[0].ItemArray[0].ToString();
-                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[1].ToString());
-                        sPuertoImpresora = dtImprimir.Rows[0].ItemArray[2].ToString();
-                        sIpImpresora = dtImprimir.Rows[0].ItemArray[3].ToString();
-                        sDescripcionImpresora = dtImprimir.Rows[0].ItemArray[4].ToString();
-                        iCortarPapel = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[5].ToString());
-                        iAbrirCajon = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[6].ToString());
+                        sNombreImpresora = dtImprimir.Rows[0][0].ToString();
+                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0][1].ToString());
+                        sPuertoImpresora = dtImprimir.Rows[0][2].ToString();
+                        sIpImpresora = dtImprimir.Rows[0][3].ToString();
+                        sDescripcionImpresora = dtImprimir.Rows[0][4].ToString();
+                        iCortarPapel = Convert.ToInt16(dtImprimir.Rows[0][5].ToString());
+                        iAbrirCajon = Convert.ToInt16(dtImprimir.Rows[0][6].ToString());
 
                         //ENVIAR A IMPRIMIR
                         imprimir.iniciarImpresion();
@@ -208,11 +204,11 @@ namespace Palatium.Menú
                 limpiarArreglos.limpiarArregloComentarios();
 
                 sSql = "";
-                sSql = sSql + "select id_pos_origen_orden, descripcion, genera_factura," + Environment.NewLine;
-                sSql = sSql + "id_persona, id_pos_modo_delivery, presenta_opcion_delivery," + Environment.NewLine;
-                sSql = sSql + "codigo, maneja_servicio" + Environment.NewLine;
-                sSql = sSql + "from pos_origen_orden where codigo = '" + sOpcion + "'" + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
+                sSql += "select id_pos_origen_orden, descripcion, genera_factura," + Environment.NewLine;
+                sSql += "id_persona, id_pos_modo_delivery, presenta_opcion_delivery," + Environment.NewLine;
+                sSql += "codigo, maneja_servicio" + Environment.NewLine;
+                sSql += "from pos_origen_orden where codigo = '" + sOpcion + "'" + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -221,32 +217,32 @@ namespace Palatium.Menú
 
                 if (bRespuesta == true)
                 {
-                    Program.iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                    Program.sDescripcionOrigenOrden = dtConsulta.Rows[0].ItemArray[1].ToString();
-                    Program.iGeneraFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
-                    Program.iManejaServicioOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[7].ToString());
+                    Program.iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                    Program.sDescripcionOrigenOrden = dtConsulta.Rows[0][1].ToString();
+                    Program.iGeneraFactura = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
+                    Program.iManejaServicioOrden = Convert.ToInt32(dtConsulta.Rows[0][7].ToString());
 
-                    if ((dtConsulta.Rows[0].ItemArray[3].ToString() == null) || (dtConsulta.Rows[0].ItemArray[3].ToString() == ""))
+                    if ((dtConsulta.Rows[0][3].ToString() == null) || (dtConsulta.Rows[0][3].ToString() == ""))
                     {
                         Program.iIdPersonaOrigenOrden = 0;
                     }
 
                     else
                     {
-                        Program.iIdPersonaOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[3].ToString());
-                        Program.sIDPERSONA = dtConsulta.Rows[0].ItemArray[3].ToString();
+                        Program.iIdPersonaOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0][3].ToString());
+                        Program.sIDPERSONA = dtConsulta.Rows[0][3].ToString();
 
                     }
-                    Program.iIdPosModoDelivery = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
-                    Program.iPresentaOpcionDelivery = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString());
-                    Program.sCodigoAsignadoOrigenOrden = dtConsulta.Rows[0].ItemArray[6].ToString();
+                    Program.iIdPosModoDelivery = Convert.ToInt32(dtConsulta.Rows[0][4].ToString());
+                    Program.iPresentaOpcionDelivery = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
+                    Program.sCodigoAsignadoOrigenOrden = dtConsulta.Rows[0][6].ToString();
 
                     if (Program.iGeneraFactura == 0)
                     {
                         sSql = "";
-                        sSql = sSql + "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
-                        sSql = sSql + "from pos_tipo_forma_cobro" + Environment.NewLine;
-                        sSql = sSql + "where codigo = '" + sAuxiliar + "'";
+                        sSql += "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
+                        sSql += "from pos_tipo_forma_cobro" + Environment.NewLine;
+                        sSql += "where codigo = '" + sAuxiliar + "'";
 
                         dtConsulta = new DataTable();
                         dtConsulta.Clear();
@@ -257,15 +253,14 @@ namespace Palatium.Menú
                         {
                             if (dtConsulta.Rows.Count > 0)
                             {
-                                Program.sIdGrid = dtConsulta.Rows[0].ItemArray[0].ToString();
-                                Program.sFormaPagoGrid = dtConsulta.Rows[0].ItemArray[1].ToString();
+                                Program.sIdGrid = dtConsulta.Rows[0][0].ToString();
+                                Program.sFormaPagoGrid = dtConsulta.Rows[0][1].ToString();
                             }
                         }
 
                         else
                         {
                             ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                            ok.ShowInTaskbar = false;
                             ok.ShowDialog();
                         }
                     }
@@ -285,7 +280,6 @@ namespace Palatium.Menú
             }
         }
 
-
         public void activarBotones()
         {
             CodigoCajero c1 = new CodigoCajero();
@@ -293,14 +287,13 @@ namespace Palatium.Menú
             c1.Owner = this;
             btnCancelar.Enabled = true;
             btnSalidaCajero.Enabled = true;
-            btnDatosClientes.Enabled = true;
+            btnClienteEmpresarial.Enabled = true;
             btnRevisar.Enabled = true;
             btnEntradaCajero.Enabled = false;
             btnMovimientoCaja.Enabled = true;
             btnCerrarSesion.Enabled = true;
-            //btnReabrirCaja.Enabled = true;
             grupoAccesos.Enabled = true;
-
+            btnCobroAlmuerzos.Enabled = true;
             btnCobroAlmuerzos.Enabled = true;
 
             if (Program.iFacturacionElectronica == 1)
@@ -324,11 +317,11 @@ namespace Palatium.Menú
             try
             {
                 sSql = "";
-                sSql = sSql + "select maneja_mesas, maneja_llevar, maneja_domicilio, maneja_menu_express, maneja_cortesia, " + Environment.NewLine;
-                sSql = sSql + "maneja_canjes, maneja_vale_funcionario, maneja_consumo_empleados" + Environment.NewLine;
-                sSql = sSql + "from pos_parametro_localidad" + Environment.NewLine;
-                sSql = sSql + "where estado = 'A'" + Environment.NewLine;
-                //sSql = sSql + "and id_localidad = " + Program.iIdLocalidad;
+                sSql += "select maneja_mesas, maneja_llevar, maneja_domicilio, maneja_menu_express, maneja_cortesia, " + Environment.NewLine;
+                sSql += "maneja_canjes, maneja_vale_funcionario, maneja_consumo_empleados" + Environment.NewLine;
+                sSql += "from pos_parametro_localidad" + Environment.NewLine;
+                sSql += "where estado = 'A'" + Environment.NewLine;
+                //sSql += "and id_localidad = " + Program.iIdLocalidad;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -340,50 +333,50 @@ namespace Palatium.Menú
                     if (dtConsulta.Rows.Count > 0)
                     {
                         //MESAS
-                        if (dtConsulta.Rows[0].ItemArray[0].ToString() == "1")
+                        if (dtConsulta.Rows[0][0].ToString() == "1")
                         {
                             btnMesas.Enabled = true;
                         }
 
                         //LLEVAR
-                        if (dtConsulta.Rows[0].ItemArray[1].ToString() == "1")
+                        if (dtConsulta.Rows[0][1].ToString() == "1")
                         {
                             btnLlevar.Enabled = true;
                         }
 
                         //DOMICILIO
-                        if (dtConsulta.Rows[0].ItemArray[2].ToString() == "1")
+                        if (dtConsulta.Rows[0][2].ToString() == "1")
                         {
                             btnDomicilios.Enabled = true;
-                            btnRepartidor.Enabled = true;
+                            btnDatosClientes.Enabled = true;
                         }
 
                         //MENU EXPRESS
-                        if (dtConsulta.Rows[0].ItemArray[3].ToString() == "1")
+                        if (dtConsulta.Rows[0][3].ToString() == "1")
                         {
                             btnRepartidorExterno.Enabled = true;
                         }
 
                         //CORTESIAS
-                        if (dtConsulta.Rows[0].ItemArray[4].ToString() == "1")
+                        if (dtConsulta.Rows[0][4].ToString() == "1")
                         {
                             btnCortesias.Enabled = true;
                         }
 
                         //CANJES
-                        if (dtConsulta.Rows[0].ItemArray[5].ToString() == "1")
+                        if (dtConsulta.Rows[0][5].ToString() == "1")
                         {
                             btnCanjes.Enabled = true;
                         }
 
                         //FUNCIONARIOS
-                        if (dtConsulta.Rows[0].ItemArray[6].ToString() == "1")
+                        if (dtConsulta.Rows[0][6].ToString() == "1")
                         {
                             btnFuncionarios.Enabled = true;
                         }
 
                         //CONSUMO DE EMPLEADOS
-                        if (dtConsulta.Rows[0].ItemArray[7].ToString() == "1")
+                        if (dtConsulta.Rows[0][7].ToString() == "1")
                         {
                             btnConsumoEmpleados.Enabled = true;
                         }
@@ -411,7 +404,6 @@ namespace Palatium.Menú
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -435,7 +427,7 @@ namespace Palatium.Menú
             btnConsumoEmpleados.Enabled = false;
             btnSalidaCajero.Enabled = false;
             btnCerrarSesion.Enabled = false;
-            btnDatosClientes.Enabled = false;
+            btnClienteEmpresarial.Enabled = false;
             //BtnOficina.Enabled = false;
             btnRevisar.Enabled = false;
             btnMovimientoCaja.Enabled = false;
@@ -504,7 +496,7 @@ namespace Palatium.Menú
 
         private void btnDatosClientes_MouseEnter(object sender, EventArgs e)
         {
-            ingresaBoton(btnDatosClientes);
+            ingresaBoton(btnClienteEmpresarial);
         }
 
         private void btnFacturasSri_MouseEnter(object sender, EventArgs e)
@@ -604,7 +596,7 @@ namespace Palatium.Menú
 
         private void btnDatosClientes_MouseLeave(object sender, EventArgs e)
         {
-            salidaBoton(btnDatosClientes);
+            salidaBoton(btnClienteEmpresarial);
         }
 
         private void btnFacturasSri_MouseLeave(object sender, EventArgs e)
@@ -670,8 +662,8 @@ namespace Palatium.Menú
 
             if (SiNo.DialogResult == DialogResult.OK)
             {
+                Program.iHabilitaOpciones = 0;
                 Program.iPuedeCobrar = 1;
-
                 Program.CAJERO_ID = 0;
                 Program.iIdMesero = 0;
 
@@ -689,7 +681,7 @@ namespace Palatium.Menú
                 btnConsumoEmpleados.Enabled = false;
                 btnSalidaCajero.Enabled = false;
                 btnCerrarSesion.Enabled = false;
-                btnDatosClientes.Enabled = false;
+                btnClienteEmpresarial.Enabled = false;
                 //BtnOficina.Enabled = false;
                 btnRevisar.Enabled = false;
                 btnMovimientoCaja.Enabled = false;
@@ -721,7 +713,7 @@ namespace Palatium.Menú
 
         private void btnEditarFactura_MouseEnter(object sender, EventArgs e)
         {
-            
+            salidaBoton(btnAnularFactura);
         }
 
         private void btnCambioCajero_MouseEnter(object sender, EventArgs e)
@@ -736,7 +728,7 @@ namespace Palatium.Menú
 
         private void btnRepartidor_MouseEnter(object sender, EventArgs e)
         {
-            ingresaBoton(btnRepartidor);
+            //ingresaBoton(btnRepartidor);
         }
 
         private void btnAbrirCajonDinero_MouseLeave(object sender, EventArgs e)
@@ -766,7 +758,7 @@ namespace Palatium.Menú
 
         private void btnRepartidor_MouseLeave(object sender, EventArgs e)
         {
-            salidaBoton(btnRepartidor);
+            //salidaBoton(btnRepartidor);
         }
 
         private void btnMesas_Click(object sender, EventArgs e)
@@ -805,7 +797,6 @@ namespace Palatium.Menú
             {
                 //Orden or = new Orden("Para llevar", "0", "0");
                 Orden or = new Orden(Program.iIdOrigenOrden, Program.sDescripcionOrigenOrden, 0, 0, 0, "", Program.iIdPersona, Program.CAJERO_ID, Program.iIdMesero, Program.nombreMesero);
-                or.ShowInTaskbar = false;
                 or.ShowDialog();
             }
         }
@@ -833,20 +824,6 @@ namespace Palatium.Menú
                     cd.Close();
                 }
             }            
-        }
-
-        private void btnComidaRapida_Click(object sender, EventArgs e)
-        {
-            //llenarArregloMaximo();
-            //ingresaBoton(btnComidaRapida);
-
-            //consultarDatos("10", "");
-
-            ////Orden or = new Orden(Program.sDescripcionOrigenOrden, "0", "0");
-            //Orden or = new Orden(Program.iIdOrigenOrden, Program.sDescripcionOrigenOrden, 0, 0, 0, "", Program.iIdPersona, Program.CAJERO_ID, Program.iIdMesero, Program.nombreMesero);
-            //or.ShowDialog();
-
-
         }
 
         private void btnRepartidorExterno_Click(object sender, EventArgs e)
@@ -978,7 +955,7 @@ namespace Palatium.Menú
             llenarArregloMaximo();
             ingresaBoton(btnDatosClientes);
 
-            Formularios.FInformacionPersonas personas = new Formularios.FInformacionPersonas();
+            Facturador.frmNuevoCliente personas = new Facturador.frmNuevoCliente("", false);
             personas.ShowDialog();
         }
 
@@ -1093,11 +1070,11 @@ namespace Palatium.Menú
                 string sFecha = DateTime.Now.ToString("yyyy/MM/dd");
 
                 sSql = "";
-                sSql = sSql + "select count(*) cuenta" + Environment.NewLine;
-                sSql = sSql + "from cv403_cab_pedidos" + Environment.NewLine;
-                sSql = sSql + "where estado_orden in ('Abierta', 'Pre-Cuenta')" + Environment.NewLine;
-                sSql = sSql + "and fecha_orden = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJORNADA;
+                sSql += "select count(*) cuenta" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where estado_orden in ('Abierta', 'Pre-Cuenta')" + Environment.NewLine;
+                sSql += "and fecha_orden = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJORNADA;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -1106,7 +1083,7 @@ namespace Palatium.Menú
 
                 if (bRespuesta == true)
                 {
-                    if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString()) > 0)
+                    if (Convert.ToInt32(dtConsulta.Rows[0][0].ToString()) > 0)
                     {
                         Cajero.frmResumenCaja caja = new Cajero.frmResumenCaja(0);
                         caja.ShowDialog();
@@ -1134,7 +1111,7 @@ namespace Palatium.Menú
                             btnConsumoEmpleados.Enabled = false;
                             btnSalidaCajero.Enabled = false;
                             btnCerrarSesion.Enabled = false;
-                            btnDatosClientes.Enabled = false;
+                            btnClienteEmpresarial.Enabled = false;
                             //BtnOficina.Enabled = false;
                             btnRevisar.Enabled = false;
                             btnMovimientoCaja.Enabled = false;
@@ -1281,20 +1258,16 @@ namespace Palatium.Menú
             precios.ShowDialog();
         }
 
+        private void btnInformación_Click(object sender, EventArgs e)
+        {
+            llenarArregloMaximo();
+            config.ShowDialog();
+        }
+
         private void btnRepartidor_Click(object sender, EventArgs e)
         {
             llenarArregloMaximo();
-            ingresaBoton(btnRepartidor);
-
-            //if (resolucion.SetResolution(1366, 768, 64) == false)
-            //{
-            //    MessageBox.Show("Error al cambiar la resolucion");
-            //}
-
-            //else if (resolucion.SetResolution(1024, 768, 32) == true)
-            //{
-            //    MessageBox.Show("OK");
-            //}
+            //ingresaBoton(btnRepartidor);
         }
 
         private void btnSoporte_Click(object sender, EventArgs e)
@@ -1307,7 +1280,6 @@ namespace Palatium.Menú
         private void btnInformación_Click(object sender, EventArgs e)
         {
             llenarArregloMaximo();
-            config.ShowInTaskbar = false;
             config.ShowDialog();
         }
 
@@ -1488,6 +1460,59 @@ namespace Palatium.Menú
             {
                 btnCobroAlmuerzos_Click(sender, e);
             }
+        }
+
+
+
+
+        private void btnAcerca_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            llenarArregloMaximo();
+            config.ShowDialog();
+        }
+
+        private void btnCambioOrigen_Click(object sender, EventArgs e)
+        {
+            this.llenarArregloMaximo();
+
+            //if (Program.iPuedeCobrar == 1)
+            //{
+            //    int num1 = (int)new frmConvertirComanda().ShowDialog();
+            //}
+            //else
+            //{
+            //    this.ok.LblMensaje.Text = "No tiene permisos para ingresar en esta opción.";
+            //    int num2 = (int)this.ok.ShowDialog();
+            //}
+        }
+
+        private void btnCambioOrigen_MouseEnter(object sender, EventArgs e)
+        {
+            ingresaBoton(btnCambioOrigen);
+        }
+
+        private void btnCambioOrigen_MouseLeave(object sender, EventArgs e)
+        {
+            salidaBoton(btnCambioOrigen);
+        }
+
+        private void btnClienteEmpresarial_Click(object sender, EventArgs e)
+        {
+            llenarArregloMaximo();
+            ingresaBoton(btnClienteEmpresarial);
+            Program.sIDPERSONA = (string)null;
+            consultarDatos("12", "");
+            //int num = (int)new frmSeleccionEmpresaEmpleado(iIdOrigenOrden).ShowDialog();
+        }
+
+        private void btnClienteEmpresarial_MouseEnter(object sender, EventArgs e)
+        {
+            ingresaBoton(btnClienteEmpresarial);
+        }
+
+        private void btnClienteEmpresarial_MouseLeave(object sender, EventArgs e)
+        {
+            salidaBoton(btnClienteEmpresarial);
         }
     }
 }

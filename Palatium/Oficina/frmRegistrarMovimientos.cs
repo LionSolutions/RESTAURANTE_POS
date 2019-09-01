@@ -5,11 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Palatium.Oficina
 {
-    public partial class frmMovimientosCaja : Form
+    public partial class frmRegistrarMovimientos : Form
     {
         ConexionBD.ConexionBD conexion = new ConexionBD.ConexionBD();
         VentanasMensajes.frmMensajeSiNo SiNo = new VentanasMensajes.frmMensajeSiNo();
@@ -18,10 +19,11 @@ namespace Palatium.Oficina
 
         Clases.libroCaja libro = new Clases.libroCaja();
         Clases.ClaseAbrirCajon abrir = new Clases.ClaseAbrirCajon();
+        Clases.ClaseValidarCaracteres caracter = new Clases.ClaseValidarCaracteres();
 
         DataTable dtConsulta;
         bool bRespuesta;
-        
+
         string sSql;
         string sTabla;
         string sCampo;
@@ -30,18 +32,18 @@ namespace Palatium.Oficina
         int iIdEmpleado = 0;
         int iTipoMovimiento = 0;
         int iTipoCargo;
-        int iIdPosMovimientoCaja;        
+        int iIdPosMovimientoCaja;
         int iOp;
 
-        public frmMovimientosCaja(int iOp)
+        public frmRegistrarMovimientos(int iOp_P)
         {
-            this.iOp = iOp;
+            iOp = iOp_P;
             InitializeComponent();
         }
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION PARA VERIFICAR SI TIENE UN DOCUMENTO PAGO
+        //FUNCION PARA VERIFICAR EL DOCUMENTO PAGO
         public int verificarDocumentoPago()
         {
             try
@@ -50,25 +52,22 @@ namespace Palatium.Oficina
                 sSql += "select count(*) cuenta" + Environment.NewLine;
                 sSql += "from pos_movimiento_caja" + Environment.NewLine;
                 sSql += "where id_documento_pago is not null" + Environment.NewLine;
-                sSql += "and id_pos_movimiento_caja = " + Convert.ToInt32(dgvDatos.CurrentRow.Cells[0].Value) + Environment.NewLine;
+                sSql += "and id_pos_movimiento_caja = " + (object)Convert.ToInt32(dgvDatos.CurrentRow.Cells[0].Value) + Environment.NewLine;
                 sSql += "and estado = 'A'" + Environment.NewLine;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
 
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
-                
+
                 if (bRespuesta == true)
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        return Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
                     }
 
-                    else
-                    {
-                        return 0;
-                    }
+                    return 0;
                 }
 
                 else
@@ -79,7 +78,7 @@ namespace Palatium.Oficina
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
@@ -90,9 +89,11 @@ namespace Palatium.Oficina
         //FUNCION PARA LIMPIAR
         private void limpiar()
         {
+            btnBuscar.Enabled = true;
+            txtFechaIngreso.Enabled = true;
             sFecha = Program.sFechaSistema.ToString("yyyy/MM/dd");
-            cmbSeleccionarCaja.Text = "Fecha";
-            btnCalendario.Enabled = true;
+            //cmbSeleccionarCaja.Text = "Fecha";
+            //btnCalendario.Enabled = true;
 
             numeroMovimiento();
             llenarComboEmpleado();
@@ -103,7 +104,6 @@ namespace Palatium.Oficina
             txtConcepto.Clear();
             iIdEmpleado = 0;
             iIdPosMovimientoCaja = 0;
-            //cmbTipoMovimiento.Focus();
             grupoNuevo.Enabled = false;
         }
 
@@ -181,7 +181,7 @@ namespace Palatium.Oficina
                 sSql += "from pos_vw_cajero_mesero" + Environment.NewLine;
                 sSql += "where estado = 'A'" + Environment.NewLine;
                 sSql += "order by descripcion";
-                
+
                 cmbEmpleados.llenar(dtConsulta, sSql);
                 cmbEmpleados.SelectedIndex = 1;
             }
@@ -350,7 +350,6 @@ namespace Palatium.Oficina
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto reversa;
             }
@@ -433,7 +432,7 @@ namespace Palatium.Oficina
                 sSql += "from pos_movimiento_caja MC INNER JOIN " + Environment.NewLine;
                 sSql += "pos_numero_movimiento_caja NM ON MC.id_pos_movimiento_caja = NM.id_pos_movimiento_caja and MC.estado = 'A' LEFT OUTER JOIN " + Environment.NewLine;
                 sSql += "tp_personas TP ON (MC.id_cliente = TP.id_persona and TP.estado = 'A')" + Environment.NewLine;
-                
+
 
 
                 if (op == 1)
@@ -464,10 +463,9 @@ namespace Palatium.Oficina
                     }
                 }
 
-                sSql += "and id_pos_jornada = " + Program.iJORNADA + Environment.NewLine;
                 sSql += "and (MC.estado = 'A' and NM.estado = 'A')" + Environment.NewLine;
                 sSql += Environment.NewLine + "order by MC.id_pos_movimiento_caja" + Environment.NewLine;
-                
+
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
 
@@ -630,7 +628,7 @@ namespace Palatium.Oficina
                 sSql += "select id_pos_cargo, descripcion" + Environment.NewLine;
                 sSql += "from pos_cargo" + Environment.NewLine;
                 sSql += "where estado = 'A'" + Environment.NewLine;
-                
+
                 cmbCargo.llenar(dtConsulta, sSql);
 
                 if (cmbCargo.Items.Count > 0)
@@ -648,22 +646,13 @@ namespace Palatium.Oficina
 
         #endregion
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             limpiar();
         }
 
-        private void frmMovimientosCaja_Load(object sender, EventArgs e)
+        private void frmRegistrarMovimientos_Load(object sender, EventArgs e)
         {
-            sFecha = Program.sFechaSistema.ToString("yyyy/MM/dd");
-
-            LblFecha.Text = sFecha;
-
             if (iOp == 1)
             {
                 cmbFiltrar.Text = "Entradas";
@@ -679,9 +668,6 @@ namespace Palatium.Oficina
                 cmbFiltrar.Text = "Todas";
             }
 
-            cmbSeleccionarCaja.Text = "Fecha";
-            
-            btnCalendario.Enabled = true;
             llenarComboCaja();
             llenarComboEmpleado();
             llenarGrid(1);
@@ -691,41 +677,15 @@ namespace Palatium.Oficina
 
         private void TimerFecha_Tick(object sender, EventArgs e)
         {
-            txtFecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtFecha.Text = DateTime.Now.ToString("dd-MM-yyyy");
             txtHora.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void txtValor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 8)
-            {
-                e.Handled = false;
-                return;
-            }
-
-            bool IsDec = false;
-            int nroDec = 0;
-
-            for (int i = 0; i < txtValor.Text.Length; i++)
-            {
-                if (txtValor.Text[i] == '.')
-                    IsDec = true;
-
-                if (IsDec && nroDec++ >= 4)
-                {
-                    e.Handled = true;
-                    return;
-                }
-            }
-
-            if (e.KeyChar >= 48 && e.KeyChar <= 57)
-                e.Handled = false;
-            else if (e.KeyChar == 46)
-                e.Handled = (IsDec) ? true : false;
-            else
-                e.Handled = true;
+            caracter.soloDecimales(sender, e, 2);
         }
-        
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if ((txtValor.Text == "") || (Convert.ToDouble(txtValor.Text) == 0))
@@ -782,43 +742,6 @@ namespace Palatium.Oficina
             }
         }
 
-        private void cmbSeleccionarCaja_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbSeleccionarCaja.Text == "Todas")
-            {
-                btnCalendario.Enabled = false;
-                LblFecha.Text = Program.sFechaSistema.ToString("yyyy-MM-dd");
-                llenarGrid(0);                
-            }
-
-            else
-            {
-                dtConsulta = new DataTable();
-                dtConsulta.Clear();
-                dgvDatos.DataSource = dtConsulta;
-                sFecha = Program.sFechaSistema.ToString("yyyy/MM/dd");
-                LblFecha.Text = Program.sFechaSistema.ToString("yyyy-MM-dd");
-                llenarGrid(1);
-                btnCalendario.Enabled = true;
-            }
-        }
-
-        private void btnCalendario_Click(object sender, EventArgs e)
-        {
-            sFecha = Program.sFechaSistema.ToString("dd/MM/yyyy");
-            Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(sFecha);
-            calendario.ShowInTaskbar = false;
-            calendario.ShowDialog();
-
-            if (calendario.DialogResult == DialogResult.OK)
-            {
-                sFecha = calendario.txtFecha.Text.Trim();
-                sFecha = Convert.ToDateTime(sFecha).ToString("yyyy/MM/dd");
-                LblFecha.Text = Convert.ToDateTime(sFecha).ToString("yyyy-MM-dd");
-                llenarGrid(1);
-            }
-        }
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvDatos.Rows.Count == 0)
@@ -838,7 +761,7 @@ namespace Palatium.Oficina
                 else
                 {
                     consultarRegistro();
-                }                
+                }
             }
         }
 
@@ -863,7 +786,6 @@ namespace Palatium.Oficina
                     if (consultarRegistro() == true)
                     {
                         SiNo.LblMensaje.Text = "Está seguro que desea eliminar el ingreso. Tenga en cuenta que puede alterar el arqueo de caja.";
-                        SiNo.ShowInTaskbar = false;
                         SiNo.ShowDialog();
 
                         if (SiNo.DialogResult == DialogResult.OK)
@@ -876,7 +798,7 @@ namespace Palatium.Oficina
                             limpiar();
                         }
                     }
-                }    
+                }
             }
         }
 
@@ -891,66 +813,14 @@ namespace Palatium.Oficina
             else
             {
                 consultarRegistro();
-            }        
-        }
-
-        private void cmbFiltrar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbFiltrar.Text == "Todas")
-            {
-                iOp = 0;
-                
-            }
-
-            else if (cmbFiltrar.Text == "Entradas")
-            {
-                iOp = 1;
-            }
-
-            else
-            {
-                iOp = 2;
-            }
-
-
-            if (cmbSeleccionarCaja.Text == "Todas")
-            {
-                llenarGrid(0);
-                btnCalendario.Enabled = false;
-            }
-
-            else
-            {
-                dtConsulta = new DataTable();
-                dtConsulta.Clear();
-                dgvDatos.DataSource = dtConsulta;
-                sFecha = Program.sFechaSistema.ToString("yyyy/MM/dd");
-                llenarGrid(1);
-                btnCalendario.Enabled = true;
-            }
-
-        }
-
-        private void btnImprimirLibroCaja_Click(object sender, EventArgs e)
-        {
-            if (dgvDatos.Rows.Count == 0)
-            {
-                ok.LblMensaje.Text = "No hay registros para imprimir.";
-                ok.ShowInTaskbar = false;
-                ok.ShowDialog();
-            }
-
-            else
-            {
-                ReportesTextBox.frmVerLibroDiario libroDiario = new ReportesTextBox.frmVerLibroDiario(1, sFecha);
-                libroDiario.ShowInTaskbar = false;
-                libroDiario.ShowDialog();
-            }
+            } 
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             grupoNuevo.Enabled = true;
+            btnBuscar.Enabled = false;
+            txtFechaIngreso.Enabled = false;
             txtConcepto.Focus();
         }
 
@@ -959,7 +829,6 @@ namespace Palatium.Oficina
             if (dgvDatos.Rows.Count == 0)
             {
                 ok.LblMensaje.Text = "No hay ítems para imprimir.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
@@ -971,7 +840,7 @@ namespace Palatium.Oficina
             }
         }
 
-        private void frmMovimientosCaja_KeyDown(object sender, KeyEventArgs e)
+        private void frmRegistrarMovimientos_KeyDown(object sender, KeyEventArgs e)
         {
             if (Program.iPermitirAbrirCajon == 1)
             {
@@ -1012,17 +881,11 @@ namespace Palatium.Oficina
             }
         }
 
-        private void dgvDatos_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
-            DataGridView grid = ((DataGridView)sender);
-            string rowIndex = (e.RowIndex + 1).ToString();
-            Font rowFont = new System.Drawing.Font("Tahoma", 8.0F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)0));
-            StringFormat centerFormat = new StringFormat();
-            centerFormat.Alignment = StringAlignment.Center;
-            centerFormat.LineAlignment = StringAlignment.Center;
-
-            Rectangle headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
-            e.Graphics.DrawString(rowIndex, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat);
+            llenarGrid(1);
         }
+
+
     }
 }

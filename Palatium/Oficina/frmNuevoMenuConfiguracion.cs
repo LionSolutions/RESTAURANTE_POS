@@ -685,5 +685,10 @@ namespace Palatium.Oficina
             Oficina.frmCargoMovimientos cargos = new frmCargoMovimientos();
             verificarFormularios(cargos, this);
         }
+
+        private void submenuMovimientoCaja_Click(object sender, EventArgs e)
+        {
+            //this.verificarFormularios((Form)new frmRegistrarMovimientos(0), (Form)this);
+        }
     }
 }

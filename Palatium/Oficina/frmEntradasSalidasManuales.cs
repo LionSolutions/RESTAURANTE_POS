@@ -38,12 +38,12 @@ namespace Palatium.Oficina
             try
             {
                 sSql = "";
-                sSql = sSql + "select concepto as CONCEPTO, ltrim(str(valor, 6, 2)) as VALOR  from pos_movimiento_caja" + Environment.NewLine;
-                sSql = sSql + "where fecha = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and tipo_movimiento = " + iOp + Environment.NewLine;
-                sSql = sSql + "and id_documento_pago is null" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
+                sSql += "select concepto as CONCEPTO, ltrim(str(valor, 6, 2)) as VALOR  from pos_movimiento_caja" + Environment.NewLine;
+                sSql += "where fecha = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and tipo_movimiento = " + iOp + Environment.NewLine;
+                sSql += "and id_documento_pago is null" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -114,14 +114,12 @@ namespace Palatium.Oficina
             if (dgvDatos.Rows.Count == 0)
             {
                 ok.LblMensaje.Text = "No hay ítems para imprimir.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
             else
             {
                 Pedidos.frmVerMovimientosAgrupados ver = new Pedidos.frmVerMovimientosAgrupados(iOp, sFecha, 1);
-                ver.ShowInTaskbar = false;
                 ver.ShowDialog();
             }
         }

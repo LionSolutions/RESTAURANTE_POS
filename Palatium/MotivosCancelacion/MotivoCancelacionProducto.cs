@@ -18,14 +18,7 @@ namespace Palatium
         {
             InitializeComponent();
         }
-
-
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtMotivoCancelacionProducto, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
+        
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -35,7 +28,6 @@ namespace Palatium
         {
             if (Program.iActivaTeclado == 1)
             {
-                activaTeclado();
                 this.ActiveControl = label1;
             }
 

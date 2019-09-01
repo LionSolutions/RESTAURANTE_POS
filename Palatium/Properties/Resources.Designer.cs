@@ -1623,6 +1623,16 @@ namespace Palatium.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icono_cambio_orden {
+            get {
+                object obj = ResourceManager.GetObject("icono_cambio_orden", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icono_cancelar_orden {
             get {
                 object obj = ResourceManager.GetObject("icono_cancelar_orden", resourceCulture);
@@ -1666,6 +1676,16 @@ namespace Palatium.Properties {
         internal static System.Drawing.Bitmap icono_cliemtes {
             get {
                 object obj = ResourceManager.GetObject("icono_cliemtes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icono_cliente_empresarial {
+            get {
+                object obj = ResourceManager.GetObject("icono_cliente_empresarial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

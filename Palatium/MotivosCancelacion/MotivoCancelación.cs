@@ -31,19 +31,17 @@ namespace Palatium
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtMotivo, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //EXTRAER EL TOTAL DE LA ORDEN PARA ALMACENAR EN LA BASE DE DATOS
         private void sumarTotalOrden()
         {
             try
             {
-                sSql = "select sum(DP.cantidad * DP.precio_unitario * (" + Convert.ToDouble(Program.iva + Program.servicio + 1) + ")) total from cv403_det_pedidos as DP, cv403_cab_pedidos as CP " +
-                       "where (CP.id_pedido = DP.id_pedido) and CP.id_pedido = " + Convert.ToInt32(sIdOrden) + " and CP.estado = 'A' and DP.estado = 'A'";
+                sSql = "";
+                sSql += "select sum(DP.cantidad * DP.precio_unitario * (" + Convert.ToDouble(Program.iva + Program.servicio + 1) + ")) total" + Environment.NewLine;
+                sSql += "from cv403_det_pedidos as DP, cv403_cab_pedidos as CP" + Environment.NewLine;
+                sSql += "where (CP.id_pedido = DP.id_pedido)" + Environment.NewLine;
+                sSql += "and CP.id_pedido = " + Convert.ToInt32(sIdOrden) + Environment.NewLine;
+                sSql += "and CP.estado = 'A' and DP.estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -51,14 +49,13 @@ namespace Palatium
 
                 if (bRespuesta == true)
                 {
-                    DSumaDetalleOrden = Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    DSumaDetalleOrden = Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
                 }
 
             }
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al consultar el registro.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 this.Close();
             }
@@ -71,70 +68,56 @@ namespace Palatium
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
-                else
+                //INSERTAMOS INFORMACION EN LA TABLA DE CANCELACIONES
+                sSql = "";
+                sSql += "insert into pos_cancelacion (" + Environment.NewLine;
+                sSql += "id_pedido, motivo_cancelacion, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "values (" + Environment.NewLine;
+                sSql += Convert.ToInt32(sIdOrden) + ",'" + txtMotivo.Text + "', 'A', GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+
+                if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
-                    //INSERTAMOS INFORMACION EN LA TABLA DE CANCELACIONES
-                    //=========================================================================================================
-                    //=========================================================================================================
-
-                    sSql = "insert into pos_cancelacion (id_pedido, motivo_cancelacion, estado, " +
-                           "fecha_ingreso, usuario_ingreso, terminal_ingreso) " +
-                           "values (" + Convert.ToInt32(sIdOrden)  + ",'" + txtMotivo.Text + "', 'A', GETDATE()," +
-                           "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
-
-                    if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
-                    {
-                        catchMensaje.LblMensaje.Text = sSql;
-                        catchMensaje.ShowDialog();
-                        goto reversa;
-                    }
-                    //=========================================================================================================
-
-                    //ACTUALIZAMOS EL ESTADO EN LA TABLA CV403_CAB_PEDIDOS
-                    //=========================================================================================================
-                    //=========================================================================================================
-
-                    sSql = "update cv403_cab_pedidos set " +
-                           "fecha_cierre_orden = '" +  sFecha+ "', estado_orden = 'Cancelada', " +
-                           "valor_cancelado = " + DSumaDetalleOrden + ", " +
-                           "estado = 'N', fecha_anula = GETDATE(), " +
-                           "usuario_anula = '" + Program.sDatosMaximo[0] + "', " +
-                           "terminal_anula = '" + Program.sDatosMaximo[1] + "' " +
-                           "where id_pedido = " + Convert.ToInt32(sIdOrden);
-
-                    if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
-                    {
-                        catchMensaje.LblMensaje.Text = sSql;
-                        catchMensaje.ShowInTaskbar = false;
-                        catchMensaje.ShowDialog();
-                        goto reversa;
-                    }
-                    //=========================================================================================================
-
-
-                    //SI NO HUBO INCONVENIENTES REALIZA EL COMMIT PARA ALMACENAR LA INFORMACIÓN
-                    //=========================================================================================================
-                    //=========================================================================================================
-
-                    conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
-                    ok.LblMensaje.Text = "La orden ha sido cancelada éxitosamente.";
-                    ok.ShowInTaskbar = false;
-                    ok.ShowDialog();
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                    goto fin;
+                    catchMensaje.LblMensaje.Text = sSql;
+                    catchMensaje.ShowDialog();
+                    goto reversa;
                 }
+
+                //ACTUALIZAMOS EL ESTADO EN LA TABLA CV403_CAB_PEDIDOS
+                sSql = "";
+                sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
+                sSql += "fecha_cierre_orden = '" + sFecha + "'," + Environment.NewLine;
+                sSql += "estado_orden = 'Cancelada'," + Environment.NewLine;
+                sSql += "valor_cancelado = " + DSumaDetalleOrden + "," + Environment.NewLine;
+                sSql += "estado = 'N'," + Environment.NewLine;
+                sSql += "fecha_anula = GETDATE()," + Environment.NewLine;
+                sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
+                sSql += "where id_pedido = " + Convert.ToInt32(sIdOrden);
+
+                if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
+                {
+                    catchMensaje.LblMensaje.Text = sSql;
+                    catchMensaje.ShowDialog();
+                    goto reversa;
+                }
+
+                //SI NO HUBO INCONVENIENTES REALIZA EL COMMIT PARA ALMACENAR LA INFORMACIÓN
+                conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
+                ok.LblMensaje.Text = "La orden ha sido cancelada éxitosamente.";
+                ok.ShowDialog();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                return;
             }
+
             catch (Exception)
             {
                 goto reversa;
@@ -146,14 +129,7 @@ namespace Palatium
                 {
                     conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
                     ok.LblMensaje.Text = "Ocurrió un problema en la transacción. No se guardarán los cambios.";
-                    ok.ShowInTaskbar = false;    
                     ok.ShowDialog();
-                }
-
-            //=======================================================================================================
-            fin:
-                {
-
                 }
         }
 
@@ -165,7 +141,6 @@ namespace Palatium
             if (txtMotivo.Text == "")
             {
                 ok.LblMensaje.Text = "Debe ingresar un motivo de la cancelación del pedido.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 txtMotivo.Focus();
             }
@@ -181,7 +156,6 @@ namespace Palatium
 
             if (Program.iActivaTeclado == 1)
             {
-                activaTeclado();
                 this.ActiveControl = label1;
             }
 

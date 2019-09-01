@@ -208,6 +208,7 @@ namespace Palatium
         public static int iAplicaRecargoTarjeta;
         public static decimal dbPorcentajeRecargoTarjeta;
         public static int iComprobanteNotaEntrega;
+        public static int iHabilitaOpciones;
 
         public static int iCortar = 0;
         public static int iIdPersonaFacturador;

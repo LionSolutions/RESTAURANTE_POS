@@ -87,6 +87,8 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtNumeroPersonas = new System.Windows.Forms.TextBox();
             this.fbRuta = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cmbTipoComprobante = new MisControles.ComboDatos();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -96,6 +98,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -606,7 +609,7 @@
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox6.Location = new System.Drawing.Point(12, 474);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(667, 84);
+            this.groupBox6.Size = new System.Drawing.Size(478, 84);
             this.groupBox6.TabIndex = 48;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Acceso directo al sistema Contable y Reportes";
@@ -615,7 +618,7 @@
             // 
             this.btnRemoverReportes.BackColor = System.Drawing.Color.Red;
             this.btnRemoverReportes.ForeColor = System.Drawing.Color.Black;
-            this.btnRemoverReportes.Location = new System.Drawing.Point(603, 49);
+            this.btnRemoverReportes.Location = new System.Drawing.Point(438, 47);
             this.btnRemoverReportes.Name = "btnRemoverReportes";
             this.btnRemoverReportes.Size = new System.Drawing.Size(27, 25);
             this.btnRemoverReportes.TabIndex = 62;
@@ -627,7 +630,7 @@
             // 
             this.btnExaminarReportes.BackColor = System.Drawing.Color.Yellow;
             this.btnExaminarReportes.ForeColor = System.Drawing.Color.Black;
-            this.btnExaminarReportes.Location = new System.Drawing.Point(570, 49);
+            this.btnExaminarReportes.Location = new System.Drawing.Point(405, 47);
             this.btnExaminarReportes.Name = "btnExaminarReportes";
             this.btnExaminarReportes.Size = new System.Drawing.Size(27, 25);
             this.btnExaminarReportes.TabIndex = 61;
@@ -653,14 +656,14 @@
             this.txtUrlReportes.Location = new System.Drawing.Point(107, 51);
             this.txtUrlReportes.Name = "txtUrlReportes";
             this.txtUrlReportes.ReadOnly = true;
-            this.txtUrlReportes.Size = new System.Drawing.Size(457, 22);
+            this.txtUrlReportes.Size = new System.Drawing.Size(292, 22);
             this.txtUrlReportes.TabIndex = 59;
             // 
             // btnRemoverContable
             // 
             this.btnRemoverContable.BackColor = System.Drawing.Color.Red;
             this.btnRemoverContable.ForeColor = System.Drawing.Color.Black;
-            this.btnRemoverContable.Location = new System.Drawing.Point(603, 24);
+            this.btnRemoverContable.Location = new System.Drawing.Point(438, 22);
             this.btnRemoverContable.Name = "btnRemoverContable";
             this.btnRemoverContable.Size = new System.Drawing.Size(27, 25);
             this.btnRemoverContable.TabIndex = 50;
@@ -683,7 +686,7 @@
             // 
             this.btnExaminarContable.BackColor = System.Drawing.Color.Yellow;
             this.btnExaminarContable.ForeColor = System.Drawing.Color.Black;
-            this.btnExaminarContable.Location = new System.Drawing.Point(570, 23);
+            this.btnExaminarContable.Location = new System.Drawing.Point(405, 21);
             this.btnExaminarContable.Name = "btnExaminarContable";
             this.btnExaminarContable.Size = new System.Drawing.Size(27, 25);
             this.btnExaminarContable.TabIndex = 49;
@@ -698,7 +701,7 @@
             this.txtUrlContable.Location = new System.Drawing.Point(107, 23);
             this.txtUrlContable.Name = "txtUrlContable";
             this.txtUrlContable.ReadOnly = true;
-            this.txtUrlContable.Size = new System.Drawing.Size(457, 22);
+            this.txtUrlContable.Size = new System.Drawing.Size(292, 22);
             this.txtUrlContable.TabIndex = 48;
             // 
             // groupBox8
@@ -784,6 +787,29 @@
             // 
             this.fbRuta.FileName = "openFileDialog1";
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cmbTipoComprobante);
+            this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox10.Location = new System.Drawing.Point(497, 474);
+            this.groupBox10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox10.Size = new System.Drawing.Size(231, 84);
+            this.groupBox10.TabIndex = 53;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Registro de Nota de Entrega";
+            // 
+            // cmbTipoComprobante
+            // 
+            this.cmbTipoComprobante.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoComprobante.FormattingEnabled = true;
+            this.cmbTipoComprobante.Location = new System.Drawing.Point(8, 34);
+            this.cmbTipoComprobante.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cmbTipoComprobante.Name = "cmbTipoComprobante";
+            this.cmbTipoComprobante.Size = new System.Drawing.Size(204, 23);
+            this.cmbTipoComprobante.TabIndex = 53;
+            // 
             // frmParametros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -791,6 +817,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(930, 563);
+            this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox6);
@@ -825,6 +852,7 @@
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -890,5 +918,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtUrlReportes;
         private System.Windows.Forms.OpenFileDialog fbRuta;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private MisControles.ComboDatos cmbTipoComprobante;
     }
 }

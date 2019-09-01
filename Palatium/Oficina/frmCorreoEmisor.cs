@@ -94,15 +94,15 @@ namespace Palatium.Oficina
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdCorreoEmisor = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        txtCuenta.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        txtCorreoCopia_1.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtCorreoCopia_2.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtPasswordCuenta.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        txtSmtp.Text = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        txtPuerto.Text = dtConsulta.Rows[0].ItemArray[6].ToString();
+                        iIdCorreoEmisor = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        txtCuenta.Text = dtConsulta.Rows[0][1].ToString();
+                        txtCorreoCopia_1.Text = dtConsulta.Rows[0][2].ToString();
+                        txtCorreoCopia_2.Text = dtConsulta.Rows[0][3].ToString();
+                        txtPasswordCuenta.Text = dtConsulta.Rows[0][4].ToString();
+                        txtSmtp.Text = dtConsulta.Rows[0][5].ToString();
+                        txtPuerto.Text = dtConsulta.Rows[0][6].ToString();
 
-                        if (Convert.ToInt32(dtConsulta.Rows[0].ItemArray[7].ToString()) == 1)
+                        if (Convert.ToInt32(dtConsulta.Rows[0][7].ToString()) == 1)
                         {
                             chkSSL.Checked = true;
                         }
@@ -112,7 +112,7 @@ namespace Palatium.Oficina
                             chkSSL.Checked = false;
                         }
 
-                        if (dtConsulta.Rows[0].ItemArray[8].ToString() == "A")
+                        if (dtConsulta.Rows[0][8].ToString() == "A")
                         {
                             cmbEstado.SelectedIndex = 0;
                         }

@@ -30,26 +30,17 @@ namespace Palatium.MotivosCancelacion
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtMotivo, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //FUNCION PARA INSERTAR EN LA BASE DE DATOS
         private void insertarRegistro()
         {
             try
             {
                 //INICIAMOS UNA NUEVA TRANSACCION
-                //=======================================================================================================
-                //=======================================================================================================
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
                     ok.LblMensaje.Text = "Error al abrir transacción";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
-                    goto fin;
+                    return;
                 }
 
                 sSql = "";
@@ -72,7 +63,7 @@ namespace Palatium.MotivosCancelacion
                 //ok.ShowDialog();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-                goto fin;
+                return;
             }
 
             catch(Exception ex)
@@ -81,12 +72,8 @@ namespace Palatium.MotivosCancelacion
                 catchMensaje.ShowDialog();
             }
 
-        reversa:
-            {
-                conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
-            }
+            reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }
             
-        fin: { }
         }
 
         #endregion
@@ -116,7 +103,6 @@ namespace Palatium.MotivosCancelacion
         {
             if (Program.iActivaTeclado == 1)
             {
-                activaTeclado();
                 this.ActiveControl = lblEtiqueta;
             }
 
