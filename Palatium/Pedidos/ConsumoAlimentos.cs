@@ -59,7 +59,7 @@ namespace Palatium
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void ConsumoAlimentos_KeyDown(object sender, KeyEventArgs e)

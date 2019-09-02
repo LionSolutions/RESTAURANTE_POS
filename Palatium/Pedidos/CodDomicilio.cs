@@ -31,20 +31,15 @@ namespace Palatium
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
             btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         //FUNCION PARA CONCATENAR
@@ -181,7 +176,7 @@ namespace Palatium
 
         private void btcancelar_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
         
         private void CodDomicilio_Load(object sender, EventArgs e)

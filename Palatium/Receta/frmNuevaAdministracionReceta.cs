@@ -558,7 +558,7 @@ namespace Palatium.Receta
                 sSql += "rendimiento, num_porciones, precio_de_venta, costo_unitario," + Environment.NewLine;
                 sSql += "porcentaje_costo, porcentaje_utilidad, utilidad_de_servicios," + Environment.NewLine;
                 sSql += "utilidad_de_ganancias, costo_total, estado, fecha_ingreso," + Environment.NewLine;
-                sSql += "usuario_ingreso, terminal_ingreso, codigo, porcentaje_servicios, porcentaje_utilidad)" + Environment.NewLine;
+                sSql += "usuario_ingreso, terminal_ingreso, codigo, porcentaje_servicios, utilidad)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ", " + cmbReceta.SelectedValue + ", " + cmbClasificacion.SelectedValue + "," + Environment.NewLine;
                 sSql += cmbOrigen.SelectedValue + ", " + cmbTemperaturaDeServicio.SelectedValue + "," + Environment.NewLine;

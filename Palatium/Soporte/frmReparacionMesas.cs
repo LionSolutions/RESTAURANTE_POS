@@ -43,20 +43,15 @@ namespace Palatium.Soporte
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
             btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
 
         //FUNCION PARA LLENAR EL COMBOBOX DEL DATAGRIDVIEW

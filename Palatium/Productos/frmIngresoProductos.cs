@@ -347,12 +347,12 @@ namespace Palatium.Productos
                         {
                             if (Program.iCobrarConSinProductos == 1)
                             {
-                                dgvProductos.Rows[i].Cells[3].Value = (Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("n2");
+                                dgvProductos.Rows[i].Cells[3].Value = (Convert.ToDouble(dtConsulta.Rows[0][0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("n2");
                             }
 
                             else
                             {
-                                dgvProductos.Rows[i].Cells[3].Value = (Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString())).ToString("n2");
+                                dgvProductos.Rows[i].Cells[3].Value = (Convert.ToDouble(dtConsulta.Rows[0][0].ToString())).ToString("n2");
                             }
                         }
 
@@ -392,12 +392,12 @@ namespace Palatium.Productos
                         {
                             if (Program.iCobrarConSinProductos == 1)
                             {
-                                dgvProductos.Rows[i].Cells[4].Value = (Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("n2");
+                                dgvProductos.Rows[i].Cells[4].Value = (Convert.ToDouble(dtConsulta.Rows[0][0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("n2");
                             }
 
                             else
                             {
-                                dgvProductos.Rows[i].Cells[4].Value = (Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString())).ToString("n2");
+                                dgvProductos.Rows[i].Cells[4].Value = (Convert.ToDouble(dtConsulta.Rows[0][0].ToString())).ToString("n2");
                             }
                         }
 
@@ -438,7 +438,7 @@ namespace Palatium.Productos
 
                         else
                         {
-                            iIdPadre = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                            iIdPadre = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                         }
                     }
 
@@ -473,11 +473,11 @@ namespace Palatium.Productos
 
                         else
                         {
-                            dgvProductos.Rows[i].Cells[12].Value = dtConsulta.Rows[0].ItemArray[0].ToString();
-                            dgvProductos.Rows[i].Cells[13].Value = dtConsulta.Rows[1].ItemArray[0].ToString();
+                            dgvProductos.Rows[i].Cells[12].Value = dtConsulta.Rows[0][0].ToString();
+                            dgvProductos.Rows[i].Cells[13].Value = dtConsulta.Rows[1][0].ToString();
 
-                            dgvProductos.Rows[i].Cells[14].Value = dtConsulta.Rows[0].ItemArray[1].ToString();
-                            dgvProductos.Rows[i].Cells[15].Value = dtConsulta.Rows[1].ItemArray[1].ToString();
+                            dgvProductos.Rows[i].Cells[14].Value = dtConsulta.Rows[0][1].ToString();
+                            dgvProductos.Rows[i].Cells[15].Value = dtConsulta.Rows[1][1].ToString();
                         }
                     }
 
@@ -622,7 +622,7 @@ namespace Palatium.Productos
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        ok.lblMensaje.Text = "El código ingresado está asignado para el producto " + dtConsulta.Rows[0].ItemArray[1].ToString() + ". Por Favor introduzca uno nuevo.";
+                        ok.lblMensaje.Text = "El código ingresado está asignado para el producto " + dtConsulta.Rows[0][1].ToString() + ". Por Favor introduzca uno nuevo.";
                         ok.ShowDialog();
                         txtCodigo.Clear();
                         txtCodigo.Focus();
@@ -765,7 +765,7 @@ namespace Palatium.Productos
                 sSql += "insert into cv403_precios_productos (" + Environment.NewLine;
                 sSql += "id_Lista_Precio, id_Producto, valor_Porcentaje, valor, fecha_inicio," + Environment.NewLine;
                 sSql += "fecha_final, estado, numero_replica_trigger, numero_control_replica," + Environment.NewLine;
-                sSql += "fecha_ingreso,usuario_ingreso,terminal_ingreso)" + Environment.NewLine;
+                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += "4, " + iIdProducto + ", 0, " + dSubtotal + ", GETDATE()," + Environment.NewLine;
                 sSql += "GETDATE(), 'A', 1, 1, GETDATE(), '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
@@ -1414,8 +1414,7 @@ namespace Palatium.Productos
                     llenarGrid(1);
                 }
             }
-        }
-        
+        }        
 
         private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
         {

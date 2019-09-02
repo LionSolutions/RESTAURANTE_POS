@@ -67,10 +67,9 @@
             // 
             // btcancelar
             // 
-            this.btcancelar.BackColor = System.Drawing.Color.Transparent;
-            this.btcancelar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btcancelar.BackgroundImage")));
-            this.btcancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btcancelar.FlatAppearance.BorderSize = 0;
+            this.btcancelar.BackColor = System.Drawing.Color.Navy;
+            this.btcancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btcancelar.FlatAppearance.BorderSize = 2;
             this.btcancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btcancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.875F, System.Drawing.FontStyle.Bold);
             this.btcancelar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -90,10 +89,9 @@
             // 
             // btingresar
             // 
-            this.btingresar.BackColor = System.Drawing.Color.Transparent;
-            this.btingresar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btingresar.BackgroundImage")));
-            this.btingresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btingresar.FlatAppearance.BorderSize = 0;
+            this.btingresar.BackColor = System.Drawing.Color.Navy;
+            this.btingresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btingresar.FlatAppearance.BorderSize = 2;
             this.btingresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btingresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btingresar.ForeColor = System.Drawing.SystemColors.ControlLightLight;

@@ -65,7 +65,6 @@ namespace Palatium.Pedidos
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al recuperar la línea de observaciones.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }
@@ -103,11 +102,6 @@ namespace Palatium.Pedidos
                     txtNuevaLinea[j].CharacterCasing = CharacterCasing.Upper;
                     txtNuevaLinea[j].Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                     txtNuevaLinea[j].Text = Program.sDetallesItems[iPosicion, j + 1];
-
-                    if (Program.iActivaTeclado == 1)
-                    {
-                        this.TecladoVirtual.SetShowTouchKeyboard(this.txtNuevaLinea[j], DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-                    }
                                         
                     //AGREGAR BOTON DE REMOVER
                     btnRemoverNuevaLinea[j] = new Button();
@@ -165,11 +159,6 @@ namespace Palatium.Pedidos
                 txtNuevaLinea[iPosicion].CharacterCasing = CharacterCasing.Upper;
                 txtNuevaLinea[iPosicion].Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
 
-                if (Program.iActivaTeclado == 1)
-                {
-                    this.TecladoVirtual.SetShowTouchKeyboard(this.txtNuevaLinea[j], DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-                }
-                
                 //AGREGAR BOTON DE REMOVER
                 btnRemoverNuevaLinea[iPosicion] = new Button();
                 btnRemoverNuevaLinea[iPosicion].Top = y - 3;
@@ -275,7 +264,6 @@ namespace Palatium.Pedidos
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Ocurrio un problema al guardar los detalles en el arreglo.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }

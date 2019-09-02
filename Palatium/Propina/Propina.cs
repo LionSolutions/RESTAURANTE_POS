@@ -128,7 +128,6 @@ namespace Palatium
             if (txtValor.Text == "")
             {
                 ok.LblMensaje.Text = "Ingrese un valor.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
             else
@@ -137,13 +136,11 @@ namespace Palatium
                 {
                     PagoTarjetas t = new PagoTarjetas();
                     Program.dPropinas = Program.dPropinas + Convert.ToDouble(txtValor.Text);
-                    t.ShowInTaskbar = false;
                     this.DialogResult = DialogResult.OK;
                 }
                 catch (Exception)
                 {
                     ok.LblMensaje.Text = "Ingrese un valor válido.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                     txtValor.Text = "";
                 }

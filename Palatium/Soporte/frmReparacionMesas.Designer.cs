@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReparacionMesas));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -53,10 +52,10 @@
             // 
             // btnSubirFecha
             // 
-            this.btnSubirFecha.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSubirFecha.BackgroundImage")));
-            this.btnSubirFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSubirFecha.BackColor = System.Drawing.Color.Navy;
+            this.btnSubirFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnSubirFecha.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSubirFecha.FlatAppearance.BorderSize = 0;
+            this.btnSubirFecha.FlatAppearance.BorderSize = 2;
             this.btnSubirFecha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubirFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubirFecha.ForeColor = System.Drawing.Color.White;
@@ -67,17 +66,17 @@
             this.btnSubirFecha.Size = new System.Drawing.Size(57, 49);
             this.btnSubirFecha.TabIndex = 58;
             this.ttMensaje.SetToolTip(this.btnSubirFecha, "Clic aquí para aumentar la fecha");
-            this.btnSubirFecha.UseVisualStyleBackColor = true;
+            this.btnSubirFecha.UseVisualStyleBackColor = false;
             this.btnSubirFecha.Click += new System.EventHandler(this.btnSubirFecha_Click);
             this.btnSubirFecha.MouseEnter += new System.EventHandler(this.btnSubirFecha_MouseEnter);
             this.btnSubirFecha.MouseLeave += new System.EventHandler(this.btnSubirFecha_MouseLeave);
             // 
             // btnFecha
             // 
-            this.btnFecha.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFecha.BackgroundImage")));
-            this.btnFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFecha.BackColor = System.Drawing.Color.Navy;
+            this.btnFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnFecha.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFecha.FlatAppearance.BorderSize = 0;
+            this.btnFecha.FlatAppearance.BorderSize = 2;
             this.btnFecha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFecha.ForeColor = System.Drawing.Color.White;
@@ -87,17 +86,17 @@
             this.btnFecha.Size = new System.Drawing.Size(141, 49);
             this.btnFecha.TabIndex = 59;
             this.ttMensaje.SetToolTip(this.btnFecha, "Clic aquí para mostrar el calendario");
-            this.btnFecha.UseVisualStyleBackColor = true;
+            this.btnFecha.UseVisualStyleBackColor = false;
             this.btnFecha.Click += new System.EventHandler(this.btnFecha_Click);
             this.btnFecha.MouseEnter += new System.EventHandler(this.btnFecha_MouseEnter);
             this.btnFecha.MouseLeave += new System.EventHandler(this.btnFecha_MouseLeave);
             // 
             // btnBajarFecha
             // 
-            this.btnBajarFecha.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBajarFecha.BackgroundImage")));
-            this.btnBajarFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBajarFecha.BackColor = System.Drawing.Color.Navy;
+            this.btnBajarFecha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnBajarFecha.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBajarFecha.FlatAppearance.BorderSize = 0;
+            this.btnBajarFecha.FlatAppearance.BorderSize = 2;
             this.btnBajarFecha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBajarFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBajarFecha.ForeColor = System.Drawing.Color.White;
@@ -108,17 +107,16 @@
             this.btnBajarFecha.Size = new System.Drawing.Size(57, 49);
             this.btnBajarFecha.TabIndex = 60;
             this.ttMensaje.SetToolTip(this.btnBajarFecha, "Clic aquí para regresar la fecha");
-            this.btnBajarFecha.UseVisualStyleBackColor = true;
+            this.btnBajarFecha.UseVisualStyleBackColor = false;
             this.btnBajarFecha.Click += new System.EventHandler(this.btnBajarFecha_Click);
             this.btnBajarFecha.MouseEnter += new System.EventHandler(this.btnBajarFecha_MouseEnter);
             this.btnBajarFecha.MouseLeave += new System.EventHandler(this.btnBajarFecha_MouseLeave);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuscar.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.BackColor = System.Drawing.Color.Navy;
+            this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnBuscar.FlatAppearance.BorderSize = 2;
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Image = global::Palatium.Properties.Resources.buscar_botnon;
@@ -136,10 +134,9 @@
             // 
             // btnProcesar
             // 
-            this.btnProcesar.BackColor = System.Drawing.Color.Transparent;
-            this.btnProcesar.BackgroundImage = global::Palatium.Properties.Resources.boton;
-            this.btnProcesar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProcesar.FlatAppearance.BorderSize = 0;
+            this.btnProcesar.BackColor = System.Drawing.Color.Navy;
+            this.btnProcesar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnProcesar.FlatAppearance.BorderSize = 2;
             this.btnProcesar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProcesar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcesar.Image = global::Palatium.Properties.Resources.ok2_png;

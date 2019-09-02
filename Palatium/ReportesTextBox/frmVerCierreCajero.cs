@@ -99,7 +99,6 @@ namespace Palatium.Pedidos
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }

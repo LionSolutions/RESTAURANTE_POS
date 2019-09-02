@@ -117,7 +117,6 @@ namespace Palatium
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema en realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -125,7 +124,6 @@ namespace Palatium
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

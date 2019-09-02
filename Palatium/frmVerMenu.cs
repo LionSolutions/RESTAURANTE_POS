@@ -15,6 +15,7 @@ namespace Palatium
         ConexionBD.ConexionBD conexion = new ConexionBD.ConexionBD();
         Clases.ClaseCrearImpresion imprimir = new Clases.ClaseCrearImpresion();
         Clases.ClaseAbrirCajon abrir = new Clases.ClaseAbrirCajon();
+        Clases.ClaseLimpiarArreglos limpiarArreglos = new Clases.ClaseLimpiarArreglos();
         VentanasMensajes.frmMensajeOK ok = new VentanasMensajes.frmMensajeOK();
         VentanasMensajes.frmMensajeCatch catchMensaje = new VentanasMensajes.frmMensajeCatch();
 
@@ -22,6 +23,7 @@ namespace Palatium
 
         //VARIABLES DE CONFIGURACION DE LA IMPRESORA
         DataTable dtImprimir;
+        DataTable dtConsulta;
         bool bRespuesta;
 
         int iCortarPapel;
@@ -55,6 +57,106 @@ namespace Palatium
         }
 
         #region FUNCIONES DEL USUARIO
+
+        private void llenarArregloMaximo()
+        {
+            Program.iIDMESA = 0;
+            Program.sDatosMaximo[0] = Program.sNombreUsuario;
+            Program.sDatosMaximo[1] = Environment.MachineName.ToString();
+            Program.sDatosMaximo[2] = "A";
+        }
+
+        //FUNCION PARA CONSULTAR REGISTROS
+        private void consultarDatos(string sOpcion, string sAuxiliar)
+        {
+            try
+            {
+                Program.sIDPERSONA = (string)null;
+                Program.iIdPersonaFacturador = 0;
+                Program.iIdentificacionFacturador = "";
+                Program.iDomicilioEspeciales = 0;
+                Program.iModoDelivery = 0;
+                Program.iIDMESA = 0;
+                Program.dbValorPorcentaje = 25.0;
+                Program.dbDescuento = Program.dbValorPorcentaje / 100.0;
+                limpiarArreglos.limpiarArregloComentarios();
+
+                sSql = "";
+                sSql = sSql + "select id_pos_origen_orden, descripcion, genera_factura," + Environment.NewLine;
+                sSql = sSql + "id_persona, id_pos_modo_delivery, presenta_opcion_delivery," + Environment.NewLine;
+                sSql = sSql + "codigo, maneja_servicio" + Environment.NewLine;
+                sSql = sSql + "from pos_origen_orden where codigo = '" + sOpcion + "'" + Environment.NewLine;
+                sSql += "and estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == true)
+                {
+                    Program.iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    Program.sDescripcionOrigenOrden = dtConsulta.Rows[0].ItemArray[1].ToString();
+                    Program.iGeneraFactura = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
+                    Program.iManejaServicioOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[7].ToString());
+
+                    if (dtConsulta.Rows[0].ItemArray[3].ToString() == null || dtConsulta.Rows[0].ItemArray[3].ToString() == "")
+                    {
+                        Program.iIdPersonaOrigenOrden = 0;
+                    }
+
+                    else
+                    {
+                        Program.iIdPersonaOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[3].ToString());
+                        Program.sIDPERSONA = dtConsulta.Rows[0].ItemArray[3].ToString();
+                    }
+
+                    Program.iIdPosModoDelivery = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
+                    Program.iPresentaOpcionDelivery = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[5].ToString());
+                    Program.sCodigoAsignadoOrigenOrden = dtConsulta.Rows[0].ItemArray[6].ToString();
+                    if (Program.iGeneraFactura != 0)
+                    {
+                        return;
+                    }
+
+                    sSql = "";
+                    sSql = sSql + "select id_pos_tipo_forma_cobro, descripcion" + Environment.NewLine;
+                    sSql = sSql + "from pos_tipo_forma_cobro" + Environment.NewLine;
+                    sSql = sSql + "where codigo = '" + sAuxiliar + "'";
+
+                    dtConsulta = new DataTable();
+                    dtConsulta.Clear();
+
+                    bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                    if (bRespuesta == true)
+                    {
+                        if (dtConsulta.Rows.Count > 0)
+                        {
+                            Program.sIdGrid = dtConsulta.Rows[0].ItemArray[0].ToString();
+                            Program.sFormaPagoGrid = dtConsulta.Rows[0].ItemArray[1].ToString();
+                        }
+                    }
+
+                    else
+                    {
+                        ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
+                        ok.ShowDialog();
+                    }
+                }
+
+                else
+                {
+                    ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
+                    ok.ShowDialog();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ok.LblMensaje.Text = ex.ToString();
+                ok.ShowDialog();
+            }
+        }
 
         //EXTRAER LOS DATOS LAS IMPRESORAS
         private void consultarImpresoraTipoOrden()
@@ -104,7 +206,6 @@ namespace Palatium
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -112,7 +213,6 @@ namespace Palatium
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

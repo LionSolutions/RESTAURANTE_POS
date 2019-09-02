@@ -53,7 +53,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new DevComponents.DotNetBar.ButtonX();
             this.btnAceptar = new DevComponents.DotNetBar.ButtonX();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -365,12 +364,6 @@
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // Direccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -426,7 +419,6 @@
         public System.Windows.Forms.TextBox txtIdentificacion;
         public System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkPasaporte;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
         public System.Windows.Forms.TextBox txtMail;
         public System.Windows.Forms.Label label10;
     }

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAyudaRevisar));
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnMisOrdenes = new DevComponents.DotNetBar.ButtonX();
             this.btnCanceladas = new DevComponents.DotNetBar.ButtonX();
@@ -78,12 +77,6 @@
             this.pnlOrdenes.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
             // 
             // groupBox1
             // 
@@ -673,7 +666,6 @@
         private DevComponents.DotNetBar.ButtonX btnSubir;
         private DevComponents.DotNetBar.ButtonX btnBusqueda;
         private DevComponents.DotNetBar.ButtonX btnRetroceder;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
         private System.Windows.Forms.GroupBox groupBox1;
         private DevComponents.DotNetBar.ButtonX btnMisOrdenes;
         private DevComponents.DotNetBar.ButtonX btnCanceladas;

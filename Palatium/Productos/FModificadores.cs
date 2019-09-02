@@ -184,20 +184,20 @@ namespace Palatium.Productos
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdPadre = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iIdPadre = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            if (dtConsulta.Rows[i].ItemArray[2].ToString() == "1")
+                            if (dtConsulta.Rows[i][2].ToString() == "1")
                             {
-                                iTipoUnidadCompra = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[1].ToString());
-                                iUnidadCompra = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[3].ToString());
+                                iTipoUnidadCompra = Convert.ToInt32(dtConsulta.Rows[i][1].ToString());
+                                iUnidadCompra = Convert.ToInt32(dtConsulta.Rows[i][3].ToString());
                             }
 
                             else
                             {
-                                iUnidadConsumo = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[1].ToString());
-                                iTipoUnidadConsumo = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[3].ToString());
+                                iUnidadConsumo = Convert.ToInt32(dtConsulta.Rows[i][1].ToString());
+                                iTipoUnidadConsumo = Convert.ToInt32(dtConsulta.Rows[i][3].ToString());
                             }
                         }
 
@@ -467,8 +467,8 @@ namespace Palatium.Productos
                     {
                         if (dtConsulta.Rows.Count > 0)
                         {
-                            dgvDatos.Rows[i].Cells[10].Value = (Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("N2");
-                            dgvDatos.Rows[i].Cells[11].Value = (Convert.ToDouble(dtConsulta.Rows[1].ItemArray[0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("N2");
+                            dgvDatos.Rows[i].Cells[10].Value = (Convert.ToDouble(dtConsulta.Rows[0][0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("N2");
+                            dgvDatos.Rows[i].Cells[11].Value = (Convert.ToDouble(dtConsulta.Rows[1][0].ToString()) * (1 + Program.iva + Program.servicio)).ToString("N2");
                         }
 
                         else
@@ -538,7 +538,7 @@ namespace Palatium.Productos
 
                 if (bRespuesta == true)
                 {
-                    return Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    return Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
                 }
 
                 else

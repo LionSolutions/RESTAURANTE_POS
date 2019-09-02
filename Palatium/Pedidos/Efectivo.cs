@@ -120,57 +120,55 @@ namespace Palatium
 
         private void abrirPropina()
         {
-            try
-            {
-                PagoTarjetas efe = Owner as PagoTarjetas;
-                sSql = "";
-                sSql += "select lee_propina" + Environment.NewLine;
-                sSql += "from pos_tipo_forma_cobro" + Environment.NewLine;
-                sSql += "where id_pos_tipo_forma_cobro = " + Convert.ToInt32(origen) + Environment.NewLine;
-                sSql += "and estado = 'A'";
+            //try
+            //{
+            //    PagoTarjetas efe = Owner as PagoTarjetas;
+            //    sSql = "";
+            //    sSql += "select lee_propina" + Environment.NewLine;
+            //    sSql += "from pos_tipo_forma_cobro" + Environment.NewLine;
+            //    sSql += "where id_pos_tipo_forma_cobro = " + Convert.ToInt32(origen) + Environment.NewLine;
+            //    sSql += "and estado = 'A'";
 
-                dtConsulta = new DataTable();
-                dtConsulta.Clear();
+            //    dtConsulta = new DataTable();
+            //    dtConsulta.Clear();
 
-                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+            //    bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
 
-                if (bRespuesta == true)
-                {
-                    if (dtConsulta.Rows[0].ItemArray[0].ToString() == "1")
-                    {
-                        //ABRIR EL FORMULARIO DE LA PROPINA
-                        Propina p = new Propina();
-                        p.ShowDialog();
+            //    if (bRespuesta == true)
+            //    {
+            //        if (dtConsulta.Rows[0].ItemArray[0].ToString() == "1")
+            //        {
+            //            //ABRIR EL FORMULARIO DE LA PROPINA
+            //            Propina p = new Propina();
+            //            p.ShowDialog();
 
-                        if (p.DialogResult == DialogResult.OK)
-                        {
-                            efe.lblPropina.Text = Program.dPropinas.ToString("N2");
-                            this.Close();
-                        }
-                    }
+            //            if (p.DialogResult == DialogResult.OK)
+            //            {
+            //                efe.lblPropina.Text = Program.dPropinas.ToString("N2");
+            //                this.Close();
+            //            }
+            //        }
 
-                    else
-                    {
-                        //CERRAR EL FORMULARIO
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                }
+            //        else
+            //        {
+            //            //CERRAR EL FORMULARIO
+            //            this.DialogResult = DialogResult.OK;
+            //            this.Close();
+            //        }
+            //    }
 
-                else
-                {
-                    ok.LblMensaje.Text = "Ocurrió un problema al realizar la transacción.";
-                    ok.ShowInTaskbar = false;
-                    ok.ShowDialog();
-                }
-            }
+            //    else
+            //    {
+            //        ok.LblMensaje.Text = "Ocurrió un problema al realizar la transacción.";
+            //        ok.ShowDialog();
+            //    }
+            //}
 
-            catch (Exception ex)
-            {
-                catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
-                catchMensaje.ShowDialog();
-            }
+            //catch (Exception ex)
+            //{
+            //    catchMensaje.LblMensaje.Text = ex.ToString();
+            //    catchMensaje.ShowDialog();
+            //}
         }
 
         //FUNCION PARA CONCATENAR
@@ -218,7 +216,6 @@ namespace Palatium
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
 
@@ -227,85 +224,9 @@ namespace Palatium
 
         #endregion
 
-        private void button11_Click(object sender, EventArgs e)
-        {
-            if (txt_valor.Text == "")
-            {
-                ok.LblMensaje.Text = "Ingrese valor.";
-                ok.ShowInTaskbar = false;
-                ok.ShowDialog();
-            }
-
-            else
-            {
-                PagoTarjetas efe = Owner as PagoTarjetas;
-
-                efe.dgv_DetallePago.Columns[0].Visible = true;
-
-                int x = 0;
-
-                x = efe.dgv_DetallePago.Rows.Add();
-                efe.dgv_DetallePago.Rows[x].Cells["id"].Value = origen;
-                efe.dgv_DetallePago.Rows[x].Cells["fpago"].Value = sNombrePago;
-
-                if (Convert.ToDouble(txt_valor.Text) > Convert.ToDouble(btnValorSugerido.Text))
-                {
-                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = btnValorSugerido.Text;
-                }
-                else
-                {
-                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = txt_valor.Text;
-                }
-
-                
-
-               efe.dgv_DetallePago.Columns[0].Visible = false;
-
-
-                efe.lblAbono.Text = (Convert.ToDouble(efe.lblAbono.Text) + Convert.ToDouble(txt_valor.Text)).ToString("N2");
-                
-                efe.lblSaldo.Text = (Convert.ToDouble(efe.lbl_total.Text) - Convert.ToDouble(efe.lblAbono.Text)).ToString("N2");
-
-                if (Convert.ToDouble(efe.lblSaldo.Text) < 0)
-                {
-                    efe.lblSaldo.Text = "0.00";
-                }
-
-                efe.lblCambio.Text = (Convert.ToDouble(efe.lblAbono.Text) - Convert.ToDouble(efe.lbl_total.Text)).ToString("N2");
-
-                if (Convert.ToDouble(efe.lblCambio.Text) < 0)
-                {
-                    efe.lblCambio.Text = "0.00";
-                }
-
-                if (Convert.ToDouble(efe.lblCambio.Text) > 0)
-                {
-                    Program.dCambioPantalla = Convert.ToDouble(efe.lblCambio.Text);
-
-                    //Cambiocs cambio = new Cambiocs(efe.lblCambio.Text);
-                    //cambio.ShowInTaskbar = false;
-                    //cambio.ShowDialog();
-
-                    //if (cambio.DialogResult == DialogResult.OK)
-                    //{
-                    //    cambio.Close();
-                    //}
-                    //efe.txtCambio.Text = 
-                    //Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR] = Convert.ToDouble(Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR]) - Convert.ToDouble(efe.txtCambio.Text) +"";
-                }
-
-
-                //FUNCION PARA ABRIR LA PROPINA
-                abrirPropina();
-
-                //this.Hide();
-            }
-            
-        }
-
         private void button13_Click(object sender, EventArgs e)
         {
-            txt_valor.Text =string.Format("{0:0.00}" ,btnValorSugerido.Text);
+            txt_valor.Text = string.Format("{0:0.00}", btnValorSugerido.Text);
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -501,6 +422,81 @@ namespace Palatium
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            if (txt_valor.Text == "")
+            {
+                ok.LblMensaje.Text = "Ingrese valor.";
+                ok.ShowInTaskbar = false;
+                ok.ShowDialog();
+            }
+
+            else
+            {
+                PagoTarjetas efe = Owner as PagoTarjetas;
+
+                efe.dgv_DetallePago.Columns[0].Visible = true;
+
+                int x = 0;
+
+                x = efe.dgv_DetallePago.Rows.Add();
+                efe.dgv_DetallePago.Rows[x].Cells["id"].Value = origen;
+                efe.dgv_DetallePago.Rows[x].Cells["fpago"].Value = sNombrePago;
+
+                if (Convert.ToDouble(txt_valor.Text) > Convert.ToDouble(btnValorSugerido.Text))
+                {
+                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = btnValorSugerido.Text;
+                }
+                else
+                {
+                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = txt_valor.Text;
+                }
+
+
+
+                efe.dgv_DetallePago.Columns[0].Visible = false;
+
+
+                efe.lblAbono.Text = (Convert.ToDouble(efe.lblAbono.Text) + Convert.ToDouble(txt_valor.Text)).ToString("N2");
+
+                efe.lblSaldo.Text = (Convert.ToDouble(efe.lbl_total.Text) - Convert.ToDouble(efe.lblAbono.Text)).ToString("N2");
+
+                if (Convert.ToDouble(efe.lblSaldo.Text) < 0)
+                {
+                    efe.lblSaldo.Text = "0.00";
+                }
+
+                efe.lblCambio.Text = (Convert.ToDouble(efe.lblAbono.Text) - Convert.ToDouble(efe.lbl_total.Text)).ToString("N2");
+
+                if (Convert.ToDouble(efe.lblCambio.Text) < 0)
+                {
+                    efe.lblCambio.Text = "0.00";
+                }
+
+                if (Convert.ToDouble(efe.lblCambio.Text) > 0)
+                {
+                    Program.dCambioPantalla = Convert.ToDouble(efe.lblCambio.Text);
+
+                    //Cambiocs cambio = new Cambiocs(efe.lblCambio.Text);
+                    //cambio.ShowInTaskbar = false;
+                    //cambio.ShowDialog();
+
+                    //if (cambio.DialogResult == DialogResult.OK)
+                    //{
+                    //    cambio.Close();
+                    //}
+                    //efe.txtCambio.Text = 
+                    //Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR] = Convert.ToDouble(Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR]) - Convert.ToDouble(efe.txtCambio.Text) +"";
+                }
+
+
+                //FUNCION PARA ABRIR LA PROPINA
+                abrirPropina();
+
+                //this.Hide();
             }
         }
     }

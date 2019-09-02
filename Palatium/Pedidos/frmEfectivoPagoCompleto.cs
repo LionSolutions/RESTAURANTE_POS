@@ -45,6 +45,18 @@ namespace Palatium.Pedidos
 
         #region FUNCIONES DEL USUARIO
 
+        private void ingresaBoton(Button btnProceso)
+        {
+            btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
+        }
+
+        private void salidaBoton(Button btnProceso)
+        {
+            btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
+        }
+
         //FUNCION PARA CONCATENAR
         private void concatenarValores(string sValor)
         {
@@ -122,13 +134,13 @@ namespace Palatium.Pedidos
                 {
                     if (Program.iEjecutarImpresion == 1)
                     {
-                        ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdOrden.ToString(), 1);
+                        ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdFacturaGenerada_P, 1);
                         notaVenta.ShowDialog();
 
                         if (notaVenta.DialogResult == DialogResult.OK)
                         {
                             Cambiocs ok = new Cambiocs("$ " + dbCambio.ToString("N2"));
-                            ok.lblVerMensaje.Text = "N. VENTA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                            ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
                             ok.ShowDialog();
                             Program.dbValorPorcentaje = 0;
                             Program.dbDescuento = 0;
@@ -139,7 +151,7 @@ namespace Palatium.Pedidos
                     else
                     {
                         Cambiocs ok = new Cambiocs("$ " + dbCambio.ToString("N2"));
-                        ok.lblVerMensaje.Text = "N. VENTA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                        ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
                         ok.ShowDialog();
                         Program.dbValorPorcentaje = 0;
                         Program.dbDescuento = 0;
@@ -332,13 +344,13 @@ namespace Palatium.Pedidos
             {
                 if (Program.iEjecutarImpresion == 1)
                 {
-                    ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdOrden.ToString(), 1);
+                    ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdFacturaGenerada_P, 1);
                     notaVenta.ShowDialog();
 
                     if (notaVenta.DialogResult == DialogResult.OK)
                     {
                         Cambiocs ok = new Cambiocs("$ " + dbCambio.ToString("N2"));
-                        ok.lblVerMensaje.Text = "N. VENTA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                        ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
                         ok.ShowDialog();
                         Program.dbValorPorcentaje = 0;
                         Program.dbDescuento = 0;
@@ -349,7 +361,7 @@ namespace Palatium.Pedidos
                 else
                 {
                     Cambiocs ok = new Cambiocs("$ " + dbCambio.ToString("N2"));
-                    ok.lblVerMensaje.Text = "N. VENTA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                    ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
                     ok.ShowDialog();
                     Program.dbValorPorcentaje = 0;
                     Program.dbDescuento = 0;

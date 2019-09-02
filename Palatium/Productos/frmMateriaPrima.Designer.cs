@@ -205,7 +205,7 @@
             this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Red;
-            this.label19.Location = new System.Drawing.Point(120, 204);
+            this.label19.Location = new System.Drawing.Point(119, 204);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(14, 18);
             this.label19.TabIndex = 77;

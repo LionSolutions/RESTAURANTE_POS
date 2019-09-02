@@ -187,15 +187,15 @@ namespace Palatium.Personal
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            int iIdCajero = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[0].ToString());
-                            int iIdPersona = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[1].ToString());
-                            string sCodigo = dtConsulta.Rows[i].ItemArray[2].ToString();
-                            string sDescripcion = dtConsulta.Rows[i].ItemArray[3].ToString();
-                            int iClaveAcceso = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[4].ToString());
-                            string sEstado = dtConsulta.Rows[i].ItemArray[5].ToString();
-                            string sIdentificacion = dtConsulta.Rows[i].ItemArray[6].ToString();
-                            string sNombre = dtConsulta.Rows[i].ItemArray[7].ToString().Trim();
-                            iPermisos = Convert.ToInt32(dtConsulta.Rows[i].ItemArray[8].ToString());
+                            int iIdCajero = Convert.ToInt32(dtConsulta.Rows[i][0].ToString());
+                            int iIdPersona = Convert.ToInt32(dtConsulta.Rows[i][1].ToString());
+                            string sCodigo = dtConsulta.Rows[i][2].ToString();
+                            string sDescripcion = dtConsulta.Rows[i][3].ToString();
+                            int iClaveAcceso = Convert.ToInt32(dtConsulta.Rows[i][4].ToString());
+                            string sEstado = dtConsulta.Rows[i][5].ToString();
+                            string sIdentificacion = dtConsulta.Rows[i][6].ToString();
+                            string sNombre = dtConsulta.Rows[i][7].ToString().Trim();
+                            iPermisos = Convert.ToInt32(dtConsulta.Rows[i][8].ToString());
 
                             dgvCajero.Rows.Add(iIdCajero, iIdPersona, sCodigo, sDescripcion, 
                                                iClaveAcceso, sEstado, sIdentificacion,

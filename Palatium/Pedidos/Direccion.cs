@@ -46,20 +46,6 @@ namespace Palatium
 
         #region FUNCIONES DEL USUARIO
 
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtIdentificacion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtApellidos, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNombres, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtTelefono, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtSector, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtPrincipal, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNumeracion, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtSecundaria, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtReferencia, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
         //CONSULTAR DATOS EN LA BASE
         private void consultarRegistro()
         {
@@ -598,11 +584,6 @@ namespace Palatium
 
         private void Direccion_Load(object sender, EventArgs e)
         {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
-
             Direccion cod = Owner as Direccion;
             Domicilio dm = Owner as Domicilio;
             txtNombres.Focus();

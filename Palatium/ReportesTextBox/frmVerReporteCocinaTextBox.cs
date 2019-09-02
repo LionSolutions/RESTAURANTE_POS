@@ -138,9 +138,9 @@ namespace Palatium.Pedidos
             {
                 for (int i = 0; i < dtDestinos.Rows.Count; i++)
                 {
-                    iIdImpresionComanda = Convert.ToInt32(dtDestinos.Rows[i].ItemArray[0].ToString());
-                    iIdImpresora = Convert.ToInt32(dtDestinos.Rows[i].ItemArray[1].ToString());
-                    sDescripcionComanda = dtDestinos.Rows[i].ItemArray[2].ToString();
+                    iIdImpresionComanda = Convert.ToInt32(dtDestinos.Rows[i][0].ToString());
+                    iIdImpresora = Convert.ToInt32(dtDestinos.Rows[i][1].ToString());
+                    sDescripcionComanda = dtDestinos.Rows[i][2].ToString();
 
                     sSql = "";
                     sSql = sSql + "select * from pos_vw_det_pedido" + Environment.NewLine;
@@ -164,7 +164,7 @@ namespace Palatium.Pedidos
                             iAcumulador = 0;
                             for (int k = 0; k < dtConsulta.Rows.Count; k++)
                             {
-                                if (dtConsulta.Rows[k].ItemArray[55].ToString() != "0")
+                                if (dtConsulta.Rows[k][55].ToString() != "0")
                                 {
                                     iAcumulador++;
                                 }
@@ -251,13 +251,13 @@ namespace Palatium.Pedidos
                 {
                     if (dtImprimir.Rows.Count > 0)
                     {
-                        sNombreImpresora = dtImprimir.Rows[0].ItemArray[0].ToString();
-                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[1].ToString());
-                        sPuertoImpresora = dtImprimir.Rows[0].ItemArray[2].ToString();
-                        sIpImpresora = dtImprimir.Rows[0].ItemArray[3].ToString();
-                        sDescripcionImpresora = dtImprimir.Rows[0].ItemArray[4].ToString();
-                        iCortarPapel = Convert.ToInt32(dtImprimir.Rows[0].ItemArray[5].ToString());
-                        iAbrirCajon = Convert.ToInt32(dtImprimir.Rows[0].ItemArray[6].ToString());
+                        sNombreImpresora = dtImprimir.Rows[0][0].ToString();
+                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0][1].ToString());
+                        sPuertoImpresora = dtImprimir.Rows[0][2].ToString();
+                        sIpImpresora = dtImprimir.Rows[0][3].ToString();
+                        sDescripcionImpresora = dtImprimir.Rows[0][4].ToString();
+                        iCortarPapel = Convert.ToInt32(dtImprimir.Rows[0][5].ToString());
+                        iAbrirCajon = Convert.ToInt32(dtImprimir.Rows[0][6].ToString());
 
                         //ENVIAR A IMPRIMIR
                         imprimir.iniciarImpresion();
@@ -267,20 +267,20 @@ namespace Palatium.Pedidos
                         string ver;
                         ver = "";
 
-                        //if (dtConsulta.Rows[0].ItemArray[40].ToString() == "MESAS")
+                        //if (dtConsulta.Rows[0][40].ToString() == "MESAS")
                         //{
                         //    imprimir.escritoEspaciadoCorto(cocina.encabezadoReporteCocina(dtConsulta));
 
                         //    ver = ver + cocina.encabezadoReporteCocina(dtConsulta) + Environment.NewLine;
-                        //    ver = ver + dtConsulta.Rows[0].ItemArray[49].ToString();
+                        //    ver = ver + dtConsulta.Rows[0][49].ToString();
                         //    //AVANZA ESPACIADO DEL TIPO DE ORDEN
-                        //    //imprimir.escritoEspaciadoCorto(dtConsulta.Rows[0].ItemArray[49].ToString());
+                        //    //imprimir.escritoEspaciadoCorto(dtConsulta.Rows[0][49].ToString());
                         //}
 
                         //else
                         //{
                         //    imprimir.escritoEspaciadoCorto(cocina.encabezadoReporteCocinaLlevar(dtConsulta));
-                        //    //imprimir.escritoFuenteAlta(dtConsulta.Rows[0].ItemArray[40].ToString());
+                        //    //imprimir.escritoFuenteAlta(dtConsulta.Rows[0][40].ToString());
                         //}
 
                         //imprimir.escritoEspaciadoCorto(cocina.seccionDetalleCocina(dtConsulta));
@@ -303,7 +303,6 @@ namespace Palatium.Pedidos
                     else
                     {
                         ok.LblMensaje.Text = "No existe el registro de configuración de impresora. Comuníquese con el administrador.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -311,7 +310,6 @@ namespace Palatium.Pedidos
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -319,7 +317,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

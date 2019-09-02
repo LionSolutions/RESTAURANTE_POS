@@ -59,6 +59,9 @@ namespace Palatium.Pedidos
         int iIdOrigenOrden;
         int iIdCajero;
         int iIdMesero;
+        int iIdTipoFactura;
+        int iIdFactura;
+        int iIdTipoComprobante;
 
         //=========================================================================================
 
@@ -108,14 +111,6 @@ namespace Palatium.Pedidos
                     sSql = sSql + "and FP.id_pos_formato_precuenta = " + iOp;
                 }
 
-                //sSql = "";
-                //sSql = sSql + "select nombre_impresora, numero_impresion, puerto_impresora, " + Environment.NewLine;
-                //sSql = sSql + "ip_impresora, descripcion " + Environment.NewLine;
-                //sSql = sSql + "from pos_canal_impresion" + Environment.NewLine;
-                //sSql = sSql + "where codigo = '" + iOp + "'" + Environment.NewLine;
-                //sSql = sSql + "and estado = 'A'" + Environment.NewLine;
-                //sSql = sSql + "and id_pos_terminal = " + Program.iIdTerminal;
-
                 dtImprimir = new DataTable();
                 dtImprimir.Clear();
 
@@ -144,57 +139,44 @@ namespace Palatium.Pedidos
                         }
 
                         //FACTURA
-                        else if (iTipoComprobante == 2)
+                        else if (iIdTipoComprobante == 2)
                         {
-                            //ENVIAR A IMPRIMIR
-                            if (Program.iFacturacionElectronica == 0)
+                            if (iIdTipoFactura == 1)
                             {
-                                Program.iCortar = 1;
-                            }
-
-                            if (Program.iFormatoFactura == 1)
-                            {
+                                Program.iCortar = 0;
                                 imprimir.iniciarImpresion();
-                                imprimir.escritoEspaciadoCorto(factura.llenarFactura(dtConsulta, sIdOrden, "Pagada", dtPago));
+                                imprimir.AbreCajon();
+                                imprimir.imprimirReporte(sNombreImpresora);
+                                imprimir.iniciarImpresion();
+                                imprimir.escritoEspaciadoCorto(facturaElectronica.sCrearFactura(iIdFactura));
                                 imprimir.cortarPapel();
-                                imprimir.imprimirReporte(sNombreImpresora);     
+                                imprimir.imprimirReporte(sNombreImpresora);
                             }
 
                             else
                             {
-
+                                Program.iCortar = 1;
                                 imprimir.iniciarImpresion();
-                                imprimir.escritoEspaciadoCorto(factura2.llenarFactura(dtConsulta, sIdOrden, "Pagada", dtPago));
-                                imprimir.escritoFuenteAlta("".PadLeft(12, ' ') + "TOTAL:" + factura2.dTotal.ToString("N2").PadLeft(15, ' '));
+                                imprimir.AbreCajon();
+                                imprimir.imprimirReporte(sNombreImpresora);
+                                imprimir.iniciarImpresion();
+                                imprimir.escritoEspaciadoCorto(factura.sCrearFactura(iIdFactura));
+                                imprimir.escritoFuenteAlta("".PadLeft(12, ' ') + "TOTAL:" + factura.dTotal.ToString("N2").PadLeft(15, ' '));
                                 imprimir.cortarPapel();
-                                imprimir.imprimirReporte(sNombreImpresora);                               
+                                imprimir.imprimirReporte(sNombreImpresora);
                             }
-
-                            sRetorno = "";
-
                         }
 
-                        //NOTA DE VENTA
-                        else if (iTipoComprobante == 3)
+                        else if (iIdTipoComprobante == 3)
                         {
                             imprimir.iniciarImpresion();
-                            imprimir.escritoEspaciadoCorto(notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada"));
+                            imprimir.escritoEspaciadoCorto(notaVenta.llenarNota(iIdFactura));
                             imprimir.escritoFuenteAlta("TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(27, ' ') + Environment.NewLine);
                             imprimir.cortarPapel();
                             imprimir.imprimirReporte(sNombreImpresora);
                         }
-                        
-                        //FCATURA ELECTRONICA
-                        else if (iTipoComprobante == 4)
-                        {
-                            imprimir.iniciarImpresion();
-                            //imprimir.escritoEspaciadoCorto(facturaElectronica.llenarFacturaDatos(dtConsulta, dtPago));
-                            //imprimir.escritoFuenteAlta("".PadLeft(10, ' ') + "TOTAL:" + facturaElectronica.dTotal.ToString("N2").PadLeft(17, ' ') + Environment.NewLine);
-                            //imprimir.escritoEspaciadoCorto(facturaElectronica.llenarFacturaDetalle(dtConsulta, dtPago));
-                            imprimir.escritoEspaciadoCorto(facturaElectronica.llenarFactura(dtConsulta, dtPago));
-                            imprimir.cortarPapel();
-                            imprimir.imprimirReporte(sNombreImpresora);
-                        }
+
+                        sRetorno = "";
                     }
 
                     else
@@ -314,63 +296,99 @@ namespace Palatium.Pedidos
         fin: { }
         }
 
+        //FUNCION PARA OBENTER EL ID TIPO FACTURA, ID FACTURA Y TIPO COMPROBANTE
+        private void consultarTipoFactura()
+        {
+            try
+            {
+                sSql = "";
+                sSql += "select F.facturaelectronica, FP.id_factura, F.idtipocomprobante" + Environment.NewLine;
+                sSql += "from cv403_facturas_pedidos FP INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_facturas F ON F.id_factura = FP.id_factura" + Environment.NewLine;
+                sSql += "and F.estado = 'A'" + Environment.NewLine;
+                sSql += "and FP.estado = 'A'" + Environment.NewLine;
+                sSql += "where FP.id_pedido = " + sIdOrden;
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (!bRespuesta)
+                {
+                    iIdTipoFactura = Convert.ToInt32(dtConsulta.Rows[0]["facturaelectronica"].ToString());
+                    iIdFactura = Convert.ToInt32(dtConsulta.Rows[0]["id_factura"].ToString());
+                    iIdTipoComprobante = Convert.ToInt32(dtConsulta.Rows[0]["idtipocomprobante"].ToString());
+                }
+
+                else
+                {
+                    iIdTipoFactura = -1;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                iIdTipoFactura = -1;
+            }
+        }
+
         //FUNCION PARA CARGAR LA FACTURA EN UN TEXTBOX
         private void verFacturaTextBox()
         {
             try
             {
+                consultarTipoFactura();
 
-                if (llenarDataTable(1) == true)
+                if (iIdTipoFactura == -1)
                 {
-                    if (dtConsulta.Rows[0][63].ToString() == "1")
-                    {
-                        if (Program.iFacturacionElectronica == 1)
-                        {
-                            sRetorno = facturaElectronica.llenarFactura(dtConsulta, dtPago);
-                        }
-
-                        else
-                        {
-                            if (Program.iFormatoFactura == 1)
-                            {
-                                sRetorno = factura.llenarFactura(dtConsulta, sIdOrden, "Pagada", dtPago);
-                            }
-
-                            else if (Program.iFormatoFactura == 2)
-                            {
-                                sRetorno = factura2.llenarFactura(dtConsulta, sIdOrden, "Pagada", dtPago);
-                                sRetorno = sRetorno + "".PadLeft(22, ' ') + "TOTAL:" + factura2.dTotal.ToString("N2").PadLeft(12, ' ');
-                            }
-                        }
-
-                        iBandera = 1;
-                    }
-
-                    else if (dtConsulta.Rows[0][63].ToString() == "2")
-                    {
-                        sRetorno = notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada");
-                        sRetorno = sRetorno + "".PadLeft(22, ' ') + "TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(12, ' ');
-                        iBandera = 0;
-                    }
-                    
-                    if (sRetorno == "")
-                    {
-                        goto reversa;
-                    }
-                    else
-                    {
-                        sTexto = sTexto + Environment.NewLine;
-                        sTexto = sTexto + sRetorno;
-                    }
-
-                    txtReporte.Text = sTexto;
-                    sTexto = "";
-                    goto fin;
+                    ok.LblMensaje.Text = "Ocurrió un problema al visualizar la factura";
+                    ok.ShowDialog();
                 }
 
                 else
                 {
-                    goto reversa;
+                    if (iIdTipoFactura == 0)
+                    {
+                        if (iIdTipoComprobante == 1)
+                        {
+                            sRetorno = factura.sCrearFactura(iIdFactura);
+                            sRetorno += "TOTAL:".PadLeft(28, ' ') + factura.dTotal.ToString("N2").PadLeft(12, ' ');
+                        }
+                        else
+                        {
+                            sRetorno = notaVenta.llenarNota(iIdFactura);
+                            sRetorno += "".PadLeft(22, ' ') + "TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(12, ' ');
+                        }
+                    }
+
+                    else if (iIdTipoFactura == 1)
+                    {
+                        if (iIdTipoComprobante == 1)
+                        {
+                            sRetorno = facturaElectronica.sCrearFactura(iIdFactura);
+                        }
+                        else
+                        {
+                            sRetorno = notaVenta.llenarNota(iIdFactura);
+                            sRetorno += "".PadLeft(22, ' ') + "TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(12, ' ');
+                        }
+                    }
+
+                    if (sRetorno == "")
+                    {
+                        ok.LblMensaje.Text = "Ocurrió un problema al generar la vista previa de la factura.";
+                        ok.ShowDialog();
+                    }
+
+                    else
+                    {
+                        sTexto += Environment.NewLine;
+                        sTexto += sRetorno;
+                    }
+
+                    txtReporte.Text = sTexto;
+                    sTexto = "";
                 }
             }
 
@@ -542,7 +560,7 @@ namespace Palatium.Pedidos
                             Program.iDomicilioEspeciales = 1;
                         }
 
-                        if (dtEstado.Rows[0][0].ToString() == "Pagada")
+                        if ((dtEstado.Rows[0][0].ToString() == "Pagada") || (dtEstado.Rows[0][0].ToString() == "Cerrada"))
                         {
                             btnEditar.Visible = false;
                             btnReabrir.Visible = true;
@@ -628,7 +646,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -677,7 +694,6 @@ namespace Palatium.Pedidos
                         {
                             frmOpcionesReabrir r = new frmOpcionesReabrir(sIdOrden, dbTotal);
                             AddOwnedForm(r);
-                            r.ShowInTaskbar = false;
                             r.ShowDialog();
 
                             if (r.DialogResult == DialogResult.OK)
@@ -699,7 +715,6 @@ namespace Palatium.Pedidos
                     else
                     {
                         ok.LblMensaje.Text = "Ya se encuentra un cierre de caja registrado para esta orden.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -707,7 +722,6 @@ namespace Palatium.Pedidos
                 else
                 {
                     ok.LblMensaje.Text = "Su usuario no le permite reabrir la cuenta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -715,7 +729,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }      
         }
@@ -735,36 +748,22 @@ namespace Palatium.Pedidos
                 consultarImpresoraTipoOrden(Program.iFormatoPrecuenta, 1);
                 rbdVerFactura.Checked = false;
             }
+
             else
             {
-                if (iBandera == 1)
+                if (iIdTipoComprobante == 1)
                 {
                     SiNo.LblMensaje.Text = "¿Está seguro que desea reimprimir la factura?";
-                    SiNo.ShowInTaskbar = false;
                     SiNo.ShowDialog();
 
                     if (SiNo.DialogResult == DialogResult.OK)
                     {
-
-                        if (Program.iFacturacionElectronica == 1)
-                        {
-                            //FACTURA ELECTRONICA
-                            consultarImpresoraTipoOrden(Program.iFormatoPrecuenta, 4);
-                            Program.iCortar = 1;
-                        }
-
-                        else
-                        {
-                            //FACTURA FISICA
-                            consultarImpresoraTipoOrden(Program.iFormatoFactura, 2);
-                            Program.iCortar = 0;
-                        }
+                        consultarImpresoraTipoOrden(Program.iFormatoFactura, 2);
                     }
                 }
 
                 else
                 {
-                    //NOTA DE VENTA
                     consultarImpresoraTipoOrden(Program.iFormatoPrecuenta, 3);
                 }
 

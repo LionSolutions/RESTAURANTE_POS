@@ -170,7 +170,7 @@ namespace Palatium.Productos
             }
         }
 
-        //LLENAR COMBO DE LOCALIDADES
+        //LLENAR COMBO DE DESTINOS DE IMPRESION
         private void llenarDestinoImpresion()
         {
             try

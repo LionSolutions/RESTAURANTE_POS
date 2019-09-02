@@ -41,23 +41,17 @@ namespace Palatium.Pedidos
         //INGRESAR EL CURSOR AL BOTON
         private void ingresaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton_cambio;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
-            btnProceso.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnProceso.FlatStyle = FlatStyle.Flat;
-            btnProceso.BackColor = Color.Transparent;
             btnProceso.ForeColor = Color.Black;
+            btnProceso.BackColor = Color.LawnGreen;
         }
 
         //SALIR EL CURSOR DEL BOTON
         private void salidaBoton(Button btnProceso)
         {
-            btnProceso.BackgroundImage = Properties.Resources.boton;
-            btnProceso.BackgroundImageLayout = ImageLayout.Stretch;
             btnProceso.ForeColor = Color.White;
+            btnProceso.BackColor = Color.Navy;
         }
-
-
+        
         //FUNCION PARA CONSULTAR Y PERMITIR EL ACCESO A LA COMANDA
         private void abrirMenuComanda()
         {
@@ -140,7 +134,6 @@ namespace Palatium.Pedidos
             else
             {
                 ok.LblMensaje.Text = "No hay ninguna seccion de mesas registrada en el sistema.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }

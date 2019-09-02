@@ -141,7 +141,7 @@ namespace Palatium.Receta
                 }
                 
                 sSql = "";
-                sSql = "insert into pos_origen_receta (" + Environment.NewLine;
+                sSql += "insert into pos_origen_receta (" + Environment.NewLine;
                 sSql += "codigo, descripcion, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += "'" + txtCodigo.Text.Trim().ToUpper() + "','" + txtDescripcion.Text.Trim().ToUpper() + "'," + Environment.NewLine;

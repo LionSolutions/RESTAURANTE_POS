@@ -38,18 +38,6 @@ namespace Palatium
             InitializeComponent();
         }
 
-        #region FUNCIONES DEL USUARIO
-
-        //FUNCION ACTIVA TECLADO
-        private void activaTeclado()
-        {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtNombreProducto, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtCantidad, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtPrecioProducto, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-        }
-
-        #endregion
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {   
             try
@@ -164,10 +152,7 @@ namespace Palatium
 
         private void Items_Load(object sender, EventArgs e)
         {
-            if (Program.iActivaTeclado == 1)
-            {
-                activaTeclado();
-            }
+            
         }
 
     }

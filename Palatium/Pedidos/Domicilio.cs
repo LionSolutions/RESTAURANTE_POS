@@ -58,7 +58,7 @@ namespace Palatium
                 {
                     if (dtValor.Rows.Count > 0)
                     {
-                        dValorMovilizacion = Convert.ToDouble(dtValor.Rows[0].ItemArray[0].ToString());
+                        dValorMovilizacion = Convert.ToDouble(dtValor.Rows[0][0].ToString());
                         txtValor.Text = (dValorMovilizacion * (1 + Program.iva + Program.servicio)).ToString("N2");
                     }
 
@@ -103,11 +103,11 @@ namespace Palatium
                 {
                     if (dtDireccion.Rows.Count > 0)
                     {
-                        txtSector.Text = dtDireccion.Rows[0].ItemArray[0].ToString(); ;
-                        txtCallePrincipal.Text = dtDireccion.Rows[0].ItemArray[1].ToString();
-                        txtCalleSecundaria.Text = dtDireccion.Rows[0].ItemArray[2].ToString();
-                        txtNumero.Text = dtDireccion.Rows[0].ItemArray[3].ToString();
-                        txtReferencia.Text = dtDireccion.Rows[0].ItemArray[4].ToString();
+                        txtSector.Text = dtDireccion.Rows[0][0].ToString(); ;
+                        txtCallePrincipal.Text = dtDireccion.Rows[0][1].ToString();
+                        txtCalleSecundaria.Text = dtDireccion.Rows[0][2].ToString();
+                        txtNumero.Text = dtDireccion.Rows[0][3].ToString();
+                        txtReferencia.Text = dtDireccion.Rows[0][4].ToString();
 
                         llenarDatosAdicionales();
                     }
@@ -149,11 +149,11 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[0].ToString();
-                        txtNombres.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        txtApellidos.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        txtMail.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        txtNumeroTelefono.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
+                        txtIdentificacion.Text = dtConsulta.Rows[0][0].ToString();
+                        txtNombres.Text = dtConsulta.Rows[0][1].ToString();
+                        txtApellidos.Text = dtConsulta.Rows[0][2].ToString();
+                        txtMail.Text = dtConsulta.Rows[0][3].ToString();
+                        txtNumeroTelefono.Text = dtConsulta.Rows[0][4].ToString();
                         goto fin;
                     }
                 }
@@ -194,7 +194,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtClienteDesde.Text = dtConsulta.Rows[0].ItemArray[0].ToString().Substring(0, 10);
+                        txtClienteDesde.Text = dtConsulta.Rows[0][0].ToString().Substring(0, 10);
                     }
 
                     else
@@ -225,7 +225,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtNumeroOrdenes.Text = dtConsulta.Rows[0].ItemArray[0].ToString();
+                        txtNumeroOrdenes.Text = dtConsulta.Rows[0][0].ToString();
                     }
 
                     else
@@ -257,7 +257,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtFechaUltimaOrden.Text = dtConsulta.Rows[0].ItemArray[0].ToString().Substring(0, 10);
+                        txtFechaUltimaOrden.Text = dtConsulta.Rows[0][0].ToString().Substring(0, 10);
                     }
 
                     else
@@ -297,14 +297,14 @@ namespace Palatium
 
             if (dtConsulta.Rows.Count > 0)
             {
-                txtIdentificacion.Text = dtConsulta.Rows[0].ItemArray[0].ToString();
-                txtNombres.Text = dtConsulta.Rows[0].ItemArray[1].ToString();
-                txtApellidos.Text = dtConsulta.Rows[0].ItemArray[2].ToString();
-                txtMail.Text = dtConsulta.Rows[0].ItemArray[3].ToString();
-                txtNumeroTelefono.Text = dtConsulta.Rows[0].ItemArray[4].ToString();
+                txtIdentificacion.Text = dtConsulta.Rows[0][0].ToString();
+                txtNombres.Text = dtConsulta.Rows[0][1].ToString();
+                txtApellidos.Text = dtConsulta.Rows[0][2].ToString();
+                txtMail.Text = dtConsulta.Rows[0][3].ToString();
+                txtNumeroTelefono.Text = dtConsulta.Rows[0][4].ToString();
                 txtReferencia.Text = txtReferencia.Text.ToUpper();
                 
-                sIdPersona = dtConsulta.Rows[0].ItemArray[5].ToString();
+                sIdPersona = dtConsulta.Rows[0][5].ToString();
 
                 consultarRegistroDireccion();
             }

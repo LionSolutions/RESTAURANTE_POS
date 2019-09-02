@@ -139,7 +139,7 @@ namespace Palatium.Receta
                 }
 
                 sSql = "";
-                sSql = "insert into pos_temperatura_de_servicio (" + Environment.NewLine;
+                sSql += "insert into pos_temperatura_de_servicio (" + Environment.NewLine;
                 sSql += "codigo, descripcion, estado, fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += "'" + txtCodigo.Text.Trim().ToUpper() + "','" + txtDescripcion.Text.Trim().ToUpper() + "'," + Environment.NewLine;
@@ -182,7 +182,7 @@ namespace Palatium.Receta
                 }
 
                 sSql = "";
-                sSql = "update pos_temperatura_de_servicio set" + Environment.NewLine;
+                sSql += "update pos_temperatura_de_servicio set" + Environment.NewLine;
                 sSql += "descripcion = '" + txtDescripcion.Text.Trim().ToUpper() + "'," + Environment.NewLine;
                 sSql += "estado = '" + sEstado + "'" + Environment.NewLine;
                 sSql += "where id_pos_temperatura_de_servicio = " + iIdPostemperatura + Environment.NewLine;
@@ -225,7 +225,7 @@ namespace Palatium.Receta
                 }
 
                 sSql = "";
-                sSql = "update pos_temperatura_de_servicio set" + Environment.NewLine;
+                sSql += "update pos_temperatura_de_servicio set" + Environment.NewLine;
                 sSql += "codigo = '" + txtCodigo.Text.Trim().ToUpper() + "." + iIdPostemperatura + "'," + Environment.NewLine;
                 sSql += "estado = 'E'," + Environment.NewLine;
                 sSql += "fecha_anula = GETDATE()," + Environment.NewLine;

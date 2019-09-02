@@ -42,7 +42,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnListo = new System.Windows.Forms.Button();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -184,12 +183,6 @@
             this.btnListo.UseVisualStyleBackColor = true;
             this.btnListo.Click += new System.EventHandler(this.btnListo_Click);
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // frmEditarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,6 +223,5 @@
         public System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnListo;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
     }
 }

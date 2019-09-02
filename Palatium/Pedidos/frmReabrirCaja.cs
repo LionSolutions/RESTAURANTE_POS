@@ -87,7 +87,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -108,7 +107,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -188,7 +186,6 @@ namespace Palatium.Pedidos
                         if ((sFecha == Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[1].ToString()).ToString("yyyy-MM-dd")) && (dtConsulta.Rows[0].ItemArray[2].ToString() == "Abierta"))
                         {
                             ok.LblMensaje.Text = "La caja del día en curso se encuentra abierta.";
-                            ok.ShowInTaskbar = false;
                             ok.ShowDialog();
                             goto fin;
                         }
@@ -196,7 +193,6 @@ namespace Palatium.Pedidos
                         else if (sFecha == dtConsulta.Rows[0].ItemArray[1].ToString())
                         {
                             ok.LblMensaje.Text = "La caja del día en curso se encuentra abierta.";
-                            ok.ShowInTaskbar = false;
                             ok.ShowDialog();
                             goto fin;
                         }
@@ -205,7 +201,6 @@ namespace Palatium.Pedidos
                         {
                             //PROCESO DE REAPERTURA
                             SiNo.LblMensaje.Text = "¿Está seguro que desea reaperturar la caja seleccionada?";
-                            SiNo.ShowInTaskbar = false;
                             SiNo.ShowDialog();
 
                             if (SiNo.DialogResult == DialogResult.OK)
@@ -213,7 +208,6 @@ namespace Palatium.Pedidos
                                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                                 {
                                     ok.LblMensaje.Text = "Error al abrir transacción.";
-                                    ok.ShowInTaskbar = false;
                                     ok.ShowDialog();
                                     goto fin;
                                 }
@@ -224,14 +218,12 @@ namespace Palatium.Pedidos
                                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                                 {
                                     catchMensaje.LblMensaje.Text = sSql;
-                                    catchMensaje.ShowInTaskbar = false;
                                     catchMensaje.ShowDialog();
                                     goto reversa;
                                 }
 
                                 conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
                                 ok.LblMensaje.Text = "La caja on fecha " + sFecha + " se ha reaperturado con éxito.";
-                                ok.ShowInTaskbar = false;
                                 ok.ShowDialog();
                                 limpiarLabels();
                                 goto fin;
@@ -243,7 +235,6 @@ namespace Palatium.Pedidos
                     else
                     {
                         ok.LblMensaje.Text = "No existe una caja en la jornada actual. Recuerde que solo puede reabrir la última caja del mismo día.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                         goto fin;
                     }
@@ -252,7 +243,6 @@ namespace Palatium.Pedidos
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     goto fin;
                 }
@@ -261,7 +251,6 @@ namespace Palatium.Pedidos
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto fin;
             }

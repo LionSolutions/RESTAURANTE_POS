@@ -103,8 +103,7 @@ namespace Palatium.Pedidos
 
 
         #endregion
-
-
+        
         private void btnSubirDia_Click(object sender, EventArgs e)
         {
             separarFecha();

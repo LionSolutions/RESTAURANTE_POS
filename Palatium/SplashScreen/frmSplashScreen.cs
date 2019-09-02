@@ -37,7 +37,7 @@ namespace Palatium.SplashScreen
             {
                 sSql = "";
                 sSql += "select isnull(contacto_fabricante, '0995610690') contacto_fabricante," + Environment.NewLine;
-                sSql += "isnull(sitio_web_fabricante, 'www.aplicsis.com') sitio_web_fabricante" + Environment.NewLine;
+                sSql += "isnull(sitio_web_fabricante, 'www.aplicsis.net') sitio_web_fabricante" + Environment.NewLine;
                 sSql += "from pos_parametro" + Environment.NewLine;
                 sSql += "where estado = 'A'";
 
@@ -57,7 +57,7 @@ namespace Palatium.SplashScreen
                     else
                     {
                         lblContacto.Text = "CONTACTO: 0995610690";
-                        lblSitioWeb.Text = "www.aplicsis.com";
+                        lblSitioWeb.Text = "www.aplicsis.net";
                     }
                 }
 

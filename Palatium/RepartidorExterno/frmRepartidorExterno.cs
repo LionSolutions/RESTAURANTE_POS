@@ -81,10 +81,10 @@ namespace Palatium.RepartidorExterno
             try
             {                
                 sSql = "";
-                sSql = sSql + "select id_pos_origen_orden, descripcion" + Environment.NewLine;
-                sSql = sSql + "from pos_origen_orden" + Environment.NewLine;
-                sSql = sSql + "where repartidor_externo = 1" + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
+                sSql += "select id_pos_origen_orden, descripcion" + Environment.NewLine;
+                sSql += "from pos_origen_orden" + Environment.NewLine;
+                sSql += "where repartidor_externo = 1" + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -127,17 +127,17 @@ namespace Palatium.RepartidorExterno
                 dDescuento = 0;
 
                 sSql = "";
-                sSql = sSql + "select CP.id_pedido, CP.fecha_apertura_orden, NCP.numero_pedido" + Environment.NewLine;
-                sSql = sSql + "from cv403_cab_pedidos CP, cv403_numero_cab_pedido NCP," + Environment.NewLine;
-                sSql = sSql + "cv403_dctos_por_cobrar XC" + Environment.NewLine;
-                sSql = sSql + "where NCP.id_pedido = CP.id_pedido " + Environment.NewLine;
-                sSql = sSql + "and XC.id_pedido = CP.id_pedido" + Environment.NewLine;
-                sSql = sSql + "and CP.id_pos_origen_orden = " + Convert.ToInt32(cmbRepartidoresExternos.SelectedValue) + Environment.NewLine;
-                sSql = sSql + "and XC.id_factura is null" + Environment.NewLine;
-                sSql = sSql + "and CP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and NCP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and CP.fecha_orden between '" + sFechaDesde + "'" + Environment.NewLine;
-                sSql = sSql + "and '" + sFechaHasta + "'";
+                sSql += "select CP.id_pedido, CP.fecha_apertura_orden, NCP.numero_pedido" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos CP, cv403_numero_cab_pedido NCP," + Environment.NewLine;
+                sSql += "cv403_dctos_por_cobrar XC" + Environment.NewLine;
+                sSql += "where NCP.id_pedido = CP.id_pedido " + Environment.NewLine;
+                sSql += "and XC.id_pedido = CP.id_pedido" + Environment.NewLine;
+                sSql += "and CP.id_pos_origen_orden = " + Convert.ToInt32(cmbRepartidoresExternos.SelectedValue) + Environment.NewLine;
+                sSql += "and XC.id_factura is null" + Environment.NewLine;
+                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                sSql += "and NCP.estado = 'A'" + Environment.NewLine;
+                sSql += "and CP.fecha_orden between '" + sFechaDesde + "'" + Environment.NewLine;
+                sSql += "and '" + sFechaHasta + "'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -419,18 +419,18 @@ namespace Palatium.RepartidorExterno
                 //INSERTAR EN LA TABLA CV403_FACTURAS
                 //-------------------------------------------------------------------------------------------------------------------------------------------------
                 sSql = "";
-                sSql = sSql + "insert into cv403_facturas (idempresa, id_persona, cg_empresa, idtipocomprobante," + Environment.NewLine;
-                sSql = sSql + "id_localidad, idformulariossri, id_vendedor, id_forma_pago, fecha_factura, fecha_vcto," + Environment.NewLine;
-                sSql = sSql + "cg_moneda, valor, cg_estado_factura, editable, fecha_ingreso, usuario_ingreso, " + Environment.NewLine;
-                sSql = sSql + "terminal_ingreso, estado, numero_replica_trigger, numero_control_replica, " + Environment.NewLine;
-                sSql = sSql + "Direccion_Factura,Telefono_Factura, Ciudad_Factura, correo_electronico, servicio)" + Environment.NewLine;
-                sSql = sSql + "values(" + Environment.NewLine;
-                sSql = sSql + Program.iIdEmpresa + ", " + iIdPersona + ", " + Program.iCgEmpresa + "," + Environment.NewLine;
-                sSql = sSql + iIdTipoComprobante + "," + Program.iIdLocalidad + ", " + Program.iIdFormularioSri + ", " + Program.iIdVendedor + ", 14, '" + sFechaCorta + "'," + Environment.NewLine;
-                sSql = sSql + "'" + sFechaCorta + "', " + Program.iMoneda + ", " + dTotal + ", 0, 0, GETDATE()," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0," + Environment.NewLine;
-                sSql = sSql + "'" + sDireccion + "', '" + sTelefono + "', '" + sCiudad + "'," + Environment.NewLine;
-                sSql = sSql + "'" + sMail + "', 0)";
+                sSql += "insert into cv403_facturas (idempresa, id_persona, cg_empresa, idtipocomprobante," + Environment.NewLine;
+                sSql += "id_localidad, idformulariossri, id_vendedor, id_forma_pago, fecha_factura, fecha_vcto," + Environment.NewLine;
+                sSql += "cg_moneda, valor, cg_estado_factura, editable, fecha_ingreso, usuario_ingreso, " + Environment.NewLine;
+                sSql += "terminal_ingreso, estado, numero_replica_trigger, numero_control_replica, " + Environment.NewLine;
+                sSql += "Direccion_Factura,Telefono_Factura, Ciudad_Factura, correo_electronico, servicio)" + Environment.NewLine;
+                sSql += "values(" + Environment.NewLine;
+                sSql += Program.iIdEmpresa + ", " + iIdPersona + ", " + Program.iCgEmpresa + "," + Environment.NewLine;
+                sSql += iIdTipoComprobante + "," + Program.iIdLocalidad + ", " + Program.iIdFormularioSri + ", " + Program.iIdVendedor + ", 14, '" + sFechaCorta + "'," + Environment.NewLine;
+                sSql += "'" + sFechaCorta + "', " + Program.iMoneda + ", " + dTotal + ", 0, 0, GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0," + Environment.NewLine;
+                sSql += "'" + sDireccion + "', '" + sTelefono + "', '" + sCiudad + "'," + Environment.NewLine;
+                sSql += "'" + sMail + "', 0)";
 
                 //EJECUTA LA INSTRUCCÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -465,12 +465,12 @@ namespace Palatium.RepartidorExterno
                 //INSERTAR EN LA TABLA CV403_NUMEROS_FACTURAS
                 //-------------------------------------------------------------------------------------------------------------------------------------------------
                 sSql = "";
-                sSql = sSql + "insert into cv403_numeros_facturas (id_factura, idtipocomprobante, numero_factura, " + Environment.NewLine;
-                sSql = sSql + "fecha_ingreso, usuario_ingreso, terminal_ingreso, estado, numero_replica_trigger, " + Environment.NewLine;
-                sSql = sSql + "numero_control_replica) " + Environment.NewLine;
-                sSql = sSql + "values (" + Environment.NewLine;
-                sSql = sSql + iIdFactura + ", " + iIdTipoComprobante + ", " + Convert.ToInt32(sNumeroFactura) + ", GETDATE()," + Environment.NewLine;
-                sSql = sSql + "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0 )";
+                sSql += "insert into cv403_numeros_facturas (id_factura, idtipocomprobante, numero_factura, " + Environment.NewLine;
+                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso, estado, numero_replica_trigger, " + Environment.NewLine;
+                sSql += "numero_control_replica) " + Environment.NewLine;
+                sSql += "values (" + Environment.NewLine;
+                sSql += iIdFactura + ", " + iIdTipoComprobante + ", " + Convert.ToInt32(sNumeroFactura) + ", GETDATE()," + Environment.NewLine;
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0 )";
 
                 //EJECUTA LA INSTRUCCÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -487,10 +487,10 @@ namespace Palatium.RepartidorExterno
                     //ACTUALIZAMOS LA TABLA CV403_DCTOS_POR_COBRAR
                     //-------------------------------------------------------------------------------------------------------------------------------------------------
                     sSql = "";
-                    sSql = sSql + "update cv403_dctos_por_cobrar set" + Environment.NewLine;
-                    sSql = sSql + "id_factura = " + iIdFactura + "," + Environment.NewLine;
-                    sSql = sSql + "numero_documento = " + Convert.ToInt32(sNumeroFactura) + Environment.NewLine;
-                    sSql = sSql + " where id_pedido = " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString());
+                    sSql += "update cv403_dctos_por_cobrar set" + Environment.NewLine;
+                    sSql += "id_factura = " + iIdFactura + "," + Environment.NewLine;
+                    sSql += "numero_documento = " + Convert.ToInt32(sNumeroFactura) + Environment.NewLine;
+                    sSql += " where id_pedido = " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString());
 
                     //EJECUTA LA INSTRUCCÓN SQL
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -504,14 +504,14 @@ namespace Palatium.RepartidorExterno
                     //INSERTAR EN LA TABLA CV403_FACTURAS_PEDIDOS
                     //-------------------------------------------------------------------------------------------------------------------------------------------------
                     sSql = "";
-                    sSql = sSql + "insert into cv403_facturas_pedidos (" + Environment.NewLine;
-                    sSql = sSql + "id_factura, id_pedido, fecha_ingreso," + Environment.NewLine;
-                    sSql = sSql + "usuario_ingreso, terminal_ingreso, estado," + Environment.NewLine;
-                    sSql = sSql + "numero_replica_trigger, numero_control_replica) " + Environment.NewLine;
-                    sSql = sSql + "values (" + Environment.NewLine;
-                    sSql = sSql + iIdFactura + ", " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString()) + "," + Environment.NewLine;
-                    sSql = sSql + "GETDATE(), '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
-                    sSql = sSql + "'" + Program.sDatosMaximo[1] + "', 'A', 1, 0 )";
+                    sSql += "insert into cv403_facturas_pedidos (" + Environment.NewLine;
+                    sSql += "id_factura, id_pedido, fecha_ingreso," + Environment.NewLine;
+                    sSql += "usuario_ingreso, terminal_ingreso, estado," + Environment.NewLine;
+                    sSql += "numero_replica_trigger, numero_control_replica) " + Environment.NewLine;
+                    sSql += "values (" + Environment.NewLine;
+                    sSql += iIdFactura + ", " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString()) + "," + Environment.NewLine;
+                    sSql += "GETDATE(), '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
+                    sSql += "'" + Program.sDatosMaximo[1] + "', 'A', 1, 0 )";
 
                     //EJECUTA LA INSTRUCCÓN SQL
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -524,11 +524,11 @@ namespace Palatium.RepartidorExterno
                     //ACTUALIZAR EL ESTADO A PAGADA Y AGREGAMOS LA FECHA DE CIERRE DE ORDENEN CV403_CAB_PEDIDOS
                     //-------------------------------------------------------------------------------------------------------------------------------------------------
                     sSql = "";
-                    sSql = sSql + "update cv403_cab_pedidos set" + Environment.NewLine;
-                    sSql = sSql + "id_persona = " + iIdPersona + "," + Environment.NewLine;
-                    sSql = sSql + "fecha_cierre_orden = GETDATE()," + Environment.NewLine;
-                    sSql = sSql + "consumo_alimentos = 1" + Environment.NewLine;
-                    sSql = sSql + "where id_pedido = " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString());
+                    sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
+                    sSql += "id_persona = " + iIdPersona + "," + Environment.NewLine;
+                    sSql += "fecha_cierre_orden = GETDATE()," + Environment.NewLine;
+                    sSql += "consumo_alimentos = 1" + Environment.NewLine;
+                    sSql += "where id_pedido = " + Convert.ToInt32(dtCopiaConsulta.Rows[i].ItemArray[0].ToString());
 
                     //EJECUCIÓN DE LA INSTRUCCIÓN SQL
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -591,7 +591,6 @@ namespace Palatium.RepartidorExterno
         private void btnDesde_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(txtDesde.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)
@@ -604,7 +603,6 @@ namespace Palatium.RepartidorExterno
         private void btnHasta_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(TxtHasta.Text.Trim());
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)

@@ -417,6 +417,12 @@
     <Compile Include="Pedidos\frmComanda.designer.cs">
       <DependentUpon>frmComanda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pedidos\frmConvertirComanda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedidos\frmConvertirComanda.Designer.cs">
+      <DependentUpon>frmConvertirComanda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedidos\frmEfectivoPagoCompleto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2083,6 +2089,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pedidos\frmComanda.resx">
       <DependentUpon>frmComanda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedidos\frmConvertirComanda.resx">
+      <DependentUpon>frmConvertirComanda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedidos\frmEfectivoPagoCompleto.resx">
       <DependentUpon>frmEfectivoPagoCompleto.cs</DependentUpon>
