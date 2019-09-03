@@ -292,6 +292,7 @@ namespace Palatium.Formularios
             cmbEstado.Text = "ACTIVO";
             llenarComboFormasPagos();
             cmbEstado.Enabled = false;
+            grupoDatos.Enabled = false;
             llenarGrid(0);
         }
 
@@ -367,7 +368,7 @@ namespace Palatium.Formularios
 
         private void btnLimpiarMetodoPago_Click(object sender, EventArgs e)
         {
-            Grb_DatoMetodoPago.Enabled = false;
+            grupoDatos.Enabled = false;
             btnNuevoMetodoPago.Text = "Nuevo";
             limpiarTodo();
         }
@@ -400,7 +401,7 @@ namespace Palatium.Formularios
             if (btnNuevoMetodoPago.Text == "Nuevo")
             {
                 limpiarTodo();
-                Grb_DatoMetodoPago.Enabled = true;
+                grupoDatos.Enabled = true;
                 btnNuevoMetodoPago.Text = "Guardar";
                 cmbEstado.Text = "ACTIVO";
                 cmbEstado.Enabled = false;
@@ -477,7 +478,7 @@ namespace Palatium.Formularios
         {
             try
             {
-                Grb_DatoMetodoPago.Enabled = true;
+                grupoDatos.Enabled = true;
                 txtCodigo.Enabled = false;
                 btnNuevoMetodoPago.Text = "Actualizar";
                 cmbEstado.Enabled = true;
@@ -486,6 +487,7 @@ namespace Palatium.Formularios
                 txtCodigo.Text = dgvDatos.CurrentRow.Cells[1].Value.ToString();
                 txtDescripcion.Text = dgvDatos.CurrentRow.Cells[2].Value.ToString();
                 cmbEstado.Text = dgvDatos.CurrentRow.Cells[3].Value.ToString();
+                cmbFormasPagos.SelectedValue = dgvDatos.CurrentRow.Cells[4].Value.ToString();
 
                 txtDescripcion.Focus();
             }

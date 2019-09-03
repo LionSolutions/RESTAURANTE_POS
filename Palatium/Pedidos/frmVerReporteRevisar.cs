@@ -20,11 +20,10 @@ namespace Palatium.Pedidos
 
         Clases.ClasePrecuentaTextBox precuenta = new Clases.ClasePrecuentaTextBox();
         Clases.ClasePrecuentaTextbox2 precuenta2 = new Clases.ClasePrecuentaTextbox2();
-        Clases.ClaseFacturaTextBox factura = new Clases.ClaseFacturaTextBox();
-        Clases.ClaseReporteFactura2 factura2 = new Clases.ClaseReporteFactura2();
+        Clases.ClaseImprimirFacturaNormal factura = new Clases.ClaseImprimirFacturaNormal();
         Clases.ClaseCrearImpresion imprimir = new Clases.ClaseCrearImpresion();
         Clases.ClaseNotaVenta notaVenta = new Clases.ClaseNotaVenta();
-        Clases_Factura_Electronica.ClaseReporteFacturaElectronica facturaElectronica = new Clases_Factura_Electronica.ClaseReporteFacturaElectronica();
+        Clases_Factura_Electronica.ClaseImprimirFacturaElectronica facturaElectronica = new Clases_Factura_Electronica.ClaseImprimirFacturaElectronica();
 
         DataTable dtConsulta;
         DataTable dtEmpresa;
@@ -314,7 +313,7 @@ namespace Palatium.Pedidos
 
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
 
-                if (!bRespuesta)
+                if (bRespuesta == true)
                 {
                     iIdTipoFactura = Convert.ToInt32(dtConsulta.Rows[0]["facturaelectronica"].ToString());
                     iIdFactura = Convert.ToInt32(dtConsulta.Rows[0]["id_factura"].ToString());
@@ -353,7 +352,7 @@ namespace Palatium.Pedidos
                         if (iIdTipoComprobante == 1)
                         {
                             sRetorno = factura.sCrearFactura(iIdFactura);
-                            sRetorno += "TOTAL:".PadLeft(28, ' ') + factura.dTotal.ToString("N2").PadLeft(12, ' ');
+                            sRetorno += Environment.NewLine + "TOTAL:".PadLeft(28, ' ') + factura.dTotal.ToString("N2").PadLeft(12, ' ');
                         }
                         else
                         {
@@ -396,16 +395,7 @@ namespace Palatium.Pedidos
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
-                goto fin;
             }
-
-            reversa:
-                {
-                    ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowDialog();
-                }
-
-            fin: { }
         }
                 
         //FUNCION PARA LLENAR LOS DATATABLES

@@ -34,7 +34,9 @@ namespace Palatium.Pedidos
         double dbRecibido;
         double dbCambio;
         
-        bool bRespuesta = false;
+        bool bRespuesta;
+
+        int iIdFacturaGenerada_P;
 
         public frmEfectivoPagoCompleto(string sIdOrden_P, double dbTotal_P)
         {
@@ -134,6 +136,7 @@ namespace Palatium.Pedidos
                 {
                     if (Program.iEjecutarImpresion == 1)
                     {
+                        iIdFacturaGenerada_P = pagoCompleto.iIdFactura;
                         ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdFacturaGenerada_P, 1);
                         notaVenta.ShowDialog();
 
@@ -344,6 +347,7 @@ namespace Palatium.Pedidos
             {
                 if (Program.iEjecutarImpresion == 1)
                 {
+                    iIdFacturaGenerada_P = pagoCompleto.iIdFactura;
                     ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdFacturaGenerada_P, 1);
                     notaVenta.ShowDialog();
 

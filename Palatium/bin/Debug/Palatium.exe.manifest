@@ -124,17 +124,7 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="DevComponents.DotNetBar.Charts" version="14.1.0.18" publicKeyToken="7EB7C3A35B91DE04" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="DevComponents.DotNetBar.Keyboard" version="14.1.0.18" publicKeyToken="7EB7C3A35B91DE04" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="DevComponents.DotNetBar2" version="14.1.0.18" publicKeyToken="7EB7C3A35B91DE04" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="DevComponents.DotNetBar2" version="14.1.0.28" publicKeyToken="7EB7C3A35B91DE04" language="neutral" processorArchitecture="msil" />
     </dependentAssembly>
   </dependency>
   <dependency>
@@ -266,14 +256,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Palatium.exe" size="14298112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Palatium.exe" size="10841600">
       <assemblyIdentity name="Palatium" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IXQ6nW36kbKCfh2si/Q6+BlmBRXvrd9lUVX19kPtNXg=</dsig:DigestValue>
+        <dsig:DigestValue>30Sn4h4k9XR91jVyOEqV/6eletOM+Q86EvAC8WfXr8c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

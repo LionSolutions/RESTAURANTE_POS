@@ -169,10 +169,10 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        if (dtConsulta.Rows[0].ItemArray[2].ToString() == "Abierta")
+                        if (dtConsulta.Rows[0][2].ToString() == "Abierta")
                         {
                             //ACTUALIZA EL REGISTRO DE CAJA A CERRADA
-                            actualizarUltimoRegistro(Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString()));
+                            actualizarUltimoRegistro(Convert.ToInt32(dtConsulta.Rows[0][0].ToString()));
                         }
                     }
                 }
@@ -221,8 +221,8 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        Program.CAJERO_ID = Convert.ToInt32(dtVer.Rows[0].ItemArray[0].ToString());
-                        Program.sNombreCajero = dtVer.Rows[0].ItemArray[1].ToString();
+                        Program.CAJERO_ID = Convert.ToInt32(dtVer.Rows[0][0].ToString());
+                        Program.sNombreCajero = dtVer.Rows[0][1].ToString();
                         return true;
                     }
 
@@ -301,29 +301,29 @@ namespace Palatium
                         if (dtConsulta.Rows.Count > 0)
                         {
                             //AQUI NUEVO CAMBIO
-                            if (dtConsulta.Rows[0].ItemArray[0].ToString() != "0")
+                            if (dtConsulta.Rows[0][0].ToString() != "0")
                             {
                                 Program.iPuedeCobrar = 1;
 
-                                Program.CAJERO_ID = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                                Program.sNombreCajero = dtConsulta.Rows[0].ItemArray[2].ToString();
-                                Program.sNombreUsuario = dtConsulta.Rows[0].ItemArray[2].ToString();
-                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
-                                Program.sEstadoUsuario = dtConsulta.Rows[0].ItemArray[5].ToString();
-                                Program.sCorreoElectronico = dtConsulta.Rows[0].ItemArray[6].ToString();
+                                Program.CAJERO_ID = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                                Program.sNombreCajero = dtConsulta.Rows[0][2].ToString();
+                                Program.sNombreUsuario = dtConsulta.Rows[0][2].ToString();
+                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0][4].ToString());
+                                Program.sEstadoUsuario = dtConsulta.Rows[0][5].ToString();
+                                Program.sCorreoElectronico = dtConsulta.Rows[0][6].ToString();
                                 
 
-                                Program.sDatosMaximo[0] = dtConsulta.Rows[0].ItemArray[2].ToString();
+                                Program.sDatosMaximo[0] = dtConsulta.Rows[0][2].ToString();
                                 Program.sDatosMaximo[1] = Environment.MachineName.ToString();
-                                Program.sDatosMaximo[2] = dtConsulta.Rows[0].ItemArray[5].ToString();
+                                Program.sDatosMaximo[2] = dtConsulta.Rows[0][5].ToString();
                             }
 
-                            else if (dtConsulta.Rows[0].ItemArray[1].ToString() != "0")
+                            else if (dtConsulta.Rows[0][1].ToString() != "0")
                             {
                                 Program.iPuedeCobrar = 0;
 
-                                Program.iIdMesero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
-                                Program.nombreMesero = dtConsulta.Rows[0].ItemArray[2].ToString();
+                                Program.iIdMesero = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                                Program.nombreMesero = dtConsulta.Rows[0][2].ToString();
 
                                 //Program.CAJERO_ID = Program.iIdCajeroDefault;
                                 //Program.sNombreCajero = Program.sNombreCajeroDefault;
@@ -337,14 +337,14 @@ namespace Palatium
                                     goto fin;
                                 }
 
-                                Program.sNombreUsuario = dtConsulta.Rows[0].ItemArray[2].ToString();
-                                Program.sEstadoUsuario = dtConsulta.Rows[0].ItemArray[5].ToString();
-                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[4].ToString());
-                                Program.sCorreoElectronico = dtConsulta.Rows[0].ItemArray[6].ToString();
+                                Program.sNombreUsuario = dtConsulta.Rows[0][2].ToString();
+                                Program.sEstadoUsuario = dtConsulta.Rows[0][5].ToString();
+                                Program.iIdPersonaMovimiento = Convert.ToInt32(dtConsulta.Rows[0][4].ToString());
+                                Program.sCorreoElectronico = dtConsulta.Rows[0][6].ToString();
 
-                                Program.sDatosMaximo[0] = dtConsulta.Rows[0].ItemArray[2].ToString();
+                                Program.sDatosMaximo[0] = dtConsulta.Rows[0][2].ToString();
                                 Program.sDatosMaximo[1] = Environment.MachineName.ToString();
-                                Program.sDatosMaximo[2] = dtConsulta.Rows[0].ItemArray[5].ToString();
+                                Program.sDatosMaximo[2] = dtConsulta.Rows[0][5].ToString();
                             }
 
                         }
@@ -384,9 +384,9 @@ namespace Palatium
                     {
                         if (dtConsulta.Rows.Count > 0)
                         {
-                            if (dtConsulta.Rows[0].ItemArray[8].ToString() == "Cerrada")
+                            if (dtConsulta.Rows[0][8].ToString() == "Cerrada")
                             {
-                                if ((dtConsulta.Rows[0].ItemArray[2].ToString() == cmbJornada.SelectedValue.ToString()) && (dtConsulta.Rows[0].ItemArray[4].ToString().Substring(0, 10) == Convert.ToDateTime(txtFecha.Text).ToString("dd/MM/yyyy")))
+                                if ((dtConsulta.Rows[0][2].ToString() == cmbJornada.SelectedValue.ToString()) && (dtConsulta.Rows[0][4].ToString().Substring(0, 10) == Convert.ToDateTime(txtFecha.Text).ToString("dd/MM/yyyy")))
                                 {
                                     ok.LblMensaje.Text = "Ya existe un cierre de caja realizado en la jornada seleccionada. Solo puede visualizar solo ciertas opciones.";
                                     Program.iVerCaja = 0;
@@ -423,12 +423,12 @@ namespace Palatium
                             }
 
 
-                            else if (dtConsulta.Rows[0].ItemArray[8].ToString() == "Abierta")
+                            else if (dtConsulta.Rows[0][8].ToString() == "Abierta")
                             {
-                                //MessageBox.Show(dtConsulta.Rows[0].ItemArray[2].ToString() + " ----- " + cmbJornada.SelectedValue.ToString());
+                                //MessageBox.Show(dtConsulta.Rows[0][2].ToString() + " ----- " + cmbJornada.SelectedValue.ToString());
 
-                                if ((dtConsulta.Rows[0].ItemArray[3].ToString() != Program.CAJERO_ID.ToString()) || (dtConsulta.Rows[0].ItemArray[2].ToString() != cmbJornada.SelectedValue.ToString()))
-                                //if ((dtConsulta.Rows[0].ItemArray[3].ToString() != Program.CAJERO_ID.ToString()) && (dtConsulta.Rows[0].ItemArray[4].ToString().Substring(0, 10) != Convert.ToDateTime(txtFecha.Text).ToString("dd/MM/yyyy")))
+                                if ((dtConsulta.Rows[0][3].ToString() != Program.CAJERO_ID.ToString()) || (dtConsulta.Rows[0][2].ToString() != cmbJornada.SelectedValue.ToString()))
+                                //if ((dtConsulta.Rows[0][3].ToString() != Program.CAJERO_ID.ToString()) && (dtConsulta.Rows[0][4].ToString().Substring(0, 10) != Convert.ToDateTime(txtFecha.Text).ToString("dd/MM/yyyy")))
                                 {
                                     ok.LblMensaje.Text = "Los datos ingresados no corresponde con el registro vigente para el cierre de cajero.";
                                     ok.ShowDialog();
@@ -443,11 +443,11 @@ namespace Palatium
                                     //Program.iIdPosCierreCajero = iIdPosCierreOrdenBDD;
 
                                     string sFechaAux;
-                                    Program.iIdPosCierreCajero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                                    Program.iJornadaCajero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
-                                    sFechaAux = dtConsulta.Rows[0].ItemArray[4].ToString().Substring(0, 10);
+                                    Program.iIdPosCierreCajero = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                                    Program.iJornadaCajero = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
+                                    sFechaAux = dtConsulta.Rows[0][4].ToString();
                                     Program.sFechaAperturaCajero = Convert.ToDateTime(sFechaAux).ToString("yyyy/MM/dd");
-                                    Program.sEstadoCajero = dtConsulta.Rows[0].ItemArray[8].ToString();
+                                    Program.sEstadoCajero = dtConsulta.Rows[0][8].ToString();
 
                                     goto mensaje;
                                     //enviar la continuacion de la consulta
@@ -571,11 +571,11 @@ namespace Palatium
                             if (dtConsulta.Rows.Count > 0)
                             {
                                 string sFechaAux;
-                                Program.iIdPosCierreCajero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                                Program.iJornadaCajero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
-                                sFechaAux = dtConsulta.Rows[0].ItemArray[4].ToString().Substring(0, 10);
+                                Program.iIdPosCierreCajero = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                                Program.iJornadaCajero = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
+                                sFechaAux = dtConsulta.Rows[0][4].ToString().Substring(0, 10);
                                 Program.sFechaAperturaCajero = Convert.ToDateTime(sFechaAux).ToString("yyyy/MM/dd");
-                                Program.sEstadoCajero = dtConsulta.Rows[0].ItemArray[8].ToString();
+                                Program.sEstadoCajero = dtConsulta.Rows[0][8].ToString();
                                 return true;
                             }
 
@@ -627,7 +627,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        Program.iIdLocalidad = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        Program.iIdLocalidad = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                         return true;
                     }
                     else
@@ -668,8 +668,8 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        //Program.iJORNADA = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        Program.iJORNADA = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        //Program.iJORNADA = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        Program.iJORNADA = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
 
                         return true;
                     }
@@ -791,7 +791,7 @@ namespace Palatium
             {
                 if (dtConsulta.Rows.Count > 0)
                 {
-                    Program.iIdProduto = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    Program.iIdProduto = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     return true;
                 }
                 else
@@ -821,7 +821,7 @@ namespace Palatium
 
             if (bRespuesta == true)
             {
-                Program.iCuentaDiaria = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                Program.iCuentaDiaria = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 Program.iCuentaDiaria++;
             }
             else

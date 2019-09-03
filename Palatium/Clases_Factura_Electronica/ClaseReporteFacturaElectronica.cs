@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Palatium.Clases_Factura_Electronica
 {
-    class ClaseReporteFacturaElectronica
+    public class ClaseReporteFacturaElectronica
     {
         ConexionBD.ConexionBD conexion = new ConexionBD.ConexionBD();
         VentanasMensajes.frmMensajeCatch catchMensaje = new VentanasMensajes.frmMensajeCatch();

@@ -721,7 +721,7 @@ namespace Palatium.Cajero
                 sSql += "and CP.estado = 'A'" + Environment.NewLine;
                 sSql += "and NP.estado = 'A'" + Environment.NewLine;
                 sSql += "and ORI.estado = 'A'" + Environment.NewLine;
-                sSql += "and CP.estado_orden ('Pagada', 'Cerrada')" + Environment.NewLine;
+                sSql += "and CP.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
                 sSql += "group by ORI.descripcion";
 
                 DataTable dtConsulta = new DataTable();

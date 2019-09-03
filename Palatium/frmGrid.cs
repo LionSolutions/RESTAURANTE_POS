@@ -35,9 +35,9 @@ namespace Palatium
         //FUNCION ACTIVA TECLADO
         private void activaTeclado()
         {
-            this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir1, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir2, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
-            this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir3, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
+            //this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir1, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
+            //this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir2, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
+            //this.touchKeyboard1.SetShowTouchKeyboard(this.txtAreaImprimir3, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
         }
 
         //AGREGAR FILAS

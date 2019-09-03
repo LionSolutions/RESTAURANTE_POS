@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle183 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle184 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle181 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle182 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle188 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle189 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle185 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle186 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle187 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grupoEncabezadoFactura = new System.Windows.Forms.GroupBox();
             this.chkPasaporte = new System.Windows.Forms.CheckBox();
             this.btnEditar = new System.Windows.Forms.LinkLabel();
@@ -144,6 +144,7 @@
             this.btnEditar.TabStop = true;
             this.btnEditar.Text = "Editar Datos";
             this.btnEditar.Visible = false;
+            this.btnEditar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnEditar_LinkClicked);
             // 
             // btnBuscar
             // 
@@ -153,6 +154,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(29, 26);
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnConsumidorFinal
             // 
@@ -165,6 +167,7 @@
             this.btnConsumidorFinal.TabIndex = 2;
             this.btnConsumidorFinal.Text = "C.F.";
             this.btnConsumidorFinal.UseVisualStyleBackColor = false;
+            this.btnConsumidorFinal.Click += new System.EventHandler(this.btnConsumidorFinal_Click);
             // 
             // label8
             // 
@@ -276,6 +279,7 @@
             this.txtIdentificacion.Name = "txtIdentificacion";
             this.txtIdentificacion.Size = new System.Drawing.Size(187, 26);
             this.txtIdentificacion.TabIndex = 0;
+            this.txtIdentificacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdentificacion_KeyPress);
             // 
             // txtNombres
             // 
@@ -326,6 +330,7 @@
             this.btnEditarFactura.TabIndex = 12;
             this.ttMensaje.SetToolTip(this.btnEditarFactura, "Clic aquí para editar el número de factura");
             this.btnEditarFactura.UseVisualStyleBackColor = false;
+            this.btnEditarFactura.Click += new System.EventHandler(this.btnEditarFactura_Click);
             // 
             // rdbNotaVenta
             // 
@@ -336,6 +341,7 @@
             this.rdbNotaVenta.TabIndex = 1;
             this.rdbNotaVenta.Text = "Nota de Venta";
             this.rdbNotaVenta.UseVisualStyleBackColor = true;
+            this.rdbNotaVenta.CheckedChanged += new System.EventHandler(this.rdbNotaVenta_CheckedChanged);
             // 
             // TxtNumeroFactura
             // 
@@ -360,6 +366,7 @@
             this.rdbFactura.TabStop = true;
             this.rdbFactura.Text = "Factura";
             this.rdbFactura.UseVisualStyleBackColor = true;
+            this.rdbFactura.CheckedChanged += new System.EventHandler(this.rdbFactura_CheckedChanged);
             // 
             // txtfacturacion
             // 
@@ -381,6 +388,7 @@
             this.btnSiguiente.Size = new System.Drawing.Size(153, 71);
             this.btnSiguiente.TabIndex = 133;
             this.btnSiguiente.UseVisualStyleBackColor = false;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnAnterior
             // 
@@ -392,6 +400,7 @@
             this.btnAnterior.Size = new System.Drawing.Size(153, 71);
             this.btnAnterior.TabIndex = 132;
             this.btnAnterior.UseVisualStyleBackColor = false;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
             // dgvDetalleDeuda
             // 
@@ -409,14 +418,14 @@
             this.dgvDetalleDeuda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.descripcion,
             this.valor_detalle});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetalleDeuda.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle183.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle183.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle183.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle183.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle183.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle183.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle183.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalleDeuda.DefaultCellStyle = dataGridViewCellStyle183;
             this.dgvDetalleDeuda.EnableHeadersVisualStyles = false;
             this.dgvDetalleDeuda.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dgvDetalleDeuda.Location = new System.Drawing.Point(368, 321);
@@ -425,8 +434,8 @@
             this.dgvDetalleDeuda.ReadOnly = true;
             this.dgvDetalleDeuda.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvDetalleDeuda.RowHeadersVisible = false;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetalleDeuda.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle184.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalleDeuda.RowsDefaultCellStyle = dataGridViewCellStyle184;
             this.dgvDetalleDeuda.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetalleDeuda.Size = new System.Drawing.Size(390, 118);
             this.dgvDetalleDeuda.TabIndex = 146;
@@ -434,9 +443,9 @@
             // descripcion
             // 
             this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descripcion.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle181.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle181.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descripcion.DefaultCellStyle = dataGridViewCellStyle181;
             this.descripcion.FillWeight = 168.8291F;
             this.descripcion.HeaderText = "DESCRIPCIÓN";
             this.descripcion.Name = "descripcion";
@@ -444,9 +453,9 @@
             // 
             // valor_detalle
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valor_detalle.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle182.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle182.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.valor_detalle.DefaultCellStyle = dataGridViewCellStyle182;
             this.valor_detalle.FillWeight = 70.25717F;
             this.valor_detalle.HeaderText = "VALOR";
             this.valor_detalle.Name = "valor_detalle";
@@ -496,6 +505,7 @@
             this.btnRecargoTarjeta.TabIndex = 144;
             this.btnRecargoTarjeta.Text = "RECARGO TARJETAS";
             this.btnRecargoTarjeta.UseVisualStyleBackColor = false;
+            this.btnRecargoTarjeta.Click += new System.EventHandler(this.btnRecargoTarjeta_Click);
             // 
             // btnRemoverIVA
             // 
@@ -507,6 +517,7 @@
             this.btnRemoverIVA.TabIndex = 143;
             this.btnRemoverIVA.Text = "REMOVER IVA";
             this.btnRemoverIVA.UseVisualStyleBackColor = false;
+            this.btnRemoverIVA.Click += new System.EventHandler(this.btnRemoverIVA_Click);
             // 
             // btnDividirPrecio
             // 
@@ -518,6 +529,7 @@
             this.btnDividirPrecio.TabIndex = 142;
             this.btnDividirPrecio.Text = "DIVIDIR PRECIO";
             this.btnDividirPrecio.UseVisualStyleBackColor = false;
+            this.btnDividirPrecio.Click += new System.EventHandler(this.btnDividirPrecio_Click);
             // 
             // btnPagoCompleto
             // 
@@ -529,6 +541,7 @@
             this.btnPagoCompleto.TabIndex = 141;
             this.btnPagoCompleto.Text = "PAGO COMPLETO EN EFECTIVO";
             this.btnPagoCompleto.UseVisualStyleBackColor = false;
+            this.btnPagoCompleto.Click += new System.EventHandler(this.btnPagoCompleto_Click);
             // 
             // dgvPagos
             // 
@@ -547,14 +560,14 @@
             this.fpago,
             this.valor,
             this.id_sri});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPagos.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle188.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle188.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle188.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle188.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle188.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle188.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle188.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPagos.DefaultCellStyle = dataGridViewCellStyle188;
             this.dgvPagos.EnableHeadersVisualStyles = false;
             this.dgvPagos.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dgvPagos.Location = new System.Drawing.Point(368, 12);
@@ -563,17 +576,17 @@
             this.dgvPagos.ReadOnly = true;
             this.dgvPagos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvPagos.RowHeadersVisible = false;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPagos.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle189.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPagos.RowsDefaultCellStyle = dataGridViewCellStyle189;
             this.dgvPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPagos.Size = new System.Drawing.Size(390, 280);
             this.dgvPagos.TabIndex = 139;
             // 
             // ID
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ID.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle185.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle185.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ID.DefaultCellStyle = dataGridViewCellStyle185;
             this.ID.FillWeight = 60.9137F;
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
@@ -583,9 +596,9 @@
             // fpago
             // 
             this.fpago.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fpago.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle186.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle186.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fpago.DefaultCellStyle = dataGridViewCellStyle186;
             this.fpago.FillWeight = 168.8291F;
             this.fpago.HeaderText = "FORMA DE PAGO";
             this.fpago.Name = "fpago";
@@ -593,9 +606,9 @@
             // 
             // valor
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valor.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle187.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle187.Font = new System.Drawing.Font("Maiandra GD", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.valor.DefaultCellStyle = dataGridViewCellStyle187;
             this.valor.FillWeight = 70.25717F;
             this.valor.HeaderText = "VALOR";
             this.valor.Name = "valor";
@@ -619,6 +632,7 @@
             this.btnFacturar.TabIndex = 137;
             this.btnFacturar.Text = "FACTURAR\r\nCERRAR CUENTA";
             this.btnFacturar.UseVisualStyleBackColor = false;
+            this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
             // 
             // btnSalir
             // 
@@ -631,6 +645,7 @@
             this.btnSalir.TabIndex = 138;
             this.btnSalir.Text = "SALIR DE COBROS";
             this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnImprimir
             // 
@@ -643,6 +658,7 @@
             this.btnImprimir.TabIndex = 134;
             this.btnImprimir.Text = "IMPRIMIR LA PRECUENTA";
             this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // btnGrabarPagos
             // 
@@ -654,6 +670,7 @@
             this.btnGrabarPagos.TabIndex = 136;
             this.btnGrabarPagos.Text = "GRABAR LAS FORMAS DE PAGO";
             this.btnGrabarPagos.UseVisualStyleBackColor = false;
+            this.btnGrabarPagos.Click += new System.EventHandler(this.btnGrabarPagos_Click);
             // 
             // btnCrearCliente
             // 
@@ -665,6 +682,7 @@
             this.btnCrearCliente.TabIndex = 135;
             this.btnCrearCliente.Text = "CREAR CLIENTE";
             this.btnCrearCliente.UseVisualStyleBackColor = false;
+            this.btnCrearCliente.Click += new System.EventHandler(this.btnCrearCliente_Click);
             // 
             // btnRemoverPago
             // 
@@ -677,6 +695,7 @@
             this.btnRemoverPago.TabIndex = 140;
             this.btnRemoverPago.Text = "REMOVER EL PAGO";
             this.btnRemoverPago.UseVisualStyleBackColor = false;
+            this.btnRemoverPago.Click += new System.EventHandler(this.btnRemoverPago_Click);
             // 
             // pnlFormasCobros
             // 
@@ -717,6 +736,8 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Módulo de cobros";
+            this.Load += new System.EventHandler(this.frmCobros_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmCobros_KeyDown);
             this.grupoEncabezadoFactura.ResumeLayout(false);
             this.grupoEncabezadoFactura.PerformLayout();
             this.grupoComprobantes.ResumeLayout(false);

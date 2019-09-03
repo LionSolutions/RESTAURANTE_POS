@@ -41,7 +41,7 @@ namespace Palatium.Pedidos
         int iIdDocumentoPago;
         int iIdPosTipoFormaCobro;
         int iIdTipoComprobante = Program.iComprobanteNotaEntrega;
-        int iIdFactura;
+        public int iIdFactura;
         int iCgEstadoDctoPorCobrar = 7461;
         int iIdFacturaPedido;
         int iIdLocalidadImpresora;

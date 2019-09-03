@@ -1546,14 +1546,14 @@ namespace Palatium
                     else
                     {
                         conexion.GFun_Lo_Maneja_Transaccion(Program.G_TERMINA_TRANSACCION);
-                        Facturador.frmFacturador facturador = new Facturador.frmFacturador(sIdOrden, ord, Convert.ToDouble(lbl_total.Text));
-                        facturador.ShowDialog();
+                        //Facturador.frmFacturador facturador = new Facturador.frmFacturador(sIdOrden, ord, Convert.ToDouble(lbl_total.Text));
+                        //facturador.ShowDialog();
 
-                        if (facturador.DialogResult == DialogResult.OK)
-                        {
-                            this.DialogResult = DialogResult.OK;
-                            this.Close();
-                        }
+                        //if (facturador.DialogResult == DialogResult.OK)
+                        //{
+                        //    this.DialogResult = DialogResult.OK;
+                        //    this.Close();
+                        //}
                     }
 
                     goto fin;

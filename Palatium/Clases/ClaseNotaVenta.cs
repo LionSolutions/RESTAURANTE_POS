@@ -58,7 +58,7 @@ namespace Palatium.Clases
             {
                 sSql = "";
                 sSql += "select * from pos_vw_factura" + Environment.NewLine;
-                sSql += "where id_factura = " + (object)iIdFactura_P;
+                sSql += "where id_factura = " + iIdFactura_P;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -71,67 +71,75 @@ namespace Palatium.Clases
                 }
 
                 subtotal = 0;
-                sNumeroOrden = dtConsulta.Rows[0][46].ToString();
+                sNumeroOrden = dtConsulta.Rows[0]["numero_pedido"].ToString();
 
                 for (int i = 0; i < dtConsulta.Rows.Count; i++)
                 {
-                    if (dtConsulta.Rows[i][42].ToString() != "1" && dtConsulta.Rows[i][43].ToString() != "1")
+                    if (dtConsulta.Rows[i]["cortesia"].ToString() != "1" && dtConsulta.Rows[i]["cancelacion"].ToString() != "1")
                     {
-                        dCantidad = Convert.ToDouble(dtConsulta.Rows[i][27].ToString());
-                        dUnitario = Convert.ToDouble(dtConsulta.Rows[i][28].ToString());
-                        dIva = Convert.ToDouble(dtConsulta.Rows[i][33].ToString());
-                        dDescuento = Convert.ToDouble(dtConsulta.Rows[i][29].ToString());
+                        dCantidad = Convert.ToDouble(dtConsulta.Rows[i]["cantidad"].ToString());
+                        dUnitario = Convert.ToDouble(dtConsulta.Rows[i]["precio_unitario"].ToString());
+                        dIva = Convert.ToDouble(dtConsulta.Rows[i]["valor_iva"].ToString());
+                        dDescuento = Convert.ToDouble(dtConsulta.Rows[i]["valor_dscto"].ToString());
                         subtotal += dCantidad * (dUnitario + dIva + dDescuento);
                     }
                 }
 
-                sSecuencial = dtConsulta.Rows[0][37].ToString().PadLeft(9, '0');
+                sSecuencial = dtConsulta.Rows[0]["numero_factura"].ToString().PadLeft(9, '0');
 
-                sOrigen = dtConsulta.Rows[0][56].ToString();
+                sOrigen = dtConsulta.Rows[0]["descripcion_origen_orden"].ToString();
 
-                sFecha = Convert.ToDateTime(dtConsulta.Rows[0][51].ToString()).ToString("dd/MM/yyyy");
-                sHoraIngreso = Convert.ToDateTime(dtConsulta.Rows[0][51].ToString()).ToString("yyyy/MM/dd HH:mm:ss");
-                sHoraSalida = Convert.ToDateTime(dtConsulta.Rows[0][52].ToString()).ToString("yyyy/MM/dd HH:mm:ss");
+                sFecha = Convert.ToDateTime(dtConsulta.Rows[0]["fecha_apertura_orden"].ToString()).ToString("dd/MM/yyyy");
+                sHoraIngreso = Convert.ToDateTime(dtConsulta.Rows[0]["fecha_apertura_orden"].ToString()).ToString("yyyy/MM/dd HH:mm:ss");
+                sHoraSalida = Convert.ToDateTime(dtConsulta.Rows[0]["fecha_cierre_orden"].ToString()).ToString("yyyy/MM/dd HH:mm:ss");
 
                 sTexto = "";
-                sTexto += "Num.T. : " + dtConsulta.Rows[0][62].ToString() + " Cja: 01 Msro: " + dtConsulta.Rows[0][50].ToString() + Environment.NewLine;
+                sTexto += "Num.T. : " + dtConsulta.Rows[0]["numero_pedido"].ToString() + " Cja: 01 Msro: " + dtConsulta.Rows[0]["mesero"].ToString() + Environment.NewLine;
 
-                if (dtConsulta.Rows[0][63].ToString() == "1")
+                if (dtConsulta.Rows[0]["idtipocomprobante"].ToString() == "1")
                 {
-                    sTexto += "Fact   : " + dtConsulta.Rows[0][53].ToString() + "-" + dtConsulta.Rows[0][54].ToString() + "-" + sSecuencial + Environment.NewLine;
+                    sTexto += "Fact   : " + dtConsulta.Rows[0]["establecimiento"].ToString() + "-" + dtConsulta.Rows[0]["Punto_emision"].ToString() + "-" + sSecuencial + Environment.NewLine;
                 }
 
                 else
                 {
-                    sTexto += "N.E.   : " + dtConsulta.Rows[0][53].ToString() + "-" + dtConsulta.Rows[0][54].ToString() + "-" + sSecuencial + Environment.NewLine;
+                    sTexto += "N.E.   : " + dtConsulta.Rows[0]["establecimiento"].ToString() + "-" + dtConsulta.Rows[0]["Punto_emision"].ToString() + "-" + sSecuencial + Environment.NewLine;
                 }
 
                 sTexto += "Fecha  : " + sFecha + " Hora:" + sHoraIngreso.Substring(11, 5) + " - " + sHoraSalida.Substring(11, 5) + Environment.NewLine;
 
                 if (sOrigen == "MESAS")
                 {
-                    sTexto += dtConsulta.Rows[0][48].ToString().PadRight(8, ' ') + " No. Personas: " + dtConsulta.Rows[0][55].ToString() + Environment.NewLine;
+                    sTexto += dtConsulta.Rows[0]["mesa"].ToString().PadRight(8, ' ') + " No. Personas: " + dtConsulta.Rows[0]["numero_personas"].ToString() + Environment.NewLine;
                 }
 
-                sTexto = (dtConsulta.Rows[0][17].ToString() + " " + dtConsulta.Rows[0][18].ToString()).Trim().Length > 30 ? sTexto + "Cliente: " + (dtConsulta.Rows[0][17].ToString() + " " + dtConsulta.Rows[0][18].ToString()).Trim().Substring(0, 30) + Environment.NewLine : sTexto + "Cliente: " + (dtConsulta.Rows[0][17].ToString() + " " + dtConsulta.Rows[0][18].ToString()).Trim() + Environment.NewLine;
-                
-                if (dtConsulta.Rows[0][16].ToString() == "9999999999999")
+                if ((dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim().Length > 30)
                 {
-                    sTexto += "RUC/CI : " + dtConsulta.Rows[0][16].ToString().PadRight(14, ' ') + Environment.NewLine + Environment.NewLine;
+                    sTexto += "Cliente: " + (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim().Substring(0, 30) + Environment.NewLine;
                 }
 
                 else
                 {
-                    sTexto += "RUC/CI : " + dtConsulta.Rows[0][16].ToString().PadRight(14, ' ') + "Tlf.: " + dtConsulta.Rows[0][4].ToString() + Environment.NewLine;
+                    sTexto += "Cliente: " + (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim() + Environment.NewLine;
+                }
+                
+                if (dtConsulta.Rows[0]["identificacion"].ToString() == "9999999999999")
+                {
+                    sTexto += "RUC/CI : " + dtConsulta.Rows[0]["identificacion"].ToString().PadRight(14, ' ') + Environment.NewLine + Environment.NewLine;
+                }
 
-                    if (dtConsulta.Rows[0][3].ToString().Length > 30)
+                else
+                {
+                    sTexto += "RUC/CI : " + dtConsulta.Rows[0]["identificacion"].ToString().PadRight(14, ' ') + "Tlf.: " + dtConsulta.Rows[0]["telefono_factura"].ToString() + Environment.NewLine;
+
+                    if (dtConsulta.Rows[0]["direccion_factura"].ToString().Length > 30)
                     {
-                        sTexto += "Direcc.: " + dtConsulta.Rows[0][3].ToString().Substring(0, 30).PadRight(30, ' ') + Environment.NewLine;
+                        sTexto += "Direcc.: " + dtConsulta.Rows[0]["direccion_factura"].ToString().Substring(0, 30).PadRight(30, ' ') + Environment.NewLine;
                     }
 
                     else
                     {
-                        sTexto += "Direcc.: " + dtConsulta.Rows[0][3].ToString() + Environment.NewLine;
+                        sTexto += "Direcc.: " + dtConsulta.Rows[0]["direccion_factura"].ToString() + Environment.NewLine;
                     }
                 }
 
@@ -139,7 +147,7 @@ namespace Palatium.Clases
                 sTexto += "CANT " + "DESCRIPCION".PadRight(22, ' ') + " V.UNI.  TOT." + Environment.NewLine;
                 sTexto += "".PadRight(40, '=') + Environment.NewLine;
 
-                dPorcentaje = Convert.ToDouble(dtConsulta.Rows[0][59].ToString()) / 100;
+                dPorcentaje = Convert.ToDouble(dtConsulta.Rows[0]["Porcentaje_Dscto"].ToString()) / 100;
 
                 cargarProductos2();
 

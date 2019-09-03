@@ -2472,7 +2472,8 @@ namespace Palatium.Pedidos
 
                  if (insertarPagos() == false)
                  {
-                     conexion.GFun_Lo_Maneja_Transaccion((Program.G_REVERSA_TRANSACCION););
+                     conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION);
+                     return;
                  }
 
                  else
@@ -2854,20 +2855,20 @@ namespace Palatium.Pedidos
                      }
                  }
 
-                 sSql = "";
-                 sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
-                 sSql += "estado_orden = 'Pre-Cuenta'" + Environment.NewLine;
-                 sSql += "where id_pedido = " + Convert.ToInt32(sIdOrden) + Environment.NewLine;
-                 sSql += "and estado = 'A'" + Environment.NewLine;
+                 //sSql = "";
+                 //sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
+                 //sSql += "estado_orden = 'Pre-Cuenta'" + Environment.NewLine;
+                 //sSql += "where id_pedido = " + Convert.ToInt32(sIdOrden) + Environment.NewLine;
+                 //sSql += "and estado = 'A'" + Environment.NewLine;
 
-                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
-                 {
-                     catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
-                     catchMensaje.ShowDialog();
-                     return false;
-                 }
+                 //if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
+                 //{
+                 //    catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                 //    catchMensaje.ShowDialog();
+                 //    return false;
+                 //}
 
-                 return false;
+                 return true;
                  
              }
 
@@ -3207,7 +3208,1044 @@ namespace Palatium.Pedidos
              }
          }
 
+        //FUNCION PARA LLENAR EL DATATABLE
+         private void llenarDataTable()
+         {
+             try
+             {
+                 crearDataTable();
+
+                 for (int i = 0; i < dgvPagos.Rows.Count; i++)
+                 {
+                     DataRow row = dtAlmacenar.NewRow();
+                     row["id_forma_pago"] = dgvPagos.Rows[i].Cells[3].Value.ToString();
+                     row["valor"] = dgvPagos.Rows[i].Cells[2].Value.ToString();
+                     dtAlmacenar.Rows.Add(row);
+                 }
+
+                 IEnumerable<IGrouping<string, DataRow>> query = from item in dtAlmacenar.AsEnumerable()
+                                                                 group item by item["id_forma_pago"].ToString() into g
+                                                                 select g;
+
+                 dtAgrupado = Transformar(query);
+
+                 DataColumn id = new DataColumn("id");
+                 id.DataType = System.Type.GetType("System.String");
+                 dtAgrupado.Columns.Add(id);
+
+                 for (int i = 0; i < dtAgrupado.Rows.Count; i++)
+                 {
+                     sSql = "";
+                     sSql += "select id_forma_pago" + Environment.NewLine;
+                     sSql += "from cv403_formas_pagos" + Environment.NewLine;
+                     sSql += "where id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
+                     sSql += "and id_sri_forma_pago = " + Convert.ToInt32(dtAgrupado.Rows[i]["id_forma_pago"].ToString()) + Environment.NewLine;
+                     sSql += "and estado = 'A'";
+
+                     dtConsulta = new DataTable();
+                     dtConsulta.Clear();
+
+                     bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                     if (bRespuesta == true)
+                     {
+                         if (dtAgrupado.Rows.Count > 0)
+                         {
+                             dtAgrupado.Rows[i]["id"] = dtConsulta.Rows[0][0].ToString();
+                         }
+
+                         else
+                         {
+                             dtAgrupado.Rows[i]["id"] = 0;
+                         }
+                     }
+
+                     else
+                     {
+                         catchMensaje.LblMensaje.Text = sSql;
+                         catchMensaje.ShowDialog();
+                     }
+                 }
+
+                 iIdFormaPago_1 = 0;
+                 iIdFormaPago_2 = 0;
+                 iIdFormaPago_3 = 0;
+
+                 iIdFormaPago_1 = Convert.ToInt32(dtAgrupado.Rows[0]["id"].ToString());
+
+                 if (dtAgrupado.Rows.Count > 1)
+                 {
+                     iIdFormaPago_2 = Convert.ToInt32(dtAgrupado.Rows[1]["id"].ToString());
+                 }
+
+                 if (dtAgrupado.Rows.Count >= 2)
+                 {
+                     iIdFormaPago_3 = Convert.ToInt32(dtAgrupado.Rows[2]["id"].ToString());
+                 }             
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+             }
+         }
+
+        //FUNCION PARA TRANSFORMAR EL DATATABLE
+         private DataTable Transformar(IEnumerable<IGrouping<string, DataRow>> datos)
+         {
+             try
+             {
+                 DataTable dt = new DataTable();
+                 dt.Columns.Add("id_forma_pago");
+                 dt.Columns.Add("valor");
+
+                 foreach (IGrouping<string, DataRow> item in datos)
+                 {
+                     DataRow row = dt.NewRow();
+                     row["id_forma_pago"] = item.Key;
+                     row["valor"] = item.Sum<DataRow>(x => Convert.ToDecimal(x["valor"]));
+                     dt.Rows.Add(row);
+                 }
+
+                 return dt;
+             }
+
+             catch (Exception)
+             {
+                 return null;
+             }
+         }
+
+        //FUNCION PARA CREAR EL REPORTE
+         private void crearReporte()
+         {
+             try
+             {
+                 Program.iCortar = 1;
+                 dbCambio = Convert.ToDecimal(dgvDetalleDeuda.Rows[2].Cells[1].Value.ToString());
+
+                 if (rdbFactura.Checked)
+                 {
+                     if (Program.iEjecutarImpresion == 1)
+                     {
+                         ReportesTextBox.frmVistaFactura frmVistaFactura = new ReportesTextBox.frmVistaFactura(iIdFactura, 1);
+                         frmVistaFactura.ShowDialog();
+
+                         if (frmVistaFactura.DialogResult == DialogResult.OK)
+                         {
+                             this.DialogResult = DialogResult.OK;
+                             Cambiocs cambiocs = new Cambiocs("$ " + dbCambio.ToString("N2"));
+                             cambiocs.lblVerMensaje.Text = "FACTURA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                             cambiocs.ShowDialog();
+                             Program.sIDPERSONA = null;
+                             Program.dbValorPorcentaje = 0;
+                             Program.dbDescuento = 0.0;
+                             frmVistaFactura.Close();
+                             this.Close();
+
+                             if (Program.iBanderaCerrarVentana == 0)
+                             {
+                                 ord = Owner as Orden;
+                                 ord.Close();
+                             }
+
+                             else
+                             {
+                                 Program.iBanderaCerrarVentana = 0;
+                             }
+                         }
+                     }
+
+                     else
+                     {
+                         this.DialogResult = DialogResult.OK;
+                         Cambiocs cambiocs = new Cambiocs("$ " + dbCambio.ToString("N2"));
+                         cambiocs.lblVerMensaje.Text = "FACTURA GENERADA" + Environment.NewLine + "ÉXITOSAMENTE";
+                         cambiocs.ShowDialog();
+
+                         Program.sIDPERSONA = null;
+                         Program.dbValorPorcentaje = 0;
+                         Program.dbDescuento = 0;
+                         this.Close();
+
+                         if (Program.iBanderaCerrarVentana == 0)
+                         {
+                             ord = Owner as Orden;
+                             ord.Close();
+                         }
+
+                         else
+                         {
+                             Program.iBanderaCerrarVentana = 0;
+                         }
+                     }
+                 }
+
+                 else if (rdbNotaVenta.Checked == true)
+                {
+                    if (Program.iEjecutarImpresion == 1)
+                    {
+                        //ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(sIdOrden, 1);
+                        ReportesTextBox.frmVerNotaVentaFactura notaVenta = new ReportesTextBox.frmVerNotaVentaFactura(sIdOrden, 1);
+                        notaVenta.ShowDialog();
+
+                        if (notaVenta.DialogResult == DialogResult.OK)
+                        {
+                            this.DialogResult = DialogResult.OK;
+
+                            Cambiocs ok = new Cambiocs("$ " + Program.dCambioPantalla.ToString("N2"));
+                            ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
+                            ok.ShowDialog();
+
+                            Program.sIDPERSONA = null;
+                            Program.dbValorPorcentaje = 0;
+                            Program.dbDescuento = 0;
+                            notaVenta.Close();
+                            this.Close();
+
+                            if (Program.iBanderaCerrarVentana == 0)
+                            {
+                                ord = Owner as Orden;
+                                ord.Close();
+                            }
+
+                            else
+                            {
+                                Program.iBanderaCerrarVentana = 0;
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        this.DialogResult = DialogResult.OK;
+
+                        Cambiocs ok = new Cambiocs("$ " + Program.dCambioPantalla.ToString("N2"));
+                        ok.lblVerMensaje.Text = "NOTA DE ENTREGA GENERADA";
+                        ok.ShowDialog();
+
+                        Program.sIDPERSONA = null;
+                        Program.dbValorPorcentaje = 0;
+                        Program.dbDescuento = 0;
+                        this.Close();
+
+                        if (Program.iBanderaCerrarVentana == 0)
+                        {
+                            ord = Owner as Orden;
+                            ord.Close();
+                        }
+
+                        else
+                        {
+                            Program.iBanderaCerrarVentana = 0;
+                        }
+                    }
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+
+                 if (ok.DialogResult == DialogResult.OK)
+                 {
+                     Program.sIDPERSONA = null;
+                     //actualizarNumeroFactura();
+                     Program.dbValorPorcentaje = 0;
+                     Program.dbDescuento = 0;
+                     this.Close();
+
+                     if (Program.iBanderaCerrarVentana == 0)
+                     {
+                         ord = Owner as Orden;
+                         ord.Close();
+                     }
+
+                     else
+                     {
+                         Program.iBanderaCerrarVentana = 0;
+                     }
+                 }
+             }
+         }
+
+        //FUNCION PARA CARGAR LA CONFIGURACION DE LA FACTURACION ELECTRONICA
+         private void configuracionFacturacion()
+         {
+             try
+             {
+                 sSql = "";
+                 sSql += "select id_tipo_ambiente, id_tipo_emision" + Environment.NewLine;
+                 sSql += "from sis_empresa" + Environment.NewLine;
+                 sSql += "where idempresa = " + Program.iIdEmpresa;
+
+                 dtConsulta = new DataTable();
+                 dtConsulta.Clear();
+
+                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                 if (bRespuesta == true)
+                 {
+                     iIdTipoAmbiente = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_ambiente"].ToString());
+                     iIdTipoEmision = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_emision"].ToString());
+                 }
+
+                 else
+                 {
+                     catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                     catchMensaje.ShowDialog();
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+             }
+         }
+
+        //FUNCION PARA CONSULTAR EL RECARGO DE TARJETAS
+         private void consultarRecargoTarjeta()
+         {
+             try
+             {
+                 if (Program.iAplicaRecargoTarjeta == 1 || Program.iDescuentaIva == 1)
+                 {
+                     sSql = "";
+                     sSql += "select recargo_tarjeta, remover_iva, porcentaje_iva" + Environment.NewLine;
+                     sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+                     sSql += "where estado = 'A'" + Environment.NewLine;
+                     sSql += "and id_pedido = " + sIdOrden;
+
+                     dtConsulta = new DataTable();
+                     dtConsulta.Clear();
+
+                     bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                     if (bRespuesta)
+                     {
+                         if (dtConsulta.Rows.Count > 0)
+                         {
+                             iBanderaRecargoBDD = Convert.ToInt32(dtConsulta.Rows[0]["recargo_tarjeta"].ToString());
+                             iBanderaRemoverIvaBDD = Convert.ToInt32(dtConsulta.Rows[0]["remover_iva"].ToString());
+                             iBanderaRecargoBoton = Convert.ToInt32(dtConsulta.Rows[0]["recargo_tarjeta"].ToString());
+                             iBanderaRemoverIvaBoton = Convert.ToInt32(dtConsulta.Rows[0]["remover_iva"].ToString());
+                             dbIVAPorcentaje = Convert.ToDecimal(dtConsulta.Rows[0]["porcentaje_iva"].ToString());
+                         }
+                         else
+                         {
+                             iBanderaRecargoBDD = 0;
+                             iBanderaRemoverIvaBDD = 0;
+                             iBanderaRecargoBoton = 0;
+                             iBanderaRemoverIvaBoton = 0;
+                             dbIVAPorcentaje = Convert.ToDecimal(Program.iva * 100);
+                         }
+
+                         if (iBanderaRecargoBDD == 1)
+                         {
+                             btnRecargoTarjeta.AccessibleDescription = "REMOVER RECARGO";
+                             btnRecargoTarjeta.Text = "REMOVER RECARGO";
+                             btnRemoverIVA.Enabled = false;
+                             btnPagoCompleto.Enabled = false;
+
+                             string sValor_R = (Convert.ToDecimal((dTotal / (dbIVAPorcentaje / 100)).ToString("N2")) / (Program.dbPorcentajeRecargoTarjeta)).ToString("N2");
+                             dbSumaIva = Convert.ToDecimal(sValor_R) * (dbIVAPorcentaje / 100);
+                             dbSumaIva = Convert.ToDecimal(dbSumaIva.ToString("N2"));
+                             dbTotalAyuda = Convert.ToDecimal(sValor_R) * (dbIVAPorcentaje / 100);
+                             iEjecutarActualizacionTarjetas = 1;
+                             cargarFormasPagosRecargo();
+                             aplicaRecargoTarjetas();
+                         }
+
+                         else
+                         {
+                             if (iBanderaRemoverIvaBDD != 1)
+                             {
+                                 return;
+                             }
+
+                             btnRemoverIVA.BackColor = Color.Turquoise;
+                             btnRemoverIVA.Text = "DEVOLVER IVA";
+                             dbTotalAyuda += dbSumaIva;
+                             iEjecutarActualizacionIVA = 1;
+                             btnRecargoTarjeta.Enabled = false;
+                             rdbNotaVenta.Checked = true;
+                             rdbFactura.Enabled = false;
+                             rdbNotaVenta.Enabled = false;
+                         }
+                     }
+
+                     else
+                     {
+                         catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                         catchMensaje.ShowDialog();
+                     }
+                 }
+
+                 else
+                 {
+                     iBanderaRecargoBDD = 0;
+                     iBanderaRemoverIvaBDD = 0;
+                     dbIVAPorcentaje = Convert.ToDecimal(Program.iva * 100);
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+             }
+         }
+
+        //FUNCION PARA ACTUALIZAR A PRECIOS ORIGINALES
+         private bool actualizarPreciosOriginales()
+         {
+             try
+             {
+                 int iIdDetPedido_R;
+                 Decimal dbValor_R;
+                 Decimal dbValorIVA_R;
+
+                 Decimal dbPorcentajeIva_R = Convert.ToDecimal(dtOriginal.Rows[0]["porcentaje_iva"].ToString()) / 100;
+
+                 for (int i = 0; i < dtOriginal.Rows.Count; i++)
+                 {
+                     dbValor_R = Convert.ToDecimal(dtOriginal.Rows[i]["valor"].ToString());
+                     iIdDetPedido_R = Convert.ToInt32(dtOriginal.Rows[i]["id_det_pedido"].ToString());
+
+                     if (Convert.ToInt32(dtOriginal.Rows[i]["paga_iva"].ToString()) == 1)
+                     {
+                         dbValorIVA_R = dbValor_R * dbPorcentajeIva_R;
+                     }
+
+                     else
+                     {
+                         dbValorIVA_R = 0;
+                     }
+                     
+                     sSql = "";
+                     sSql += "update cv403_det_pedidos set" + Environment.NewLine;
+                     sSql += "precio_unitario = " + dbValor_R + "," + Environment.NewLine;
+                     sSql += "valor_iva = " + dbValorIVA_R + Environment.NewLine;
+                     sSql += "where id_det_pedido = " + iIdDetPedido_R;
+
+                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
+                     {
+                         catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                         catchMensaje.ShowDialog();
+                         return false;
+                     }
+                 }
+
+                 return true;
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.Message;
+                 catchMensaje.ShowDialog();
+                 return false;
+             }
+         }
+
+        //FUNCION PARA ACTUALIZAR LOS PRECIOS RECARGOS DE TARJETA
+         private bool actualizarPreciosRecargo()
+         {
+             try
+             {
+                 int iIdDetPedido_R;
+                 int iPagaIVA_R;
+
+                 Decimal dbValor_R;
+                 Decimal dbValorIVA_R;
+                 Decimal dvValorRecargo_R;
+                 Decimal dbValorSumaRecargo_P;
+
+                 Decimal dbPorcentajeIva_R = Convert.ToDecimal(dtOriginal.Rows[0]["porcentaje_iva"].ToString()) / 100;
+
+                 for (int i = 0; i < dtOriginal.Rows.Count; i++)
+                 {
+                     dbValor_R = Convert.ToDecimal(dtOriginal.Rows[i]["valor"].ToString());
+                     iIdDetPedido_R = Convert.ToInt32(dtOriginal.Rows[i]["id_det_pedido"].ToString());
+                     iPagaIVA_R = Convert.ToInt32(dtOriginal.Rows[i]["paga_iva"].ToString());
+
+                     dvValorRecargo_R = dbValor_R * Program.dbPorcentajeRecargoTarjeta;
+                     dbValorSumaRecargo_P = dbValor_R + dvValorRecargo_R;
+
+                     if (iPagaIVA_R == 1)
+                     {
+                         dbValorIVA_R = dbValorSumaRecargo_P * dbPorcentajeIva_R;
+                     }
+
+                     else
+                     {
+                         dbValorIVA_R = 0;
+                     }
+
+                     sSql = "";
+                     sSql += "update cv403_det_pedidos set" + Environment.NewLine;
+                     sSql += "precio_unitario = " + dbValorSumaRecargo_P + "," + Environment.NewLine;
+                     sSql += "valor_iva = " + dbValorIVA_R + Environment.NewLine;
+                     sSql += "where id_det_pedido = " + iIdDetPedido_R;
+
+                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
+                     {
+                         catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                         catchMensaje.ShowDialog();
+                         return false;
+                     }
+                 }
+
+                 return true;
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.Message;
+                 catchMensaje.ShowDialog();
+                 return false;
+             }
+         }
 
         #endregion
+
+         private void frmCobros_Load(object sender, EventArgs e)
+         {
+             extraerListaMinorista();
+             obtenerTotal();
+             cargarInformacionCliente();
+             cargarFormasPagos();
+             datosFactura();
+             llenarDetalleDeuda();
+             valoresPrecuenta();
+             consultarRecargoTarjeta();
+             dSubtotal = 0;
+             iBanderaGeneraFactura = 0;
+             dbPorcentajeRecargo = Program.dbPorcentajeRecargoTarjeta;
+
+             if (Program.iFacturacionElectronica == 1)
+             {
+                 configuracionFacturacion();
+             }
+
+             if (Program.iGeneraFactura == 0)
+             {
+                 dgvPagos.Rows.Add();
+
+                 sSql = "";
+                 sSql += "select FC.id_pos_tipo_forma_cobro, FC.descripcion" + Environment.NewLine;
+                 sSql += "from cv403_cab_pedidos CP, pos_origen_orden OO," + Environment.NewLine;
+                 sSql += "pos_tipo_forma_cobro FC" + Environment.NewLine;
+                 sSql += "where CP.id_pos_origen_orden = OO.id_pos_origen_orden" + Environment.NewLine;
+                 sSql += "and OO.id_pos_tipo_forma_cobro = FC.id_pos_tipo_forma_cobro" + Environment.NewLine;
+                 sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                 sSql += "and OO.estado = 'A'" + Environment.NewLine;
+                 sSql += "and FC.estado = 'A'" + Environment.NewLine;
+                 sSql += "and CP.id_pedido = " + sIdOrden;
+
+                 dtConsulta = new DataTable();
+                 dtConsulta.Clear();
+                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                 if (bRespuesta == true)
+                 {
+                     if (dtConsulta.Rows.Count > 0)
+                     {
+                         dgvPagos.Rows[0].Cells["id"].Value = dtConsulta.Rows[0][0].ToString();
+                         dgvPagos.Rows[0].Cells["fpago"].Value = dtConsulta.Rows[0][1].ToString();
+                         dValor = dTotal;
+                         dgvPagos.Rows[0].Cells["valor"].Value = dValor.ToString("N2");
+
+                         btnRemoverPago.Enabled = false;
+                     }
+                 }
+
+                 grupoComprobantes.Visible = false;
+                 grupoEncabezadoFactura.Text = "Datos del beneficiario";
+             }
+
+             else
+             {
+                 llenarGrid();
+                 iBanderaGeneraFactura = 1;
+             }
+
+             for (int i = 0; i < dgvPagos.Rows.Count; i++)
+             {
+                 if (dgvPagos.Rows[i].Cells["fpago"].Value == null)
+                 {
+                     dgvPagos.Rows[i].Cells["fpago"].Value = 0;
+                 }
+
+                 dSubtotal += Convert.ToDecimal(dgvPagos.Rows[i].Cells[2].Value);
+             }
+
+             dgvDetalleDeuda.Rows[0].Cells[1].Value = dSubtotal.ToString("N2");
+             dgvDetalleDeuda.Rows[1].Cells[1].Value = (dTotal - dSubtotal).ToString("N2");
+             dgvPagos.Columns[0].Visible = false;
+             dgvPagos.ClearSelection();
+
+             if (Program.iDescuentaIva == 1)
+             {
+                 btnRemoverIVA.Visible = true;
+                 btnRecargoTarjeta.Visible = true;
+                 btnPagoCompleto.Visible = true;
+                 btnDividirPrecio.Visible = false;
+             }
+
+             else
+             {
+                 btnRemoverIVA.Visible = false;
+                 btnRecargoTarjeta.Visible = false;
+                 btnPagoCompleto.Visible = false;
+                 btnDividirPrecio.Visible = true;
+             }
+         }
+
+         private void btnSiguiente_Click(object sender, EventArgs e)
+         {
+             btnAnterior.Enabled = true;
+             crearBotonesFormasPagos();
+         }
+
+         private void btnAnterior_Click(object sender, EventArgs e)
+         {
+             iCuentaFormasPagos -= iCuentaAyudaFormasPagos;
+
+             if (iCuentaFormasPagos <= 10)
+             {
+                 btnAnterior.Enabled = false;
+             }
+
+             btnSiguiente.Enabled = true;
+             iCuentaFormasPagos -= 10;
+
+             crearBotonesFormasPagos();
+         }
+
+         private void btnConsumidorFinal_Click(object sender, EventArgs e)
+         {
+             txtIdentificacion.Text = "9999999999999";
+             txtApellidos.Text = "CONSUMIDOR FINAL";
+             txtNombres.Text = "CONSUMIDOR FINAL";
+             txtTelefono.Text = "9999999999";
+             txtMail.Text = "dominio@dominio.com";
+             txtDireccion.Text = "QUITO";
+             iIdPersona = Program.iIdPersona;
+             idTipoIdentificacion = 180;
+             idTipoPersona = 2447;
+             btnEditar.Visible = false;
+         }
+
+         private void btnBuscar_Click(object sender, EventArgs e)
+         {
+             Facturador.frmControlDatosCliente controlDatosCliente = new Facturador.frmControlDatosCliente();
+             controlDatosCliente.ShowDialog();
+
+             if (controlDatosCliente.DialogResult == DialogResult.OK)
+             {
+                 iIdPersona = controlDatosCliente.iCodigo;
+                 txtIdentificacion.Text = controlDatosCliente.sIdentificacion;
+                 consultarRegistro();
+                 controlDatosCliente.Close();
+             }
+         }
+
+         private void txtIdentificacion_KeyPress(object sender, KeyPressEventArgs e)
+         {
+             if (e.KeyChar == (char)Keys.Enter)
+             {
+                 if (txtIdentificacion.Text != "")
+                 {
+                     //AQUI INSTRUCCIONES PARA CONSULTAR Y VALIDAR LA CEDULA
+                     if ((esNumero(txtIdentificacion.Text.Trim()) == true) && (chkPasaporte.Checked == false))
+                     {
+                         //INSTRUCCIONES PARA VALIDAR
+                         validarIdentificacion();
+                     }
+                     else
+                     {
+                         //CONSULTAR EN LA BASE DE DATOS
+                         consultarRegistro();
+                     }
+                 }
+             }
+         }
+
+         private void btnEditar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+         {
+             Facturador.frmNuevoCliente nuevoCliente = new Facturador.frmNuevoCliente(txtIdentificacion.Text.Trim(), chkPasaporte.Checked);
+             nuevoCliente.ShowDialog();
+
+             if (nuevoCliente.DialogResult == DialogResult.OK)
+             {
+                 iIdPersona = nuevoCliente.iCodigo;
+                 txtIdentificacion.Text = nuevoCliente.sIdentificacion;
+                 consultarRegistro();
+             }
+         }
+
+         private void rdbFactura_CheckedChanged(object sender, EventArgs e)
+         {
+             datosFactura();
+         }
+
+         private void rdbNotaVenta_CheckedChanged(object sender, EventArgs e)
+         {
+             datosFactura();
+         }
+
+         private void btnEditarFactura_Click(object sender, EventArgs e)
+         {
+             if (TxtNumeroFactura.ReadOnly == true)
+             {
+                 sNumeroFactura = TxtNumeroFactura.Text.Trim();
+                 TxtNumeroFactura.ReadOnly = false;
+                 TxtNumeroFactura.Focus();
+             }
+
+             else
+             {
+                 TxtNumeroFactura.Text = sNumeroFactura;
+                 TxtNumeroFactura.ReadOnly = true;
+                 txtIdentificacion.Focus();
+             }
+         }
+
+         private void btnRemoverPago_Click(object sender, EventArgs e)
+         {
+             if (dgvPagos.Rows.Count == 0)
+             {
+                 ok.LblMensaje.Text = "No hay formas de pago ingresados para remover del registro";
+                 ok.ShowDialog();
+             }
+
+             else if (dgvPagos.SelectedRows.Count > 0)
+             {
+                 if (Program.iPuedeCobrar == 1)
+                 {
+                     dgvPagos.Rows.Remove(dgvPagos.CurrentRow);
+
+                     dSubtotal = 0;
+
+                     for (int i = 0; i < dgvPagos.Rows.Count; i++)
+                     {
+                         dSubtotal += Convert.ToDecimal(dgvPagos.Rows[i].Cells[2].Value.ToString());
+                     }
+
+                     dgvDetalleDeuda.Rows[0].Cells[1].Value = dSubtotal.ToString("N2");
+                     dgvDetalleDeuda.Rows[1].Cells[1].Value = (dTotal - Convert.ToDecimal(dgvDetalleDeuda.Rows[0].Cells[1].Value)).ToString("N2");
+
+                     if (dTotal > dSubtotal)        //AQUI REVISAR LA CONDICION
+                     {
+                         dgvDetalleDeuda.Rows[2].Cells[1].Value = "0.00";
+                     }
+
+                     else
+                     {
+                         dgvDetalleDeuda.Rows[2].Cells[1].Value = (dSubtotal - dTotal).ToString("N2");
+                     }
+
+                     dgvPagos.ClearSelection();
+                 }
+
+                 else
+                 {
+                     ok.LblMensaje.Text = "Su usuario no le permite remover el ítem. Póngase en contacto con el administrador.";
+                     ok.ShowDialog();
+                 }
+             }
+
+             else
+             {
+                 ok.LblMensaje.Text = "No se ha seleccionado una línea para remover.";
+                 ok.ShowDialog();
+             }
+         }
+
+         private void btnSalir_Click(object sender, EventArgs e)
+         {
+             if (Program.iBanderaCerrarVentana == 1)
+             {
+                 this.Close();
+                 Program.iBanderaCerrarVentana = 0;
+             }
+
+             else
+             {
+                 ord.Close();
+                 this.Close();
+             }
+         }
+
+         private void btnCrearCliente_Click(object sender, EventArgs e)
+         {
+             Facturador.frmNuevoCliente frmNuevoCliente = new Facturador.frmNuevoCliente("", false);
+             frmNuevoCliente.ShowDialog();
+
+             if (frmNuevoCliente.DialogResult == DialogResult.OK)
+             {
+                 iIdPersona = frmNuevoCliente.iCodigo;
+                 txtIdentificacion.Text = frmNuevoCliente.sIdentificacion;
+                 consultarRegistro();
+             }
+         }
+
+         private void btnGrabarPagos_Click(object sender, EventArgs e)
+         {
+             try
+             {
+                 iOpCambiarEstadoOrden = 0;
+                 sFecha = Program.sFechaSistema.ToString("yyyy/MM/dd");
+                 iCerrarCuenta = 1;
+
+                 if (Convert.ToDouble(dgvDetalleDeuda.Rows[1].Cells[1].Value) == 0)
+                 {
+                     sSql = "";
+                     sSql += "select count(*) cuenta" + Environment.NewLine;
+                     sSql += "from cv403_facturas_pedidos" + Environment.NewLine;
+                     sSql += "where id_pedido = " + sIdOrden + Environment.NewLine;
+                     sSql += "and estado = 'A'";
+
+                     dtConsulta = new DataTable();
+                     dtConsulta.Clear();
+
+                     bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                     if (bRespuesta == true)
+                     {
+                         if (Convert.ToInt32(dtConsulta.Rows[0][0].ToString()) == 0)
+                         {
+                             cambiarFormasPagos(0);
+                         }
+
+                         else
+                         {
+                             cambiarFormasPagos(1);
+                         }
+                     }
+
+                     else
+                     {
+                         catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                         catchMensaje.ShowDialog();
+                     }
+                 }
+
+                 else
+                 {
+                     ok.LblMensaje.Text = "No se ha realizado el cobro total de la orden.";
+                     ok.ShowDialog();
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+             }
+         }
+
+         private void btnFacturar_Click(object sender, EventArgs e)
+         {
+             if (txtIdentificacion.Text == "" && txtApellidos.Text == "")
+             {
+                 ok.LblMensaje.Text = "Favor ingrese los datos del cliente para la factura.";
+                 ok.ShowDialog();
+                 txtIdentificacion.Focus();
+                 return;
+             }
+
+             if (Convert.ToDouble(dgvDetalleDeuda.Rows[1].Cells[1].Value) == 0)
+             {
+                 crearPagosFactura();
+             }
+
+             else
+             {
+                 ok.LblMensaje.Text = "No se ha realizado el cobre total de la comanda.";
+                 ok.ShowDialog();
+             }
+         }
+
+         private void frmCobros_KeyDown(object sender, KeyEventArgs e)
+         {
+             if (e.KeyCode == Keys.Escape)
+             {
+                 this.Close();
+             }
+
+             if (Program.iPermitirAbrirCajon == 1)
+             {
+                 if (e.KeyCode == Keys.F7)
+                 {
+                     if (Program.iPuedeCobrar == 1)
+                     {
+                         abrir.consultarImpresoraAbrirCajon();
+                     }
+                 }
+             }
+         }
+
+         private void btnImprimir_Click(object sender, EventArgs e)
+         {
+             try
+             {
+                 sSql = "";
+                 sSql += "select count(*) cuenta" + Environment.NewLine;
+                 sSql += "from cv403_facturas_pedidos" + Environment.NewLine;
+                 sSql += "where id_pedido = " + sIdOrden + Environment.NewLine;
+                 sSql += "and estado = 'A'";
+
+                 dtConsulta = new DataTable();
+                 dtConsulta.Clear();
+
+                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                 if (bRespuesta == true)
+                 {
+                     if (Convert.ToInt32(dtConsulta.Rows[0][0].ToString()) == 0)
+                     {
+                         if (insertarPagoNuevoPrecuenta() == false)
+                         {
+                             return;
+                         }
+                     }
+
+                     else if (cambiarFormasPagosPrecuenta(1) == false)
+                     {
+                         return;
+                     }
+
+                     frmVerPrecuentaTextBox precuenta = new frmVerPrecuentaTextBox(sIdOrden, 1, "Pre-Cuenta");
+                     precuenta.ShowDialog();
+                     return;
+                 }
+
+                 else
+                 {
+                     catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                     catchMensaje.ShowDialog();
+                     return;
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 catchMensaje.LblMensaje.Text = ex.ToString();
+                 catchMensaje.ShowDialog();
+             }
+         }
+
+         private void btnDividirPrecio_Click(object sender, EventArgs e)
+         {
+             tecladoNumericoDividirPrecio teclado = new tecladoNumericoDividirPrecio(dTotal.ToString());
+             teclado.ShowDialog();
+         }
+
+         private void btnRemoverIVA_Click(object sender, EventArgs e)
+         {
+             iEjecutarActualizacionTarjetas = 0;
+
+             if (btnRemoverIVA.Text == "REMOVER IVA")
+             {
+                 btnRemoverIVA.BackColor = Color.Turquoise;
+                 btnRemoverIVA.Text = "DEVOLVER IVA";
+                 dTotal = dbTotalAyuda - dbSumaIva;
+                 iEjecutarActualizacionIVA = 1;
+                 btnRecargoTarjeta.Enabled = false;
+                 rdbNotaVenta.Checked = true;
+                 rdbFactura.Enabled = false;
+                 rdbNotaVenta.Enabled = false;
+                 Program.iSeleccionarNotaVenta = 1;
+                 iBanderaRemoverIvaBoton = 1;
+                 iBanderaRemoverIvaBDD = 1;
+             }
+             else
+             {
+                 btnRemoverIVA.BackColor = Color.SpringGreen;
+                 btnRemoverIVA.Text = "REMOVER IVA";
+                 dTotal = dbTotalAyuda;
+                 iEjecutarActualizacionIVA = 0;
+                 btnRecargoTarjeta.Enabled = true;
+                 rdbFactura.Checked = true;
+                 rdbFactura.Enabled = true;
+                 rdbNotaVenta.Enabled = true;
+                 Program.iSeleccionarNotaVenta = 0;
+                 iBanderaRemoverIvaBoton = 0;
+                 iBanderaRemoverIvaBDD = 0;
+             }
+
+             iBanderaRecargoBoton = 0;
+             lblTotal.Text = "$ " + dTotal.ToString("N2");
+             dgvPagos.Rows.Clear();
+
+             dgvDetalleDeuda.Rows.Clear();
+             dgvDetalleDeuda.Rows.Add("ABONO", "0.00");
+             dgvDetalleDeuda.Rows.Add("SALDO", dTotal.ToString("N2"));
+             dgvDetalleDeuda.Rows.Add("CAMBIO", "0.00");
+             dgvDetalleDeuda.Rows.Add("PROPINA", "0.00");
+             dgvDetalleDeuda.ClearSelection();
+         }
+
+         private void btnRecargoTarjeta_Click(object sender, EventArgs e)
+         {
+             if (btnRecargoTarjeta.AccessibleDescription == "RECARGO TARJETAS")
+             {
+                 btnRecargoTarjeta.AccessibleDescription = "REMOVER RECARGO";
+                 btnRecargoTarjeta.Text = "REMOVER RECARGO";
+                 dbSubTotalRecargo = dbTotalAyuda - dbSumaIva;
+                 dbValorRecargo = dbSubTotalRecargo * dbPorcentajeRecargo;
+                 dbSubTotalNetoRecargo = dbSubTotalRecargo + dbValorRecargo;
+                 dbIVARecargo = dbSubTotalNetoRecargo * Convert.ToDecimal(Program.iva);
+                 dbTotalRecargo = dbSubTotalNetoRecargo + dbIVARecargo;
+                 dTotal = dbTotalRecargo;
+                 iEjecutarActualizacionTarjetas = 1;
+                 btnRemoverIVA.Enabled = false;
+                 btnPagoCompleto.Enabled = false;
+                 cargarFormasPagosRecargo();
+                 aplicaRecargoTarjetas();
+                 iBanderaRecargoBoton = 1;
+                 iBanderaRecargoBDD = 1;
+             }
+
+             else
+             {
+                 btnRecargoTarjeta.AccessibleDescription = "RECARGO TARJETAS";
+                 btnRecargoTarjeta.Text = "RECARGO TARJETAS";
+                 dTotal = dbTotalAyuda;
+                 btnRemoverIVA.Enabled = true;
+                 btnPagoCompleto.Enabled = true;
+                 iEjecutarActualizacionTarjetas = 0;
+                 cargarFormasPagos();
+                 iBanderaRecargoBoton = 0;
+                 iBanderaRecargoBDD = 0;
+             }
+
+             iBanderaRemoverIvaBoton = 0;
+             lblTotal.Text = "$ " + dTotal.ToString("N2");
+             dgvPagos.Rows.Clear();
+             
+             dgvDetalleDeuda.Rows.Clear();
+             dgvDetalleDeuda.Rows.Add("ABONO", "0.00");
+             dgvDetalleDeuda.Rows.Add("SALDO", dTotal.ToString("N2"));
+             dgvDetalleDeuda.Rows.Add("CAMBIO", "0.00");
+             dgvDetalleDeuda.Rows.Add("PROPINA", "0.00");
+             dgvDetalleDeuda.ClearSelection();
+         }
+
+         private void btnPagoCompleto_Click(object sender, EventArgs e)
+         {
+             frmEfectivoPagoCompleto efectivoPagoCompleto = new frmEfectivoPagoCompleto(sIdOrden, Convert.ToDouble(dTotal));
+             efectivoPagoCompleto.ShowDialog();
+
+             if (efectivoPagoCompleto.DialogResult == DialogResult.OK)
+             {
+                 this.DialogResult = DialogResult.OK;
+                 this.Close();
+             }
+         }
     }
 }

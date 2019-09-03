@@ -302,6 +302,9 @@
             this.btnClienteEmpresarial.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnClienteEmpresarial, "Clic aquí para ingresar datos completos del cliente");
             this.btnClienteEmpresarial.UseVisualStyleBackColor = false;
+            this.btnClienteEmpresarial.Click += new System.EventHandler(this.btnClienteEmpresarial_Click);
+            this.btnClienteEmpresarial.MouseEnter += new System.EventHandler(this.btnClienteEmpresarial_MouseEnter);
+            this.btnClienteEmpresarial.MouseLeave += new System.EventHandler(this.btnClienteEmpresarial_MouseLeave);
             // 
             // btnCancelar
             // 
@@ -587,6 +590,9 @@
             this.btnCambioOrigen.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnCambioOrigen, "Clic aquí para asignar los repartidores a los pedidos a domicilio");
             this.btnCambioOrigen.UseVisualStyleBackColor = false;
+            this.btnCambioOrigen.Click += new System.EventHandler(this.btnCambioOrigen_Click);
+            this.btnCambioOrigen.MouseEnter += new System.EventHandler(this.btnCambioOrigen_MouseEnter);
+            this.btnCambioOrigen.MouseLeave += new System.EventHandler(this.btnCambioOrigen_MouseLeave);
             // 
             // btnEditarFactura
             // 
@@ -607,6 +613,9 @@
             this.btnEditarFactura.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnEditarFactura, "Botón habilitado para Facturas Electrónicas");
             this.btnEditarFactura.UseVisualStyleBackColor = false;
+            this.btnEditarFactura.Click += new System.EventHandler(this.btnEditarFactura_Click);
+            this.btnEditarFactura.MouseEnter += new System.EventHandler(this.btnEditarFactura_MouseEnter);
+            this.btnEditarFactura.MouseLeave += new System.EventHandler(this.btnEditarFactura_MouseLeave);
             // 
             // btnDatosClientes
             // 
@@ -627,6 +636,9 @@
             this.btnDatosClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnDatosClientes, "Clic aquí para asignar los repartidores a los pedidos a domicilio");
             this.btnDatosClientes.UseVisualStyleBackColor = false;
+            this.btnDatosClientes.Click += new System.EventHandler(this.btnDatosClientes_Click);
+            this.btnDatosClientes.MouseEnter += new System.EventHandler(this.btnDatosClientes_MouseEnter);
+            this.btnDatosClientes.MouseLeave += new System.EventHandler(this.btnDatosClientes_MouseLeave);
             // 
             // btnAbrirCajonDinero
             // 
@@ -647,6 +659,9 @@
             this.btnAbrirCajonDinero.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnAbrirCajonDinero, "Clic aquí para abrir el cajón de dinero");
             this.btnAbrirCajonDinero.UseVisualStyleBackColor = false;
+            this.btnAbrirCajonDinero.Click += new System.EventHandler(this.btnAbrirCajonDinero_Click);
+            this.btnAbrirCajonDinero.MouseEnter += new System.EventHandler(this.btnAbrirCajonDinero_MouseEnter);
+            this.btnAbrirCajonDinero.MouseLeave += new System.EventHandler(this.btnAbrirCajonDinero_MouseLeave);
             // 
             // btnConsultarPrecios
             // 
@@ -667,6 +682,9 @@
             this.btnConsultarPrecios.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnConsultarPrecios, "Clic aquí para consultar los precios de los productos");
             this.btnConsultarPrecios.UseVisualStyleBackColor = false;
+            this.btnConsultarPrecios.Click += new System.EventHandler(this.btnConsultarPrecios_Click);
+            this.btnConsultarPrecios.MouseEnter += new System.EventHandler(this.btnConsultarPrecios_MouseEnter);
+            this.btnConsultarPrecios.MouseLeave += new System.EventHandler(this.btnConsultarPrecios_MouseLeave);
             // 
             // btnCambioCajero
             // 
@@ -687,6 +705,9 @@
             this.btnCambioCajero.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnCambioCajero, "Clic aquí para cambiar los datos de ingreso de cajero");
             this.btnCambioCajero.UseVisualStyleBackColor = false;
+            this.btnCambioCajero.Click += new System.EventHandler(this.btnCambioCajero_Click);
+            this.btnCambioCajero.MouseEnter += new System.EventHandler(this.btnCambioCajero_MouseEnter);
+            this.btnCambioCajero.MouseLeave += new System.EventHandler(this.btnCambioCajero_MouseLeave);
             // 
             // btnAnularFactura
             // 
@@ -707,6 +728,9 @@
             this.btnAnularFactura.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnAnularFactura, "Clic aquí para anular y emitir una nueva factura");
             this.btnAnularFactura.UseVisualStyleBackColor = false;
+            this.btnAnularFactura.Click += new System.EventHandler(this.btnAnularFactura_Click);
+            this.btnAnularFactura.MouseEnter += new System.EventHandler(this.btnAnularFactura_MouseEnter);
+            this.btnAnularFactura.MouseLeave += new System.EventHandler(this.btnAnularFactura_MouseLeave);
             // 
             // btnCobroAlmuerzos
             // 
@@ -727,6 +751,9 @@
             this.btnCobroAlmuerzos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ttMensaje.SetToolTip(this.btnCobroAlmuerzos, "Clic aquí para asignar los repartidores a los pedidos a domicilio");
             this.btnCobroAlmuerzos.UseVisualStyleBackColor = false;
+            this.btnCobroAlmuerzos.Click += new System.EventHandler(this.btnCobroAlmuerzos_Click);
+            this.btnCobroAlmuerzos.MouseEnter += new System.EventHandler(this.btnCobroAlmuerzos_MouseEnter);
+            this.btnCobroAlmuerzos.MouseLeave += new System.EventHandler(this.btnCobroAlmuerzos_MouseLeave);
             // 
             // panel1
             // 
@@ -820,6 +847,9 @@
             this.btnReimprimirFactura.Text = "Reimprimir\r\nFactura";
             this.btnReimprimirFactura.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnReimprimirFactura.UseVisualStyleBackColor = false;
+            this.btnReimprimirFactura.Click += new System.EventHandler(this.btnReimprimirFactura_Click);
+            this.btnReimprimirFactura.MouseEnter += new System.EventHandler(this.btnReimprimirFactura_MouseEnter);
+            this.btnReimprimirFactura.MouseLeave += new System.EventHandler(this.btnReimprimirFactura_MouseLeave);
             // 
             // frmMenuPos
             // 

@@ -496,7 +496,7 @@ namespace Palatium.Menú
 
         private void btnDatosClientes_MouseEnter(object sender, EventArgs e)
         {
-            ingresaBoton(btnClienteEmpresarial);
+            ingresaBoton(btnDatosClientes);
         }
 
         private void btnFacturasSri_MouseEnter(object sender, EventArgs e)
@@ -596,7 +596,7 @@ namespace Palatium.Menú
 
         private void btnDatosClientes_MouseLeave(object sender, EventArgs e)
         {
-            salidaBoton(btnClienteEmpresarial);
+            salidaBoton(btnDatosClientes);
         }
 
         private void btnFacturasSri_MouseLeave(object sender, EventArgs e)
@@ -664,8 +664,8 @@ namespace Palatium.Menú
             {
                 Program.iHabilitaOpciones = 0;
                 Program.iPuedeCobrar = 1;
-                Program.CAJERO_ID = 0;
-                Program.iIdMesero = 0;
+                //Program.CAJERO_ID = 0;
+                //Program.iIdMesero = 0;
 
                 btnMesas.Enabled = false;
                 btnLlevar.Enabled = false;
@@ -711,11 +711,6 @@ namespace Palatium.Menú
             ingresaBoton(btnReimprimirFactura);
         }
 
-        private void btnEditarFactura_MouseEnter(object sender, EventArgs e)
-        {
-            salidaBoton(btnAnularFactura);
-        }
-
         private void btnCambioCajero_MouseEnter(object sender, EventArgs e)
         {
             ingresaBoton(btnCambioCajero);
@@ -739,11 +734,6 @@ namespace Palatium.Menú
         private void btnReimprimirFactura_MouseLeave(object sender, EventArgs e)
         {
             salidaBoton(btnReimprimirFactura);
-        }
-
-        private void btnEditarFactura_MouseLeave(object sender, EventArgs e)
-        {
-            salidaBoton(btnAnularFactura);
         }
 
         private void btnCambioCajero_MouseLeave(object sender, EventArgs e)
@@ -1277,12 +1267,6 @@ namespace Palatium.Menú
             soporte.ShowDialog();
         }
 
-        private void btnInformación_Click(object sender, EventArgs e)
-        {
-            llenarArregloMaximo();
-            config.ShowDialog();
-        }
-
         private void frmMenuPos_Load(object sender, EventArgs e)
         {
             Clases.ClaseRedimension redimension = new Clases.ClaseRedimension();
@@ -1356,12 +1340,12 @@ namespace Palatium.Menú
             }
         }
 
-        private void btnEditarFactura_MouseEnter_1(object sender, EventArgs e)
+        private void btnEditarFactura_MouseEnter(object sender, EventArgs e)
         {
             ingresaBoton(btnEditarFactura);
         }
 
-        private void btnEditarFactura_MouseLeave_1(object sender, EventArgs e)
+        private void btnEditarFactura_MouseLeave(object sender, EventArgs e)
         {
             salidaBoton(btnEditarFactura);
         }
@@ -1374,16 +1358,6 @@ namespace Palatium.Menú
         private void btnAnularFactura_MouseLeave(object sender, EventArgs e)
         {
             salidaBoton(btnAnularFactura);
-        }
-
-        private void btnEditarFactura_MouseEnter_2(object sender, EventArgs e)
-        {
-            ingresaBoton(btnEditarFactura);
-        }
-
-        private void btnEditarFactura_MouseLeave_2(object sender, EventArgs e)
-        {
-            salidaBoton(btnEditarFactura);
         }
 
         private void btnEstadisticas_Click(object sender, EventArgs e)

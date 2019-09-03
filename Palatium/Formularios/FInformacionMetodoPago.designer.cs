@@ -37,19 +37,19 @@
             this.btnLimpiarMetodoPago = new System.Windows.Forms.Button();
             this.btnAnularMetodoPago = new System.Windows.Forms.Button();
             this.btnNuevoMetodoPago = new System.Windows.Forms.Button();
-            this.Grb_DatoMetodoPago = new System.Windows.Forms.GroupBox();
+            this.grupoDatos = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbFormasPagos = new MisControles.ComboDatos();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.lblEstaMetodoPago = new System.Windows.Forms.Label();
             this.lblDescrMetodoPago = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblCodigoMetodoPago = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbFormasPagos = new MisControles.ComboDatos();
             this.Grb_listReMetodoPago.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.Grb_opcioMetodoPago.SuspendLayout();
-            this.Grb_DatoMetodoPago.SuspendLayout();
+            this.grupoDatos.SuspendLayout();
             this.SuspendLayout();
             // 
             // Grb_listReMetodoPago
@@ -160,23 +160,43 @@
             this.btnNuevoMetodoPago.UseVisualStyleBackColor = false;
             this.btnNuevoMetodoPago.Click += new System.EventHandler(this.btnNuevoMetodoPago_Click);
             // 
-            // Grb_DatoMetodoPago
+            // grupoDatos
             // 
-            this.Grb_DatoMetodoPago.Controls.Add(this.label1);
-            this.Grb_DatoMetodoPago.Controls.Add(this.cmbFormasPagos);
-            this.Grb_DatoMetodoPago.Controls.Add(this.cmbEstado);
-            this.Grb_DatoMetodoPago.Controls.Add(this.lblEstaMetodoPago);
-            this.Grb_DatoMetodoPago.Controls.Add(this.lblDescrMetodoPago);
-            this.Grb_DatoMetodoPago.Controls.Add(this.txtDescripcion);
-            this.Grb_DatoMetodoPago.Controls.Add(this.lblCodigoMetodoPago);
-            this.Grb_DatoMetodoPago.Controls.Add(this.txtCodigo);
-            this.Grb_DatoMetodoPago.Enabled = false;
-            this.Grb_DatoMetodoPago.Location = new System.Drawing.Point(12, 12);
-            this.Grb_DatoMetodoPago.Name = "Grb_DatoMetodoPago";
-            this.Grb_DatoMetodoPago.Size = new System.Drawing.Size(386, 171);
-            this.Grb_DatoMetodoPago.TabIndex = 3;
-            this.Grb_DatoMetodoPago.TabStop = false;
-            this.Grb_DatoMetodoPago.Text = "Datos del Registro";
+            this.grupoDatos.Controls.Add(this.label1);
+            this.grupoDatos.Controls.Add(this.cmbFormasPagos);
+            this.grupoDatos.Controls.Add(this.cmbEstado);
+            this.grupoDatos.Controls.Add(this.lblEstaMetodoPago);
+            this.grupoDatos.Controls.Add(this.lblDescrMetodoPago);
+            this.grupoDatos.Controls.Add(this.txtDescripcion);
+            this.grupoDatos.Controls.Add(this.lblCodigoMetodoPago);
+            this.grupoDatos.Controls.Add(this.txtCodigo);
+            this.grupoDatos.Enabled = false;
+            this.grupoDatos.Location = new System.Drawing.Point(12, 12);
+            this.grupoDatos.Name = "grupoDatos";
+            this.grupoDatos.Size = new System.Drawing.Size(386, 171);
+            this.grupoDatos.TabIndex = 3;
+            this.grupoDatos.TabStop = false;
+            this.grupoDatos.Text = "Datos del Registro";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(27, 91);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 15);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "SRI Forma Pago:";
+            // 
+            // cmbFormasPagos
+            // 
+            this.cmbFormasPagos.FormattingEnabled = true;
+            this.cmbFormasPagos.Location = new System.Drawing.Point(139, 90);
+            this.cmbFormasPagos.Name = "cmbFormasPagos";
+            this.cmbFormasPagos.Size = new System.Drawing.Size(193, 21);
+            this.cmbFormasPagos.TabIndex = 13;
             // 
             // cmbEstado
             // 
@@ -246,26 +266,6 @@
             this.txtCodigo.TabIndex = 2;
             this.txtCodigo.Leave += new System.EventHandler(this.txtCodigoCajero_Leave);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(27, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 15);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "SRI Forma Pago:";
-            // 
-            // cmbFormasPagos
-            // 
-            this.cmbFormasPagos.FormattingEnabled = true;
-            this.cmbFormasPagos.Location = new System.Drawing.Point(139, 90);
-            this.cmbFormasPagos.Name = "cmbFormasPagos";
-            this.cmbFormasPagos.Size = new System.Drawing.Size(193, 21);
-            this.cmbFormasPagos.TabIndex = 13;
-            // 
             // FInformacionMetodoPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,7 +275,7 @@
             this.ClientSize = new System.Drawing.Size(826, 295);
             this.Controls.Add(this.Grb_listReMetodoPago);
             this.Controls.Add(this.Grb_opcioMetodoPago);
-            this.Controls.Add(this.Grb_DatoMetodoPago);
+            this.Controls.Add(this.grupoDatos);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FInformacionMetodoPago";
@@ -286,8 +286,8 @@
             this.Grb_listReMetodoPago.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.Grb_opcioMetodoPago.ResumeLayout(false);
-            this.Grb_DatoMetodoPago.ResumeLayout(false);
-            this.Grb_DatoMetodoPago.PerformLayout();
+            this.grupoDatos.ResumeLayout(false);
+            this.grupoDatos.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -303,7 +303,7 @@
         private System.Windows.Forms.Button btnLimpiarMetodoPago;
         private System.Windows.Forms.Button btnAnularMetodoPago;
         private System.Windows.Forms.Button btnNuevoMetodoPago;
-        private System.Windows.Forms.GroupBox Grb_DatoMetodoPago;
+        private System.Windows.Forms.GroupBox grupoDatos;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Label lblEstaMetodoPago;
         private System.Windows.Forms.Label lblDescrMetodoPago;

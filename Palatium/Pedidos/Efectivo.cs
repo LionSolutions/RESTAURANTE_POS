@@ -16,24 +16,29 @@ namespace Palatium
         VentanasMensajes.frmMensajeOK ok = new VentanasMensajes.frmMensajeOK();
         VentanasMensajes.frmMensajeCatch catchMensaje = new VentanasMensajes.frmMensajeCatch();
 
-        string origen,saldo, total;
-        float suma=0.00f;
-        int id_pago;
-        string sNombrePago;
+        string sSql;        
+        string saldo, total;
+        public string sNombrePago;
+        public string sIdPago;
 
-        DataTable dtConsulta;
-        string sSql = "";
-        bool bRespuesta = false;
-                
-        public Efectivo(string origen, String saldo,String total, string nombre_pago)
+        float suma = 0.00f;
+
+        int id_pago;        
+
+        DataTable dtConsulta;   
+
+        bool bRespuesta;
+        
+        public Decimal dbValorGrid;
+        public Decimal dbValorIngresado;
+
+        public Efectivo(string sIdPago_P, string saldo, string total, string nombre_pago)
         {
-            this.origen = "";
-            this.origen = origen;
+            this.sIdPago = sIdPago_P;
             this.saldo = string.Format("{0:0.00}", saldo);
             this.total = total;
             this.sNombrePago = nombre_pago;
             InitializeComponent();
-            //this.Text = origen;
             btnValorSugerido.Text = string.Format("{0:0.00}", this.saldo);
         }
 
@@ -41,15 +46,10 @@ namespace Palatium
 
         public void cargarPrecios()
         {
-            string x;
-            x = cambio(btnValorSugerido.Text);
-            btnOp1.Text = x;
-            x = cambio(btnOp1.Text);
-            btnOp2.Text = x;
-            x = cambio(btnOp2.Text);
-            btnOp3.Text = x;
-            x = cambio(btnOp3.Text);
-            btnOp4.Text = x;
+            btnOp1.Text = cambio(btnValorSugerido.Text);
+            btnOp2.Text = cambio(btnOp1.Text);
+            btnOp3.Text = cambio(btnOp2.Text);
+            btnOp4.Text = cambio(btnOp3.Text);
         }
 
         static string cambio(string a)
@@ -57,11 +57,14 @@ namespace Palatium
 
             string resultadox;
             double x = Convert.ToDouble(a);
+
             int totalEntero = (int)x;
+
             if (x - totalEntero != 0)
             {
                 resultadox = string.Format("{0:0.00}", +Math.Ceiling(x)).ToString();
             }
+
             else if (x % 10 == 0)
             {
 
@@ -436,67 +439,19 @@ namespace Palatium
 
             else
             {
-                PagoTarjetas efe = Owner as PagoTarjetas;
-
-                efe.dgv_DetallePago.Columns[0].Visible = true;
-
-                int x = 0;
-
-                x = efe.dgv_DetallePago.Rows.Add();
-                efe.dgv_DetallePago.Rows[x].Cells["id"].Value = origen;
-                efe.dgv_DetallePago.Rows[x].Cells["fpago"].Value = sNombrePago;
-
-                if (Convert.ToDouble(txt_valor.Text) > Convert.ToDouble(btnValorSugerido.Text))
+                if (Convert.ToDouble(txt_valor.Text) <= Convert.ToDouble(btnValorSugerido.Text))
                 {
-                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = btnValorSugerido.Text;
+                    dbValorGrid = Convert.ToDecimal(txt_valor.Text);
                 }
+
                 else
                 {
-                    efe.dgv_DetallePago.Rows[x].Cells["valor"].Value = txt_valor.Text;
+                    dbValorGrid =  Convert.ToDecimal(btnValorSugerido.Text);
                 }
 
-
-
-                efe.dgv_DetallePago.Columns[0].Visible = false;
-
-
-                efe.lblAbono.Text = (Convert.ToDouble(efe.lblAbono.Text) + Convert.ToDouble(txt_valor.Text)).ToString("N2");
-
-                efe.lblSaldo.Text = (Convert.ToDouble(efe.lbl_total.Text) - Convert.ToDouble(efe.lblAbono.Text)).ToString("N2");
-
-                if (Convert.ToDouble(efe.lblSaldo.Text) < 0)
-                {
-                    efe.lblSaldo.Text = "0.00";
-                }
-
-                efe.lblCambio.Text = (Convert.ToDouble(efe.lblAbono.Text) - Convert.ToDouble(efe.lbl_total.Text)).ToString("N2");
-
-                if (Convert.ToDouble(efe.lblCambio.Text) < 0)
-                {
-                    efe.lblCambio.Text = "0.00";
-                }
-
-                if (Convert.ToDouble(efe.lblCambio.Text) > 0)
-                {
-                    Program.dCambioPantalla = Convert.ToDouble(efe.lblCambio.Text);
-
-                    //Cambiocs cambio = new Cambiocs(efe.lblCambio.Text);
-                    //cambio.ShowInTaskbar = false;
-                    //cambio.ShowDialog();
-
-                    //if (cambio.DialogResult == DialogResult.OK)
-                    //{
-                    //    cambio.Close();
-                    //}
-                    //efe.txtCambio.Text = 
-                    //Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR] = Convert.ToDouble(Program.detallePago[x - 1, Program.DETALLEPAGO_VALOR]) - Convert.ToDouble(efe.txtCambio.Text) +"";
-                }
-
-
-                //FUNCION PARA ABRIR LA PROPINA
+                dbValorIngresado = Convert.ToDecimal(txt_valor.Text);
                 abrirPropina();
-
-                //this.Hide();
+                this.DialogResult = DialogResult.OK;
             }
         }
     }

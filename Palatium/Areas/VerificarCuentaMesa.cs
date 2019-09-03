@@ -407,7 +407,7 @@ namespace Palatium
                                 dDescuento = dDescuento + (Convert.ToDouble(dtConsulta.Rows[j][7].ToString()) * dbCantidad);
                             }
 
-                            frmCobros frmCobros = new frmCobros(button.Tag.ToString());
+                            Pedidos.frmCobros frmCobros = new Pedidos.frmCobros(botonpagos.Tag.ToString());
                             AddOwnedForm(frmCobros);
                             frmCobros.ShowDialog();
 

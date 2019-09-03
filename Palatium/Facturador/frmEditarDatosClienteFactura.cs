@@ -238,7 +238,7 @@ namespace Palatium.Facturador
 
                     else if (dtConsulta.Rows[0][63].ToString() == "2")
                     {
-                        sRetorno = notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada");
+                        sRetorno = notaVenta.llenarNota(iIdFactura);
                         sRetorno = sRetorno + "".PadLeft(22, ' ') + "TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(12, ' ');
                     }
 
@@ -964,7 +964,7 @@ namespace Palatium.Facturador
 
             else if (iIdTipoComprobante == 2)
             {
-                ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(sIdOrden, 1);
+                ReportesTextBox.frmVerNotaVenta notaVenta = new ReportesTextBox.frmVerNotaVenta(iIdFactura, 1);
                 notaVenta.ShowDialog();
 
                 if (notaVenta.DialogResult == DialogResult.OK)
