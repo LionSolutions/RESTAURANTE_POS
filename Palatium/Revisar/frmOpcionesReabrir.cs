@@ -101,22 +101,22 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[35].ToString());
-                        sDescripcionOrigen = dtConsulta.Rows[0].ItemArray[40].ToString();
-                        iNumeroPersonas = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[34].ToString());
-                        iIdCajero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[30].ToString());
-                        iIdMesero = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[31].ToString());
-                        sNombreMesero = dtConsulta.Rows[0].ItemArray[48].ToString();
+                        iIdOrigenOrden = Convert.ToInt32(dtConsulta.Rows[0][35].ToString());
+                        sDescripcionOrigen = dtConsulta.Rows[0][40].ToString();
+                        iNumeroPersonas = Convert.ToInt32(dtConsulta.Rows[0][34].ToString());
+                        iIdCajero = Convert.ToInt32(dtConsulta.Rows[0][30].ToString());
+                        iIdMesero = Convert.ToInt32(dtConsulta.Rows[0][31].ToString());
+                        sNombreMesero = dtConsulta.Rows[0][48].ToString();
 
 
-                        if (dtConsulta.Rows[0].ItemArray[29].ToString() == null)
+                        if (dtConsulta.Rows[0][29].ToString() == null)
                         {
                             iIdMesa = 0;
                         }
 
                         else
                         {
-                            iIdMesa = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[29].ToString());
+                            iIdMesa = Convert.ToInt32(dtConsulta.Rows[0][29].ToString());
                         }
                     }
 
@@ -162,13 +162,13 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sCorreoEmisor = dtConsulta.Rows[0].ItemArray[0].ToString();
-                        sCorreoCopia1 = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        sCorreoCopia2 = dtConsulta.Rows[0].ItemArray[2].ToString();
-                        sPalabraClave = dtConsulta.Rows[0].ItemArray[3].ToString();
-                        sSmtp = dtConsulta.Rows[0].ItemArray[4].ToString();
-                        sPuerto = dtConsulta.Rows[0].ItemArray[5].ToString();
-                        sManejaSSL = dtConsulta.Rows[0].ItemArray[6].ToString();
+                        sCorreoEmisor = dtConsulta.Rows[0][0].ToString();
+                        sCorreoCopia1 = dtConsulta.Rows[0][1].ToString();
+                        sCorreoCopia2 = dtConsulta.Rows[0][2].ToString();
+                        sPalabraClave = dtConsulta.Rows[0][3].ToString();
+                        sSmtp = dtConsulta.Rows[0][4].ToString();
+                        sPuerto = dtConsulta.Rows[0][5].ToString();
+                        sManejaSSL = dtConsulta.Rows[0][6].ToString();
 
                         consultarNombreComercial();
                     }
@@ -211,8 +211,8 @@ namespace Palatium
 
                 if (bRespuesta == true)
                 {
-                    sNombreComercial = dtConsulta.Rows[0].ItemArray[0].ToString();
-                    sRazonSocial = dtConsulta.Rows[0].ItemArray[1].ToString();
+                    sNombreComercial = dtConsulta.Rows[0][0].ToString();
+                    sRazonSocial = dtConsulta.Rows[0][1].ToString();
                     iOp = 1;
                 }
 
@@ -292,12 +292,7 @@ namespace Palatium
             }
         }
 
-
         //=================================================================================================
-        //=================================================================================================
-        //=================================================================================================
-
-
         private void insertarPedido()
         {
             try
@@ -320,7 +315,7 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        iNumeroPedido = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                     }
                 }
 
@@ -580,9 +575,9 @@ namespace Palatium
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        iIdFacturasPedidos_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                        iIdFactura_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
-                        iNumeroFactura_F = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[2].ToString());
+                        iIdFacturasPedidos_F = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                        iIdFactura_F = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                        iNumeroFactura_F = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
                     }
 
                     else
@@ -743,7 +738,7 @@ namespace Palatium
                         sSql = "";
                         sSql += "select id_pos_movimiento_caja" + Environment.NewLine;
                         sSql += "from pos_movimiento_caja" + Environment.NewLine;
-                        sSql += "where id_documento_pago = " + Convert.ToInt32(dtConsulta.Rows[i].ItemArray[0].ToString()) + Environment.NewLine;
+                        sSql += "where id_documento_pago = " + Convert.ToInt32(dtConsulta.Rows[i][0].ToString()) + Environment.NewLine;
                         sSql += "and estado = 'A'";
 
                         dtAuxiliar = new DataTable();
@@ -756,13 +751,12 @@ namespace Palatium
                             sSql = "";
                             sSql += "update pos_numero_movimiento_caja set" + Environment.NewLine;
                             sSql += "estado = 'E'" + Environment.NewLine;
-                            sSql += "where id_pos_movimiento_caja = " + Convert.ToInt32(dtAuxiliar.Rows[0].ItemArray[0].ToString());
+                            sSql += "where id_pos_movimiento_caja = " + Convert.ToInt32(dtAuxiliar.Rows[0][0].ToString());
 
                             //EJECUTA LA INSTRUCCION DE ACTUALIZACION (ELIMINACION)
                             if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                             {
                                 catchMensaje.LblMensaje.Text = sSql;
-                                catchMensaje.ShowInTaskbar = false;
                                 catchMensaje.ShowDialog();
                                 return false;
                             }
@@ -781,7 +775,7 @@ namespace Palatium
                         sSql += "fecha_anula = GETDATE()," + Environment.NewLine;
                         sSql += "usuario_anula = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
                         sSql += "terminal_anula = '" + Program.sDatosMaximo[1] + "'" + Environment.NewLine;
-                        sSql += "where id_documento_pago = " + Convert.ToInt32(dtConsulta.Rows[i].ItemArray[0].ToString()) + Environment.NewLine;
+                        sSql += "where id_documento_pago = " + Convert.ToInt32(dtConsulta.Rows[i][0].ToString()) + Environment.NewLine;
 
                         //EJECUTA LA INSTRUCCION DE ACTUALIZACION (ELIMINACION)
                         if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -815,7 +809,7 @@ namespace Palatium
 
                 if (bRespuesta == true)
                 {
-                    iIdDocumentoCobrar = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    iIdDocumentoCobrar = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 }
                 else
                 {
@@ -840,7 +834,7 @@ namespace Palatium
 
                 if (bRespuesta == true)
                 {
-                    iCuenta = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
+                    iCuenta = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
                 }
                 else
                 {
@@ -873,8 +867,8 @@ namespace Palatium
                     {
                         if (dtConsulta.Rows.Count > 0)
                         {
-                            iIdPago = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[0].ToString());
-                            iIdDocumentoPagado = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[1].ToString());
+                            iIdPago = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
+                            iIdDocumentoPagado = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
                         }
                     }
 
@@ -951,7 +945,6 @@ namespace Palatium
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                     {
                         catchMensaje.LblMensaje.Text = sSql;
-                        catchMensaje.ShowInTaskbar = false;
                         catchMensaje.ShowDialog();
                         return false;
                     }

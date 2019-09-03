@@ -35,12 +35,12 @@ namespace Palatium.Pedidos
         int iIdPago;
         int iIdDocumentoPagado;
         int iNumeroPago;
-        int iNumeroNotaVenta;
+        int iNumeroNotaEntrega;
         int iNumeroMovimientoCaja;
         int iCgTipoDocumento = 7456;
         int iIdDocumentoPago;
         int iIdPosTipoFormaCobro;
-        int iIdTipoComprobante = 2;
+        int iIdTipoComprobante = Program.iComprobanteNotaEntrega;
         int iIdFactura;
         int iCgEstadoDctoPorCobrar = 7461;
         int iIdFacturaPedido;
@@ -217,7 +217,7 @@ namespace Palatium.Pedidos
 
                 //EXTRAEMOS EL NUMERO_PAGO DE LA TABLA_TP_LOCALIDADES_IMPRESORAS
                 sSql = "";
-                sSql += "select P.numero_pago, P.numeronotaventa, P.numeromovimientocaja," + Environment.NewLine;
+                sSql += "select P.numero_pago, P.numeronotaentrega, P.numeromovimientocaja," + Environment.NewLine;
                 sSql += "L.establecimiento, L.punto_emision, P.id_localidad_impresora" + Environment.NewLine;
                 sSql += "from tp_localidades L, tp_localidades_impresoras P" + Environment.NewLine;
                 sSql += "where L.id_localidad = P.id_localidad" + Environment.NewLine;
@@ -233,9 +233,9 @@ namespace Palatium.Pedidos
                 if (bRespuesta == true)
                 {
                     iNumeroPago = Convert.ToInt32(dtConsulta.Rows[0][0].ToString());
-                    iNumeroNotaVenta = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
+                    iNumeroNotaEntrega = Convert.ToInt32(dtConsulta.Rows[0]["numeronotaentrega"].ToString());
                     iNumeroMovimientoCaja = Convert.ToInt32(dtConsulta.Rows[0][2].ToString());
-                    sSecuencial = "N. VENTA. No. " + dtConsulta.Rows[0][3].ToString().Trim().PadLeft(3, '0') + "-" + dtConsulta.Rows[0][4].ToString().Trim().PadLeft(3, '0') + "-" + iNumeroNotaVenta.ToString().PadLeft(9, '0');
+                    sSecuencial = "N. VENTA. No. " + dtConsulta.Rows[0][3].ToString().Trim().PadLeft(3, '0') + "-" + dtConsulta.Rows[0][4].ToString().Trim().PadLeft(3, '0') + "-" + iNumeroNotaEntrega.ToString().PadLeft(9, '0');
                     iIdLocalidadImpresora = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
                 }
                 else
@@ -249,7 +249,7 @@ namespace Palatium.Pedidos
                 sSql = "";
                 sSql += "update tp_localidades_impresoras set" + Environment.NewLine;
                 sSql += "numero_pago = numero_pago + 1," + Environment.NewLine;
-                sSql += "numeronotaventa = numeronotaventa + 1," + Environment.NewLine;
+                sSql += "numeronotaentrega = numeronotaentrega + 1," + Environment.NewLine;
                 sSql += "numeromovimientocaja = numeromovimientocaja + 1" + Environment.NewLine;
                 sSql += "where id_localidad_impresora = " + iIdLocalidadImpresora;
 
@@ -456,7 +456,7 @@ namespace Palatium.Pedidos
                 sSql += "idempresa, id_persona, fecha_pago, cg_moneda, valor," + Environment.NewLine;
                 sSql += "propina, cg_empresa, id_localidad, cg_cajero, fecha_ingreso," + Environment.NewLine;
                 sSql += "usuario_ingreso, terminal_ingreso, estado, " + Environment.NewLine;
-                sSql += "numero_replica_trigger, numero_control_replica,cambio) " + Environment.NewLine;
+                sSql += "numero_replica_trigger, numero_control_replica, cambio) " + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ", " + Program.iIdPersona + ", '" + sFechaCorta + "', " + Program.iMoneda + "," + Environment.NewLine;
                 sSql += dbTotal + ", 0, " + Program.iCgEmpresa + "," + Environment.NewLine;
@@ -671,7 +671,7 @@ namespace Palatium.Pedidos
                 sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso, estado, numero_replica_trigger, " + Environment.NewLine;
                 sSql += "numero_control_replica) " + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
-                sSql += iIdFactura + ", " + iIdTipoComprobante + ", " + iNumeroNotaVenta + ", GETDATE()," + Environment.NewLine;
+                sSql += iIdFactura + ", " + iIdTipoComprobante + ", " + iNumeroNotaEntrega + ", GETDATE()," + Environment.NewLine;
                 sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0 )";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -686,7 +686,7 @@ namespace Palatium.Pedidos
                 sSql += "update cv403_dctos_por_cobrar set" + Environment.NewLine;
                 sSql += "id_factura = " + iIdFactura + "," + Environment.NewLine;
                 sSql += "cg_estado_dcto = " + iCgEstadoDctoPorCobrar + "," + Environment.NewLine;
-                sSql += "numero_documento = " + iNumeroNotaVenta + Environment.NewLine;
+                sSql += "numero_documento = " + iNumeroMovimientoCaja + Environment.NewLine;
                 sSql += "where id_pedido = " + iIdPedido;
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -770,7 +770,7 @@ namespace Palatium.Pedidos
                 //ACTUALIZAR EL TIPO DE COMPROBANTE EN CV403_NUMERO_CAB_PEDIDO
                 sSql = "";
                 sSql += "update cv403_numero_cab_pedido set" + Environment.NewLine;
-                sSql += "idtipocomprobante = 2" + Environment.NewLine;
+                sSql += "idtipocomprobante = " + iIdTipoComprobante + Environment.NewLine;
                 sSql += "where id_pedido = " + iIdPedido;
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))

@@ -48,7 +48,6 @@
             this.btnRide = new System.Windows.Forms.Button();
             this.btnTeclado = new System.Windows.Forms.Button();
             this.btnCerrarTeclado = new System.Windows.Forms.Button();
-            this.touchKeyboard1 = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -238,12 +237,6 @@
             this.btnCerrarTeclado.Text = "cerrar";
             this.btnCerrarTeclado.UseVisualStyleBackColor = false;
             this.btnCerrarTeclado.Click += new System.EventHandler(this.btnCerrarTeclado_Click);
-            // 
-            // touchKeyboard1
-            // 
-            this.touchKeyboard1.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.touchKeyboard1.Location = new System.Drawing.Point(0, 0);
-            this.touchKeyboard1.Text = "";
             // 
             // button3
             // 
@@ -499,7 +492,6 @@
         private System.Windows.Forms.Button btnRide;
         private System.Windows.Forms.Button btnTeclado;
         private System.Windows.Forms.Button btnCerrarTeclado;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard touchKeyboard1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;

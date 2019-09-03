@@ -76,6 +76,7 @@ namespace Palatium.Clases
         {
             if (op == 1)
             {
+                return;
             }
 
             else

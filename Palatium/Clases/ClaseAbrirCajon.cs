@@ -58,7 +58,6 @@ namespace Palatium.Clases
                     else
                     {
                         ok.LblMensaje.Text = "No existe el registro de configuración de impresora. Comuníquese con el administrador.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -66,7 +65,6 @@ namespace Palatium.Clases
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -74,7 +72,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

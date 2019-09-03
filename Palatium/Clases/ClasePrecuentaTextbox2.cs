@@ -528,7 +528,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto reversa;
             }
@@ -580,7 +579,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 goto reversa;
             }
@@ -588,7 +586,6 @@ namespace Palatium.Clases
         reversa:
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al crear el reporte de precuenta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 return "";
             }

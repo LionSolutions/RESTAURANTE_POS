@@ -1031,7 +1031,7 @@ namespace Palatium.Pedidos
 
         #endregion
 
-        #region FUNCIONES DEL USUARIO     
+        #region FUNCIONES DEL USUARIO
 
         //FUNCION PARA AGREGAR UNA NUEVA CUENTA
         private void agregarCuenta()
@@ -1607,6 +1607,22 @@ namespace Palatium.Pedidos
             {
                 iIdPedido = Convert.ToInt32(sIdOrden);
 
+                //ACTUALIZAR EN CV403_CAB_PEDIDOS
+                sSql = "";
+                sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
+                sSql += "recargo_tarjeta = 0," + Environment.NewLine;
+                sSql += "remover_iva = 0" + Environment.NewLine;
+                sSql += "where id_pedido = " + iIdPedido;
+
+                //EJECUTAR INSTRUCCION SQL
+                if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
+                {
+                    catchMensaje.LblMensaje.Text = sSql;
+                    catchMensaje.ShowDialog();
+                    goto reversa;
+                }
+
+                //ELIMINAR EN CV403_DET_PEDIDOS
                 sSql = "";
                 sSql += "update cv403_det_pedidos set" + Environment.NewLine;
                 sSql += "estado = 'E'" + Environment.NewLine;
@@ -2379,10 +2395,10 @@ namespace Palatium.Pedidos
                     sSql = "";
                     sSql += "Insert Into cv403_det_pedidos(" + Environment.NewLine;
                     sSql += "Id_Pedido, id_producto, Cg_Unidad_Medida, precio_unitario," + Environment.NewLine;
-                    sSql += "Cantidad, Valor_Dscto, Valor_Ice, Valor_Iva ,Valor_otro," + Environment.NewLine;
+                    sSql += "Cantidad, Valor_Dscto, Valor_Ice, Valor_Iva, Valor_otro," + Environment.NewLine;
                     sSql += "comentario, Id_Definicion_Combo, fecha_ingreso," + Environment.NewLine;
                     sSql += "Usuario_Ingreso, Terminal_ingreso, id_pos_mascara_item, secuencia, " + Environment.NewLine;
-                    sSql += "id_pos_secuencia_entrega, Estado,numero_replica_trigger,numero_control_replica)" + Environment.NewLine;
+                    sSql += "id_pos_secuencia_entrega, estado, numero_replica_trigger, numero_control_replica)" + Environment.NewLine;
                     sSql += "values(" + Environment.NewLine;
                     sSql += iIdPedido + ", " + iIdProducto_P + ", 546, " + dPrecioUnitario_P + ", " + Environment.NewLine;
                     sSql += dCantidad_P + ", " + dDescuento_P + ", 0, " + dIVA_P + ", " + dServicio + ", " + Environment.NewLine;

@@ -1613,7 +1613,8 @@ namespace Palatium
             try
             {
                 sSql = "";
-                sSql += "select numero_pedido from tp_localidades_impresoras" + Environment.NewLine;
+                sSql += "select numero_pedido" + Environment.NewLine;
+                sSql += "from tp_localidades_impresoras" + Environment.NewLine;
                 sSql += "where id_localidad = " + Program.iIdLocalidad;
 
                 dtConsulta = new DataTable();
@@ -2788,7 +2789,6 @@ namespace Palatium
                 if ((Program.iImprimeOrden == 1) && (iMensaje == 1))
                 {
                     SiNo.LblMensaje.Text = "Guardado en la orden: " + txt_Orden.Text + ". ¿Desea imprimir la orden generada?";
-                    SiNo.ShowInTaskbar = false;
                     SiNo.ShowDialog();
 
                     if (SiNo.DialogResult == DialogResult.OK)
@@ -2868,7 +2868,7 @@ namespace Palatium
                 sSql += "insert into cv403_cab_pedidos(" + Environment.NewLine;
                 sSql += "idempresa, cg_empresa, id_localidad,fecha_pedido,id_persona, " + Environment.NewLine;
                 sSql += "cg_tipo_cliente, cg_moneda, porcentaje_iva, id_vendedor, cg_estado_pedido, porcentaje_dscto, " + Environment.NewLine;
-                sSql += "cg_facturado, fecha_ingreso, usuario_ingreso, terminal_ingreso,cuenta,id_pos_mesa,id_pos_cajero, " + Environment.NewLine;
+                sSql += "cg_facturado, fecha_ingreso, usuario_ingreso, terminal_ingreso,cuenta, id_pos_mesa, id_pos_cajero, " + Environment.NewLine;
                 sSql += "id_pos_origen_orden,id_pos_orden_dividida, id_pos_jornada, fecha_orden, fecha_apertura_orden, " + Environment.NewLine;
                 sSql += "fecha_cierre_orden, estado_orden, numero_personas, origen_dato, numero_replica_trigger, " + Environment.NewLine;
                 sSql += "estado_replica, numero_control_replica, estado, idtipoestablecimiento, comentarios, id_pos_modo_delivery," + Environment.NewLine;
@@ -3270,10 +3270,10 @@ namespace Palatium
                     sSql = "";
                     sSql += "Insert Into cv403_det_pedidos(" + Environment.NewLine;
                     sSql += "Id_Pedido, id_producto, Cg_Unidad_Medida, precio_unitario," + Environment.NewLine;
-                    sSql += "Cantidad, Valor_Dscto, Valor_Ice, Valor_Iva ,Valor_otro," + Environment.NewLine;
+                    sSql += "Cantidad, Valor_Dscto, Valor_Ice, Valor_Iva, Valor_otro," + Environment.NewLine;
                     sSql += "comentario, Id_Definicion_Combo, fecha_ingreso," + Environment.NewLine;
                     sSql += "Usuario_Ingreso, Terminal_ingreso, id_pos_mascara_item, secuencia," + Environment.NewLine;
-                    sSql += "id_pos_secuencia_entrega, Estado,numero_replica_trigger,numero_control_replica)" + Environment.NewLine;
+                    sSql += "id_pos_secuencia_entrega, estado, numero_replica_trigger, numero_control_replica)" + Environment.NewLine;
                     sSql += "values(" + Environment.NewLine;
                     sSql += iIdOrden_P + ", " + iIdProducto_P + ", 546, " + dPrecioUnitario_P + ", " + Environment.NewLine;
                     sSql += dCantidad_P + ", " + dDescuento_P + ", 0, " + dIVA_P + ", " + dServicio + ", " + Environment.NewLine;
@@ -4145,7 +4145,6 @@ namespace Palatium
                             else
                             {
                                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta 1.";
-                                ok.ShowInTaskbar = false;
                                 ok.ShowDialog();
                                 this.Close();
                             }
@@ -4175,11 +4174,20 @@ namespace Palatium
         abrir_pagos:
             {
                 //ABRIMOS EL FORMULARIO DE PAGOS
-                PagoTarjetas t;
-                t = new PagoTarjetas(iIdPedido.ToString(), Convert.ToDouble(txt_total.Text));
+                //PagoTarjetas t;
+                //t = new PagoTarjetas(iIdPedido.ToString(), Convert.ToDouble(txt_total.Text));
+                //AddOwnedForm(t);
+                //t.ShowInTaskbar = false;
+                //t.ShowDialog();
 
+                //if (t.DialogResult == DialogResult.OK)
+                //{
+                //    this.DialogResult = DialogResult.OK;
+                //    this.Close();
+                //}
+
+                Pedidos.frmCobros t = new Pedidos.frmCobros(iIdPedido);
                 AddOwnedForm(t);
-                t.ShowInTaskbar = false;
                 t.ShowDialog();
 
                 if (t.DialogResult == DialogResult.OK)
@@ -4194,7 +4202,6 @@ namespace Palatium
         reversa:
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta 2.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 this.Close();
             }
@@ -4398,7 +4405,6 @@ namespace Palatium
                 {
                     Extras ex = new Extras(iVersionImpresionComanda);
                     AddOwnedForm(ex);
-                    ex.ShowInTaskbar = false;
                     ex.ShowDialog();
 
                     if (ex.DialogResult == DialogResult.OK)
@@ -4517,7 +4523,6 @@ namespace Palatium
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -4634,7 +4639,6 @@ namespace Palatium
                 else
                 {
                     ok.LblMensaje.Text = "La orden aún no ha sido guardada.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -4660,7 +4664,6 @@ namespace Palatium
                 {
                     Items i = new Items(iVersionImpresionComanda);
                     AddOwnedForm(i);
-                    i.ShowInTaskbar = false;
                     i.ShowDialog();
 
                     if (i.DialogResult == DialogResult.OK)
@@ -4740,7 +4743,6 @@ namespace Palatium
 
                 }
 
-                a.ShowInTaskbar = false;
                 a.ShowDialog();
 
                 if (a.DialogResult == DialogResult.OK)

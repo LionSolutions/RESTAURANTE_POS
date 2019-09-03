@@ -60,7 +60,6 @@
             this.btnCanceladas = new DevComponents.DotNetBar.ButtonX();
             this.btnLlevar = new DevComponents.DotNetBar.ButtonX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TecladoVirtual = new DevComponents.DotNetBar.Keyboard.TouchKeyboard();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -471,12 +470,6 @@
             this.groupBox1.TabIndex = 62;
             this.groupBox1.TabStop = false;
             // 
-            // TecladoVirtual
-            // 
-            this.TecladoVirtual.FloatingLocation = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Location = new System.Drawing.Point(0, 0);
-            this.TecladoVirtual.Text = "";
-            // 
             // Revisar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -538,7 +531,5 @@
         private DevComponents.DotNetBar.ButtonX btnCanceladas;
         private DevComponents.DotNetBar.ButtonX btnLlevar;
         private System.Windows.Forms.GroupBox groupBox1;
-        private DevComponents.DotNetBar.Keyboard.TouchKeyboard TecladoVirtual;
-
     }
 }

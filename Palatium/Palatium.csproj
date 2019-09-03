@@ -284,8 +284,10 @@
     </Compile>
     <Compile Include="Clases\ClaseAbrirCajon.cs" />
     <Compile Include="Clases\ClaseFormasPagosRecargo.cs" />
+    <Compile Include="Clases\ClaseImprimirFacturaNormal.cs" />
     <Compile Include="Clases\ClaseLlenarMonedas.cs" />
     <Compile Include="Clases\ClaseNotaVentaFacturador.cs" />
+    <Compile Include="Clases\ClasePrecuentaEmpresa.cs" />
     <Compile Include="Clases\ClaseReporteMateriaPrima.cs" />
     <Compile Include="Clases_Factura_Electronica\ClaseImprimirFacturaElectronica.cs" />
     <Compile Include="Comida_Rapida\frmComandaComidaRapida.cs">
@@ -410,6 +412,12 @@
     </Compile>
     <Compile Include="Pedidos\frmCobrarAlmuerzos.Designer.cs">
       <DependentUpon>frmCobrarAlmuerzos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pedidos\frmCobros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedidos\frmCobros.Designer.cs">
+      <DependentUpon>frmCobros.cs</DependentUpon>
     </Compile>
     <Compile Include="Pedidos\frmComanda.cs">
       <SubType>Form</SubType>
@@ -770,11 +778,23 @@
     <Compile Include="ReportesTextBox\frmVerNotaVentaFactura.Designer.cs">
       <DependentUpon>frmVerNotaVentaFactura.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportesTextBox\frmVerPrecuentaEmpresaTextBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesTextBox\frmVerPrecuentaEmpresaTextBox.Designer.cs">
+      <DependentUpon>frmVerPrecuentaEmpresaTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportesTextBox\frmVerReporteMateriaPrima.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportesTextBox\frmVerReporteMateriaPrima.Designer.cs">
       <DependentUpon>frmVerReporteMateriaPrima.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesTextBox\frmVistaFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesTextBox\frmVistaFactura.Designer.cs">
+      <DependentUpon>frmVistaFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Revisar\frmAyudaRevisar.cs">
       <SubType>Form</SubType>
@@ -2087,6 +2107,9 @@
     <EmbeddedResource Include="Pedidos\frmCobrarAlmuerzos.resx">
       <DependentUpon>frmCobrarAlmuerzos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pedidos\frmCobros.resx">
+      <DependentUpon>frmCobros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pedidos\frmComanda.resx">
       <DependentUpon>frmComanda.cs</DependentUpon>
     </EmbeddedResource>
@@ -2657,6 +2680,9 @@
     <EmbeddedResource Include="ReportesTextBox\frmVerNotaVentaFactura.resx">
       <DependentUpon>frmVerNotaVentaFactura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportesTextBox\frmVerPrecuentaEmpresaTextBox.resx">
+      <DependentUpon>frmVerPrecuentaEmpresaTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesTextBox\frmVerPrecuentaTextBox.resx">
       <DependentUpon>frmVerPrecuentaTextBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -2671,6 +2697,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportesTextBox\frmVerResumenCaja.resx">
       <DependentUpon>frmVerResumenCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportesTextBox\frmVistaFactura.resx">
+      <DependentUpon>frmVistaFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\reporteIngresoBodega.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -111,6 +111,7 @@
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.txtSubtotalCero = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnAsignarCliente = new System.Windows.Forms.Button();
             this.pnlCategorias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedido)).BeginInit();
             this.pnlReOrden.SuspendLayout();
@@ -799,9 +800,9 @@
             this.grupoParaMesas.Controls.Add(this.btn_cliente);
             this.grupoParaMesas.Controls.Add(this.btn_mesas);
             this.grupoParaMesas.Controls.Add(this.btn_pesonas);
-            this.grupoParaMesas.Location = new System.Drawing.Point(503, -4);
+            this.grupoParaMesas.Location = new System.Drawing.Point(520, -4);
             this.grupoParaMesas.Name = "grupoParaMesas";
-            this.grupoParaMesas.Size = new System.Drawing.Size(491, 67);
+            this.grupoParaMesas.Size = new System.Drawing.Size(475, 67);
             this.grupoParaMesas.TabIndex = 101;
             this.grupoParaMesas.TabStop = false;
             // 
@@ -810,7 +811,7 @@
             this.btn_cliente.BackColor = System.Drawing.Color.Yellow;
             this.btn_cliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cliente.Location = new System.Drawing.Point(150, 14);
+            this.btn_cliente.Location = new System.Drawing.Point(145, 14);
             this.btn_cliente.Name = "btn_cliente";
             this.btn_cliente.Size = new System.Drawing.Size(148, 39);
             this.btn_cliente.TabIndex = 45;
@@ -826,7 +827,7 @@
             this.btn_mesas.BackColor = System.Drawing.Color.Yellow;
             this.btn_mesas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_mesas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_mesas.Location = new System.Drawing.Point(11, 14);
+            this.btn_mesas.Location = new System.Drawing.Point(6, 14);
             this.btn_mesas.Name = "btn_mesas";
             this.btn_mesas.Size = new System.Drawing.Size(133, 38);
             this.btn_mesas.TabIndex = 44;
@@ -842,7 +843,7 @@
             this.btn_pesonas.BackColor = System.Drawing.Color.Yellow;
             this.btn_pesonas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_pesonas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_pesonas.Location = new System.Drawing.Point(304, 14);
+            this.btn_pesonas.Location = new System.Drawing.Point(299, 14);
             this.btn_pesonas.Name = "btn_pesonas";
             this.btn_pesonas.Size = new System.Drawing.Size(169, 39);
             this.btn_pesonas.TabIndex = 46;
@@ -1031,6 +1032,21 @@
             this.label8.TabIndex = 112;
             this.label8.Text = "SUBTOTAL 0%";
             // 
+            // btnAsignarCliente
+            // 
+            this.btnAsignarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnAsignarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAsignarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsignarCliente.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnAsignarCliente.Location = new System.Drawing.Point(376, 9);
+            this.btnAsignarCliente.Name = "btnAsignarCliente";
+            this.btnAsignarCliente.Size = new System.Drawing.Size(133, 38);
+            this.btnAsignarCliente.TabIndex = 114;
+            this.btnAsignarCliente.Text = "Asignar Cliente";
+            this.ttMensaje.SetToolTip(this.btnAsignarCliente, "Clic aquí para cambiar de mesa");
+            this.btnAsignarCliente.UseVisualStyleBackColor = false;
+            this.btnAsignarCliente.Visible = false;
+            // 
             // Orden
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1040,6 +1056,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1335, 716);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAsignarCliente);
             this.Controls.Add(this.txtSubtotalCero);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.chkImprimirCocina);
@@ -1187,6 +1204,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colOrdenamiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdOrden;
         private System.Windows.Forms.DataGridViewTextBoxColumn pagaIva;
+        private System.Windows.Forms.Button btnAsignarCliente;
 
     }
 }

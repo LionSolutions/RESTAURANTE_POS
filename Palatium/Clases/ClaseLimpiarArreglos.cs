@@ -27,7 +27,6 @@ namespace Palatium.Clases
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al limpiar el vector de comentarios de ítems.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }

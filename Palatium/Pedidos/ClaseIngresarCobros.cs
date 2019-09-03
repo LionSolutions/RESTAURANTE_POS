@@ -41,7 +41,7 @@ namespace Palatium.Pedidos
         int iCgTipoDocumento = 7456;
         int iIdDocumentoPago;
         int iIdPosTipoFormaCobro;
-        int iIdTipoComprobante = 2;
+        int iIdTipoComprobante = Program.iComprobanteNotaEntrega;
         int iIdFactura;
         int iCgEstadoDctoPorCobrarPagado = 7461;
         int iCgEstadoDctoPorCobrarParcial = 7462;
@@ -644,7 +644,7 @@ namespace Palatium.Pedidos
                 //ACTUALIZAR EL TIPO DE COMPROBANTE EN CV403_NUMERO_CAB_PEDIDO
                 sSql = "";
                 sSql += "update cv403_numero_cab_pedido set" + Environment.NewLine;
-                sSql += "idtipocomprobante = 2" + Environment.NewLine;
+                sSql += "idtipocomprobante = " + iIdTipoComprobante + Environment.NewLine;
                 sSql += "where id_pedido = " + iIdPedido;
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -744,7 +744,7 @@ namespace Palatium.Pedidos
                 //ACTUALIZAR EL NUMERO DE PAGOS EN LA TABLA TP_LOCALIDADES_IMPRESORAS
                 sSql = "";
                 sSql += "update tp_localidades_impresoras set" + Environment.NewLine;
-                sSql += "numeronotaventa = numeronotaventa + 1," + Environment.NewLine;
+                sSql += "numeronotaentrega = numeronotaentrega + 1," + Environment.NewLine;
                 sSql += "numeromovimientocaja = " + iNumeroMovimientoCaja + Environment.NewLine;
                 sSql += "where id_localidad_impresora = " + iIdLocalidadImpresora;
 
@@ -884,7 +884,7 @@ namespace Palatium.Pedidos
 
                 //EXTRAEMOS EL NUMERO_PAGO DE LA TABLA_TP_LOCALIDADES_IMPRESORAS
                 sSql = "";
-                sSql += "select P.numeronotaventa, P.numeromovimientocaja," + Environment.NewLine;
+                sSql += "select P.numeronotaentrega, P.numeromovimientocaja," + Environment.NewLine;
                 sSql += "L.establecimiento, L.punto_emision, P.id_localidad_impresora" + Environment.NewLine;
                 sSql += "from tp_localidades L, tp_localidades_impresoras P" + Environment.NewLine;
                 sSql += "where L.id_localidad = P.id_localidad" + Environment.NewLine;

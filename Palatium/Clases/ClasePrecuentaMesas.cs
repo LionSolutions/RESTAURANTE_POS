@@ -68,7 +68,7 @@ namespace Palatium.Clases
 
                 if (bRespuesta == true)
                 {
-                    iNumeroSecciones = Convert.ToInt32(dtSeccion.Rows[0].ItemArray[0].ToString());
+                    iNumeroSecciones = Convert.ToInt32(dtSeccion.Rows[0][0].ToString());
                 }
 
                 else
@@ -227,40 +227,40 @@ namespace Palatium.Clases
             {
                 this.dtConsulta = new DataTable();
                 this.dtConsulta = dtConsulta;
-                this.dtRecibir = dtConsulta;
+                this.dtRecibir = dtConsulta.Copy();
 
-                sPorcentajeDescuento = Convert.ToInt32(dtConsulta.Rows[0].ItemArray[6].ToString()).ToString("N0");
-                dbPorcentajeServicio = Convert.ToDouble(dtConsulta.Rows[0].ItemArray[58].ToString());
-                dbPorcentajeIva = Convert.ToDouble(dtConsulta.Rows[0].ItemArray[9].ToString());
+                sPorcentajeDescuento = Convert.ToInt32(dtConsulta.Rows[0][6].ToString()).ToString("N0");
+                dbPorcentajeServicio = Convert.ToDouble(dtConsulta.Rows[0][58].ToString());
+                dbPorcentajeIva = Convert.ToDouble(dtConsulta.Rows[0][9].ToString());
 
-                //sOrigen = dtConsulta.Rows[0].ItemArray[40].ToString();
+                //sOrigen = dtConsulta.Rows[0][40].ToString();
                 sTexto = "";
                 sTexto = sTexto + "".PadLeft(40, '-') + Environment.NewLine;
-                sTexto = sTexto + ("CUENTA No. " + dtConsulta.Rows[0].ItemArray[38].ToString()).PadLeft(26, ' ') + Environment.NewLine;
+                sTexto = sTexto + ("CUENTA No. " + dtConsulta.Rows[0][38].ToString()).PadLeft(26, ' ') + Environment.NewLine;
                 sTexto = sTexto + "----------------------------------------" + Environment.NewLine;
-                //sTexto = sTexto + "ORDEN: " + dtConsulta.Rows[0].ItemArray[40].ToString() + Environment.NewLine;
-                //sTexto = sTexto + "Num. T.:".PadRight(9, ' ') + dtConsulta.Rows[0].ItemArray[46].ToString().PadRight(11, ' ') + "Msro: " + dtConsulta.Rows[0].ItemArray[48].ToString() + Environment.NewLine;
-                sTexto = sTexto + "No. Orden:".PadRight(11, ' ') + dtConsulta.Rows[0].ItemArray[46].ToString() + Environment.NewLine;
-                sTexto = sTexto + "Mesero: " + dtConsulta.Rows[0].ItemArray[48].ToString() + Environment.NewLine;
-                sTexto = sTexto + ("Fecha:".PadRight(8, ' ') + Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[32].ToString()).ToString("dd-MM-yyy")).PadRight(20, ' ') + " Hora: " + Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[32].ToString()).ToString("HH:mm:ss") + Environment.NewLine;
+                //sTexto = sTexto + "ORDEN: " + dtConsulta.Rows[0][40].ToString() + Environment.NewLine;
+                //sTexto = sTexto + "Num. T.:".PadRight(9, ' ') + dtConsulta.Rows[0][46].ToString().PadRight(11, ' ') + "Msro: " + dtConsulta.Rows[0][48].ToString() + Environment.NewLine;
+                sTexto = sTexto + "No. Orden:".PadRight(11, ' ') + dtConsulta.Rows[0][46].ToString() + Environment.NewLine;
+                sTexto = sTexto + "Mesero: " + dtConsulta.Rows[0][48].ToString() + Environment.NewLine;
+                sTexto = sTexto + ("Fecha:".PadRight(8, ' ') + Convert.ToDateTime(dtConsulta.Rows[0][32].ToString()).ToString("dd-MM-yyy")).PadRight(20, ' ') + " Hora: " + Convert.ToDateTime(dtConsulta.Rows[0][32].ToString()).ToString("HH:mm:ss") + Environment.NewLine;
 
-                if (dtConsulta.Rows[0].ItemArray[40].ToString() == "MESAS")
+                if (dtConsulta.Rows[0][40].ToString() == "MESAS")
                 {
                     contarSecciones();
 
-                    //sTexto = sTexto + dtConsulta.Rows[0].ItemArray[49].ToString() + Environment.NewLine;
+                    //sTexto = sTexto + dtConsulta.Rows[0][49].ToString() + Environment.NewLine;
 
                     if (iNumeroSecciones > 1)
                     {
-                        if (dtConsulta.Rows[0].ItemArray[57].ToString().Trim() == "")
+                        if (dtConsulta.Rows[0][57].ToString().Trim() == "")
                         {
-                            sTexto = sTexto + dtConsulta.Rows[0].ItemArray[49].ToString() + " - " + dtConsulta.Rows[0].ItemArray[50].ToString() + Environment.NewLine;
+                            sTexto = sTexto + dtConsulta.Rows[0][49].ToString() + " - " + dtConsulta.Rows[0][50].ToString() + Environment.NewLine;
                         }
 
                         else
                         {
-                            sTexto = sTexto + dtConsulta.Rows[0].ItemArray[49].ToString() + " - " + dtConsulta.Rows[0].ItemArray[57].ToString() + Environment.NewLine;
-                            sTexto = sTexto + dtConsulta.Rows[0].ItemArray[50].ToString() + Environment.NewLine;
+                            sTexto = sTexto + dtConsulta.Rows[0][49].ToString() + " - " + dtConsulta.Rows[0][57].ToString() + Environment.NewLine;
+                            sTexto = sTexto + dtConsulta.Rows[0][50].ToString() + Environment.NewLine;
                         }
 
                         sTexto += ("Num. Personas: " + dtConsulta.Rows[0][34].ToString()).PadRight(20, ' ') + Environment.NewLine;

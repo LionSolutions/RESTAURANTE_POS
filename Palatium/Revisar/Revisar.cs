@@ -113,7 +113,7 @@ namespace Palatium.Revisar
                 sSql += "isnull(CP.id_pos_modo_delivery, 0) id_pos_modo_delivery," + Environment.NewLine;
                 sSql += "ORD.genera_factura, isnull(ORD.id_persona, 0) id_persona_origen_orden," + Environment.NewLine;
                 sSql += "ORD.id_pos_modo_delivery id_pos_modo_delivery_orden," + Environment.NewLine;
-                sSql += "ORD.presenta_opcion_delivery, ORD.codigo" + Environment.NewLine;
+                sSql += "ORD.presenta_opcion_delivery, ORD.codigo, CP.porcentaje_dscto" + Environment.NewLine;
                 sSql += "from cv403_cab_pedidos CP INNER JOIN" + Environment.NewLine;
                 sSql += "pos_origen_orden ORD ON CP.id_pos_origen_orden = ORD.id_pos_origen_orden" + Environment.NewLine;
                 sSql += "and CP.estado in ('A', 'N')" + Environment.NewLine;
@@ -141,6 +141,7 @@ namespace Palatium.Revisar
                         iIdCajero_P = Convert.ToInt32(dtConsulta.Rows[0][5].ToString());
                         iIdMesero_P = Convert.ToInt32(dtConsulta.Rows[0][6].ToString());
                         sNombreMesero_P = dtConsulta.Rows[0][7].ToString();
+
                         Program.sNombreMesa = dtConsulta.Rows[0][8].ToString();
 
                         if (dtConsulta.Rows[0][9].ToString() == "0")
@@ -169,6 +170,7 @@ namespace Palatium.Revisar
                         Program.iIdPosModoDelivery = Convert.ToInt32(dtConsulta.Rows[0][12].ToString());
                         Program.iPresentaOpcionDelivery = Convert.ToInt32(dtConsulta.Rows[0][13].ToString());
                         Program.sCodigoAsignadoOrigenOrden = dtConsulta.Rows[0][14].ToString();
+                        Program.dbValorPorcentaje = Convert.ToDouble(dtConsulta.Rows[0][15].ToString());
 
                         Orden o = new Orden(iIdPosOrigenOrden_P, sOrigenOrden_P, iNumeroPersonas, iIdMesa_P, iIdPedido_P, "OK", iIdPersona_P, iIdCajero_P, iIdMesero_P, sNombreMesero_P);
                         o.ShowDialog();
@@ -218,7 +220,7 @@ namespace Palatium.Revisar
                     if (dtConsulta.Rows.Count > 0)
                     {
                         sFechaOrden_P = Convert.ToDateTime(dtConsulta.Rows[0][0].ToString()).ToString("yyyy/MM/dd");
-                        iIdJornada_P = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());                        
+                        iIdJornada_P = Convert.ToInt32(dtConsulta.Rows[0][1].ToString());
                     }
 
                     else
@@ -276,7 +278,7 @@ namespace Palatium.Revisar
         //FUNCION ACTIVA TECLADO
         private void activaTeclado()
         {
-            this.TecladoVirtual.SetShowTouchKeyboard(this.txtBusqueda, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
+            //this.TecladoVirtual.SetShowTouchKeyboard(this.txtBusqueda, DevComponents.DotNetBar.Keyboard.TouchKeyboardStyle.Floating);
         }
 
         //FUNCION PARA CONCATENAR
@@ -500,7 +502,7 @@ namespace Palatium.Revisar
                                 botonEditar[i].AccessibleName = sEstadoOrden.ToUpper();
                                 botonEditar[i].AccessibleDescription = sFechaOrdenComanda.ToUpper();
 
-                                if (sEstadoOrden.ToUpper() == "PAGADA")
+                                if ((sEstadoOrden.ToUpper()) == "PAGADA" || (sEstadoOrden.ToUpper() == "CERRADA"))
                                 {
                                     botonEditar[i].Text = "Reabrir" + Environment.NewLine + "Comanda";
                                     botonEditar[i].Tag = 1;
@@ -678,7 +680,11 @@ namespace Palatium.Revisar
             //PARA ABRIR EL FORMULARIO ORIGINAL
             Button botonsel = sender as Button;
 
-            sSql = "select estado_orden from cv403_cab_pedidos where id_pedido = " + Convert.ToInt32(botonsel.Name);
+            sSql = "";
+            sSql += "select estado_orden" + Environment.NewLine;
+            sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+            sSql += "where id_pedido = " + Convert.ToInt32(botonsel.Name);
+
             dtConsulta = new DataTable();
             dtConsulta.Clear();
 
@@ -689,7 +695,6 @@ namespace Palatium.Revisar
                 if (dtConsulta.Rows.Count > 0)
                 {
                     Pedidos.frmVerPrecuentaTextBox precuenta = new Pedidos.frmVerPrecuentaTextBox(botonsel.Name, 1, dtConsulta.Rows[0][0].ToString());
-                    precuenta.ShowInTaskbar = false;
                     precuenta.ShowDialog();    
                 }
             }
@@ -1089,7 +1094,6 @@ namespace Palatium.Revisar
         private void btnFecha_Click(object sender, EventArgs e)
         {
             Pedidos.frmCalendario calendario = new Pedidos.frmCalendario(btnFecha.Text);
-            calendario.ShowInTaskbar = false;
             calendario.ShowDialog();
 
             if (calendario.DialogResult == DialogResult.OK)

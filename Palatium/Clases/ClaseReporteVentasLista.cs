@@ -140,7 +140,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -170,8 +169,6 @@ namespace Palatium.Clases
                     sTexto = sTexto + "DESDE: " + sHoraApertura + Environment.NewLine;
                     sTexto = sTexto + "HASTA: " + sHoraCierre + Environment.NewLine;
 
-
-
                     if (consultarTipoProductos() == 1)
                     {
                         sTexto = sTexto + llenarPorDetalle();
@@ -194,7 +191,7 @@ namespace Palatium.Clases
                         sSql = sSql + "and CAB.estado = 'A'" + Environment.NewLine;
                         sSql = sSql + "where CAB.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
                         sSql = sSql + "and CAB.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
-                        sSql = sSql + "and CAB.estado_orden = 'Pagada'" + Environment.NewLine;
+                        sSql = sSql + "and CAB.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
                         sSql = sSql + "and CAB.id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
                         sSql = sSql + "group by NOM.nombre" + Environment.NewLine;
                         sSql = sSql + "order by sum(DET.cantidad)";
@@ -250,7 +247,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }
@@ -277,7 +273,8 @@ namespace Palatium.Clases
                 sSql += "and PROD.estado = 'A'" + Environment.NewLine;
                 sSql += "where CAB.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
                 sSql += "and CAB.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
-                sSql += "and CAB.estado_orden = 'Pagada' and CAB.id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and CAB.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
+                sSql += "and CAB.id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
                 sSql += "and PROD.id_pos_tipo_producto = " + Convert.ToInt32(dtTipoProducto.Rows[i].ItemArray[0].ToString()) + Environment.NewLine;
                 sSql += "group by NOM.nombre" + Environment.NewLine;
                 sSql += "order by sum(DET.cantidad)";

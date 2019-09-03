@@ -72,13 +72,13 @@ namespace Palatium.ReportesTextBox
                 {
                     if (dtImprimir.Rows.Count > 0)
                     {
-                        sNombreImpresora = dtImprimir.Rows[0].ItemArray[0].ToString();
-                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[1].ToString());
-                        sPuertoImpresora = dtImprimir.Rows[0].ItemArray[2].ToString();
-                        sIpImpresora = dtImprimir.Rows[0].ItemArray[3].ToString();
-                        sDescripcionImpresora = dtImprimir.Rows[0].ItemArray[4].ToString();
-                        iCortarPapel = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[5].ToString());
-                        iAbrirCajon = Convert.ToInt16(dtImprimir.Rows[0].ItemArray[6].ToString());
+                        sNombreImpresora = dtImprimir.Rows[0][0].ToString();
+                        iCantidadImpresiones = Convert.ToInt16(dtImprimir.Rows[0][1].ToString());
+                        sPuertoImpresora = dtImprimir.Rows[0][2].ToString();
+                        sIpImpresora = dtImprimir.Rows[0][3].ToString();
+                        sDescripcionImpresora = dtImprimir.Rows[0][4].ToString();
+                        iCortarPapel = Convert.ToInt16(dtImprimir.Rows[0][5].ToString());
+                        iAbrirCajon = Convert.ToInt16(dtImprimir.Rows[0][6].ToString());
 
                         //ENVIAR A IMPRIMIR
                         Program.iCortar = 0;
@@ -161,7 +161,6 @@ namespace Palatium.ReportesTextBox
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -169,7 +168,6 @@ namespace Palatium.ReportesTextBox
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -225,7 +223,6 @@ namespace Palatium.ReportesTextBox
         reversa:
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 

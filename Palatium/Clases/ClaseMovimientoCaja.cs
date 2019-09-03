@@ -61,14 +61,14 @@ namespace Palatium.Clases
 
                         sTexto = sTexto + "".PadRight(40, '=') + Environment.NewLine;
                         sTexto = sTexto + "".PadLeft(17, ' ') + "RECIBO" + Environment.NewLine + Environment.NewLine;
-                        sTexto = sTexto + "** ".PadLeft(11, ' ') + dtConsulta.Rows[0].ItemArray[0].ToString() + " **" + Environment.NewLine + Environment.NewLine;
-                        sTexto = sTexto + "Número : " + dtConsulta.Rows[0].ItemArray[1].ToString() + Environment.NewLine;
-                        sTexto = sTexto + "Fecha  : " + dtConsulta.Rows[0].ItemArray[2].ToString() + Environment.NewLine;
+                        sTexto = sTexto + "** ".PadLeft(11, ' ') + dtConsulta.Rows[0][0].ToString() + " **" + Environment.NewLine + Environment.NewLine;
+                        sTexto = sTexto + "Número : " + dtConsulta.Rows[0][1].ToString() + Environment.NewLine;
+                        sTexto = sTexto + "Fecha  : " + dtConsulta.Rows[0][2].ToString() + Environment.NewLine;
                         sTexto = sTexto + "Cargo  : " + Environment.NewLine + Environment.NewLine;
                         sTexto = sTexto + "Concepto:" + Environment.NewLine;
-                        sTexto = sTexto + dtConsulta.Rows[0].ItemArray[3].ToString() + Environment.NewLine;
+                        sTexto = sTexto + dtConsulta.Rows[0][3].ToString() + Environment.NewLine;
                         sTexto = sTexto + "".PadLeft(40, '-') + Environment.NewLine;
-                        sTexto = sTexto + "Valor  :" + dtConsulta.Rows[0].ItemArray[4].ToString().PadLeft(11, ' ') + Environment.NewLine; ;
+                        sTexto = sTexto + "Valor  :" + dtConsulta.Rows[0][4].ToString().PadLeft(11, ' ') + Environment.NewLine; ;
                         sTexto = sTexto + "".PadLeft(40, '-') + Environment.NewLine + Environment.NewLine + Environment.NewLine;
                         sTexto = sTexto + "".PadLeft(7, ' ') + "Recibió" + "Entrego".PadLeft(20, ' ');
                         sTexto = sTexto + Environment.NewLine + Environment.NewLine + Environment.NewLine + ".";
@@ -90,7 +90,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }
@@ -138,8 +137,8 @@ namespace Palatium.Clases
 
                         sTexto = sTexto + "".PadRight(40, '=') + Environment.NewLine;
                         sTexto = sTexto + "Fecha  : " + sFecha + " - " + sFecha + Environment.NewLine;
-                        sTexto = sTexto + "Desde  : " + dtConsulta.Rows[0].ItemArray[0].ToString() + " Horas" + Environment.NewLine;
-                        sTexto = sTexto + "Hasta  : " + dtConsulta.Rows[dtConsulta.Rows.Count - 1].ItemArray[0].ToString() + " Horas" + Environment.NewLine;
+                        sTexto = sTexto + "Desde  : " + dtConsulta.Rows[0][0].ToString() + " Horas" + Environment.NewLine;
+                        sTexto = sTexto + "Hasta  : " + dtConsulta.Rows[dtConsulta.Rows.Count - 1][0].ToString() + " Horas" + Environment.NewLine;
                         sTexto = sTexto + "Terminal: <Todas>" + Environment.NewLine;
                         sTexto = sTexto + "".PadRight(40, '-') + Environment.NewLine;
                         sTexto = sTexto + "HORA  " + "CONCEPTO".PadRight(27, ' ') + "VALOR" + Environment.NewLine;
@@ -147,34 +146,34 @@ namespace Palatium.Clases
 
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            if (dtConsulta.Rows[i].ItemArray[1].ToString().Length <= 25)
+                            if (dtConsulta.Rows[i][1].ToString().Length <= 25)
                             {
-                                sTexto = sTexto + dtConsulta.Rows[i].ItemArray[0].ToString().Substring(0, 5).PadRight(6, ' ') + dtConsulta.Rows[i].ItemArray[1].ToString().PadRight(27, ' ') + dtConsulta.Rows[i].ItemArray[2].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                                sTexto = sTexto + dtConsulta.Rows[i][0].ToString().Substring(0, 5).PadRight(6, ' ') + dtConsulta.Rows[i][1].ToString().PadRight(27, ' ') + dtConsulta.Rows[i][2].ToString().PadLeft(7, ' ') + Environment.NewLine;
                             }
 
                             else
                             {
-                                sTexto = sTexto + dtConsulta.Rows[i].ItemArray[0].ToString().Substring(0, 5).PadRight(6, ' ') + dtConsulta.Rows[i].ItemArray[1].ToString().Substring(0, 25).PadRight(27, ' ') + dtConsulta.Rows[i].ItemArray[2].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                                sTexto = sTexto + dtConsulta.Rows[i][0].ToString().Substring(0, 5).PadRight(6, ' ') + dtConsulta.Rows[i][1].ToString().Substring(0, 25).PadRight(27, ' ') + dtConsulta.Rows[i][2].ToString().PadLeft(7, ' ') + Environment.NewLine;
 
-                                for (int j = 25; j < dtConsulta.Rows[i].ItemArray[1].ToString().Length; j++)
+                                for (int j = 25; j < dtConsulta.Rows[i][1].ToString().Length; j++)
                                 {
-                                    iLongi = dtConsulta.Rows[i].ItemArray[1].ToString().Substring(j).Length;
+                                    iLongi = dtConsulta.Rows[i][1].ToString().Substring(j).Length;
 
                                     if (iLongi > 25)
                                     {
-                                        sTexto = sTexto + "".PadRight(6, ' ') + dtConsulta.Rows[i].ItemArray[1].ToString().Substring(j, 25) + Environment.NewLine;
+                                        sTexto = sTexto + "".PadRight(6, ' ') + dtConsulta.Rows[i][1].ToString().Substring(j, 25) + Environment.NewLine;
                                         j = j + 25;
                                     }
 
                                     else
                                     {
-                                        sTexto = sTexto + "".PadRight(6, ' ') + dtConsulta.Rows[i].ItemArray[1].ToString().Substring(j, iLongi) + Environment.NewLine;
+                                        sTexto = sTexto + "".PadRight(6, ' ') + dtConsulta.Rows[i][1].ToString().Substring(j, iLongi) + Environment.NewLine;
                                         break;
                                     }
                                 }
                             }
 
-                            dSuma = dSuma + Convert.ToDouble(dtConsulta.Rows[i].ItemArray[2].ToString());
+                            dSuma = dSuma + Convert.ToDouble(dtConsulta.Rows[i][2].ToString());
                         }
 
                         sTexto = sTexto + "".PadRight(40, '-') + Environment.NewLine;
@@ -200,7 +199,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }

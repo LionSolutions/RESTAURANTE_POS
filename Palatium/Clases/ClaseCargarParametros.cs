@@ -33,7 +33,7 @@ namespace Palatium.Clases
                 sSql += "id_producto_item, animacion_mesas, rise, isnull(url_contabilidad, '') url_contabilidad," + Environment.NewLine;
                 sSql += "precio_incluye_impuesto, descuenta_iva, maneja_nomina, maneja_almuerzos," + Environment.NewLine;
                 sSql += "isnull(numero_personas_default, 0) numero_personas_default, ruta_reportes," + Environment.NewLine;
-                sSql += "aplica_recargo_tarjetas, porcentaje_recargo_tarjetas" + Environment.NewLine;
+                sSql += "aplica_recargo_tarjetas, porcentaje_recargo_tarjetas, idtipocomprobante" + Environment.NewLine;
                 sSql += "from pos_parametro where estado = 'A'";
 
                 dtConsulta = new DataTable();
@@ -79,6 +79,7 @@ namespace Palatium.Clases
                         Program.sUrlReportes = dtConsulta.Rows[0][31].ToString();
                         Program.iAplicaRecargoTarjeta = Convert.ToInt32(dtConsulta.Rows[0][32].ToString());
                         Program.dbPorcentajeRecargoTarjeta = Convert.ToDecimal(dtConsulta.Rows[0][33].ToString()) / 100;
+                        Program.iComprobanteNotaEntrega = Convert.ToInt32(dtConsulta.Rows[0]["idtipocomprobante"].ToString());
 
                         fechaSistema();
 
@@ -317,7 +318,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
             }
@@ -325,7 +325,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -354,7 +353,6 @@ namespace Palatium.Clases
                     else
                     {
                         ok.LblMensaje.Text = "No se encontraron registros.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -362,7 +360,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
             }
@@ -370,7 +367,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }

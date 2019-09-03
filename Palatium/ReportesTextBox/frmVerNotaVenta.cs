@@ -27,6 +27,7 @@ namespace Palatium.ReportesTextBox
         int iCerrar;
         int iCortarPapel;
         int iAbrirCajon;
+        int iIdFactura;
 
         bool bRespuesta = false;
         DataTable dtConsulta;
@@ -40,9 +41,9 @@ namespace Palatium.ReportesTextBox
         string sIpImpresora;
         string sDescripcionImpresora;
 
-        public frmVerNotaVenta(string sIdOrden, int iCerrar)
+        public frmVerNotaVenta(int iIdFactura_P, int iCerrar)
         {
-            this.sIdOrden = sIdOrden;
+            this.iIdFactura = iIdFactura_P;
             this.iCerrar = iCerrar;
             InitializeComponent();
         }
@@ -91,7 +92,7 @@ namespace Palatium.ReportesTextBox
                         //IMPRIMIR
                         imprimir.iniciarImpresion();
                         //imprimir.escritoEspaciadoCorto(txtReporte.Text);
-                        imprimir.escritoEspaciadoCorto(notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada"));
+                        imprimir.escritoEspaciadoCorto(notaVenta.llenarNota(iIdFactura));
                         imprimir.escritoFuenteAlta("TOTAL:" + notaVenta.dbTotal.ToString("N2").PadLeft(27, ' ') + Environment.NewLine);
                         imprimir.cortarPapel();
                         imprimir.imprimirReporte(sNombreImpresora);
@@ -153,7 +154,6 @@ namespace Palatium.ReportesTextBox
                     else
                     {
                         ok.LblMensaje.Text = "No existe el registro de configuración de impresora. Comuníquese con el administrador.";
-                        ok.ShowInTaskbar = false;
                         ok.ShowDialog();
                     }
                 }
@@ -161,7 +161,6 @@ namespace Palatium.ReportesTextBox
                 else
                 {
                     ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
             }
@@ -169,7 +168,6 @@ namespace Palatium.ReportesTextBox
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -179,40 +177,33 @@ namespace Palatium.ReportesTextBox
         {
             try
             {
-                if (llenarDataTable() == true)
-                {
-                    sRetorno = notaVenta.llenarNota(dtConsulta, sIdOrden, "Pagada");
+                sRetorno = notaVenta.llenarNota(iIdFactura);
 
-                    if (sRetorno == "")
-                    {
-                        goto reversa;
-                    }
-                    else
-                    {
-                        sTexto = sTexto + Environment.NewLine;
-                        sTexto = sTexto + sRetorno;
-                    }
-
-                    txtReporte.Text = sTexto;
-
-                    //if (iCerrar == 1)
-                    if (Program.iVistaPreviaImpresiones == 1)
-                    {
-                        consultarImpresoraTipoOrden();
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-
-                    consultarImpresoraAbrirCajon();
-
-                    sTexto = "";
-                    goto fin;
-                }
-
-                else
+                if (sRetorno == "")
                 {
                     goto reversa;
                 }
+                else
+                {
+                    sTexto = sTexto + Environment.NewLine;
+                    sTexto = sTexto + sRetorno;
+                }
+
+                txtReporte.Text = sTexto;
+
+                //if (iCerrar == 1)
+                if (Program.iVistaPreviaImpresiones == 1)
+                {
+                    consultarImpresoraTipoOrden();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+
+                consultarImpresoraAbrirCajon();
+
+                sTexto = "";
+
+                return;
             }
 
             catch (Exception ex)
@@ -225,54 +216,12 @@ namespace Palatium.ReportesTextBox
         reversa:
             {
                 ok.LblMensaje.Text = "Ocurrió un problema al realizar la consulta.";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
 
         fin: { }
         }
 
-
-        //FUNCION PARA LLENAR LOS DATATABLES
-        private bool llenarDataTable()
-        {
-            try
-            {
-                sSql = "";
-                sSql = sSql + "select * from pos_vw_factura" + Environment.NewLine;
-                sSql = sSql + "where id_pedido = " + Convert.ToInt32(sIdOrden) + Environment.NewLine;
-                sSql = sSql + "order by id_det_pedido";
-
-                dtConsulta = new DataTable();
-                dtConsulta.Clear();
-
-                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
-
-                if (bRespuesta == true)
-                {
-                    if (dtConsulta.Rows.Count > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-
-                else
-                {
-                    return false;
-                }
-            }
-
-            catch (Exception ex)
-            {
-                catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowDialog();
-                return false;
-            }
-        }
 
         #endregion
 

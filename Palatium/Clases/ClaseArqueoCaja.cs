@@ -27,36 +27,36 @@ namespace Palatium.Clases
             {
                 this.sFecha = sFecha;
                 sTexto = "";
-                sTexto = sTexto + Program.local.PadLeft(30, ' ') + Environment.NewLine;
-                sTexto = sTexto + "=".PadRight(40, '=') + Environment.NewLine;
-                sTexto = sTexto + "ARQUEO DE CAJA".PadLeft(27, ' ') + Environment.NewLine;
-                sTexto = sTexto + "=".PadRight(40, '=') + Environment.NewLine;
-                sTexto = sTexto + "FECHA:".PadRight(8, ' ') + DateTime.Now.ToString("dd/MM/yyyy");
-                sTexto = sTexto + "DESDE" + Environment.NewLine;
-                sTexto = sTexto + "CAJERO".PadRight(8, ' ') + Program.sNombreCajero + Environment.NewLine + Environment.NewLine;
-                sTexto = sTexto + "TOTAL VENDIDO:".PadRight(30, ' ') + (calcularTotalPago(1) + calcularTotalPagoTarjetas()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + "COBRADO EFECTIVO:".PadRight(30, ' ') + calcularTotalPago(1).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + "COBRADO TARJETAS:".PadRight(30, ' ') + calcularTotalPagoTarjetas().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += Program.local.PadLeft(30, ' ') + Environment.NewLine;
+                sTexto += "=".PadRight(40, '=') + Environment.NewLine;
+                sTexto += "ARQUEO DE CAJA".PadLeft(27, ' ') + Environment.NewLine;
+                sTexto += "=".PadRight(40, '=') + Environment.NewLine;
+                sTexto += "FECHA:".PadRight(8, ' ') + DateTime.Now.ToString("dd/MM/yyyy");
+                sTexto += "DESDE" + Environment.NewLine;
+                sTexto += "CAJERO".PadRight(8, ' ') + Program.sNombreCajero + Environment.NewLine + Environment.NewLine;
+                sTexto += "TOTAL VENDIDO:".PadRight(30, ' ') + (calcularTotalPago(1) + calcularTotalPagoTarjetas()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "COBRADO EFECTIVO:".PadRight(30, ' ') + calcularTotalPago(1).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "COBRADO TARJETAS:".PadRight(30, ' ') + calcularTotalPagoTarjetas().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
                 
                 llenarDesgloseTarjetas();
                 
-                sTexto = sTexto + "COBRADO CHEQUES:".PadRight(30, ' ') + calcularTotalPago(2).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + "TOTAL COBRADO".PadRight(30, ' ') + (calcularTotalPago(1) + calcularTotalPagoTarjetas()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + "ENTRADAS MANUAL:".PadRight(30, ' ') + sumarEntradasManuales().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + "SALIDAS MANUAL:".PadRight(30, ' ') + sumarSalidasManuales().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
-                sTexto = sTexto + "TOTAL EFECTIVO:".PadRight(30, ' ') + ((calcularTotalPago(1) + sumarEntradasManuales()) - sumarSalidasManuales()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
+                sTexto += "COBRADO CHEQUES:".PadRight(30, ' ') + calcularTotalPago(2).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "TOTAL COBRADO".PadRight(30, ' ') + (calcularTotalPago(1) + calcularTotalPagoTarjetas()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "ENTRADAS MANUAL:".PadRight(30, ' ') + sumarEntradasManuales().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "SALIDAS MANUAL:".PadRight(30, ' ') + sumarSalidasManuales().ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
+                sTexto += "TOTAL EFECTIVO:".PadRight(30, ' ') + ((calcularTotalPago(1) + sumarEntradasManuales()) - sumarSalidasManuales()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
                 
                 double dbTotalCobrado = (calcularTotalPago(1) + calcularTotalPagoTarjetas());
                 
-                sTexto = sTexto + "SALDO EN CAJA:".PadRight(30, ' ') + ((dbTotalCobrado + sumarEntradasManuales()) - sumarSalidasManuales()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
-                sTexto = sTexto + "TOTAL ENTREGADO:".PadRight(30, ' ') + dbTotalEntregado.ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
-                sTexto = sTexto + "DIFERENCIA:".PadRight(30, ' ') + (dbTotalEntregado - ((dbTotalCobrado + sumarEntradasManuales()) - sumarSalidasManuales())).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
-                sTexto = sTexto + " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine + Environment.NewLine;
-                sTexto = sTexto + "TOTAL PENDIENTE:".PadRight(30, ' ') + dbTotalPendiente.ToString("N2").PadLeft(10, ' ') + Environment.NewLine + Environment.NewLine;
+                sTexto += "SALDO EN CAJA:".PadRight(30, ' ') + ((dbTotalCobrado + sumarEntradasManuales()) - sumarSalidasManuales()).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
+                sTexto += "TOTAL ENTREGADO:".PadRight(30, ' ') + dbTotalEntregado.ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine;
+                sTexto += "DIFERENCIA:".PadRight(30, ' ') + (dbTotalEntregado - ((dbTotalCobrado + sumarEntradasManuales()) - sumarSalidasManuales())).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += " ".PadRight(25, ' ') + "-".PadRight(15, '-') + Environment.NewLine + Environment.NewLine;
+                sTexto += "TOTAL PENDIENTE:".PadRight(30, ' ') + dbTotalPendiente.ToString("N2").PadLeft(10, ' ') + Environment.NewLine + Environment.NewLine;
 
                 #region Llenar Cortesías
                 sSql = "SELECT  dbo.cv401_nombre_productos.nombre, dbo.pos_cortesia.motivo_cortesia, dbo.cv403_det_pedidos.precio_unitario, " +
@@ -80,21 +80,21 @@ namespace Palatium.Clases
                         {
                             total = total + Convert.ToDouble(dtConsulta.Rows[i].ItemArray[2].ToString());
                         }
-                        sTexto = sTexto + "TOTAL CORTESIA: ".PadRight(30, ' ') + (total + (total * (Program.iva + Program.servicio))).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
+                        sTexto += "TOTAL CORTESIA: ".PadRight(30, ' ') + (total + (total * (Program.iva + Program.servicio))).ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
 
                     }
                     else
                     {
-                        sTexto = sTexto + "TOTAL CORTESIA: ".PadRight(30, ' ') + "0.00".PadLeft(10, ' ') + Environment.NewLine;
+                        sTexto += "TOTAL CORTESIA: ".PadRight(30, ' ') + "0.00".PadLeft(10, ' ') + Environment.NewLine;
                     }
                 }
 
                 #endregion
 
-                sTexto = sTexto + Environment.NewLine;
-                sTexto = sTexto + "TOTAL I.V.A:".PadRight(30, ' ') + (dbTotalCobrado * Program.iva).ToString("N2").PadLeft(10, ' ') + Environment.NewLine + Environment.NewLine;
+                sTexto += Environment.NewLine;
+                sTexto += "TOTAL I.V.A:".PadRight(30, ' ') + (dbTotalCobrado * Program.iva).ToString("N2").PadLeft(10, ' ') + Environment.NewLine + Environment.NewLine;
 
-                sTexto = sTexto + "PERSONAS ATENDIDAS:".PadRight(30, ' ') + calcularTotalPersonas(1).ToString().PadLeft(10, ' ') + Environment.NewLine;
+                sTexto += "PERSONAS ATENDIDAS:".PadRight(30, ' ') + calcularTotalPersonas(1).ToString().PadLeft(10, ' ') + Environment.NewLine;
 
                 return sTexto;
             }
@@ -218,12 +218,12 @@ namespace Palatium.Clases
                             string sNombreTarjeta = dtConsulta.Rows[i].ItemArray[0].ToString();
                             double dbValorTarjeta = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[1].ToString());
                             
-                            sTexto = sTexto + " ".PadRight(6, ' ') + sNombreTarjeta.PadRight(21, ' ') + dbValorTarjeta.ToString("N2").PadLeft(7, ' ') + Environment.NewLine;
+                            sTexto += " ".PadRight(6, ' ') + sNombreTarjeta.PadRight(21, ' ') + dbValorTarjeta.ToString("N2").PadLeft(7, ' ') + Environment.NewLine;
                         }
                     }
                     else
                     {
-                        sTexto = sTexto + "No hay datos para ser mostrados";
+                        sTexto += "No hay datos para ser mostrados";
                     }
                 }
                 else
@@ -276,7 +276,6 @@ namespace Palatium.Clases
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Error al calcular el numero de personas";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 return 0;
             }
@@ -315,7 +314,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     return 0;
                 }
@@ -324,7 +322,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -363,7 +360,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     return 0;
                 }
@@ -372,7 +368,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }

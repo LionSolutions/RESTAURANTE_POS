@@ -120,7 +120,7 @@ namespace Palatium.Clases
                         {
                             for (int j = 0; j < dtPreferencia.Rows.Count; j++)
                             {
-                                sTexto = sTexto + " >>".PadRight(4, ' ') + dtPreferencia.Rows[j][0].ToString().PadRight(16, ' ') + Environment.NewLine;
+                                sTexto = sTexto + ">>".PadRight(4, ' ') + dtPreferencia.Rows[j][0].ToString().PadRight(16, ' ') + Environment.NewLine;
                             }
                         }
                     }

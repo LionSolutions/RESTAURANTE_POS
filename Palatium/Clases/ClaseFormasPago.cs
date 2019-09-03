@@ -35,7 +35,7 @@ namespace Palatium.Clases
 
             if (bRespuesta == true)
             {
-                iCuenta = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+                iCuenta = Convert.ToInt32(dt.Rows[0][0]);
                 formasPago = new ClaseFormasPago[iCuenta];
 
                 if (iCuenta != 0)
@@ -54,10 +54,10 @@ namespace Palatium.Clases
                         for (int i = 0; i < iCuenta; i++)
                         {
                             objFormasPago = new ClaseFormasPago();
-                            objFormasPago.sIdFormaPago = ayuda.Rows[i].ItemArray[0].ToString();
-                            objFormasPago.sCodigo = ayuda.Rows[i].ItemArray[1].ToString();
-                            objFormasPago.sDescripcion = ayuda.Rows[i].ItemArray[2].ToString();
-                            objFormasPago.sImagen = ayuda.Rows[i].ItemArray[3].ToString();
+                            objFormasPago.sIdFormaPago = ayuda.Rows[i][0].ToString();
+                            objFormasPago.sCodigo = ayuda.Rows[i][1].ToString();
+                            objFormasPago.sDescripcion = ayuda.Rows[i][2].ToString();
+                            objFormasPago.sImagen = ayuda.Rows[i][3].ToString();
                             formasPago[i] = objFormasPago;
                         }
                         return true;

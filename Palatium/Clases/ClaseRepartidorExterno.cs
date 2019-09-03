@@ -35,7 +35,7 @@ namespace Palatium.Clases
 
             if (bRespuesta == true)
             {
-                iCuenta = Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+                iCuenta = Convert.ToInt32(dt.Rows[0][0]);
                 repartidor = new ClaseRepartidorExterno[iCuenta];
 
                 if (iCuenta != 0)
@@ -55,10 +55,10 @@ namespace Palatium.Clases
                         for (int i = 0; i < iCuenta; i++)
                         {
                             objRepartidor = new ClaseRepartidorExterno();
-                            objRepartidor.sIdRepartidor = ayuda.Rows[i].ItemArray[0].ToString();
-                            objRepartidor.sDescripcion = ayuda.Rows[i].ItemArray[1].ToString();
-                            objRepartidor.sCodigo = ayuda.Rows[i].ItemArray[2].ToString();
-                            objRepartidor.sImagen = ayuda.Rows[i].ItemArray[3].ToString();
+                            objRepartidor.sIdRepartidor = ayuda.Rows[i][0].ToString();
+                            objRepartidor.sDescripcion = ayuda.Rows[i][1].ToString();
+                            objRepartidor.sCodigo = ayuda.Rows[i][2].ToString();
+                            objRepartidor.sImagen = ayuda.Rows[i][3].ToString();
                             repartidor[i] = objRepartidor;
                         }
                         return true;

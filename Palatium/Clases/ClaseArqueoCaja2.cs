@@ -41,12 +41,12 @@ namespace Palatium.Clases
             try
             {
                 sSql = "";
-                sSql = sSql + "select fecha_apertura, hora_apertura, isnull(fecha_cierre, fecha_apertura) fecha_apertura," + Environment.NewLine;
-                sSql = sSql + "isnull(hora_cierre, '') hora_cierre, porcentaje_iva, porcentaje_servicio" + Environment.NewLine;
-                sSql = sSql + "from pos_cierre_cajero" + Environment.NewLine;
-                sSql = sSql + "where fecha_apertura = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and id_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and estado = 'A'";
+                sSql += "select fecha_apertura, hora_apertura, isnull(fecha_cierre, fecha_apertura) fecha_apertura," + Environment.NewLine;
+                sSql += "isnull(hora_cierre, '') hora_cierre, porcentaje_iva, porcentaje_servicio" + Environment.NewLine;
+                sSql += "from pos_cierre_cajero" + Environment.NewLine;
+                sSql += "where fecha_apertura = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and id_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and estado = 'A'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -57,18 +57,18 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sFechaApertura = Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[0].ToString()).ToString("dd/MM/yyyy");
-                        sHoraApertura = dtConsulta.Rows[0].ItemArray[1].ToString();
-                        sFechaCierre = Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[2].ToString()).ToString("dd/MM/yyyy");
+                        sFechaApertura = Convert.ToDateTime(dtConsulta.Rows[0][0].ToString()).ToString("dd/MM/yyyy");
+                        sHoraApertura = dtConsulta.Rows[0][1].ToString();
+                        sFechaCierre = Convert.ToDateTime(dtConsulta.Rows[0][2].ToString()).ToString("dd/MM/yyyy");
 
-                        if (dtConsulta.Rows[0].ItemArray[3].ToString() == "")
+                        if (dtConsulta.Rows[0][3].ToString() == "")
                         {
                             sHoraCierre = DateTime.Now.ToString("HH:mm:dd");
                         }
 
                         else
                         {
-                            sHoraCierre = Convert.ToDateTime(dtConsulta.Rows[0].ItemArray[3].ToString()).ToString("HH:mm:ss");
+                            sHoraCierre = Convert.ToDateTime(dtConsulta.Rows[0][3].ToString()).ToString("HH:mm:ss");
                         }
 
                         dbPorcentajeIva = Convert.ToDouble(dtConsulta.Rows[0]["porcentaje_iva"]);
@@ -92,7 +92,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return false;
             }
@@ -104,17 +103,17 @@ namespace Palatium.Clases
             try
             {
                 sSql = "";
-                sSql = sSql + "select numero_pedido from cv403_numero_cab_pedido where id_pedido =" + Environment.NewLine;
-                sSql = sSql + "(select min(id_pedido)from cv403_cab_pedidos" + Environment.NewLine;
-                sSql = sSql + "where fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and estado = 'A')" + Environment.NewLine;
-                sSql = sSql + "union" + Environment.NewLine;
-                sSql = sSql + "select numero_pedido from cv403_numero_cab_pedido where id_pedido =" + Environment.NewLine;
-                sSql = sSql + "(select max(id_pedido)from cv403_cab_pedidos" + Environment.NewLine;
-                sSql = sSql + "where fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and estado = 'A')";
+                sSql += "select numero_pedido from cv403_numero_cab_pedido" + Environment.NewLine;
+                sSql += "where id_pedido = (select min(id_pedido)from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and estado = 'A')" + Environment.NewLine;
+                sSql += "union" + Environment.NewLine;
+                sSql += "select numero_pedido from cv403_numero_cab_pedido" + Environment.NewLine;
+                sSql += "where id_pedido = (select max(id_pedido)from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and estado = 'A')";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -125,12 +124,12 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count == 1)
                     {
-                        sTexto = sTexto + "Tickets desde:  " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                        sTexto = sTexto + "Tickets desde:  " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                     }
 
                     else if (dtConsulta.Rows.Count > 1)
                     {
-                        sTexto = sTexto + "Tickets desde:  " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                        sTexto = sTexto + "Tickets desde:  " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                     }
                 }
 
@@ -143,7 +142,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -194,12 +192,12 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count == 1)
                     {                           
-                        sTexto = sTexto + "Facturas desde: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                        sTexto = sTexto + "Facturas desde: " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                     }
 
                     else if (dtConsulta.Rows.Count > 1)
                     {
-                        sTexto = sTexto + "Facturas desde: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                        sTexto = sTexto + "Facturas desde: " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                     }
                 }
 
@@ -212,7 +210,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -265,12 +262,12 @@ namespace Palatium.Clases
                     {
                         if (dtConsulta.Rows.Count == 1)
                         {
-                            sTexto = sTexto + "N. Venta desde: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                            sTexto = sTexto + "N. Venta desde: " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[0][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                         }
 
                         else if (dtConsulta.Rows.Count > 1)
                         {
-                            sTexto = sTexto + "N. Venta desde: " + dtConsulta.Rows[0].ItemArray[0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1].ItemArray[0].ToString().PadLeft(7, ' ') + Environment.NewLine;
+                            sTexto = sTexto + "N. Venta desde: " + dtConsulta.Rows[0][0].ToString().PadLeft(8, ' ') + "  hasta: " + dtConsulta.Rows[1][0].ToString().PadLeft(7, ' ') + Environment.NewLine;
                         }
                     }
                 }
@@ -284,7 +281,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -358,17 +354,17 @@ namespace Palatium.Clases
                     #region Llenar Cortesías
 
                     sSql = "";
-                    sSql = sSql + "select NP.nombre, PC.motivo_cortesia," + Environment.NewLine;
-                    sSql = sSql + "ltrim(str(DP.precio_unitario, 10, 2)) precio_unitario," + Environment.NewLine;
-                    sSql = sSql + "DP.cantidad, O.descripcion" + Environment.NewLine;
-                    sSql = sSql + "from cv403_det_pedidos DP INNER JOIN" + Environment.NewLine;
-                    sSql = sSql + "cv403_cab_pedidos CP ON DP.id_pedido = CP.id_pedido INNER JOIN" + Environment.NewLine;
-                    sSql = sSql + "pos_origen_orden O ON CP.id_pos_origen_orden = O.id_pos_origen_orden INNER JOIN" + Environment.NewLine;
-                    sSql = sSql + "cv401_nombre_productos NP ON DP.id_producto = NP.id_producto and NP.estado = 'A' INNER JOIN " + Environment.NewLine;
-                    sSql = sSql + "pos_cortesia PC ON (DP.id_det_pedido = PC.id_det_pedido and PC.estado='A')" + Environment.NewLine;
-                    sSql = sSql + "where CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                    sSql = sSql + "and DP.estado = 'A'" + Environment.NewLine;
-                    sSql = sSql + "and CP.id_pos_jornada = " + Program.iJornadaRecuperada;
+                    sSql += "select NP.nombre, PC.motivo_cortesia," + Environment.NewLine;
+                    sSql += "ltrim(str(DP.precio_unitario, 10, 2)) precio_unitario," + Environment.NewLine;
+                    sSql += "DP.cantidad, O.descripcion" + Environment.NewLine;
+                    sSql += "from cv403_det_pedidos DP INNER JOIN" + Environment.NewLine;
+                    sSql += "cv403_cab_pedidos CP ON DP.id_pedido = CP.id_pedido INNER JOIN" + Environment.NewLine;
+                    sSql += "pos_origen_orden O ON CP.id_pos_origen_orden = O.id_pos_origen_orden INNER JOIN" + Environment.NewLine;
+                    sSql += "cv401_nombre_productos NP ON DP.id_producto = NP.id_producto and NP.estado = 'A' INNER JOIN " + Environment.NewLine;
+                    sSql += "pos_cortesia PC ON (DP.id_det_pedido = PC.id_det_pedido and PC.estado='A')" + Environment.NewLine;
+                    sSql += "where CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                    sSql += "and DP.estado = 'A'" + Environment.NewLine;
+                    sSql += "and CP.id_pos_jornada = " + Program.iJornadaRecuperada;
                     
                     dtConsulta = new DataTable();
                     dtConsulta.Clear();
@@ -381,7 +377,7 @@ namespace Palatium.Clases
                         {
                             for (int i = 0; i < dtConsulta.Rows.Count; i++)
                             {
-                                total = total + (Convert.ToDouble(dtConsulta.Rows[i].ItemArray[2].ToString()) * Convert.ToDouble(dtConsulta.Rows[i].ItemArray[3].ToString()));
+                                total = total + (Convert.ToDouble(dtConsulta.Rows[i][2].ToString()) * Convert.ToDouble(dtConsulta.Rows[i][3].ToString()));
                             }
 
                             sTexto = sTexto + "Total Items Cortesia: ".PadRight(30, ' ') + total.ToString("N2").PadLeft(10, ' ') + Environment.NewLine;
@@ -413,7 +409,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }
@@ -447,7 +442,7 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return Convert.ToDouble(dtConsulta.Rows[0].ItemArray[1].ToString());
+                        return Convert.ToDouble(dtConsulta.Rows[0][1].ToString());
                     }
                     else
                         return 0;
@@ -489,7 +484,7 @@ namespace Palatium.Clases
                     {
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            sumaTarjetas += Convert.ToDouble(dtConsulta.Rows[i].ItemArray[1].ToString());
+                            sumaTarjetas += Convert.ToDouble(dtConsulta.Rows[i][1].ToString());
                         }
                         //MessageBox.Show(sumaTarjetas.ToString());
                         return sumaTarjetas;
@@ -504,7 +499,6 @@ namespace Palatium.Clases
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Error al calcular el total de tarjetas";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 return 0.00;
             }
@@ -535,14 +529,14 @@ namespace Palatium.Clases
                     {
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            string sNombreTarjeta = dtConsulta.Rows[i].ItemArray[0].ToString();
+                            string sNombreTarjeta = dtConsulta.Rows[i][0].ToString();
 
                             if (sNombreTarjeta.Length > 15)
                             {
                                 sNombreTarjeta = sNombreTarjeta.Substring(0, 15);
                             }
 
-                            double dbValorTarjeta = Convert.ToDouble(dtConsulta.Rows[i].ItemArray[1].ToString());
+                            double dbValorTarjeta = Convert.ToDouble(dtConsulta.Rows[i][1].ToString());
                             sTexto = sTexto + " ".PadRight(6, ' ') + sNombreTarjeta.PadRight(15, '.') + ":" + dbValorTarjeta.ToString("N2").PadLeft(15, ' ') + Environment.NewLine;
                         }
                     }
@@ -554,7 +548,6 @@ namespace Palatium.Clases
                 else
                 {
                     ok.LblMensaje.Text = "Error al mostrar las tarjetas de crédito";
-                    ok.ShowInTaskbar = false;
                     ok.ShowDialog();
                 }
 
@@ -563,7 +556,6 @@ namespace Palatium.Clases
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Error al mostrar las tarjetas de crédito";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
         }
@@ -580,17 +572,19 @@ namespace Palatium.Clases
                 sSql += "and CP.id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
                 sSql += "and CP.id_pedido = NP.id_pedido" + Environment.NewLine;
                 sSql += "and ORI.id_pos_origen_orden = CP.id_pos_origen_orden" + Environment.NewLine;
-                sSql += "and ORI.id_pos_origen_orden = " + iIdPosOrigenOrden;
+                sSql += "and ORI.id_pos_origen_orden = " + iIdPosOrigenOrden + Environment.NewLine;
+                sSql += "and CP.estado_orden = 'Pagada'";
 
                 DataTable dtConsulta = new DataTable();
                 dtConsulta.Clear();
+
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
 
                 if (bRespuesta == true)
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        return Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
                     }
                     else
                         return 0;
@@ -602,7 +596,6 @@ namespace Palatium.Clases
             catch (Exception)
             {
                 ok.LblMensaje.Text = "Error al calcular el numero de personas";
-                ok.ShowInTaskbar = false;
                 ok.ShowDialog();
                 return 0;
             }
@@ -689,12 +682,12 @@ namespace Palatium.Clases
             try
             {
                 sSql = "";
-                sSql = sSql + "select isnull(sum(valor), 0) suma from pos_movimiento_caja  " + Environment.NewLine;
-                sSql = sSql + "where estado = 'A' " + Environment.NewLine;
-                sSql = sSql + "and tipo_movimiento = 0 " + Environment.NewLine;
-                sSql = sSql + "and id_documento_pago is null" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and fecha = '" + sFecha + "'";
+                sSql += "select isnull(sum(valor), 0) suma from pos_movimiento_caja  " + Environment.NewLine;
+                sSql += "where estado = 'A' " + Environment.NewLine;
+                sSql += "and tipo_movimiento = 0 " + Environment.NewLine;
+                sSql += "and id_documento_pago is null" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and fecha = '" + sFecha + "'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -705,7 +698,7 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        return Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
                     }
 
                     else
@@ -717,7 +710,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     return 0;
                 }
@@ -726,7 +718,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -738,12 +729,12 @@ namespace Palatium.Clases
             try
             {
                 sSql = "";
-                sSql = sSql + "select isnull(sum(valor), 0) suma from pos_movimiento_caja  " + Environment.NewLine;
-                sSql = sSql + "where estado = 'A' " + Environment.NewLine;
-                sSql = sSql + "and tipo_movimiento = 1 " + Environment.NewLine;
-                sSql = sSql + "and id_documento_pago is null" + Environment.NewLine;
-                sSql = sSql + "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
-                sSql = sSql + "and fecha = '" + sFecha + "'";
+                sSql += "select isnull(sum(valor), 0) suma from pos_movimiento_caja  " + Environment.NewLine;
+                sSql += "where estado = 'A' " + Environment.NewLine;
+                sSql += "and tipo_movimiento = 1 " + Environment.NewLine;
+                sSql += "and id_documento_pago is null" + Environment.NewLine;
+                sSql += "and id_pos_jornada = " + Program.iJornadaRecuperada + Environment.NewLine;
+                sSql += "and fecha = '" + sFecha + "'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -754,7 +745,7 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        return Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        return Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
                     }
 
                     else
@@ -766,7 +757,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                     return 0;
                 }
@@ -775,7 +765,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return 0;
             }
@@ -790,17 +779,17 @@ namespace Palatium.Clases
                 dTotalPagadoP = 0;
 
                 sSql = "";
-                sSql = sSql + "select isnull(sum(DP.cantidad * (DP.precio_unitario + DP.valor_iva - DP.valor_dscto)), 0) total" + Environment.NewLine;
-                sSql = sSql + "from cv403_cab_pedidos CP, cv403_det_pedidos DP," + Environment.NewLine;
-                sSql = sSql + "pos_origen_orden OO" + Environment.NewLine;
-                sSql = sSql + "where OO.id_pos_origen_orden = CP.id_pos_origen_orden" + Environment.NewLine;
-                sSql = sSql + "and DP.id_pedido = CP.id_pedido" + Environment.NewLine;
-                sSql = sSql + "and OO.codigo = '" + sCodigo + "'" + Environment.NewLine;
-                sSql = sSql + "and CP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and DP.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and OO.estado = 'A'" + Environment.NewLine;
-                sSql = sSql + "and CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                sSql = sSql + "and CP.id_pos_jornada = " + Program.iJornadaRecuperada;
+                sSql += "select isnull(sum(DP.cantidad * (DP.precio_unitario + DP.valor_iva - DP.valor_dscto)), 0) total" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos CP, cv403_det_pedidos DP," + Environment.NewLine;
+                sSql += "pos_origen_orden OO" + Environment.NewLine;
+                sSql += "where OO.id_pos_origen_orden = CP.id_pos_origen_orden" + Environment.NewLine;
+                sSql += "and DP.id_pedido = CP.id_pedido" + Environment.NewLine;
+                sSql += "and OO.codigo = '" + sCodigo + "'" + Environment.NewLine;
+                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                sSql += "and DP.estado = 'A'" + Environment.NewLine;
+                sSql += "and OO.estado = 'A'" + Environment.NewLine;
+                sSql += "and CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and CP.id_pos_jornada = " + Program.iJornadaRecuperada;
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -811,7 +800,7 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        dTotalPagadoP = Convert.ToDouble(dtConsulta.Rows[0].ItemArray[0].ToString());
+                        dTotalPagadoP = Convert.ToDouble(dtConsulta.Rows[0][0].ToString());
 
                         if (dTotalPagadoP != 0)
                         {
@@ -837,7 +826,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
                 return "";
             }
@@ -857,7 +845,8 @@ namespace Palatium.Clases
                 sSql += "pos_origen_orden O ON O.id_pos_origen_orden = CP.id_pos_origen_orden" + Environment.NewLine;
                 sSql += "and O.estado = 'A'" + Environment.NewLine;
                 sSql += "where O.genera_factura = 1" + Environment.NewLine;
-                sSql += "and CP.fecha_pedido = '" + sFecha + "'";
+                sSql += "and CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and CP.estado_orden = 'Pagada'";
 
                 dtConsulta = new DataTable();
                 dtConsulta.Clear();

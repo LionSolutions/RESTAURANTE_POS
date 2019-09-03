@@ -70,7 +70,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
 
@@ -79,7 +78,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -125,7 +123,6 @@ namespace Palatium.Clases
                 else
                 {
                     catchMensaje.LblMensaje.Text = sSql;
-                    catchMensaje.ShowInTaskbar = false;
                     catchMensaje.ShowDialog();
                 }
 
@@ -134,7 +131,6 @@ namespace Palatium.Clases
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
