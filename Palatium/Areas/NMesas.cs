@@ -230,8 +230,8 @@ namespace Palatium
                         //boton[i, j].FlatStyle = FlatStyle.Flat;
                         boton[i, j].Cursor = Cursors.Hand;
                         boton[i, j].Font = new Font("Arial", 12, FontStyle.Bold);
-                        boton[i, j].BackgroundImage = Properties.Resources.boton;
-                        boton[i, j].BackgroundImageLayout = ImageLayout.Stretch;
+                        //boton[i, j].BackgroundImage = Properties.Resources.boton;
+                        //boton[i, j].BackgroundImageLayout = ImageLayout.Stretch;
                         boton[i, j].Width = 125;
                         boton[i, j].Height = 75;
                         boton[i, j].Top = i * 75;

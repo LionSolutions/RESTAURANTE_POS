@@ -1449,15 +1449,16 @@ namespace Palatium.Menú
         {
             this.llenarArregloMaximo();
 
-            //if (Program.iPuedeCobrar == 1)
-            //{
-            //    int num1 = (int)new frmConvertirComanda().ShowDialog();
-            //}
-            //else
-            //{
-            //    this.ok.LblMensaje.Text = "No tiene permisos para ingresar en esta opción.";
-            //    int num2 = (int)this.ok.ShowDialog();
-            //}
+            if (Program.iPuedeCobrar == 1)
+            {
+                Pedidos.frmConvertirComanda convertir = new Pedidos.frmConvertirComanda();
+                convertir.ShowDialog();
+            }
+            else
+            {
+                ok.LblMensaje.Text = "No tiene permisos para ingresar en esta opción.";
+                ok.ShowDialog();
+            }            
         }
 
         private void btnCambioOrigen_MouseEnter(object sender, EventArgs e)
@@ -1476,7 +1477,9 @@ namespace Palatium.Menú
             ingresaBoton(btnClienteEmpresarial);
             Program.sIDPERSONA = (string)null;
             consultarDatos("12", "");
-            //int num = (int)new frmSeleccionEmpresaEmpleado(iIdOrigenOrden).ShowDialog();
+
+            Empresa.frmSeleccionEmpresaEmpleado seleccion = new Empresa.frmSeleccionEmpresaEmpleado(Program.iIdOrigenOrden);
+            seleccion.ShowDialog();
         }
 
         private void btnClienteEmpresarial_MouseEnter(object sender, EventArgs e)

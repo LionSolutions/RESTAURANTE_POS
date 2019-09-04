@@ -78,6 +78,7 @@
             this.dBAyudaCategorias = new Controles.Auxiliares.DB_Ayuda();
             this.rdbGuardaConImpuestos = new System.Windows.Forms.RadioButton();
             this.rdbGuardaSinImpuestos = new System.Windows.Forms.RadioButton();
+            this.chkAhorroEmergencia = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.grupoRegistros.SuspendLayout();
             this.grupoReceta.SuspendLayout();
@@ -237,7 +238,7 @@
             // 
             this.chkExpira.AutoSize = true;
             this.chkExpira.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkExpira.Location = new System.Drawing.Point(147, 261);
+            this.chkExpira.Location = new System.Drawing.Point(107, 261);
             this.chkExpira.Name = "chkExpira";
             this.chkExpira.Size = new System.Drawing.Size(61, 19);
             this.chkExpira.TabIndex = 15;
@@ -248,7 +249,7 @@
             // 
             this.chkPrecioModificable.AutoSize = true;
             this.chkPrecioModificable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPrecioModificable.Location = new System.Drawing.Point(267, 261);
+            this.chkPrecioModificable.Location = new System.Drawing.Point(183, 261);
             this.chkPrecioModificable.Name = "chkPrecioModificable";
             this.chkPrecioModificable.Size = new System.Drawing.Size(128, 19);
             this.chkPrecioModificable.TabIndex = 16;
@@ -294,6 +295,7 @@
             // 
             // grupoDatos
             // 
+            this.grupoDatos.Controls.Add(this.chkAhorroEmergencia);
             this.grupoDatos.Controls.Add(this.cmbDestinoImpresion);
             this.grupoDatos.Controls.Add(this.label11);
             this.grupoDatos.Controls.Add(this.label8);
@@ -644,6 +646,17 @@
             this.rdbGuardaSinImpuestos.Text = "Guardar información sin impuestos";
             this.rdbGuardaSinImpuestos.UseVisualStyleBackColor = true;
             // 
+            // chkAhorroEmergencia
+            // 
+            this.chkAhorroEmergencia.AutoSize = true;
+            this.chkAhorroEmergencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAhorroEmergencia.Location = new System.Drawing.Point(328, 253);
+            this.chkAhorroEmergencia.Name = "chkAhorroEmergencia";
+            this.chkAhorroEmergencia.Size = new System.Drawing.Size(93, 34);
+            this.chkAhorroEmergencia.TabIndex = 75;
+            this.chkAhorroEmergencia.Text = "Para Ahorro\r\nEmergencia";
+            this.chkAhorroEmergencia.UseVisualStyleBackColor = true;
+            // 
             // frmIngresoProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -729,5 +742,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.RadioButton rdbGuardaConImpuestos;
         private System.Windows.Forms.RadioButton rdbGuardaSinImpuestos;
+        private System.Windows.Forms.CheckBox chkAhorroEmergencia;
     }
 }

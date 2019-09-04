@@ -77,6 +77,7 @@
             this.submenuRecibosCobros = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuProductosUltimoNivel = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuCrearReserva = new System.Windows.Forms.ToolStripMenuItem();
+            this.submenuMovimientoCaja = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ddlAdministracion = new System.Windows.Forms.ToolStripDropDownButton();
             this.parámetrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,7 +173,6 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.ddPalatiumContable = new System.Windows.Forms.ToolStripDropDownButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.submenuMovimientoCaja = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -297,7 +297,7 @@
             this.submenuCajeros.Image = global::Palatium.Properties.Resources.cajero_menu_png;
             this.submenuCajeros.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.submenuCajeros.Name = "submenuCajeros";
-            this.submenuCajeros.Size = new System.Drawing.Size(167, 36);
+            this.submenuCajeros.Size = new System.Drawing.Size(155, 36);
             this.submenuCajeros.Text = "Cajeros";
             this.submenuCajeros.Click += new System.EventHandler(this.submenuCajeros_Click);
             // 
@@ -306,7 +306,7 @@
             this.submenuMeseros.Image = global::Palatium.Properties.Resources.mesero_menu;
             this.submenuMeseros.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.submenuMeseros.Name = "submenuMeseros";
-            this.submenuMeseros.Size = new System.Drawing.Size(167, 36);
+            this.submenuMeseros.Size = new System.Drawing.Size(155, 36);
             this.submenuMeseros.Text = "Meseros";
             this.submenuMeseros.Click += new System.EventHandler(this.submenuMeseros_Click);
             // 
@@ -315,7 +315,7 @@
             this.submenuRepartidores.Image = global::Palatium.Properties.Resources.repartidor_menu;
             this.submenuRepartidores.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.submenuRepartidores.Name = "submenuRepartidores";
-            this.submenuRepartidores.Size = new System.Drawing.Size(167, 36);
+            this.submenuRepartidores.Size = new System.Drawing.Size(155, 36);
             this.submenuRepartidores.Text = "Repartidores";
             this.submenuRepartidores.Click += new System.EventHandler(this.submenuRepartidores_Click);
             // 
@@ -324,7 +324,7 @@
             this.submenuPromotores.Image = global::Palatium.Properties.Resources.promotor_menu;
             this.submenuPromotores.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.submenuPromotores.Name = "submenuPromotores";
-            this.submenuPromotores.Size = new System.Drawing.Size(167, 36);
+            this.submenuPromotores.Size = new System.Drawing.Size(155, 36);
             this.submenuPromotores.Text = "Promotores";
             this.submenuPromotores.Click += new System.EventHandler(this.submenuPromotores_Click);
             // 
@@ -677,6 +677,15 @@
             this.submenuCrearReserva.Size = new System.Drawing.Size(244, 36);
             this.submenuCrearReserva.Text = "Crear Reserva";
             this.submenuCrearReserva.Click += new System.EventHandler(this.submenuCrearReserva_Click);
+            // 
+            // submenuMovimientoCaja
+            // 
+            this.submenuMovimientoCaja.Image = global::Palatium.Properties.Resources.movimiento_caja_menu;
+            this.submenuMovimientoCaja.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.submenuMovimientoCaja.Name = "submenuMovimientoCaja";
+            this.submenuMovimientoCaja.Size = new System.Drawing.Size(244, 36);
+            this.submenuMovimientoCaja.Text = "Registrar Movimiento de Caja";
+            this.submenuMovimientoCaja.Click += new System.EventHandler(this.submenuMovimientoCaja_Click);
             // 
             // toolStripSeparator3
             // 
@@ -1588,13 +1597,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(1050, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // submenuMovimientoCaja
-            // 
-            this.submenuMovimientoCaja.Name = "submenuMovimientoCaja";
-            this.submenuMovimientoCaja.Size = new System.Drawing.Size(244, 36);
-            this.submenuMovimientoCaja.Text = "Registrar Movimiento de Caja";
-            this.submenuMovimientoCaja.Click += new System.EventHandler(this.submenuMovimientoCaja_Click);
             // 
             // frmNuevoMenuConfiguracion
             // 

@@ -688,6 +688,8 @@ namespace Palatium.Oficina
 
         private void submenuMovimientoCaja_Click(object sender, EventArgs e)
         {
+            Oficina.frmRegistrarMovimientos movimiento = new frmRegistrarMovimientos(0);
+            verificarFormularios(movimiento, this);
             //this.verificarFormularios((Form)new frmRegistrarMovimientos(0), (Form)this);
         }
     }

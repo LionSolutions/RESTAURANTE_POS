@@ -545,7 +545,7 @@
             this.btnMesas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMesas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMesas.ForeColor = System.Drawing.Color.White;
-            this.btnMesas.Image = global::Palatium.Properties.Resources.icono_mesas;
+            this.btnMesas.Image = global::Palatium.Properties.Resources.icono_mesa_menu_2;
             this.btnMesas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnMesas.Location = new System.Drawing.Point(12, 12);
             this.btnMesas.Name = "btnMesas";

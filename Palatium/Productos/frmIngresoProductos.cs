@@ -41,6 +41,7 @@ namespace Palatium.Productos
         int iTipoUnidadCompra;
         int iTipoUnidadConsumo;
         int iCuenta;
+        int iAhorroEmergencia;
 
         double dSubtotal;
 
@@ -218,6 +219,7 @@ namespace Palatium.Productos
             chkPagaIVA.Checked = true;
             chkExpira.Checked = false;
             chkPrecioModificable.Checked = false;
+            chkAhorroEmergencia.Checked = false;
 
             grupoDatos.Enabled = false;
             grupoReceta.Enabled = false;
@@ -254,6 +256,7 @@ namespace Palatium.Productos
             chkPagaIVA.Checked = true;
             chkExpira.Checked = false;
             chkPrecioModificable.Checked = false;
+            chkAhorroEmergencia.Checked = false;
 
             grupoRegistros.Enabled = false;
             grupoDatos.Enabled = false;
@@ -537,6 +540,7 @@ namespace Palatium.Productos
             dgvProductos.Columns[27].Visible = ok;
             dgvProductos.Columns[28].Visible = ok;
             dgvProductos.Columns[29].Visible = ok;
+            dgvProductos.Columns[30].Visible = ok;
 
             lblRegistros.Text = dgvProductos.Rows.Count.ToString() + " Registros Encontrados";
         }
@@ -667,14 +671,14 @@ namespace Palatium.Productos
                 sSql += "modificador, subcategoria, ultimo_nivel," + Environment.NewLine;
                 sSql += "stock_min, stock_max, Expira, fecha_ingreso, usuario_ingreso," + Environment.NewLine;
                 sSql += "terminal_ingreso, id_pos_receta, id_pos_tipo_producto," + Environment.NewLine;
-                sSql += "id_pos_clase_producto, id_pos_impresion_comanda)" + Environment.NewLine;
+                sSql += "id_pos_clase_producto, id_pos_impresion_comanda, ahorro_emergencia)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ",'" + txtCodigo.Text.Trim() + "'," + Environment.NewLine;
                 sSql += iIdCategoria + ", 'A', 3, 0, " + iPrecioModificable + ", " + iPagaIva + "," + Environment.NewLine;
                 sSql += Convert.ToInt32(txtSecuencia.Text.ToString().Trim()) + ", " + iModificador + "," + Environment.NewLine;
                 sSql += iSubcategoria + ", " + iUltimo + ",0, 0, " +iExpira + ", GETDATE(), '" + Program.sDatosMaximo[0] + "', " + Environment.NewLine;
                 sSql += "'" + Program.sDatosMaximo[1] + "', " + iIdPosReceta + ", " + Convert.ToInt32(cmbTipoProducto.SelectedValue) + "," + Environment.NewLine;
-                sSql += Convert.ToInt32(cmbClaseProducto.SelectedValue) + ", " + Convert.ToInt32(cmbDestinoImpresion.SelectedValue) + ")"; 
+                sSql += Convert.ToInt32(cmbClaseProducto.SelectedValue) + ", " + Convert.ToInt32(cmbDestinoImpresion.SelectedValue) + ", " + iAhorroEmergencia + ")"; 
 
                 //EJECUTAR LA INSTRUCCIÓN SQL
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -869,7 +873,8 @@ namespace Palatium.Productos
                 sSql += "id_pos_receta = " + iIdReceta + "," + Environment.NewLine;
                 sSql += "id_pos_tipo_producto = " + Convert.ToInt32(cmbTipoProducto.SelectedValue) + "," + Environment.NewLine;
                 sSql += "id_pos_clase_producto = " + Convert.ToInt32(cmbClaseProducto.SelectedValue) + "," + Environment.NewLine;
-                sSql += "id_pos_impresion_comanda = " + Convert.ToInt32(cmbDestinoImpresion.SelectedValue) + Environment.NewLine;
+                sSql += "id_pos_impresion_comanda = " + Convert.ToInt32(cmbDestinoImpresion.SelectedValue) + "," + Environment.NewLine;
+                sSql += "ahorro_emergencia = " + iAhorroEmergencia + Environment.NewLine;
                 sSql += "where id_Producto = " + iIdProducto;
 
                 //SI NO SE EJECUTA LA INSTRUCCION SALTA A REVERSA 
@@ -1229,6 +1234,19 @@ namespace Palatium.Productos
                     dbAyudaReceta.txtDatos.Text = dgvProductos.CurrentRow.Cells[24].Value.ToString();
                 }
 
+                //CHECKED AHORRO EMERGENCIA
+                //-----------------------------------------------------------------------------------
+                if (Convert.ToInt32(dgvProductos.CurrentRow.Cells[30].Value) == 1)
+                {
+                    chkAhorroEmergencia.Checked = true;
+                }
+
+                else
+                {
+                    chkAhorroEmergencia.Checked = false;
+                }
+                //-----------------------------------------------------------------------------------
+
                 btnAgregar.Text = "Actualizar";
                 btnEliminar.Enabled = true;
                 txtCodigo.Enabled = false;
@@ -1347,6 +1365,16 @@ namespace Palatium.Productos
                     else
                     {
                         iPrecioModificable = 0;
+                    }
+
+                    if (chkAhorroEmergencia.Checked == true)
+                    {
+                        iAhorroEmergencia = 1;
+                    }
+
+                    else
+                    {
+                        iAhorroEmergencia = 0;
                     }
 
                     if (btnAgregar.Text == "Guardar")

@@ -340,7 +340,7 @@ namespace Palatium
                 sSql += "from cv403_cab_pedidos" + Environment.NewLine;
                 sSql += "where id_pos_jornada = " + Program.iJORNADA + Environment.NewLine;
                 sSql += "and fecha_orden = ' " + sFechaActual + "'" + Environment.NewLine;
-                sSql += "and estado_orden in('Abierta', 'Pre-Cuenta'. 'Cerrada')";
+                sSql += "and estado_orden in('Abierta', 'Pre-Cuenta', 'Cerrada')";
 
                 dtConsulta = new DataTable();
                 bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
