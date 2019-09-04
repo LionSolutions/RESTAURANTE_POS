@@ -233,11 +233,11 @@ namespace Palatium.Clases
             }
         }
         
-        public string llenarReporteVentas(string sFecha)
+        public string llenarReporteVentas(string sFecha_P)
         {
             try
             {
-                sFecha = sFecha;
+                this.sFecha = sFecha_P;
 
                 if (consultarFechaHora() == false)
                 {
