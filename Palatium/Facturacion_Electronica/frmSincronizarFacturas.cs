@@ -816,12 +816,12 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (sIdTipoAmbiente == "1")
                     {
-                        sWebService = sWSEnvioPruebas;
+                        sWebService = sWSConsultaPruebas;
                     }
 
                     else if (sIdTipoAmbiente == "2")
                     {
-                        sWebService = sWSEnvioProduccion;
+                        sWebService = sWSConsultaProduccion;
                     }
 
                     RespuestaSRI respuesta = consultar.AutorizacionComprobante(out xmlAut, sClaveAcceso, sWebService);

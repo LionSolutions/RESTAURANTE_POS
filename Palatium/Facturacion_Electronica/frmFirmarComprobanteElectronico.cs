@@ -389,7 +389,9 @@ namespace Palatium.Facturacion_Electronica
                     ok.ShowDialog();
                 }
 
+                cmbTipoComprobante.SelectedIndexChanged -= new EventHandler(cmbTipoComprobante_SelectedIndexChanged);
                 limpiar();
+                cmbTipoComprobante.SelectedIndexChanged += new EventHandler(cmbTipoComprobante_SelectedIndexChanged);
             }
 
             catch (Exception ex)

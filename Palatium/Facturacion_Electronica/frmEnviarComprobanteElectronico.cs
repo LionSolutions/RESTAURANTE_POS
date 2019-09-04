@@ -462,7 +462,8 @@ namespace Palatium.Facturacion_Electronica
                 else
                 {
                     sSql = "";
-                    sSql += "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso " + Environment.NewLine;
+                    sSql += "select " + conexion.GFun_St_esnulo() + "(clave_acceso, 'NINGUNA') clave_acceso," + Environment.NewLine;
+                    sSql += "id_tipo_ambiente" + Environment.NewLine;
                     sSql += "from cv403_facturas " + Environment.NewLine;
                     sSql += "where id_factura = " + iIdFactura;
 
@@ -539,12 +540,12 @@ namespace Palatium.Facturacion_Electronica
 
                 if (iIdTipoAmbiente == 1)
                 {
-                    sWebService = sWSConsultaPruebas;
+                    sWebService = sWSEnvioPruebas;
                 }
 
                 else if (iIdTipoAmbiente == 2)
                 {
-                    sWebService = sWSConsultaProduccion;
+                    sWebService = sWSEnvioProduccion;
                 }
 
                 RespuestaSRI respuesta = enviarXML.EnvioComprobante(T_St_Archivo_In, sWebService);

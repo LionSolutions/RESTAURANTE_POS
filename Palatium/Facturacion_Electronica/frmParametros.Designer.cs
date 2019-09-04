@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkSSL = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.labelX20 = new DevComponents.DotNetBar.LabelX();
             this.labelX19 = new DevComponents.DotNetBar.LabelX();
             this.labelX18 = new DevComponents.DotNetBar.LabelX();
@@ -84,7 +85,6 @@
             this.labelX11 = new DevComponents.DotNetBar.LabelX();
             this.labelX33 = new DevComponents.DotNetBar.LabelX();
             this.abrirArchivo = new System.Windows.Forms.OpenFileDialog();
-            this.chkSSL = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -124,6 +124,20 @@
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Correo electrónico";
+            // 
+            // chkSSL
+            // 
+            this.chkSSL.AutoSize = true;
+            // 
+            // 
+            // 
+            this.chkSSL.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.chkSSL.Location = new System.Drawing.Point(317, 94);
+            this.chkSSL.Name = "chkSSL";
+            this.chkSSL.Size = new System.Drawing.Size(84, 15);
+            this.chkSSL.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.chkSSL.TabIndex = 70;
+            this.chkSSL.Text = "Permitir SSL";
             // 
             // labelX20
             // 
@@ -654,7 +668,6 @@
             // 
             this.txtEnvioPruebas.Border.Class = "TextBoxBorder";
             this.txtEnvioPruebas.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtEnvioPruebas.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtEnvioPruebas.Location = new System.Drawing.Point(106, 46);
             this.txtEnvioPruebas.MaxLength = 150;
             this.txtEnvioPruebas.Name = "txtEnvioPruebas";
@@ -681,7 +694,6 @@
             // 
             this.txtConsultaPruebas.Border.Class = "TextBoxBorder";
             this.txtConsultaPruebas.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtConsultaPruebas.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtConsultaPruebas.Location = new System.Drawing.Point(106, 68);
             this.txtConsultaPruebas.MaxLength = 150;
             this.txtConsultaPruebas.Name = "txtConsultaPruebas";
@@ -793,7 +805,6 @@
             // 
             this.txtConsultaProduccion.Border.Class = "TextBoxBorder";
             this.txtConsultaProduccion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtConsultaProduccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtConsultaProduccion.Location = new System.Drawing.Point(106, 144);
             this.txtConsultaProduccion.MaxLength = 150;
             this.txtConsultaProduccion.Name = "txtConsultaProduccion";
@@ -820,7 +831,6 @@
             // 
             this.txtEnvioProduccion.Border.Class = "TextBoxBorder";
             this.txtEnvioProduccion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtEnvioProduccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtEnvioProduccion.Location = new System.Drawing.Point(106, 122);
             this.txtEnvioProduccion.MaxLength = 150;
             this.txtEnvioProduccion.Name = "txtEnvioProduccion";
@@ -871,20 +881,6 @@
             // abrirArchivo
             // 
             this.abrirArchivo.FileName = "openFileDialog1";
-            // 
-            // chkSSL
-            // 
-            this.chkSSL.AutoSize = true;
-            // 
-            // 
-            // 
-            this.chkSSL.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.chkSSL.Location = new System.Drawing.Point(317, 94);
-            this.chkSSL.Name = "chkSSL";
-            this.chkSSL.Size = new System.Drawing.Size(84, 15);
-            this.chkSSL.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.chkSSL.TabIndex = 70;
-            this.chkSSL.Text = "Permitir SSL";
             // 
             // frmParametros
             // 

@@ -179,7 +179,7 @@ namespace Palatium.Facturacion_Electronica
             {
                 sSql = "";
                 sSql += "Select F.id_persona, F.Direccion_Factura, F.Telefono_Factura, F.Ciudad_Factura, F.Fabricante,F.Referencia," + Environment.NewLine;
-                sSql += "F.Comentarios, CO.valor_texto as Moneda, FORPAGO.descripcion as Foma_Pago, F.fecha_vcto, F.Comentarios," + Environment.NewLine;
+                sSql += "F.Comentarios, CO.valor_texto as Moneda, FORPAGO.descripcion as Forma_Pago, F.fecha_vcto," + Environment.NewLine;
                 sSql += "F.Peso_Neto, F.Peso_Bruto, F.numero_exportacion, F.partida_arancelaria, F.idformulariossri, TIPOCO.descripcion as Formato," + Environment.NewLine;
                 sSql += "isnull(F.autorizacion,'') autorizacion, VENDE.codigo as Vendedor, CODI.valor_texto as Tipo_cliente, CP.Porcentaje_Dscto," + Environment.NewLine;
                 sSql += "CP.Porcentaje_IVA, PR.codigo,NP.nombre, UNIDAD.codigo Unidad, isnull(DP.comentario,'') Comentario, DP.precio_unitario," + Environment.NewLine;
@@ -260,12 +260,12 @@ namespace Palatium.Facturacion_Electronica
 
                             if (dtConsulta.Rows[i]["Comentario"].ToString() == "")
                             {
-                                sNombre = dtConsulta.Rows[i]["Comentario"].ToString();
+                                sNombre = dtConsulta.Rows[i]["nombre"].ToString();
                             }
 
                             else
                             {
-                                sNombre = dtConsulta.Rows[i]["nombre"].ToString();
+                                sNombre = dtConsulta.Rows[i]["Comentario"].ToString();
                             }
 
                             sUnidad = dtConsulta.Rows[i]["Unidad"].ToString();
@@ -288,7 +288,7 @@ namespace Palatium.Facturacion_Electronica
                             dbSubtotalBruto = dbSubtotalBruto + (dbCantidad * dbVUnidad);
                             dbSumaDescuento = dbSumaDescuento + (dbCantidad * dbValorDescuento);
                             dbSumaServicio = dbSumaServicio + (dbCantidad * dbServicio);
-                            dbSumaIva = dbSumaIva + (dbCantidad * Convert.ToDouble(dtConsulta.Rows[i][31].ToString()));
+                            dbSumaIva = dbSumaIva + (dbCantidad * Convert.ToDouble(dtConsulta.Rows[i]["valor_IVA"].ToString()));
 
 
                             dgvReimpresionFactura.Rows.Add(sCodigo, sNombre, sUnidad, dbCantidad.ToString("N2"), dbVUnidad.ToString("N2"),

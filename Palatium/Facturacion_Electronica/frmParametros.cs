@@ -227,7 +227,7 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "ws_consulta_produccion = '" + txtConsultaProduccion.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "certificado_ruta = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "certificado_palabra_clave = '" + txtPasswordCertificado.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "maneja_ssl 0 = " + iManejaSSL + "," + Environment.NewLine;
+                sSql += "maneja_ssl = " + iManejaSSL + "," + Environment.NewLine;
                 sSql += "estado = '" + sEstado + "'" + Environment.NewLine;
                 sSql += "where id_cel_parametro = " + iIdParametro;
 

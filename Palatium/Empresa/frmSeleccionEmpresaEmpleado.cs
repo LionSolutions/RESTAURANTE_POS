@@ -330,8 +330,13 @@ namespace Palatium.Empresa
         public void boton_clic_Empleado(object sender, EventArgs e)
         {
             this.bempleado = sender as Button;
-            //AQUI MOSTRAR EL FORMULARIO DE COMANDAS
-            //int num = (int)new frmComandaClienteEmpresarial(Convert.ToInt32(this.bempleado.Tag), this.sNombreEmpresa, this.bempleado.Text.ToUpper(), this.iIdEmpresa, this.iIdOrigenOrden).ShowDialog();
+            Empresa.frmComandaClienteEmpresarial comanda = new frmComandaClienteEmpresarial(Convert.ToInt32(bempleado.Tag), sNombreEmpresa, bempleado.Text.ToUpper(), iIdEmpresa, iIdOrigenOrden);
+            comanda.ShowDialog();
+
+            if (comanda.DialogResult == DialogResult.OK)
+            {
+                this.Close();
+            }
         }
 
         #endregion
