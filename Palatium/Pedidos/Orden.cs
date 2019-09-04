@@ -1143,14 +1143,14 @@ namespace Palatium
                 sSql += "cg_tipo_movimiento, numero_movimiento, fecha, cg_moneda_base," + Environment.NewLine;
                 sSql += "referencia_externa, externo, estado, terminal_creacion, fecha_creacion," + Environment.NewLine;
                 sSql += "fecha_ingreso, usuario_ingreso, id_pedido, cg_motivo_movimiento_bodega, orden_trabajo, orden_diseno," + Environment.NewLine;
-                sSql += "Nota_Entrega, Observacion, id_auxiliar, id_persona)" + Environment.NewLine;
+                sSql += "Nota_Entrega, Observacion, id_auxiliar, id_persona, usuario_creacion, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ", " + Program.iCgEmpresa + ", " + Program.iIdLocalidad + ", " + iIdBodega + "," + Environment.NewLine;
                 sSql += iCgClienteProveedor_P + ", " + iCgTipoMovimiento_P + ", '" + sNumeroMovimiento + "'," + Environment.NewLine;
                 sSql += "'" + sFecha + "', " + Program.iMoneda + ", '" + sReferenciaExterna_P + "'," + Environment.NewLine;
                 sSql += "1, 'A', '" + Program.sDatosMaximo[1] + "', '" + sFecha + "', GETDATE()," + Environment.NewLine;
                 sSql += "'" + Program.sDatosMaximo[0] + "', " + iIdPedido + ", " + iRespuesta[2] + ", '', '', '', '', " + iRespuesta[1] + ", " + Environment.NewLine;
-                sSql += iRespuesta[0] + ")";
+                sSql += iRespuesta[0] + ", '" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
@@ -1431,20 +1431,22 @@ namespace Palatium
         {
             try
             {
+                string sFecha_R = Program.sFechaSistema.ToString("yyyy-MM-dd");
+
                 sSql = "";
                 sSql += "insert into cv402_cabecera_movimientos (" + Environment.NewLine;
                 sSql += "idempresa,cg_empresa, id_localidad, id_bodega, cg_cliente_proveedor," + Environment.NewLine;
                 sSql += "cg_tipo_movimiento, numero_movimiento, fecha, cg_moneda_base," + Environment.NewLine;
                 sSql += "referencia_externa, externo, estado, terminal_creacion, fecha_creacion," + Environment.NewLine;
                 sSql += "fecha_ingreso, usuario_ingreso, id_pedido, cg_motivo_movimiento_bodega, orden_trabajo, orden_diseno," + Environment.NewLine;
-                sSql += "Nota_Entrega, Observacion, id_auxiliar, id_persona)" + Environment.NewLine;
+                sSql += "Nota_Entrega, Observacion, id_auxiliar, id_persona, usuario_creacion, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ", " + Program.iCgEmpresa + ", " + Program.iIdLocalidad + ", " + iIdBodega + "," + Environment.NewLine;
                 sSql += iCgClienteProveedor_P + ", " + iCgTipoMovimiento_P + ", '" + sNumeroMovimiento_P + "'," + Environment.NewLine;
-                sSql += "'" + sFecha + "', " + Program.iMoneda + ", '" + sReferenciaExterna_P + "'," + Environment.NewLine;
+                sSql += "'" + sFecha_R + "', " + Program.iMoneda + ", '" + sReferenciaExterna_P + "'," + Environment.NewLine;
                 sSql += "1, 'A', '" + Program.sDatosMaximo[1] + "', '" + sFecha + "', GETDATE()," + Environment.NewLine;
                 sSql += "'" + Program.sDatosMaximo[0] + "', " + iIdPedido + ", " + iRespuesta[2] + ", '', '', '', '', " + iRespuesta[1] + ", " + Environment.NewLine;
-                sSql += iRespuesta[0] + ")";
+                sSql += iRespuesta[0] + ", '" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
@@ -3638,10 +3640,10 @@ namespace Palatium
 
             catch(Exception ex)
             {
+                Cursor = Cursors.Default;
                 catchMensaje.LblMensaje.Text = ex.ToString();
                 catchMensaje.ShowDialog();
                 goto reversa;
-                this.Cursor = Cursors.Default;
             }
 
             reversa: { conexion.GFun_Lo_Maneja_Transaccion(Program.G_REVERSA_TRANSACCION); }

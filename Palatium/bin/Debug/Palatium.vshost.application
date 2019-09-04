@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Palatium.exe.manifest" size="19874">
+    <dependentAssembly dependencyType="install" codebase="Palatium.exe.manifest" size="20494">
       <assemblyIdentity name="Palatium.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5+cHDV7uf8Hruon/zDZU8XdS84KSqfKtnFora77+mAc=</dsig:DigestValue>
+        <dsig:DigestValue>ZxKdguqGTKy1VVhWby4EIKN+vdZoYKPepQ/4PVx/j6E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

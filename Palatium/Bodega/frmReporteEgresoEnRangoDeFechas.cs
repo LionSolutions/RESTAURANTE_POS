@@ -280,7 +280,7 @@ namespace Palatium.Bodega
                 
                 DataTable dtAyuda = new DataTable();
                 dtAyuda.Clear();
-                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtAyuda, sSql);
 
                 if (bRespuesta == false)
                 {

@@ -232,6 +232,7 @@ namespace Palatium.Productos
             llenarComboClaseProducto();
             llenarDestinoImpresion();
             iIdProducto = 0;
+            dbAyudaReceta.limpiar();
 
             llenarGrid(0);
         }
