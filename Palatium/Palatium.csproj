@@ -326,6 +326,12 @@
     <Compile Include="Empresa\frmClienteEmpresarial.Designer.cs">
       <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Empresa\frmComandaClienteEmpresarial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresa\frmComandaClienteEmpresarial.Designer.cs">
+      <DependentUpon>frmComandaClienteEmpresarial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empresa\frmEmpleadosEmpresas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2064,6 +2070,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empresa\frmClienteEmpresarial.resx">
       <DependentUpon>frmClienteEmpresarial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empresa\frmComandaClienteEmpresarial.resx">
+      <DependentUpon>frmComandaClienteEmpresarial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresa\frmEmpleadosEmpresas.resx">
       <DependentUpon>frmEmpleadosEmpresas.cs</DependentUpon>
