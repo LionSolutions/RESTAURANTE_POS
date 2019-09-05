@@ -218,7 +218,7 @@ namespace Palatium.Facturacion_Electronica
                 dt.Rows[0]["subtotal_sin_iva"] = dbSubtotalSinIva;
                 dt.Rows[0]["suma_sin_impuestos"] = dbSubtotalConIva + dbSubtotalSinIva;
 
-                rptFacturaEletronica reporte = ProcessingMode.Local;
+                //rptFacturaEletronica reporte = ProcessingMode.Local;
 
             }
 
