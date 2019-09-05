@@ -207,7 +207,7 @@ namespace Palatium.Clases_Factura_Electronica
                 dt.Rows[0]["subtotal_sin_iva"] = dbSubtotalSinIva;
                 dt.Rows[0]["suma_sin_impuestos"] = dbSubtotalConIva + dbSubtotalSinIva;
 
-
+                
 
 
                 return true;
