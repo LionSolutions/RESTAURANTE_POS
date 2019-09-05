@@ -43,7 +43,11 @@ namespace Palatium.Clases_Factura_Electronica
         string sDireccionCliente;
         string sCantidadProducto;
         string sNombreProducto;
+        string sClaveAcceso;
+        string sCorreoElectronico;
+
         bool bRespuesta;
+
         DataTable dtConsulta;
         DataTable dtPagosClase;
         Decimal dPorcentaje;
@@ -76,7 +80,7 @@ namespace Palatium.Clases_Factura_Electronica
                 sTexto = "";
 
                 sSql = "";
-                sSql += "select nombrecomercial, numeroruc, telefono, direccionmatriz" + Environment.NewLine;
+                sSql += "select nombrecomercial, numeroruc, telefono, isnull(direccion_corta, '') direccion_corta" + Environment.NewLine;
                 sSql += "from sis_empresa" + Environment.NewLine;
                 sSql += "where idEmpresa = " + Program.iIdEmpresa;
 
@@ -93,7 +97,7 @@ namespace Palatium.Clases_Factura_Electronica
                 sNombreComercial = dtConsulta.Rows[0]["nombrecomercial"].ToString().Trim().ToUpper();
                 sNumeroRucEmpresa = dtConsulta.Rows[0]["numeroruc"].ToString().Trim().ToUpper();
                 sTelefonoEmpresa = dtConsulta.Rows[0]["telefono"].ToString().Trim().ToUpper();
-                sDireccionEmpresa = dtConsulta.Rows[0]["direccionmatriz"].ToString().Trim().ToUpper();
+                sDireccionEmpresa = dtConsulta.Rows[0]["direccion_corta"].ToString().Trim().ToUpper();
 
                 sSql = "";
                 sSql += "select * from pos_vw_factura" + Environment.NewLine;
@@ -149,7 +153,15 @@ namespace Palatium.Clases_Factura_Electronica
                     sTexto += dtConsulta.Rows[0]["mesa"].ToString().PadRight(7, ' ') + ": " + sSeccionMesa.PadRight(13, ' ') + "  No. Personas: " + dtConsulta.Rows[0]["numero_personas"].ToString() + Environment.NewLine;
                 }
 
-                sNombreCliente = (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim();
+                if (dtConsulta.Rows[0]["tipo_persona"].ToString() == "J")
+                {
+                    sNombreCliente = (dtConsulta.Rows[0]["apellidos"].ToString() + " " + dtConsulta.Rows[0]["nombres"].ToString()).Trim();
+                }
+
+                else
+                {
+                    sNombreCliente = (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim();
+                }
                 
                 if (sNombreCliente.Length <= 30)
                 {
@@ -184,6 +196,21 @@ namespace Palatium.Clases_Factura_Electronica
                     }
                 }
 
+                sCorreoElectronico = dtConsulta.Rows[0]["correo_electronico"].ToString().Trim().ToLower();
+
+                if (sCorreoElectronico.Length >= 30)
+                {
+                    sTexto += "E-MAIL : " + caracteres.saltoLinea(sCorreoElectronico, 10) + Environment.NewLine;
+                }
+
+                else
+                {
+                    sTexto += "E-MAIL : " + sCorreoElectronico + Environment.NewLine;
+                }
+
+                sTexto += "".PadRight(40, '=') + Environment.NewLine;
+                sClaveAcceso = "CLAVE DE ACCESO: " + dtConsulta.Rows[0]["clave_acceso"].ToString().Trim();
+                sTexto += caracteres.saltoLinea(sClaveAcceso.Trim(), 0);
                 sTexto += "".PadRight(40, '=') + Environment.NewLine;
                 sTexto += "CANT " + "DESCRIPCION".PadRight(22, ' ') + " V.UNI.  TOT." + Environment.NewLine;
                 sTexto += "".PadRight(40, '=') + Environment.NewLine;

@@ -2273,6 +2273,16 @@ namespace Palatium.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mail_default {
+            get {
+                object obj = ResourceManager.GetObject("mail_default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mail_emisor_menu {
             get {
                 object obj = ResourceManager.GetObject("mail_emisor_menu", resourceCulture);

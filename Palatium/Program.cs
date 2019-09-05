@@ -64,11 +64,18 @@ namespace Palatium
                     }
 
                     sMensaje = parametros.cargarParametrosPredeterminados();
+                    
                     if (sMensaje != "")
                     {
                         catchMensaje.LblMensaje.Text = sMensaje;
                         catchMensaje.ShowInTaskbar = false;
                         catchMensaje.ShowDialog();
+                    }
+
+                    //AQUI PARA LLENAR LA CONFIGURACION DE FACTURACION ELECTRONICA
+                    if (Program.iFacturacionElectronica == 1)
+                    {
+                        parametros.cargarParametrosFacturacionElectronica();
                     }
 
                     sMensaje = parametros.cargarDatosTerminal();
@@ -126,7 +133,8 @@ namespace Palatium
         public static int iTipoAmbiente;
         public static int iTipoEmision;
         public static int iTipoCertificado;
-        
+
+        public static string sNumeroRucEmisor;
         public static string sWebServiceEnvioPruebas;
         public static string sWebServiceConsultaPruebas;
         public static string sWebServiceEnvioProduccion;
@@ -209,6 +217,7 @@ namespace Palatium
         public static decimal dbPorcentajeRecargoTarjeta;
         public static int iComprobanteNotaEntrega;
         public static int iHabilitaOpciones;
+        public static string sCorreoElectronicoDefault;
 
         public static int iCortar = 0;
         public static int iIdPersonaFacturador;

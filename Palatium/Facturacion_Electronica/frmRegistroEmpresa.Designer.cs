@@ -94,6 +94,8 @@
             this.labelX32 = new DevComponents.DotNetBar.LabelX();
             this.labelX33 = new DevComponents.DotNetBar.LabelX();
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.labelX34 = new DevComponents.DotNetBar.LabelX();
+            this.txtDireccionCorta = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -951,6 +953,33 @@
             this.labelX33.TabIndex = 62;
             this.labelX33.Text = "(*) Campo\r\n      obligatorio";
             // 
+            // labelX34
+            // 
+            this.labelX34.AutoSize = true;
+            // 
+            // 
+            // 
+            this.labelX34.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX34.Location = new System.Drawing.Point(405, 162);
+            this.labelX34.Name = "labelX34";
+            this.labelX34.Size = new System.Drawing.Size(81, 15);
+            this.labelX34.TabIndex = 3520;
+            this.labelX34.Text = "Dirección Corta:";
+            // 
+            // txtDireccionCorta
+            // 
+            // 
+            // 
+            // 
+            this.txtDireccionCorta.Border.Class = "TextBoxBorder";
+            this.txtDireccionCorta.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtDireccionCorta.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDireccionCorta.Location = new System.Drawing.Point(405, 180);
+            this.txtDireccionCorta.MaxLength = 30;
+            this.txtDireccionCorta.Name = "txtDireccionCorta";
+            this.txtDireccionCorta.Size = new System.Drawing.Size(201, 20);
+            this.txtDireccionCorta.TabIndex = 3521;
+            // 
             // frmRegistroEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -958,6 +987,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(640, 472);
+            this.Controls.Add(this.txtDireccionCorta);
+            this.Controls.Add(this.labelX34);
             this.Controls.Add(this.labelX33);
             this.Controls.Add(this.labelX32);
             this.Controls.Add(this.labelX31);
@@ -1095,5 +1126,7 @@
         private DevComponents.Editors.ComboItem itemActivo;
         private DevComponents.Editors.ComboItem itemEliminado;
         private System.Windows.Forms.ToolTip ttMensaje;
+        private DevComponents.DotNetBar.LabelX labelX34;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtDireccionCorta;
     }
 }

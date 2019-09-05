@@ -73,7 +73,7 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sSql = "";
-                sSql += "select ws_envio_pruebas, ws_consulta_pruebas, ws_envio_produccion, ws_consulta_produccion" + Environment.NewLine;
+                sSql += "select wsdl_pruebas, url_pruebas, wsdl_produccion, url_produccion" + Environment.NewLine;
                 sSql += "from cel_parametro" + Environment.NewLine;
                 sSql += "where estado = 'A'";
 
@@ -86,10 +86,10 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        sWSEnvioPruebas = dtConsulta.Rows[0]["ws_envio_pruebas"].ToString();
-                        sWSConsultaPruebas = dtConsulta.Rows[0]["ws_consulta_pruebas"].ToString();
-                        sWSEnvioProduccion = dtConsulta.Rows[0]["ws_envio_produccion"].ToString();
-                        sWSConsultaProduccion = dtConsulta.Rows[0]["ws_consulta_produccion"].ToString();
+                        sWSEnvioPruebas = dtConsulta.Rows[0]["wsdl_pruebas"].ToString();
+                        sWSConsultaPruebas = dtConsulta.Rows[0]["url_pruebas"].ToString();
+                        sWSEnvioProduccion = dtConsulta.Rows[0]["wsdl_produccion"].ToString();
+                        sWSConsultaProduccion = dtConsulta.Rows[0]["url_produccion"].ToString();
                     }
 
                     else

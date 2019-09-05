@@ -213,7 +213,7 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "direccionMatriz, Telefono, Fax, Ciudad, Pais, nombrecomercial," + Environment.NewLine;
                 sSql += "numeroresolucioncontribuyenteespecial, obligadollevarcontabilidad," + Environment.NewLine;
                 sSql += "archivologo, id_tipo_emision, tiempodeespera, id_tipo_ambiente," + Environment.NewLine;
-                sSql += "id_tipo_certificado_digital, Estado, IdEmpresa" + Environment.NewLine;
+                sSql += "id_tipo_certificado_digital, Estado, IdEmpresa, direccion_corta" + Environment.NewLine;
                 sSql += "from sis_empresa" + Environment.NewLine;
                 sSql += "where estado ='A'" + Environment.NewLine;
                 sSql += "and idempresa = " + Program.iIdEmpresa;
@@ -268,6 +268,7 @@ namespace Palatium.Facturacion_Electronica
                             cmbEstado.SelectedIndex = 1;
 
                         iIdEmpresa = Convert.ToInt32(dtConsulta.Rows[0][24].ToString());
+                        txtDireccionCorta.Text = dtConsulta.Rows[0]["direccion_corta"].ToString().ToUpper();
                         bActualizar = true;
                         txtRUC.Focus();
 
@@ -311,6 +312,7 @@ namespace Palatium.Facturacion_Electronica
             txtContadorGeneral.Clear();
             txtRUCContador.Clear();
             txtMatriculaContador.Clear();
+            txtDireccionCorta.Clear();
             chkContabilidad.Checked = false;
             cmbEstado.SelectedIndex = 0;
             llenarTipoAmbiente();
@@ -342,7 +344,7 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "id_tipo_certificado_digital, id_tipo_ambiente, numeropatronal," + Environment.NewLine;
                 sSql += "actividadeconomica, sectormunicipal, ciudad, pais, gerentegeneral," + Environment.NewLine;
                 sSql += "contadorgeneral, ruccontador, matriculacontador, estado," + Environment.NewLine;
-                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
+                sSql += "fecha_ingreso, usuario_ingreso, terminal_ingreso, direccion_corta)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
                 sSql += "'" + txtRUC.Text.Trim() + "', '" + txtCodigoEmpresa.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "'" + txtRazonSocial.Text.Trim() + "', '" + txtNombreComercial.Text.Trim() + "'," + Environment.NewLine;
@@ -367,7 +369,7 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "'" + txtPais.Text.Trim() + "', '" + txtGerenteGeneral.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "'" + txtContadorGeneral.Text.Trim() + "', '" + txtRUCContador.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "'" + txtMatriculaContador.Text.Trim() + "', 'A', GETDATE(), "  + Environment.NewLine;
-                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "')";
+                sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', '" + txtDireccionCorta.Text.Trim().ToUpper() + "')";
 
                 //EJECUTA EL QUERY DE INSERCIÓN
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -441,9 +443,10 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "contadorGeneral = '" + txtContadorGeneral.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "rucContador = '" + txtRUCContador.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "matriculaContador = '" + txtMatriculaContador.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "direccion_corta = '" + txtDireccionCorta.Text.Trim().ToUpper() + "'" + Environment.NewLine;
                 //sSql += "usuario_ingreso = '" + Program.sDatosMaximo[0] + "'," + Environment.NewLine;
                 //sSql += "terminal_ingreso= '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql += "fecha_ingreso= GETDATE()" + Environment.NewLine;
+                //sSql += "fecha_ingreso= GETDATE()" + Environment.NewLine;
                 sSql += "where idEmpresa = " + iIdEmpresa;
 
                 //EJECUTA EL QUERY DE ACTUALIZACION

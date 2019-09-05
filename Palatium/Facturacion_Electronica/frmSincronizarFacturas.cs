@@ -145,10 +145,10 @@ namespace Palatium.Facturacion_Electronica
                 P_Ln_correo_puerto_smtp = 0;
 
                 sSql = "";
-                sSql += "select correo_que_envia,correo_con_copia," + Environment.NewLine;
+                sSql += "select correo_que_envia, correo_con_copia," + Environment.NewLine;
                 sSql += "correo_consumidor_final,correo_ambiente_prueba,correo_palabra_clave," + Environment.NewLine;
-                sSql += "correo_smtp,correo_puerto, maneja_SSL, ws_envio_pruebas," + Environment.NewLine;
-                sSql += "ws_consulta_pruebas, ws_envio_produccion, ws_consulta_produccion" + Environment.NewLine;
+                sSql += "correo_smtp,correo_puerto, maneja_SSL, wsdl_pruebas," + Environment.NewLine;
+                sSql += "url_pruebas, wsdl_produccion, url_produccion" + Environment.NewLine;
                 sSql += "from cel_parametro" + Environment.NewLine;
                 sSql += "where estado = 'A'";
 
@@ -170,10 +170,10 @@ namespace Palatium.Facturacion_Electronica
                         P_St_correo_server_smtp = conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][5].ToString(), "");
                         P_Ln_correo_puerto_smtp = Convert.ToInt64(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][6].ToString(), "0"));
                         P_In_maneja_SSL = Convert.ToInt32(conexion.GFun_Va_Valor_Defecto(dtConsulta.Rows[0][7].ToString(), "0"));
-                        sWSEnvioPruebas = dtConsulta.Rows[0]["ws_envio_pruebas"].ToString();
-                        sWSConsultaPruebas = dtConsulta.Rows[0]["ws_consulta_pruebas"].ToString();
-                        sWSEnvioProduccion = dtConsulta.Rows[0]["ws_envio_produccion"].ToString();
-                        sWSConsultaProduccion = dtConsulta.Rows[0]["ws_consulta_produccion"].ToString();
+                        sWSEnvioPruebas = dtConsulta.Rows[0]["wsdl_pruebas"].ToString();
+                        sWSConsultaPruebas = dtConsulta.Rows[0]["url_pruebas"].ToString();
+                        sWSEnvioProduccion = dtConsulta.Rows[0]["wsdl_produccion"].ToString();
+                        sWSConsultaProduccion = dtConsulta.Rows[0]["url_produccion"].ToString();
                     }
                 }
 

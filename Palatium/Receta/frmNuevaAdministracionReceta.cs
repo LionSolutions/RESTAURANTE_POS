@@ -310,6 +310,7 @@ namespace Palatium.Receta
             txtNumeroPorciones.Text = "";
             txtDescripcion.Text = "";
             txtCodigo.Text = "";
+            txtPesoGramos.Text = "";
             dbAyudaReceta.txtIdentificacion.Text = "";
             dbAyudaReceta.txtDatos.Text = "";
             cmbClasificacion.SelectedIndex = 0;
@@ -395,6 +396,13 @@ namespace Palatium.Receta
                     iBandera = 1;
                 }
 
+                else if (txtPesoGramos.Text.Trim() == "")
+                {
+                    mensaje("el peso en gramos del plato");
+                    txtCodigo.Focus();
+                    iBandera = 1;
+                }
+
                 if (iBandera == 1) return false; else return true;
             }
 
@@ -460,6 +468,8 @@ namespace Palatium.Receta
                     txtPorcentajeServicioDeseado.Text = dbPorcentajeServicios.ToString("N2");
                     decimal dbPorcentajeUtilidad = Convert.ToDecimal(dtConsulta.Rows[0]["porcentaje_utilidad"].ToString());
                     txtCostoTotal.Text = dbPorcentajeUtilidad.ToString("N2");
+
+                    txtPesoGramos.Text = Convert.ToDouble(dtConsulta.Rows[0]["peso_en_gramos"].ToString()).ToString("N2");
 
                     completarDetalleReceta(iIdReceta);
 
@@ -558,7 +568,7 @@ namespace Palatium.Receta
                 sSql += "rendimiento, num_porciones, precio_de_venta, costo_unitario," + Environment.NewLine;
                 sSql += "porcentaje_costo, porcentaje_utilidad, utilidad_de_servicios," + Environment.NewLine;
                 sSql += "utilidad_de_ganancias, costo_total, estado, fecha_ingreso," + Environment.NewLine;
-                sSql += "usuario_ingreso, terminal_ingreso, codigo, porcentaje_servicios, utilidad)" + Environment.NewLine;
+                sSql += "usuario_ingreso, terminal_ingreso, codigo, porcentaje_servicios, utilidad, peso_en_gramos)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += Program.iIdEmpresa + ", " + cmbReceta.SelectedValue + ", " + cmbClasificacion.SelectedValue + "," + Environment.NewLine;
                 sSql += cmbOrigen.SelectedValue + ", " + cmbTemperaturaDeServicio.SelectedValue + "," + Environment.NewLine;
@@ -568,7 +578,8 @@ namespace Palatium.Receta
                 sSql += dbPorcentajeDeUtilidad + ", " + dbUtilidadDeServicios + "," + Environment.NewLine;
                 sSql += dbUtilidadDeGanancias + ", " + dbCostoTotalTotal + ", 'A', GETDATE()," + Environment.NewLine;
                 sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "'," + Environment.NewLine;
-                sSql += "'" + txtCodigo.Text + "', " + dbPorcentajeGananciaServicioDeseado + ", " + dbPorcentajeGananciaDeseada + ")";
+                sSql += "'" + txtCodigo.Text + "', " + dbPorcentajeGananciaServicioDeseado + "," + Environment.NewLine;
+                sSql += dbPorcentajeGananciaDeseada + ", " + Convert.ToDecimal(txtPesoGramos.Text.Trim()) + ")";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
@@ -687,7 +698,8 @@ namespace Palatium.Receta
                     sSql += "utilidad_de_ganancias = " + dbUtilidadDeGanancias + "," + Environment.NewLine;
                     sSql += "costo_total = " + dbCostoTotalTotal + "," + Environment.NewLine;
                     sSql += "porcentaje_servicios =" + dbPorcentajeGananciaServicioDeseado + "," + Environment.NewLine;
-                    sSql += "porcentaje_utilidad =" + dbPorcentajeGananciaDeseada + Environment.NewLine;
+                    sSql += "porcentaje_utilidad =" + dbPorcentajeGananciaDeseada + "," + Environment.NewLine;
+                    sSql += "peso_en_gramos = " + Convert.ToDecimal(txtPesoGramos.Text.Trim()) + Environment.NewLine;
                     sSql += "where id_pos_receta = " + iIdReceta;
 
                     if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -1180,5 +1192,10 @@ namespace Palatium.Receta
         {
             caracter.soloNumeros(e);
         }
+
+        private void txtPesoGramos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            caracter.soloDecimales(sender, e, 2);
+       } 
     }
 }

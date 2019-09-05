@@ -89,6 +89,8 @@
             this.fbRuta = new System.Windows.Forms.OpenFileDialog();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.cmbTipoComprobante = new MisControles.ComboDatos();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.txtCorreoElectronicoDefault = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -99,6 +101,7 @@
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -295,7 +298,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Size = new System.Drawing.Size(602, 54);
+            this.groupBox3.Size = new System.Drawing.Size(602, 46);
             this.groupBox3.TabIndex = 43;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Facturación Eléctrónica";
@@ -304,7 +307,7 @@
             // 
             this.chkFacturacionElectronica.AutoSize = true;
             this.chkFacturacionElectronica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkFacturacionElectronica.Location = new System.Drawing.Point(34, 24);
+            this.chkFacturacionElectronica.Location = new System.Drawing.Point(34, 22);
             this.chkFacturacionElectronica.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkFacturacionElectronica.Name = "chkFacturacionElectronica";
             this.chkFacturacionElectronica.Size = new System.Drawing.Size(278, 20);
@@ -316,7 +319,7 @@
             // 
             this.groupBox2.Controls.Add(this.chkHabilitarDecimal);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(315, 64);
+            this.groupBox2.Location = new System.Drawing.Point(315, 52);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -346,11 +349,11 @@
             this.groupBox4.Controls.Add(this.dBAyudaModificadores);
             this.groupBox4.Controls.Add(this.dBAyudaMovilizacion);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox4.Location = new System.Drawing.Point(315, 110);
+            this.groupBox4.Location = new System.Drawing.Point(315, 94);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox4.Size = new System.Drawing.Size(607, 114);
+            this.groupBox4.Size = new System.Drawing.Size(607, 105);
             this.groupBox4.TabIndex = 44;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Modificadores, Domicilio y Nuevo Ítem en Pos";
@@ -359,7 +362,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label9.Location = new System.Drawing.Point(13, 83);
+            this.label9.Location = new System.Drawing.Point(13, 75);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 16);
@@ -370,7 +373,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label8.Location = new System.Drawing.Point(13, 55);
+            this.label8.Location = new System.Drawing.Point(13, 51);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 16);
@@ -392,7 +395,7 @@
             // 
             this.dBAyudaNuevoItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dBAyudaNuevoItem.iId = 0;
-            this.dBAyudaNuevoItem.Location = new System.Drawing.Point(141, 80);
+            this.dBAyudaNuevoItem.Location = new System.Drawing.Point(141, 72);
             this.dBAyudaNuevoItem.Name = "dBAyudaNuevoItem";
             this.dBAyudaNuevoItem.sCodigo = null;
             this.dBAyudaNuevoItem.Size = new System.Drawing.Size(461, 19);
@@ -414,7 +417,7 @@
             // 
             this.dBAyudaMovilizacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dBAyudaMovilizacion.iId = 0;
-            this.dBAyudaMovilizacion.Location = new System.Drawing.Point(141, 52);
+            this.dBAyudaMovilizacion.Location = new System.Drawing.Point(141, 48);
             this.dBAyudaMovilizacion.Name = "dBAyudaMovilizacion";
             this.dBAyudaMovilizacion.sCodigo = null;
             this.dBAyudaMovilizacion.Size = new System.Drawing.Size(461, 19);
@@ -428,11 +431,11 @@
             this.groupBox5.Controls.Add(this.txtRuta);
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox5.Location = new System.Drawing.Point(315, 230);
+            this.groupBox5.Location = new System.Drawing.Point(315, 200);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox5.Size = new System.Drawing.Size(607, 74);
+            this.groupBox5.Size = new System.Drawing.Size(607, 56);
             this.groupBox5.TabIndex = 45;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Logo Menú Prinicipal";
@@ -441,7 +444,7 @@
             // 
             this.btnRemover.BackColor = System.Drawing.Color.Red;
             this.btnRemover.ForeColor = System.Drawing.Color.Black;
-            this.btnRemover.Location = new System.Drawing.Point(552, 25);
+            this.btnRemover.Location = new System.Drawing.Point(552, 19);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(38, 30);
             this.btnRemover.TabIndex = 47;
@@ -453,7 +456,7 @@
             // 
             this.btnExaminar.BackColor = System.Drawing.Color.Yellow;
             this.btnExaminar.ForeColor = System.Drawing.Color.Black;
-            this.btnExaminar.Location = new System.Drawing.Point(517, 25);
+            this.btnExaminar.Location = new System.Drawing.Point(517, 19);
             this.btnExaminar.Name = "btnExaminar";
             this.btnExaminar.Size = new System.Drawing.Size(38, 30);
             this.btnExaminar.TabIndex = 46;
@@ -465,7 +468,7 @@
             // 
             this.txtRuta.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.txtRuta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRuta.Location = new System.Drawing.Point(62, 30);
+            this.txtRuta.Location = new System.Drawing.Point(62, 24);
             this.txtRuta.Name = "txtRuta";
             this.txtRuta.ReadOnly = true;
             this.txtRuta.Size = new System.Drawing.Size(449, 22);
@@ -474,7 +477,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 34);
+            this.label7.Location = new System.Drawing.Point(13, 28);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 15);
             this.label7.TabIndex = 11;
@@ -484,7 +487,7 @@
             // 
             this.chkSeleccionMesero.AutoSize = true;
             this.chkSeleccionMesero.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSeleccionMesero.Location = new System.Drawing.Point(298, 64);
+            this.chkSeleccionMesero.Location = new System.Drawing.Point(298, 58);
             this.chkSeleccionMesero.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkSeleccionMesero.Name = "chkSeleccionMesero";
             this.chkSeleccionMesero.Size = new System.Drawing.Size(361, 19);
@@ -503,7 +506,7 @@
             this.groupBox7.Controls.Add(this.chkUsuariosLogin);
             this.groupBox7.Controls.Add(this.chkVistaPrevia);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox7.Location = new System.Drawing.Point(13, 306);
+            this.groupBox7.Location = new System.Drawing.Point(13, 311);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -516,7 +519,7 @@
             // 
             this.chkDisenioMesas.AutoSize = true;
             this.chkDisenioMesas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDisenioMesas.Location = new System.Drawing.Point(678, 44);
+            this.chkDisenioMesas.Location = new System.Drawing.Point(678, 41);
             this.chkDisenioMesas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkDisenioMesas.Name = "chkDisenioMesas";
             this.chkDisenioMesas.Size = new System.Drawing.Size(190, 19);
@@ -540,7 +543,7 @@
             // 
             this.chkRecetas.AutoSize = true;
             this.chkRecetas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkRecetas.Location = new System.Drawing.Point(20, 64);
+            this.chkRecetas.Location = new System.Drawing.Point(20, 58);
             this.chkRecetas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkRecetas.Name = "chkRecetas";
             this.chkRecetas.Size = new System.Drawing.Size(112, 19);
@@ -552,7 +555,7 @@
             // 
             this.chkDemo.AutoSize = true;
             this.chkDemo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDemo.Location = new System.Drawing.Point(298, 44);
+            this.chkDemo.Location = new System.Drawing.Point(298, 41);
             this.chkDemo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkDemo.Name = "chkDemo";
             this.chkDemo.Size = new System.Drawing.Size(116, 19);
@@ -576,7 +579,7 @@
             // 
             this.chkUsuariosLogin.AutoSize = true;
             this.chkUsuariosLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUsuariosLogin.Location = new System.Drawing.Point(20, 44);
+            this.chkUsuariosLogin.Location = new System.Drawing.Point(20, 41);
             this.chkUsuariosLogin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkUsuariosLogin.Name = "chkUsuariosLogin";
             this.chkUsuariosLogin.Size = new System.Drawing.Size(196, 19);
@@ -810,6 +813,30 @@
             this.cmbTipoComprobante.Size = new System.Drawing.Size(204, 23);
             this.cmbTipoComprobante.TabIndex = 53;
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.txtCorreoElectronicoDefault);
+            this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox11.Location = new System.Drawing.Point(315, 262);
+            this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox11.Size = new System.Drawing.Size(607, 50);
+            this.groupBox11.TabIndex = 48;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Correo Electrónico Default *";
+            // 
+            // txtCorreoElectronicoDefault
+            // 
+            this.txtCorreoElectronicoDefault.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtCorreoElectronicoDefault.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtCorreoElectronicoDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCorreoElectronicoDefault.Location = new System.Drawing.Point(62, 21);
+            this.txtCorreoElectronicoDefault.MaxLength = 200;
+            this.txtCorreoElectronicoDefault.Name = "txtCorreoElectronicoDefault";
+            this.txtCorreoElectronicoDefault.Size = new System.Drawing.Size(449, 22);
+            this.txtCorreoElectronicoDefault.TabIndex = 12;
+            // 
             // frmParametros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -817,6 +844,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(930, 563);
+            this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
@@ -853,6 +881,8 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -920,5 +950,7 @@
         private System.Windows.Forms.OpenFileDialog fbRuta;
         private System.Windows.Forms.GroupBox groupBox10;
         private MisControles.ComboDatos cmbTipoComprobante;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox txtCorreoElectronicoDefault;
     }
 }

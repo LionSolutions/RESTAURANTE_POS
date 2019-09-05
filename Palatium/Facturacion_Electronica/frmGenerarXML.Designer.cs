@@ -123,6 +123,7 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRefrescar = new System.Windows.Forms.Button();
             this.tabDatosFactura.SuspendLayout();
             this.tabDatosRegistro.SuspendLayout();
             this.tabEspecificaciones.SuspendLayout();
@@ -156,7 +157,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(295, 26);
+            this.label1.Location = new System.Drawing.Point(385, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 15);
             this.label1.TabIndex = 6;
@@ -165,7 +166,7 @@
             // dbAyudaFacturas
             // 
             this.dbAyudaFacturas.iId = 0;
-            this.dbAyudaFacturas.Location = new System.Drawing.Point(352, 26);
+            this.dbAyudaFacturas.Location = new System.Drawing.Point(442, 28);
             this.dbAyudaFacturas.Name = "dbAyudaFacturas";
             this.dbAyudaFacturas.sCodigo = null;
             this.dbAyudaFacturas.Size = new System.Drawing.Size(451, 20);
@@ -1091,7 +1092,7 @@
             // 
             this.btnOKFactura.BackColor = System.Drawing.Color.Blue;
             this.btnOKFactura.ForeColor = System.Drawing.Color.White;
-            this.btnOKFactura.Location = new System.Drawing.Point(809, 20);
+            this.btnOKFactura.Location = new System.Drawing.Point(899, 22);
             this.btnOKFactura.Name = "btnOKFactura";
             this.btnOKFactura.Size = new System.Drawing.Size(56, 29);
             this.btnOKFactura.TabIndex = 63;
@@ -1150,6 +1151,17 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnRefrescar.ForeColor = System.Drawing.Color.White;
+            this.btnRefrescar.Location = new System.Drawing.Point(270, 22);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(88, 29);
+            this.btnRefrescar.TabIndex = 94;
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.UseVisualStyleBackColor = false;
+            // 
             // frmGenerarXML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1157,6 +1169,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1048, 626);
+            this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.txtMail);
@@ -1291,5 +1304,6 @@
         private System.Windows.Forms.ToolTip ttMensaje;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnRefrescar;
     }
 }

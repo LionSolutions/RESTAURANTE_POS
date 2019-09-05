@@ -149,6 +149,15 @@ namespace Palatium.Parametros
                 return false;
             }
 
+            else if (txtCorreoElectronicoDefault.Text.Trim() == "")
+            {
+                ok.lblMensaje.Text = "Favor ingrese un correo electrónico default para el sistema.";
+                ok.ShowDialog();
+                txtCorreoElectronicoDefault.Focus();
+                return false;
+            }
+
+
             else if (Convert.ToInt32(this.cmbTipoComprobante.SelectedValue) == 0)
             {
                 ok.lblMensaje.Text = "Favor seleccione el tipo de comprobante para Notas de Entrega.";
@@ -185,7 +194,8 @@ namespace Palatium.Parametros
                 sSql += "codigo_modificador, logo, seleccion_mesero, vista_previa_impresion," + Environment.NewLine;
                 sSql += "opcion_login, habilitar_teclado_touch, demo, descarga_receta,)" + Environment.NewLine;
                 sSql += "contacto_fabricante, sitio_web_fabricante, animacion_mesas," + Environment.NewLine;
-                sSql += "url_contabilidad, rise, numero_personas_default, ruta_reportes, idtipocomprobante)" + Environment.NewLine;
+                sSql += "url_contabilidad, rise, numero_personas_default, ruta_reportes," + Environment.NewLine;
+                sSql += "idtipocomprobante, correo_electronico_default)" + Environment.NewLine;
                 sSql += "values (" + Environment.NewLine;
                 sSql += dBAyudaModificadores.iId + ", " + dBAyudaMovilizacion.iId + ", " + dBAyudaNuevoItem.iId + "," + Environment.NewLine;
                 sSql += Convert.ToDouble(txtIva.Text) + ", " + Convert.ToDouble(txtIce.Text) + "," + Environment.NewLine;
@@ -198,7 +208,8 @@ namespace Palatium.Parametros
                 sSql += iVistaPreviaImpresiones + ", " + iUsuarioLogin + ", " + iTecladoTouch + ", " + iVesionDemo + ", " + iUsarReceta + Environment.NewLine;
                 sSql += "'" + txtTelefono.Text.Trim() + "', '" + txtSitioWeb.Text.Trim().ToLower() + "'," + Environment.NewLine;
                 sSql += iAnimacionMesas + ", '" + txtUrlContable.Text.Trim() + "', " + iRISE + "," + Environment.NewLine;
-                sSql += Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + ", '" + txtUrlContable.Text.Trim() + "', " + cmbTipoComprobante.SelectedValue +")";
+                sSql += Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + ", '" + txtUrlContable.Text.Trim() + "'," + Environment.NewLine;
+                sSql += cmbTipoComprobante.SelectedValue + ", '" + txtCorreoElectronicoDefault.Text.Trim().ToLower() + "')";
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                 {
@@ -275,7 +286,8 @@ namespace Palatium.Parametros
                 sSql += "rise = " + iRISE + "," + Environment.NewLine;
                 sSql += "numero_personas_default = " + Convert.ToInt32(txtNumeroPersonas.Text.Trim()) + "," + Environment.NewLine;
                 sSql += "ruta_reportes = '" + txtUrlReportes.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "idtipocomprobante = " + cmbTipoComprobante.SelectedValue + Environment.NewLine;
+                sSql += "idtipocomprobante = " + cmbTipoComprobante.SelectedValue + "," + Environment.NewLine;
+                sSql += "correo_electronico_default = '" + txtCorreoElectronicoDefault.Text.Trim().ToLower() + "'" + Environment.NewLine;
                 sSql += "where id_pos_parametro = " + iIdParametro;
 
                 if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -292,6 +304,11 @@ namespace Palatium.Parametros
                 //Application.Restart();
 
                 string sMensaje = parametros.cargarParametros();
+
+                if (Program.iFacturacionElectronica == 1)
+                {
+                    parametros.cargarParametrosFacturacionElectronica();
+                }
 
                 if (sMensaje != "")
                 {

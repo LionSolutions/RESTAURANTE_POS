@@ -18,6 +18,8 @@ namespace Palatium.Facturacion_Electronica
         VentanasMensajes.frmMensajeNuevoCatch catchMensaje = new VentanasMensajes.frmMensajeNuevoCatch();
         VentanasMensajes.frmMensajeNuevoSiNo NuevoSiNo = new VentanasMensajes.frmMensajeNuevoSiNo();
 
+        Clases.ClaseCargarParametros parametros = new Clases.ClaseCargarParametros();
+
         DataTable dtConsulta;
 
         bool bRespuesta;
@@ -44,8 +46,8 @@ namespace Palatium.Facturacion_Electronica
                 sSql = "";
                 sSql += "select correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
                 sSql += "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
-                sSql += "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
-                sSql += "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba, wsdl_pruebas, url_pruebas," + Environment.NewLine;
+                sSql += "wsdl_produccion, url_produccion, certificado_ruta," + Environment.NewLine;
                 sSql += "certificado_palabra_clave, Estado, id_cel_parametro, maneja_ssl" + Environment.NewLine;
                 sSql += "from cel_parametro" + Environment.NewLine;
                 sSql += "where estado in ('A', 'N')";
@@ -59,19 +61,19 @@ namespace Palatium.Facturacion_Electronica
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        txtCuenta.Text = dtConsulta.Rows[0][0].ToString();
-                        txtPasswordCuenta.Text = dtConsulta.Rows[0][1].ToString();
-                        txtSmtp.Text = dtConsulta.Rows[0][2].ToString();
-                        txtPuerto.Text = dtConsulta.Rows[0][3].ToString();
-                        txtCorreoCopia.Text = dtConsulta.Rows[0][4].ToString();
-                        txtCorreoConsumidorFinal.Text = dtConsulta.Rows[0][5].ToString();
-                        txtCorreoAmbientePruebas.Text = dtConsulta.Rows[0][6].ToString();
-                        txtEnvioPruebas.Text = dtConsulta.Rows[0][7].ToString();
-                        txtConsultaPruebas.Text = dtConsulta.Rows[0][8].ToString();
-                        txtEnvioProduccion.Text = dtConsulta.Rows[0][9].ToString();
-                        txtConsultaProduccion.Text = dtConsulta.Rows[0][10].ToString();
-                        txtRuta.Text = dtConsulta.Rows[0][11].ToString();
-                        txtPasswordCertificado.Text = dtConsulta.Rows[0][12].ToString();
+                        txtCuenta.Text = dtConsulta.Rows[0]["correo_que_envia"].ToString();
+                        txtPasswordCuenta.Text = dtConsulta.Rows[0]["correo_palabra_clave"].ToString();
+                        txtSmtp.Text = dtConsulta.Rows[0]["correo_smtp"].ToString();
+                        txtPuerto.Text = dtConsulta.Rows[0]["correo_puerto"].ToString();
+                        txtCorreoCopia.Text = dtConsulta.Rows[0]["correo_con_copia"].ToString();
+                        txtCorreoConsumidorFinal.Text = dtConsulta.Rows[0]["correo_consumidor_final"].ToString();
+                        txtCorreoAmbientePruebas.Text = dtConsulta.Rows[0]["correo_ambiente_prueba"].ToString();
+                        txtEnvioPruebas.Text = dtConsulta.Rows[0]["wsdl_pruebas"].ToString();
+                        txtConsultaPruebas.Text = dtConsulta.Rows[0]["url_pruebas"].ToString();
+                        txtEnvioProduccion.Text = dtConsulta.Rows[0]["wsdl_produccion"].ToString();
+                        txtConsultaProduccion.Text = dtConsulta.Rows[0]["url_produccion"].ToString();
+                        txtRuta.Text = dtConsulta.Rows[0]["certificado_ruta"].ToString();
+                        txtPasswordCertificado.Text = dtConsulta.Rows[0]["certificado_palabra_clave"].ToString();
 
                         if (dtConsulta.Rows[0][13].ToString() == "A")
                         {
@@ -160,8 +162,8 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "insert into cel_parametro(" + Environment.NewLine;
                 sSql += "correo_que_envia, correo_palabra_clave, correo_smtp," + Environment.NewLine;
                 sSql += "correo_puerto, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
-                sSql += "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas," + Environment.NewLine;
-                sSql += "ws_envio_produccion, ws_consulta_produccion, certificado_ruta," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba, wsdl_pruebas, url_pruebas," + Environment.NewLine;
+                sSql += "wsdl_produccion, url_produccion, certificado_ruta," + Environment.NewLine;
                 sSql += "certificado_palabra_clave, maneja_ssl, estado, fecha_ingreso," + Environment.NewLine;
                 sSql += "usuario_ingreso, terminal_ingreso)" + Environment.NewLine;
                 sSql += "values(" + Environment.NewLine;
@@ -186,6 +188,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.lblMensaje.Text = "Registro insertado éxitosamente.";
                 ok.ShowDialog();
                 cargarInformacion();
+                parametros.cargarParametrosFacturacionElectronica();
                 return;
             }
 
@@ -221,10 +224,10 @@ namespace Palatium.Facturacion_Electronica
                 sSql += "correo_con_copia = '" + txtCorreoCopia.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "correo_consumidor_final = '" + txtCorreoConsumidorFinal.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "correo_ambiente_prueba = '" + txtCorreoAmbientePruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "ws_envio_pruebas = '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "ws_consulta_pruebas = '" + txtConsultaPruebas.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "ws_envio_produccion = '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
-                sSql += "ws_consulta_produccion = '" + txtConsultaProduccion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "wsdl_pruebas = '" + txtEnvioPruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "url_pruebas = '" + txtConsultaPruebas.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "wsdl_produccion = '" + txtEnvioProduccion.Text.Trim() + "'," + Environment.NewLine;
+                sSql += "url_produccion = '" + txtConsultaProduccion.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "certificado_ruta = '" + txtRuta.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "certificado_palabra_clave = '" + txtPasswordCertificado.Text.Trim() + "'," + Environment.NewLine;
                 sSql += "maneja_ssl = " + iManejaSSL + "," + Environment.NewLine;
@@ -243,6 +246,7 @@ namespace Palatium.Facturacion_Electronica
                 ok.lblMensaje.Text = "Registro actualizado éxitosamente.";
                 ok.ShowDialog();
                 cargarInformacion();
+                parametros.cargarParametrosFacturacionElectronica();
                 return;
             }
 

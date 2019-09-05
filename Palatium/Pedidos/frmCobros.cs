@@ -42,6 +42,10 @@ namespace Palatium.Pedidos
          string sMovimiento;
          string sSecuencial;
          string sNumeroOrden;
+         string sEstablecimiento;
+         string sPuntoEmision;
+         string sClaveAcceso;
+
          long iMaximo;
 
          DataTable dtConsulta;
@@ -768,7 +772,7 @@ namespace Palatium.Pedidos
                  sSql += "P.numero_factura, P.numeronotaentrega, P.numeromovimientocaja, P.id_localidad_impresora" + Environment.NewLine;
                  sSql += "from tp_localidades L, tp_localidades_impresoras P " + Environment.NewLine;
                  sSql += "where L.id_localidad = P.id_localidad" + Environment.NewLine;
-                 sSql += "and L.id_localidad = " + (object)Program.iIdLocalidad + Environment.NewLine;
+                 sSql += "and L.id_localidad = " + Program.iIdLocalidad + Environment.NewLine;
                  sSql += "and L.estado = 'A'" + Environment.NewLine;
                  sSql += "and P.estado = 'A'";
 
@@ -788,6 +792,9 @@ namespace Palatium.Pedidos
                      else
                      {
                          txtfacturacion.Text = dtConsulta.Rows[0]["establecimiento"].ToString() + "-" + dtConsulta.Rows[0]["punto_emision"].ToString();
+
+                         sEstablecimiento = dtConsulta.Rows[0]["establecimiento"].ToString();
+                         sPuntoEmision = dtConsulta.Rows[0]["punto_emision"].ToString();
 
                          if (rdbFactura.Checked)
                          {
@@ -2899,9 +2906,10 @@ namespace Palatium.Pedidos
                      iIdTipoComprobante = Program.iComprobanteNotaEntrega;
                  }
 
-                 if (Program.iFacturacionElectronica != 0)
+                 if (Program.iFacturacionElectronica == 1)
                  {
                      iFacturaElectronica_P = 1;
+                     sClaveAcceso = sGenerarClaveAcceso();
                  }
 
                  else
@@ -2917,7 +2925,7 @@ namespace Palatium.Pedidos
                  sSql += "fecha_factura, fecha_vcto, cg_moneda, valor, cg_estado_factura, editable, fecha_ingreso, " + Environment.NewLine;
                  sSql += "usuario_ingreso, terminal_ingreso, estado, numero_replica_trigger, numero_control_replica, " + Environment.NewLine;
                  sSql += "Direccion_Factura,Telefono_Factura,Ciudad_Factura, correo_electronico, servicio," + Environment.NewLine;
-                 sSql += "facturaelectronica, id_tipo_emision, id_tipo_ambiente)" + Environment.NewLine;
+                 sSql += "facturaelectronica, id_tipo_emision, id_tipo_ambiente, clave_acceso)" + Environment.NewLine;
                  sSql += "values(" + Environment.NewLine;
                  sSql += Program.iIdEmpresa + ", " + iIdPersona + ", " + Program.iCgEmpresa + "," + Environment.NewLine;
                  sSql += iIdTipoComprobante + "," + Program.iIdLocalidad + ", " + Program.iIdFormularioSri + ", " + Program.iIdVendedor + ", " + iIdFormaPago_1 + ", " + Environment.NewLine;
@@ -2944,7 +2952,17 @@ namespace Palatium.Pedidos
                  sSql += "'" + sFecha_P + "', '" + sFecha_P + "', " + Program.iMoneda + ", " + dTotal + ", 0, 0, GETDATE()," + Environment.NewLine;
                  sSql += "'" + Program.sDatosMaximo[0] + "', '" + Program.sDatosMaximo[1] + "', 'A', 1, 0," + Environment.NewLine;
                  sSql += "'" + txtDireccion.Text.Trim() + "', '" + txtTelefono.Text + "', '" + sCiudad + "'," + Environment.NewLine;
-                 sSql += "'" + txtMail.Text.Trim() + "', " + dServicio + ", " + iFacturaElectronica_P + ", " + iIdTipoEmision + ", " + iIdTipoAmbiente + ")";
+                 sSql += "'" + txtMail.Text.Trim() + "', " + dServicio + ", " + iFacturaElectronica_P + ", " + iIdTipoEmision + ", " + iIdTipoAmbiente + "," + Environment.NewLine;
+
+                 if (iFacturaElectronica_P == 1)
+                 {
+                     sSql += "'" + sClaveAcceso + "')";
+                 }
+
+                 else
+                 {
+                     sSql += "null)";
+                 }
                  
                  if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                  {
@@ -3193,6 +3211,62 @@ namespace Palatium.Pedidos
              }
          }
 
+        //FUNCION PARA CREAR LA CLAVE DE ACCESO
+        private string sGenerarClaveAcceso()
+         {
+             //GENERAR CLAVE DE ACCESO
+             string sClaveAcceso_R = "";
+             string sFecha_R = Program.sFechaSistema.ToString("ddMMyyyy");
+             string TipoComprobante = "01";
+             string NumeroRuc = Program.sNumeroRucEmisor;
+             string TipoAmbiente = Program.iTipoAmbiente.ToString();
+             string TipoEmision = Program.iTipoEmision.ToString();
+             string Serie = sEstablecimiento + sPuntoEmision;
+             string NumeroComprobante = TxtNumeroFactura.Text.Trim().PadLeft(9, '0');
+             string DigitoVerificador = "";
+             string CodigoNumerico = "12345678";
+
+             sClaveAcceso_R += sFecha_R + TipoComprobante + NumeroRuc + TipoAmbiente;
+             sClaveAcceso_R += Serie + NumeroComprobante + CodigoNumerico + TipoEmision;
+
+             DigitoVerificador = sDigitoVerificarModulo11(sClaveAcceso_R);
+             sClaveAcceso_R += DigitoVerificador;
+             return sClaveAcceso_R;
+             //FIN CALVE ACCESO
+         }
+
+        //FUNCION PARA EL MODULO 11
+        //FUNCION PARA EL DIGITO VERIFICADOR MODULO 11
+        private string sDigitoVerificarModulo11(string sClaveAcceso)
+        {
+            Int32 suma = 0;
+            int inicio = 7;
+
+            for (int i = 0; i < sClaveAcceso.Length; i++)
+            {
+                suma = suma + Convert.ToInt32(sClaveAcceso.Substring(i, 1)) * inicio;
+                inicio--;
+                if (inicio == 1)
+                    inicio = 7;
+            }
+
+            Decimal modulo = suma % 11;
+            suma = 11 - Convert.ToInt32(modulo);
+
+            if (suma == 11)
+            {
+                suma = 0;
+            }
+            else if (suma == 10)
+            {
+                suma = 1;
+            }
+            //sClaveAcceso = sClaveAcceso + Convert.ToString(suma);
+
+            return suma.ToString();
+        }
+
+        //FUNCION PARA CREAR UN DATATABLE
          private void crearDataTable()
          {
              try

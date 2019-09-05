@@ -43,7 +43,7 @@ namespace Palatium.Clases
                         }
                     }
 
-                    else
+                    else 
                     {
                         sRetorno += "".PadRight(iInicio, ' ') + sCadena.Substring(i) + Environment.NewLine;
                     }

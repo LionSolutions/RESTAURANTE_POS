@@ -528,6 +528,8 @@ namespace Palatium.Oficina
                         dgvDatos.Columns[9].Visible = false;
                         //dgvDatos.Columns[10].Visible = false;
                     }
+
+                    dgvDatos.ClearSelection();
                 }
 
                 else

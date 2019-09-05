@@ -33,7 +33,8 @@ namespace Palatium.Clases
                 sSql += "id_producto_item, animacion_mesas, rise, isnull(url_contabilidad, '') url_contabilidad," + Environment.NewLine;
                 sSql += "precio_incluye_impuesto, descuenta_iva, maneja_nomina, maneja_almuerzos," + Environment.NewLine;
                 sSql += "isnull(numero_personas_default, 0) numero_personas_default, ruta_reportes," + Environment.NewLine;
-                sSql += "aplica_recargo_tarjetas, porcentaje_recargo_tarjetas, idtipocomprobante" + Environment.NewLine;
+                sSql += "aplica_recargo_tarjetas, porcentaje_recargo_tarjetas, idtipocomprobante," + Environment.NewLine;
+                sSql += "isnull(correo_electronico_default, '') correo_electronico_default" + Environment.NewLine;
                 sSql += "from pos_parametro where estado = 'A'";
 
                 dtConsulta = new DataTable();
@@ -80,6 +81,7 @@ namespace Palatium.Clases
                         Program.iAplicaRecargoTarjeta = Convert.ToInt32(dtConsulta.Rows[0][32].ToString());
                         Program.dbPorcentajeRecargoTarjeta = Convert.ToDecimal(dtConsulta.Rows[0][33].ToString()) / 100;
                         Program.iComprobanteNotaEntrega = Convert.ToInt32(dtConsulta.Rows[0]["idtipocomprobante"].ToString());
+                        Program.sCorreoElectronicoDefault = dtConsulta.Rows[0]["correo_electronico_default"].ToString();
 
                         fechaSistema();
 
@@ -409,7 +411,7 @@ namespace Palatium.Clases
             {
                 sSql = "";
                 sSql += "select id_tipo_ambiente, id_tipo_emision," + Environment.NewLine;
-                sSql += "id_tipo_certificado_digital" + Environment.NewLine;
+                sSql += "id_tipo_certificado_digital, numeroruc" + Environment.NewLine;
                 sSql += "from sis_empresa" + Environment.NewLine;
                 sSql += "where idempresa = " + Program.iIdEmpresa;
 
@@ -425,6 +427,7 @@ namespace Palatium.Clases
                         Program.iTipoAmbiente = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_ambiente"].ToString());
                         Program.iTipoEmision = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_emision"].ToString());
                         Program.iTipoCertificado = Convert.ToInt32(dtConsulta.Rows[0]["id_tipo_certificado_digital"].ToString());
+                        Program.sNumeroRucEmisor = dtConsulta.Rows[0]["numeroruc"].ToString().Trim();
 
                         if (Program.iTipoAmbiente == 0)
                         {
@@ -466,7 +469,7 @@ namespace Palatium.Clases
                 sSql = "";
                 sSql += "select certificado_ruta, certificado_palabra_clave, correo_smtp, correo_puerto," + Environment.NewLine;
                 sSql += "correo_que_envia, correo_palabra_clave, correo_con_copia, correo_consumidor_final," + Environment.NewLine;
-                sSql += "correo_ambiente_prueba, ws_envio_pruebas, ws_consulta_pruebas, ws_envio_produccion, ws_consulta_produccion," + Environment.NewLine;
+                sSql += "correo_ambiente_prueba, wsdl_pruebas, url_pruebas, wsdl_produccion, url_produccion," + Environment.NewLine;
                 sSql += "maneja_SSL" + Environment.NewLine;
                 sSql += "from cel_parametro" + Environment.NewLine;
                 sSql += "where estado = 'A'";
@@ -480,10 +483,10 @@ namespace Palatium.Clases
                 {
                     if (dtConsulta.Rows.Count > 0)
                     {
-                        Program.sWebServiceEnvioPruebas = dtConsulta.Rows[0]["ws_envio_pruebas"].ToString();
-                        Program.sWebServiceConsultaPruebas = dtConsulta.Rows[0]["ws_consulta_pruebas"].ToString();
-                        Program.sWebServiceEnvioProduccion = dtConsulta.Rows[0]["ws_envio_produccion"].ToString();
-                        Program.sWebServiceConsultaProduccion = dtConsulta.Rows[0]["ws_consulta_produccion"].ToString();
+                        Program.sWebServiceEnvioPruebas = dtConsulta.Rows[0]["wsdl_pruebas"].ToString();
+                        Program.sWebServiceConsultaPruebas = dtConsulta.Rows[0]["url_pruebas"].ToString();
+                        Program.sWebServiceEnvioProduccion = dtConsulta.Rows[0]["wsdl_produccion"].ToString();
+                        Program.sWebServiceConsultaProduccion = dtConsulta.Rows[0]["url_produccion"].ToString();
                         Program.sRutaCertificado = dtConsulta.Rows[0]["certificado_ruta"].ToString();
                         Program.sClaveCertificado = dtConsulta.Rows[0]["certificado_palabra_clave"].ToString();
                         Program.sCorreoSmtp = dtConsulta.Rows[0]["correo_smtp"].ToString();

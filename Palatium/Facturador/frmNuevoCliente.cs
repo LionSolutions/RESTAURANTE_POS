@@ -870,5 +870,10 @@ namespace Palatium.Facturador
         {
             txtIdentificacion.Focus();
         }
+
+        private void btnCorreoElectronicoDefault_Click(object sender, EventArgs e)
+        {
+            txtMail.Text = Program.sCorreoElectronicoDefault;
+        }
     }
 }

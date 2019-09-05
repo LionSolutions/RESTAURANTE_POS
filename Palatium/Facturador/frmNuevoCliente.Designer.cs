@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNuevoCliente));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCorreoElectronicoDefault = new System.Windows.Forms.Button();
             this.chkPasaporte = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -60,6 +62,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -67,6 +70,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnCorreoElectronicoDefault);
             this.groupBox2.Controls.Add(this.chkPasaporte);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label10);
@@ -89,6 +93,22 @@
             this.groupBox2.TabIndex = 125;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del Cliente";
+            // 
+            // btnCorreoElectronicoDefault
+            // 
+            this.btnCorreoElectronicoDefault.AutoSize = true;
+            this.btnCorreoElectronicoDefault.FlatAppearance.BorderSize = 0;
+            this.btnCorreoElectronicoDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCorreoElectronicoDefault.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCorreoElectronicoDefault.Image = global::Palatium.Properties.Resources.mail_default;
+            this.btnCorreoElectronicoDefault.Location = new System.Drawing.Point(451, 153);
+            this.btnCorreoElectronicoDefault.Name = "btnCorreoElectronicoDefault";
+            this.btnCorreoElectronicoDefault.Size = new System.Drawing.Size(36, 33);
+            this.btnCorreoElectronicoDefault.TabIndex = 168;
+            this.toolTip1.SetToolTip(this.btnCorreoElectronicoDefault, "Clic aquí para agregar el correo electrónico configurado en el sistema");
+            this.btnCorreoElectronicoDefault.UseVisualStyleBackColor = true;
+            this.btnCorreoElectronicoDefault.Visible = false;
+            this.btnCorreoElectronicoDefault.Click += new System.EventHandler(this.btnCorreoElectronicoDefault_Click);
             // 
             // chkPasaporte
             // 
@@ -142,7 +162,7 @@
             this.txtMail.Location = new System.Drawing.Point(135, 160);
             this.txtMail.MaxLength = 50;
             this.txtMail.Name = "txtMail";
-            this.txtMail.Size = new System.Drawing.Size(352, 22);
+            this.txtMail.Size = new System.Drawing.Size(316, 22);
             this.txtMail.TabIndex = 4;
             // 
             // label8
@@ -493,5 +513,7 @@
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.TextBox txtIdentificacion;
         public System.Windows.Forms.CheckBox chkPasaporte;
+        private System.Windows.Forms.Button btnCorreoElectronicoDefault;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

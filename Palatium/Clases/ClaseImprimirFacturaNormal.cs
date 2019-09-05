@@ -122,9 +122,17 @@ namespace Palatium.Clases
                     sTexto += dtConsulta.Rows[0]["mesa"].ToString().PadRight(7, ' ') + ": " + sSeccionMesa.PadRight(13, ' ') + "  No. Personas: " + dtConsulta.Rows[0]["numero_personas"].ToString() + Environment.NewLine;
                 }
 
-                sNombreCliente = (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim();
+                if (dtConsulta.Rows[0]["tipo_persona"].ToString() == "J")
+                {
+                    sNombreCliente = (dtConsulta.Rows[0]["apellidos"].ToString() + " " + dtConsulta.Rows[0]["nombres"].ToString()).Trim();
+                }
 
-                if (sNombreCliente.Length <= 30)
+                else
+                {
+                    sNombreCliente = (dtConsulta.Rows[0]["nombres"].ToString() + " " + dtConsulta.Rows[0]["apellidos"].ToString()).Trim();
+                }
+
+                if (sNombreCliente.Length <= 31)
                 {
                     sTexto += "CLIENTE:".PadRight(9, ' ') + sNombreCliente + Environment.NewLine;
                 }
