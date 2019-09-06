@@ -57,6 +57,7 @@ namespace Palatium.Facturacion_Electronica
         string sArchivoEnviar;
         string sClaveAcceso;
         string filename;
+        string filenameRide;
         string miXMl;
         string sVersion = "1.0";
         string sUTF = "utf-8";
@@ -592,6 +593,8 @@ namespace Palatium.Facturacion_Electronica
                         dgvDatos.Rows.Clear();
                         lblCuentaRegistros.Text = dgvDatos.Rows.Count.ToString() + " Registros Encontrados.";
                     }
+
+                    dgvDatos.ClearSelection();
                 }
 
                 else
@@ -845,15 +848,14 @@ namespace Palatium.Facturacion_Electronica
                         dgvDatos.Rows[iFila_P].Cells["colEstado"].Style.BackColor = Color.Red;
                         filename = Path.Combine(sDirNoAutorizados, filename);
                     }
-                    
 
                     xmlAutorizado(respuesta, filename, sNumeroDocumento_P);
-                    actualizarDatos(respuesta.FechaAutorizacion.Substring(0,10) + " " + respuesta.FechaAutorizacion.Substring(11, 8), iIdFactura_P, respuesta.NumeroAutorizacion);
+                    //actualizarDatos(respuesta.FechaAutorizacion.Substring(0,10) + " " + respuesta.FechaAutorizacion.Substring(11, 8), iIdFactura_P, respuesta.NumeroAutorizacion);
+                    actualizarDatos(Convert.ToDateTime(respuesta.FechaAutorizacion).ToString("yyyy-MM-dd HH:mm:ss"), iIdFactura_P, respuesta.NumeroAutorizacion);
 
-                    //ENVIAR A FUNCION PARA CREAR EL PDF
-                    filename = Path.GetFileNameWithoutExtension(sNumeroDocumento_P) + ".pdf";
-                    filename = Path.Combine(sDirAutorizados, filename);
-                    crearRide(filename, iIdFactura_P, sNumeroDocumento);
+                    //DECLARAR VARIABLES PARA CREAR EL PDF
+                    filenameRide = Path.GetFileNameWithoutExtension(sNumeroDocumento_P) + ".pdf";
+                    filenameRide = Path.Combine(sDirAutorizados, filenameRide);                    
 
                     return true;
                 }
@@ -873,19 +875,19 @@ namespace Palatium.Facturacion_Electronica
         }
 
         //CREAR RIDE
-        private void crearRide(string filename, long iIdFactura_P, string sNumeroDocumento)
+        private void crearRide(long iIdFactura_P, string sNumeroDocumento)
         {
             try
             {
                 dtConsulta = new DataTable();
-                dtConsulta.Clear();
+                dtConsulta.Clear();                
 
                 bRespuesta = conexion.GFun_Lo_Genera_Ride(dtConsulta, iIdFactura_P);
 
                 if (bRespuesta == true)
                 {
-                    //bRespuesta = ride.generarRide(dtConsulta, filename, iIdFactura_P);
-                    bRespuesta = ride_2.generarRide(dtConsulta, filename, iIdFactura_P);
+                    //bRespuesta = ride.generarRide(dtConsulta, filenameRide, iIdFactura_P);
+                    bRespuesta = ride_2.generarRide(dtConsulta, filenameRide, iIdFactura_P);
 
                     if (bRespuesta == false)
                     {
@@ -919,7 +921,7 @@ namespace Palatium.Facturacion_Electronica
                 autorizacion.Add(new XElement("numeroAutorizacion", sri.NumeroAutorizacion));
                 autorizacion.Add(new XElement("fechaAutorizacion", sri.FechaAutorizacion));
                 autorizacion.Add(new XElement("ambiente", sri.Ambiente));
-                autorizacion.Add(new XElement("comprobante", new XCData(miXMl)));
+                autorizacion.Add(new XElement("comprobante", new XCData(sri.Comprobante)));
                 autorizacion.Add(new XElement("mensajes", sri.ErrorMensaje));
                 xml.Add(autorizacion);
 
@@ -1092,10 +1094,12 @@ namespace Palatium.Facturacion_Electronica
         }
         
         //FUNCION PARA ENVIAR AL CORREO ELECTRONICO
-        private bool enviarMail(int iFila_P, string sNumeroDocumento_P)
+        private bool enviarMail(int iFila_P, long iIdFactura_P, string sNumeroDocumento_P)
         {
             try
             {
+                crearRide(iIdFactura_P, sNumeroDocumento);
+
                 sCorreoCliente = dgvDatos.Rows[iFila_P].Cells["colMail"].Value.ToString();
                 sAsuntoMail = P_St_nombre_comercial + ", Envio de Comprobante electrónico " + sNumeroDocumento_P;
                 srutaXML =  sDirAutorizados + @"\" + sNumeroDocumento_P + ".xml";
@@ -1400,7 +1404,9 @@ namespace Palatium.Facturacion_Electronica
 
                                     iNumeroIntentos++;
                                 }
-                                
+
+                                Thread.Sleep(1500);
+
                                 // PASO 4.- INVOCAR A FUNCION PARA CONSULTAR LA AUTORIZACION DEL SRI
                                 task = new Task<bool>(() => consultarArchivoXML(sNumeroDocumento, Convert.ToInt64(dgvDatos.Rows[i].Cells["colIdFactura"].Value), i));
                                 task.Start();
@@ -1428,7 +1434,7 @@ namespace Palatium.Facturacion_Electronica
 
 
                                 //PASO 5.- ENVIAR AL CORREO ELECTRONICO DEL CLIENTE
-                                task = new Task<bool>(() =>enviarMail(i, sNumeroDocumento));
+                                task = new Task<bool>(() =>enviarMail(i, Convert.ToInt64(dgvDatos.Rows[i].Cells["colIdFactura"].Value), sNumeroDocumento));
                                 task.Start();
                                 dgvDatos.Rows[i].Cells["colEstado"].Value = "Enviando al correo...";
                                 bConsulta = await task;

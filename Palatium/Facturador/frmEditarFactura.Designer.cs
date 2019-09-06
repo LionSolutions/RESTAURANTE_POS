@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditarFactura));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnEditarFactura = new System.Windows.Forms.Button();
@@ -69,6 +70,8 @@
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblTipoComprobante = new System.Windows.Forms.Label();
+            this.btnCorreoElectronicoDefault = new System.Windows.Forms.Button();
+            this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -343,6 +346,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnCorreoElectronicoDefault);
             this.groupBox2.Controls.Add(this.chkPasaporte);
             this.groupBox2.Controls.Add(this.btnEditar);
             this.groupBox2.Controls.Add(this.btnBuscar);
@@ -500,7 +504,7 @@
             this.txtMail.MaxLength = 50;
             this.txtMail.Name = "txtMail";
             this.txtMail.ReadOnly = true;
-            this.txtMail.Size = new System.Drawing.Size(430, 26);
+            this.txtMail.Size = new System.Drawing.Size(388, 26);
             this.txtMail.TabIndex = 11;
             // 
             // txtDireccion
@@ -568,6 +572,21 @@
             this.lblTipoComprobante.TabIndex = 14;
             this.lblTipoComprobante.Text = "Comprobante";
             this.lblTipoComprobante.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCorreoElectronicoDefault
+            // 
+            this.btnCorreoElectronicoDefault.AutoSize = true;
+            this.btnCorreoElectronicoDefault.FlatAppearance.BorderSize = 0;
+            this.btnCorreoElectronicoDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCorreoElectronicoDefault.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCorreoElectronicoDefault.Image = global::Palatium.Properties.Resources.mail_default;
+            this.btnCorreoElectronicoDefault.Location = new System.Drawing.Point(533, 220);
+            this.btnCorreoElectronicoDefault.Name = "btnCorreoElectronicoDefault";
+            this.btnCorreoElectronicoDefault.Size = new System.Drawing.Size(36, 33);
+            this.btnCorreoElectronicoDefault.TabIndex = 169;
+            this.ttMensaje.SetToolTip(this.btnCorreoElectronicoDefault, "Clic aquí para agregar el correo electrónico de la empresa para la facturación.");
+            this.btnCorreoElectronicoDefault.UseVisualStyleBackColor = true;
+            this.btnCorreoElectronicoDefault.Click += new System.EventHandler(this.btnCorreoElectronicoDefault_Click);
             // 
             // frmEditarFactura
             // 
@@ -647,5 +666,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lblTipoComprobante;
         private System.Windows.Forms.CheckBox chkPasaporte;
+        private System.Windows.Forms.Button btnCorreoElectronicoDefault;
+        private System.Windows.Forms.ToolTip ttMensaje;
     }
 }

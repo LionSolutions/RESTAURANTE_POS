@@ -64,6 +64,7 @@
             this.ttMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.btnOcultar = new System.Windows.Forms.Button();
             this.btnMostrar = new System.Windows.Forms.Button();
+            this.btnCorreoElectronicoDefault = new System.Windows.Forms.Button();
             this.grupoDatos.SuspendLayout();
             this.grupoCliente.SuspendLayout();
             this.grupoBotones.SuspendLayout();
@@ -176,6 +177,7 @@
             // 
             // grupoCliente
             // 
+            this.grupoCliente.Controls.Add(this.btnCorreoElectronicoDefault);
             this.grupoCliente.Controls.Add(this.chkPasaporte);
             this.grupoCliente.Controls.Add(this.btnEditar);
             this.grupoCliente.Controls.Add(this.btnBuscarCliente);
@@ -334,7 +336,7 @@
             this.txtMail.MaxLength = 50;
             this.txtMail.Name = "txtMail";
             this.txtMail.ReadOnly = true;
-            this.txtMail.Size = new System.Drawing.Size(467, 26);
+            this.txtMail.Size = new System.Drawing.Size(426, 26);
             this.txtMail.TabIndex = 11;
             // 
             // txtDireccion
@@ -525,6 +527,22 @@
             this.btnMostrar.Visible = false;
             this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
             // 
+            // btnCorreoElectronicoDefault
+            // 
+            this.btnCorreoElectronicoDefault.AutoSize = true;
+            this.btnCorreoElectronicoDefault.FlatAppearance.BorderSize = 0;
+            this.btnCorreoElectronicoDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCorreoElectronicoDefault.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCorreoElectronicoDefault.Image = global::Palatium.Properties.Resources.mail_default;
+            this.btnCorreoElectronicoDefault.Location = new System.Drawing.Point(574, 218);
+            this.btnCorreoElectronicoDefault.Name = "btnCorreoElectronicoDefault";
+            this.btnCorreoElectronicoDefault.Size = new System.Drawing.Size(36, 33);
+            this.btnCorreoElectronicoDefault.TabIndex = 170;
+            this.ttMensaje.SetToolTip(this.btnCorreoElectronicoDefault, "Clic aquí para añadir el correo electrónico de la empresa al cliente, solo para f" +
+        "acturación.");
+            this.btnCorreoElectronicoDefault.UseVisualStyleBackColor = true;
+            this.btnCorreoElectronicoDefault.Click += new System.EventHandler(this.btnCorreoElectronicoDefault_Click);
+            // 
             // frmEditarDatosClienteFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -594,5 +612,6 @@
         private System.Windows.Forms.Button btnMostrar;
         private System.Windows.Forms.Button btnOcultar;
         private System.Windows.Forms.ToolTip ttMensaje;
+        private System.Windows.Forms.Button btnCorreoElectronicoDefault;
     }
 }

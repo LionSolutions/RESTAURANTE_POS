@@ -331,6 +331,38 @@ namespace Palatium
             {
                 Button botonImprimir = sender as Button;
 
+                //FUNCION PARA VERIFICAR SI LA COMANDA YA FUE COBRADA
+                //=====================================================================================
+                sSql = "";
+                sSql += "select estado_orden" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where id_pedido = " + Convert.ToInt32(botonImprimir.Tag) + Environment.NewLine;
+                sSql += "and estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == false)
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                    return;
+                }
+
+                string sEstado_R = dtConsulta.Rows[0]["estado_orden"].ToString().Trim().ToUpper();
+
+                if (sEstado_R == "PAGADA")
+                {
+                    ok.LblMensaje.Text = "La comanda ya ha sido cobrada.";
+                    ok.ShowDialog();
+                    this.Close();
+                    return;
+                }
+
+                //=====================================================================================
+
                 //INICIAMOS UNA NUEVA TRANSACCION
                 if (!conexion.GFun_Lo_Maneja_Transaccion(Program.G_INICIA_TRANSACCION))
                 {
@@ -375,6 +407,38 @@ namespace Palatium
                 if (Program.iPuedeCobrar == 1)
                 {
                     Button botonpagos = sender as Button;
+
+                    //FUNCION PARA VERIFICAR SI LA COMANDA YA FUE COBRADA
+                    //=====================================================================================
+                    sSql = "";
+                    sSql += "select estado_orden" + Environment.NewLine;
+                    sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+                    sSql += "where id_pedido = " + Convert.ToInt32(botonpagos.Tag) + Environment.NewLine;
+                    sSql += "and estado = 'A'";
+
+                    dtConsulta = new DataTable();
+                    dtConsulta.Clear();
+
+                    bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                    if (bRespuesta == false)
+                    {
+                        catchMensaje.LblMensaje.Text = "ERROR EN LA INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                        catchMensaje.ShowDialog();
+                        return;
+                    }
+
+                    string sEstado_R = dtConsulta.Rows[0]["estado_orden"].ToString().Trim().ToUpper();
+
+                    if (sEstado_R == "PAGADA")
+                    {
+                        ok.LblMensaje.Text = "La comanda ya ha sido cobrada.";
+                        ok.ShowDialog();
+                        this.Close();
+                        return;
+                    }
+
+                    //=====================================================================================
 
                     dSubtotal = 0;
                     dIVA = 0;
@@ -517,6 +581,40 @@ namespace Palatium
             try
             {
                 listaSelecionada = sender as TextBox;
+
+                //FUNCION PARA VERIFICAR SI LA COMANDA YA FUE COBRADA
+                //=====================================================================================
+                sSql = "";
+                sSql += "select estado_orden" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos" + Environment.NewLine;
+                sSql += "where id_pedido = " + Convert.ToInt32(listaSelecionada.Tag) + Environment.NewLine;
+                sSql += "and estado = 'A'";
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == false)
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                    return;
+                }
+
+                string sEstado_R = dtConsulta.Rows[0]["estado_orden"].ToString().Trim().ToUpper();
+
+                if (sEstado_R == "PAGADA")
+                {
+                    ok.LblMensaje.Text = "La comanda ya ha sido cobrada.";
+                    ok.ShowDialog();
+                    this.Close();
+                    return;
+                }
+
+                //=====================================================================================
+
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
 

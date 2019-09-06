@@ -942,11 +942,21 @@ namespace Palatium.Facturador
             {
                 ok.LblMensaje.Text = "Favor ingrese los datos del cliente para la factura.";
                 ok.ShowDialog();
+                return;
             }
-            else
+
+            if (Program.iFacturacionElectronica == 1)
             {
-                actualizarCliente();
+                if (txtMail.Text.Trim() == "")
+                {
+                    ok.LblMensaje.Text = "Debe ingresar un correo electrónico para enviar el comprobante electrónico.";
+                    ok.ShowDialog();
+                    btnCorreoElectronicoDefault.Focus();
+                    return;
+                }
             }
+
+            actualizarCliente();
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -1061,6 +1071,11 @@ namespace Palatium.Facturador
         private void btnSalir_MouseLeave(object sender, EventArgs e)
         {
             salidaBoton(btnSalir);
+        }
+
+        private void btnCorreoElectronicoDefault_Click(object sender, EventArgs e)
+        {
+            txtMail.Text = Program.sCorreoElectronicoDefault;
         }
     }
 }

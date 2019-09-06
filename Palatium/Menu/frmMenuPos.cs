@@ -275,8 +275,8 @@ namespace Palatium.Menú
 
             catch (Exception ex)
             {
-                ok.LblMensaje.Text = ex.ToString();
-                ok.ShowDialog();
+                catchMensaje.LblMensaje.Text = ex.ToString();
+                catchMensaje.ShowDialog();
             }
         }
 

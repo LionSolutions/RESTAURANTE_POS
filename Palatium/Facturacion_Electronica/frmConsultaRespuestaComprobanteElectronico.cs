@@ -394,7 +394,7 @@ namespace Palatium.Facturacion_Electronica
                 autorizacion.Add(new XElement("numeroAutorizacion", sri.NumeroAutorizacion));
                 autorizacion.Add(new XElement("fechaAutorizacion", sri.FechaAutorizacion));
                 autorizacion.Add(new XElement("ambiente", sri.Ambiente));
-                autorizacion.Add(new XElement("comprobante", new XCData(miXMl)));
+                autorizacion.Add(new XElement("comprobante", new XCData(sri.Comprobante)));
                 autorizacion.Add(new XElement("mensajes", sri.ErrorMensaje));
                 xml.Add(autorizacion);
 

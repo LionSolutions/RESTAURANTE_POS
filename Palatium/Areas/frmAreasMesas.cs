@@ -1317,7 +1317,9 @@ namespace Palatium.Áreas
                 timer1.Enabled = false;
             }
 
-            timerBlink.Start();         
+            timerBlink.Start();
+
+            this.ActiveControl = lblPisos;
         }
 
         private void btnActualizar_MouseEnter(object sender, EventArgs e)

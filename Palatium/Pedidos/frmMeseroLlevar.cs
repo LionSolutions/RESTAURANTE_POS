@@ -102,12 +102,12 @@ namespace Palatium.Pedidos
                         boton[i, j].MouseLeave += boton_mouse_leave;
                         boton[i, j].BackColor = Color.Transparent;
                         boton[i, j].ForeColor = Color.White;
-                        boton[i, j].FlatAppearance.BorderSize = 0;
+                        boton[i, j].FlatAppearance.BorderSize = 2;
                         boton[i, j].FlatStyle = FlatStyle.Flat;
                         boton[i, j].Cursor = Cursors.Hand;
                         boton[i, j].Font = new Font("Arial", 12, FontStyle.Bold);
-                        boton[i, j].BackgroundImage = Properties.Resources.boton;
-                        boton[i, j].BackgroundImageLayout = ImageLayout.Stretch;
+                        boton[i, j].ForeColor = Color.White;
+                        boton[i, j].BackColor = Color.Navy;
                         boton[i, j].Width = 125;
                         boton[i, j].Height = 75;
                         boton[i, j].Top = i * 75;

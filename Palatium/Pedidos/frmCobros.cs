@@ -4132,6 +4132,17 @@ namespace Palatium.Pedidos
                  return;
              }
 
+             if (Program.iFacturacionElectronica == 1)
+             {
+                 if (txtMail.Text.Trim() == "")
+                 {
+                     ok.LblMensaje.Text = "Debe ingresar un correo electrónico para enviar el comprobante electrónico.";
+                     ok.ShowDialog();
+                     btnCorreoElectronicoDefault.Focus();
+                     return;
+                 }
+             }
+
              if (Convert.ToDouble(dgvDetalleDeuda.Rows[1].Cells[1].Value) == 0)
              {
                  crearPagosFactura();
@@ -4320,6 +4331,11 @@ namespace Palatium.Pedidos
                  this.DialogResult = DialogResult.OK;
                  this.Close();
              }
+         }
+
+         private void btnCorreoElectronicoDefault_Click(object sender, EventArgs e)
+         {
+             txtMail.Text = Program.sCorreoElectronicoDefault;
          }
     }
 }

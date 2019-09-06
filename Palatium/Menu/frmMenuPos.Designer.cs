@@ -570,6 +570,7 @@
             this.btnAcerca.TabStop = true;
             this.btnAcerca.Text = "Acerca de";
             this.ttMensaje.SetToolTip(this.btnAcerca, "Clic aquí para abrir la página web del fabricante");
+            this.btnAcerca.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnAcerca_LinkClicked);
             // 
             // btnCambioOrigen
             // 

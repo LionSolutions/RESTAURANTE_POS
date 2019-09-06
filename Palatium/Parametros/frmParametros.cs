@@ -418,6 +418,7 @@ namespace Palatium.Parametros
                         txtNumeroPersonas.Text = dtConsulta.Rows[0][33].ToString();
                         txtUrlReportes.Text = dtConsulta.Rows[0][34].ToString();
                         cmbTipoComprobante.SelectedValue = dtConsulta.Rows[0]["idtipocomprobante"].ToString();
+                        txtCorreoElectronicoDefault.Text = dtConsulta.Rows[0]["correo_electronico_default"].ToString();
 
                         if (iLeerMesero == 1)
                         {

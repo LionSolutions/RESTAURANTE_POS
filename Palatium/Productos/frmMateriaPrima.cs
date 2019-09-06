@@ -380,6 +380,7 @@ namespace Palatium.Productos
             rdbReferenciaInsumos.Checked = false;
             dbAyudaReceta.limpiar();
 
+            txtCodigo.Enabled = true;
             btnAgregar.Text = "Nuevo";
             btnEliminar.Enabled = false;
             llenarGrid(0);

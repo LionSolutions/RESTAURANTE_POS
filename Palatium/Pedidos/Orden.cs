@@ -4612,6 +4612,8 @@ namespace Palatium
             lblEtiquetaIVA.Text = "IVA " + (Program.iva * 100).ToString() + "%";
 
             dgvPedido.ClearSelection();
+
+            this.ActiveControl = label6;
         }
 
         private void btnRegresar_Click(object sender, EventArgs e)

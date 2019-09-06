@@ -112,10 +112,11 @@ namespace Palatium.Empresa
 
                 return true;
             }
+
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                int num = (int)catchMensaje.ShowDialog();
+                catchMensaje.ShowDialog();
                 return false;
             }
         }
@@ -254,6 +255,7 @@ namespace Palatium.Empresa
 
                 return true;
             }
+
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();

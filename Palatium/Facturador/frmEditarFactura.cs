@@ -1851,20 +1851,29 @@ namespace Palatium.Facturador
             {
                 ok.LblMensaje.Text = "Favor ingrese los datos del cliente para la factura.";
                 ok.ShowDialog();
+                return;
             }
 
-            else
+            if (Program.iFacturacionElectronica == 1)
             {
-                MotivosCancelacion.frmMotivoAnulacionFactura anulacion = new MotivosCancelacion.frmMotivoAnulacionFactura();
-                anulacion.lblEtiqueta.Text = "Favor ingrese el motivo de edición de la factura.";
-                anulacion.ShowDialog();
-
-                if (anulacion.DialogResult == DialogResult.OK)
+                if (txtMail.Text.Trim() == "")
                 {
-                    sMotivoAnulacion = anulacion.sMotivoAnulacion;
-                    anulacion.Close();
-                    grabarRegistro();
+                    ok.LblMensaje.Text = "Debe ingresar un correo electrónico para enviar el comprobante electrónico.";
+                    ok.ShowDialog();
+                    btnCorreoElectronicoDefault.Focus();
+                    return;
                 }
+            }
+
+            MotivosCancelacion.frmMotivoAnulacionFactura anulacion = new MotivosCancelacion.frmMotivoAnulacionFactura();
+            anulacion.lblEtiqueta.Text = "Favor ingrese el motivo de edición de la factura.";
+            anulacion.ShowDialog();
+
+            if (anulacion.DialogResult == DialogResult.OK)
+            {
+                sMotivoAnulacion = anulacion.sMotivoAnulacion;
+                anulacion.Close();
+                grabarRegistro();
             }
         }
 
@@ -1963,6 +1972,11 @@ namespace Palatium.Facturador
                 btnGuardar.Focus();
                 controlClientes.Close();
             }
+        }
+
+        private void btnCorreoElectronicoDefault_Click(object sender, EventArgs e)
+        {
+            txtMail.Text = Program.sCorreoElectronicoDefault;
         }
     }
 }
