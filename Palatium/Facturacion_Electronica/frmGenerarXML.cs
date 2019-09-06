@@ -625,13 +625,16 @@ namespace Palatium.Facturacion_Electronica
 
                     if (bRespuesta == true)
                     {
-                        bRespuesta = ride.generarRide(dtConsulta, "", dbAyudaFacturas.iId);
+                        //bRespuesta = ride.generarRide(dtConsulta, "", dbAyudaFacturas.iId);
 
-                        if (bRespuesta == false)
-                        {
-                            ok.LblMensaje.Text = "Error al crear el reporte RIDE de la factura ";
-                            ok.ShowDialog();
-                        }
+                        //if (bRespuesta == false)
+                        //{
+                        //    ok.LblMensaje.Text = "Error al crear el reporte RIDE de la factura ";
+                        //    ok.ShowDialog();
+                        //}
+
+                        Facturacion_Electronica.frmVistaPreviaFacturaElectronica vista = new frmVistaPreviaFacturaElectronica(dtConsulta, "", dbAyudaFacturas.iId);
+                        vista.ShowDialog();
                     }
 
                     this.Cursor = Cursors.Default;

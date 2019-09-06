@@ -107,7 +107,6 @@
             this.btnCorreoElectronicoDefault.TabIndex = 168;
             this.toolTip1.SetToolTip(this.btnCorreoElectronicoDefault, "Clic aquí para agregar el correo electrónico configurado en el sistema");
             this.btnCorreoElectronicoDefault.UseVisualStyleBackColor = true;
-            this.btnCorreoElectronicoDefault.Visible = false;
             this.btnCorreoElectronicoDefault.Click += new System.EventHandler(this.btnCorreoElectronicoDefault_Click);
             // 
             // chkPasaporte

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Reporting.WinForms;
+using System.IO;
 
 namespace Palatium.Clases_Factura_Electronica
 {
@@ -91,6 +93,12 @@ namespace Palatium.Clases_Factura_Electronica
                 sClaveAcceso = dtDatos.Rows[0]["clave_acceso"].ToString();
                 sFechaAutorizacion = dtDatos.Rows[0]["fecha_autorizacion"].ToString();
                 sHoraAutorizacion = dtDatos.Rows[0]["hora_autorizacion"].ToString();
+
+                if (sHoraAutorizacion.Trim() == "")
+                {
+                    sHoraAutorizacion = DateTime.Now.ToString();
+                }
+                
                 sAmbiente = dtDatos.Rows[0]["ambiente"].ToString();
                 sEmision = dtDatos.Rows[0]["emision"].ToString();
                 sFechaFactura = dtDatos.Rows[0]["fecha_factura"].ToString();
@@ -104,11 +112,7 @@ namespace Palatium.Clases_Factura_Electronica
                 sCajero = dtDatos.Rows[0]["cajero"].ToString();
                 sFormaPagoSRI = dtDatos.Rows[0]["descripcion_sri_forma_pago"].ToString();
                 sNumeroFactura = dtDatos.Rows[0]["estab"].ToString() + "-" + dtDatos.Rows[0]["ptoemi"].ToString() + "-" + dtDatos.Rows[0]["numero_factura"].ToString().PadLeft(9, '0');
-                sNombreCliente = (dtDatos.Rows[0]["nombres"].ToString() + " " + dtDatos.Rows[0]["apellidos"].ToString()).Trim();
-                sNombreProducto = dtDatos.Rows[0]["nombre"].ToString();
-
-                iPagaIVA = Convert.ToInt32(dtDatos.Rows[0]["paga_iva"].ToString());
-                iPagaICE = Convert.ToInt32(dtDatos.Rows[0]["paga_ice"].ToString());
+                sNombreCliente = (dtDatos.Rows[0]["nombres"].ToString() + " " + dtDatos.Rows[0]["apellidos"].ToString()).Trim();                
 
                 dbPorcentajeIVA = Convert.ToDecimal(dtDatos.Rows[0]["porcentaje_iva"].ToString());
                 dbPropina = Convert.ToDecimal(dtDatos.Rows[0]["propina"].ToString());
@@ -123,6 +127,7 @@ namespace Palatium.Clases_Factura_Electronica
 
                 for (int i = 0; i < dtDatos.Rows.Count; i++)
                 {
+                    sNombreProducto = dtDatos.Rows[i]["nombre"].ToString();
                     iPagaIVA = Convert.ToInt32(dtDatos.Rows[i]["paga_iva"].ToString());
                     iPagaICE = Convert.ToInt32(dtDatos.Rows[i]["paga_ice"].ToString());
 
@@ -207,8 +212,20 @@ namespace Palatium.Clases_Factura_Electronica
                 dt.Rows[0]["subtotal_sin_iva"] = dbSubtotalSinIva;
                 dt.Rows[0]["suma_sin_impuestos"] = dbSubtotalConIva + dbSubtotalSinIva;
 
-                
+                ReportViewer reporte = new ReportViewer();
+                LocalReport objeto = new LocalReport();
+                reporte.LocalReport.ReportEmbeddedResource = "Palatium.Facturacion_Electronica.rptRIDE.rdlc";
+                ReportDataSource reporteSource = new ReportDataSource("dsRide", dt);
+                reporte.LocalReport.DataSources.Clear();
+                reporte.LocalReport.DataSources.Add(reporteSource);
+                reporte.LocalReport.Refresh();
+                reporte.RefreshReport();
 
+                File.WriteAllBytes(filename, reporte.LocalReport.Render("PDF"));
+
+                //byte[] bytes = reporte.LocalReport.Render("PDF");
+
+                //reporte.ReportExport
 
                 return true;
             }

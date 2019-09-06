@@ -422,6 +422,12 @@
     </Compile>
     <Compile Include="Pedidos\ClaseIngresarCobros.cs" />
     <Compile Include="Pedidos\ClasePagoCompleto.cs" />
+    <Compile Include="Pedidos\frmCambiarFormasCobros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedidos\frmCambiarFormasCobros.Designer.cs">
+      <DependentUpon>frmCambiarFormasCobros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedidos\frmCobrarAlmuerzos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2125,6 +2131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Oficina\frmRegistrarMovimientos.resx">
       <DependentUpon>frmRegistrarMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedidos\frmCambiarFormasCobros.resx">
+      <DependentUpon>frmCambiarFormasCobros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedidos\frmCobrarAlmuerzos.resx">
       <DependentUpon>frmCobrarAlmuerzos.cs</DependentUpon>

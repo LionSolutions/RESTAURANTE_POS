@@ -28,6 +28,7 @@ namespace Palatium.Facturacion_Electronica
         Clases_Factura_Electronica.ClaseConsultarXML consultar = new Clases_Factura_Electronica.ClaseConsultarXML();
         Clases_Factura_Electronica.ClaseEnviarMail correo = new Clases_Factura_Electronica.ClaseEnviarMail();
         Clases_Factura_Electronica.ClaseGenerarRIDE ride = new Clases_Factura_Electronica.ClaseGenerarRIDE();
+        Clases_Factura_Electronica.ClaseRIDE ride_2 = new Clases_Factura_Electronica.ClaseRIDE();
 
         DataTable dtConsulta;
 
@@ -883,7 +884,8 @@ namespace Palatium.Facturacion_Electronica
 
                 if (bRespuesta == true)
                 {
-                    bRespuesta = ride.generarRide(dtConsulta, filename, iIdFactura_P);
+                    //bRespuesta = ride.generarRide(dtConsulta, filename, iIdFactura_P);
+                    bRespuesta = ride_2.generarRide(dtConsulta, filename, iIdFactura_P);
 
                     if (bRespuesta == false)
                     {

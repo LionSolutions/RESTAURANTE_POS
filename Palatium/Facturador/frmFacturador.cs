@@ -665,7 +665,7 @@ namespace Palatium.Facturador
                 {
                     if (Program.iEjecutarImpresion == 1)
                     {
-                        ReportesTextBox.frmVistaFactura factura = new ReportesTextBox.frmVistaFactura(iIdFactura, 1);
+                        ReportesTextBox.frmVistaFactura factura = new ReportesTextBox.frmVistaFactura(iIdFactura, 1, 1);
                         factura.ShowDialog();
 
                         if (factura.DialogResult == DialogResult.OK)

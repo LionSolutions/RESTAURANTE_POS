@@ -965,7 +965,8 @@ namespace Palatium
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
-            PagoTarjetas pagos = new PagoTarjetas(sIdOrden, dbTotal);
+            //PagoTarjetas pagos = new PagoTarjetas(sIdOrden, dbTotal);
+            Pedidos.frmCambiarFormasCobros pagos = new Pedidos.frmCambiarFormasCobros(sIdOrden);
             pagos.ShowDialog();
 
             if (pagos.DialogResult == DialogResult.OK)

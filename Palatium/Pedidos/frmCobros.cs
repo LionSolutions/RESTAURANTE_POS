@@ -45,6 +45,7 @@ namespace Palatium.Pedidos
          string sEstablecimiento;
          string sPuntoEmision;
          string sClaveAcceso;
+         string sCorreoElectronicoCF;
 
          long iMaximo;
 
@@ -460,7 +461,7 @@ namespace Palatium.Pedidos
                          txtApellidos.Text = "CONSUMIDOR FINAL";
                          txtNombres.Text = "CONSUMIDOR FINAL";
                          txtTelefono.Text = "9999999999";
-                         txtMail.Text = "dominio@dominio.com";
+                         txtMail.Text = dtConsulta.Rows[0]["correo_electronico"].ToString();
                          txtDireccion.Text = "QUITO";
                          iIdPersona = Program.iIdPersona;
                          idTipoIdentificacion = 180;
@@ -1468,7 +1469,7 @@ namespace Palatium.Pedidos
                  if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
                  {
                      catchMensaje.LblMensaje.Text = "ERROR EN LA SIGUIENTE INSTRUCCIÓN:" + Environment.NewLine + sSql;
-                     int num = (int)catchMensaje.ShowDialog();
+                     catchMensaje.ShowDialog();
                      goto reversa;
                  }
 
@@ -1490,7 +1491,7 @@ namespace Palatium.Pedidos
 
                  if (iOp == 1)
                  {
-                     if (!actualizarMovimientosCaja())
+                     if (actualizarMovimientosCaja() == false)
                      {
                          goto reversa;
                      }
@@ -1498,8 +1499,8 @@ namespace Palatium.Pedidos
 
                  sSql = "";
                  sSql += "update cv403_cab_pedidos set" + Environment.NewLine;
-                 sSql += "recargo_tarjeta = " + (object)iBanderaRecargoBoton + "," + Environment.NewLine;
-                 sSql += "remover_iva = " + (object)iBanderaRemoverIvaBoton + Environment.NewLine;
+                 sSql += "recargo_tarjeta = " + iBanderaRecargoBoton + "," + Environment.NewLine;
+                 sSql += "remover_iva = " + iBanderaRemoverIvaBoton + Environment.NewLine;
                  sSql += "where id_pedido = " + sIdOrden;
 
                  if (!conexion.GFun_Lo_Ejecuta_SQL(sSql))
@@ -1671,7 +1672,7 @@ namespace Palatium.Pedidos
                      sTabla = "pos_movimiento_caja";
                      sCampo = "id_pos_movimiento_caja";
 
-                     iMaximo = conexion.GFun_Ln_Saca_Maximo_ID(sCampo, sTabla, "", Program.sDatosMaximo);
+                     iMaximo = conexion.GFun_Ln_Saca_Maximo_ID(sTabla, sCampo, "", Program.sDatosMaximo);
 
                      if (iMaximo == -1)
                      {
@@ -1716,7 +1717,7 @@ namespace Palatium.Pedidos
              catch (Exception ex)
              {
                  catchMensaje.LblMensaje.Text = ex.ToString();
-                 int num = (int)catchMensaje.ShowDialog();
+                 catchMensaje.ShowDialog();
                  return false;
              }
          }
@@ -2895,6 +2896,7 @@ namespace Palatium.Pedidos
                  string sFecha_P = Program.sFechaSistema.ToString("yyyy/MM/dd");
 
                  int iFacturaElectronica_P;
+                 iFacturaElectronica_P = 0;
 
                  if (rdbFactura.Checked)
                  {
@@ -2906,15 +2908,13 @@ namespace Palatium.Pedidos
                      iIdTipoComprobante = Program.iComprobanteNotaEntrega;
                  }
 
-                 if (Program.iFacturacionElectronica == 1)
+                 if (iIdTipoComprobante == 1)
                  {
-                     iFacturaElectronica_P = 1;
-                     sClaveAcceso = sGenerarClaveAcceso();
-                 }
-
-                 else
-                 {
-                     iFacturaElectronica_P = 0;
+                     if (Program.iFacturacionElectronica == 1)
+                     {
+                         iFacturaElectronica_P = 1;
+                         sClaveAcceso = sGenerarClaveAcceso();
+                     }
                  }
 
                  llenarDataTable();
@@ -3403,7 +3403,7 @@ namespace Palatium.Pedidos
                  {
                      if (Program.iEjecutarImpresion == 1)
                      {
-                         ReportesTextBox.frmVistaFactura frmVistaFactura = new ReportesTextBox.frmVistaFactura(iIdFactura, 1);
+                         ReportesTextBox.frmVistaFactura frmVistaFactura = new ReportesTextBox.frmVistaFactura(iIdFactura, 1, 1);
                          frmVistaFactura.ShowDialog();
 
                          if (frmVistaFactura.DialogResult == DialogResult.OK)
@@ -3905,7 +3905,7 @@ namespace Palatium.Pedidos
              txtApellidos.Text = "CONSUMIDOR FINAL";
              txtNombres.Text = "CONSUMIDOR FINAL";
              txtTelefono.Text = "9999999999";
-             txtMail.Text = "dominio@dominio.com";
+             txtMail.Text = Program.sCorreoElectronicoDefault;
              txtDireccion.Text = "QUITO";
              iIdPersona = Program.iIdPersona;
              idTipoIdentificacion = 180;

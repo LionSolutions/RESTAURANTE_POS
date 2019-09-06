@@ -102,6 +102,12 @@ namespace Palatium.Facturacion_Electronica
                 sClaveAcceso = dtDatos.Rows[0]["clave_acceso"].ToString();
                 sFechaAutorizacion = dtDatos.Rows[0]["fecha_autorizacion"].ToString();
                 sHoraAutorizacion = dtDatos.Rows[0]["hora_autorizacion"].ToString();
+
+                if (sHoraAutorizacion.Trim() == "")
+                {
+                    sHoraAutorizacion = DateTime.Now.ToString();
+                }
+
                 sAmbiente = dtDatos.Rows[0]["ambiente"].ToString();
                 sEmision = dtDatos.Rows[0]["emision"].ToString();
                 sFechaFactura = dtDatos.Rows[0]["fecha_factura"].ToString();
@@ -116,11 +122,7 @@ namespace Palatium.Facturacion_Electronica
                 sFormaPagoSRI = dtDatos.Rows[0]["descripcion_sri_forma_pago"].ToString();
                 sNumeroFactura = dtDatos.Rows[0]["estab"].ToString() + "-" + dtDatos.Rows[0]["ptoemi"].ToString() + "-" + dtDatos.Rows[0]["numero_factura"].ToString().PadLeft(9, '0');
                 sNombreCliente = (dtDatos.Rows[0]["nombres"].ToString() + " " + dtDatos.Rows[0]["apellidos"].ToString()).Trim();
-                sNombreProducto = dtDatos.Rows[0]["nombre"].ToString();
-
-                iPagaIVA = Convert.ToInt32(dtDatos.Rows[0]["paga_iva"].ToString());
-                iPagaICE = Convert.ToInt32(dtDatos.Rows[0]["paga_ice"].ToString());
-
+                
                 dbPorcentajeIVA = Convert.ToDecimal(dtDatos.Rows[0]["porcentaje_iva"].ToString());
                 dbPropina = Convert.ToDecimal(dtDatos.Rows[0]["propina"].ToString());
 
@@ -134,6 +136,8 @@ namespace Palatium.Facturacion_Electronica
 
                 for (int i = 0; i < dtDatos.Rows.Count; i++)
                 {
+                    sNombreProducto = dtDatos.Rows[0]["nombre"].ToString();
+
                     iPagaIVA = Convert.ToInt32(dtDatos.Rows[i]["paga_iva"].ToString());
                     iPagaICE = Convert.ToInt32(dtDatos.Rows[i]["paga_ice"].ToString());
 
@@ -219,7 +223,13 @@ namespace Palatium.Facturacion_Electronica
                 dt.Rows[0]["suma_sin_impuestos"] = dbSubtotalConIva + dbSubtotalSinIva;
 
                 //rptFacturaEletronica reporte = ProcessingMode.Local;
-
+                rptVisor.LocalReport.ReportEmbeddedResource = "Palatium.Facturacion_Electronica.rptRIDE.rdlc";
+                //rptVisor.LocalReport.ReportPath = 
+                ReportDataSource reporte = new ReportDataSource("dsRide", dt);
+                rptVisor.LocalReport.DataSources.Clear();
+                rptVisor.LocalReport.DataSources.Add(reporte);
+                rptVisor.LocalReport.Refresh();
+                rptVisor.RefreshReport();
             }
 
             catch (Exception)
@@ -232,8 +242,7 @@ namespace Palatium.Facturacion_Electronica
 
         private void frmVistaPreviaFacturaElectronica_Load(object sender, EventArgs e)
         {
-
-            this.rptVisor.RefreshReport();
+            crearReporte();
         }
     }
 }

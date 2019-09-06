@@ -36,14 +36,15 @@
             this.rptVisor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rptVisor.Location = new System.Drawing.Point(0, 0);
             this.rptVisor.Name = "rptVisor";
-            this.rptVisor.Size = new System.Drawing.Size(284, 261);
+            this.rptVisor.Size = new System.Drawing.Size(724, 607);
             this.rptVisor.TabIndex = 0;
+            this.rptVisor.ZoomPercent = 200;
             // 
             // frmVistaPreviaFacturaElectronica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(724, 607);
             this.Controls.Add(this.rptVisor);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -58,5 +59,6 @@
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer rptVisor;
+
     }
 }

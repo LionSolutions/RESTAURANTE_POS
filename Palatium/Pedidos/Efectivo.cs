@@ -230,6 +230,20 @@ namespace Palatium
         private void button13_Click(object sender, EventArgs e)
         {
             txt_valor.Text = string.Format("{0:0.00}", btnValorSugerido.Text);
+
+            if (Convert.ToDouble(txt_valor.Text) <= Convert.ToDouble(btnValorSugerido.Text))
+            {
+                dbValorGrid = Convert.ToDecimal(txt_valor.Text);
+            }
+
+            else
+            {
+                dbValorGrid = Convert.ToDecimal(btnValorSugerido.Text);
+            }
+
+            dbValorIngresado = Convert.ToDecimal(txt_valor.Text);
+            abrirPropina();
+            this.DialogResult = DialogResult.OK;
         }
 
         private void button14_Click(object sender, EventArgs e)

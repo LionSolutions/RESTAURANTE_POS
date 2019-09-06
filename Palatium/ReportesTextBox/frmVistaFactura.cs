@@ -31,6 +31,7 @@ namespace Palatium.ReportesTextBox
         int iAbrirCajon;
         int iIdFactura;
         int iIdTipoFactura;
+        int iVarios;
 
         bool bRespuesta = false;
         DataTable dtConsulta;
@@ -44,10 +45,11 @@ namespace Palatium.ReportesTextBox
         string sIpImpresora;
         string sDescripcionImpresora;
 
-        public frmVistaFactura(int iIdFactura_P, int iCerrar)
+        public frmVistaFactura(int iIdFactura_P, int iCerrar, int iVarios_P)
         {
             this.iIdFactura = iIdFactura_P;
             this.iCerrar = iCerrar;
+            this.iVarios = iVarios_P;
             InitializeComponent();
         }
 
@@ -76,7 +78,7 @@ namespace Palatium.ReportesTextBox
                     if (dtImprimir.Rows.Count > 0)
                     {
                         sNombreImpresora = dtImprimir.Rows[0][0].ToString();
-                        iCantidadImpresiones = (int)Convert.ToInt16(dtImprimir.Rows[0][1].ToString());
+                        iCantidadImpresiones = Convert.ToInt32(dtImprimir.Rows[0][1].ToString());
                         sPuertoImpresora = dtImprimir.Rows[0][2].ToString();
                         sIpImpresora = dtImprimir.Rows[0][3].ToString();
                         sDescripcionImpresora = dtImprimir.Rows[0][4].ToString();
@@ -89,10 +91,25 @@ namespace Palatium.ReportesTextBox
                             imprimir.iniciarImpresion();
                             imprimir.AbreCajon();
                             imprimir.imprimirReporte(sNombreImpresora);
-                            imprimir.iniciarImpresion();
-                            imprimir.escritoEspaciadoCorto(facturaElectronica.sCrearFactura(iIdFactura));
-                            imprimir.cortarPapel();
-                            imprimir.imprimirReporte(sNombreImpresora);
+
+                            if (iVarios == 0)
+                            {
+                                imprimir.iniciarImpresion();
+                                imprimir.escritoEspaciadoCorto(facturaElectronica.sCrearFactura(iIdFactura));
+                                imprimir.cortarPapel();
+                                imprimir.imprimirReporte(sNombreImpresora);
+                            }
+
+                            else
+                            {
+                                for (int i = 0; i < iCantidadImpresiones; i++)
+                                {
+                                    imprimir.iniciarImpresion();
+                                    imprimir.escritoEspaciadoCorto(facturaElectronica.sCrearFactura(iIdFactura));
+                                    imprimir.cortarPapel();
+                                    imprimir.imprimirReporte(sNombreImpresora);
+                                }
+                            }
                         }
 
                         else
