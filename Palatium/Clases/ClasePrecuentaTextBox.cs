@@ -8,12 +8,8 @@ namespace Palatium.Clases
 {
     public class ClasePrecuentaTextBox
     {
-        int iAnchoDePrecuenta = 30;
-        int iAnchoDeDescripcion = 20;
-        int iAnchoDePrecio = 8;
         string sTexto = "";
         DataTable dtPagosClase;
-        DataTable dtPreferencia;
 
         string sSql = "";
         DataTable dtDomicilio;

@@ -80,7 +80,7 @@
     </Reference>
     <Reference Include="Controles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\APLICACION\CONTROLES PERSONALIZADOS\ControlesPersonalizados\Controles\bin\Debug\Controles.dll</HintPath>
+      <HintPath>..\DISK1\DISK1\program files\APLICSIS\Palatium Rest\Controles.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -115,7 +115,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MisControles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\CONTROLES PERSONALIZADOS\Nuevo_Control\Controles\bin\Debug\MisControles.dll</HintPath>
+      <HintPath>..\DISK1\DISK1\program files\APLICSIS\Palatium Rest\MisControles.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -301,6 +301,9 @@
     <Compile Include="Comida_Rapida\frmComandaPrueba.Designer.cs">
       <DependentUpon>frmComandaPrueba.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlesNuevos\BotonCircular.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DashBoard\frmDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -400,6 +403,12 @@
     </Compile>
     <Compile Include="Informes\frmPlantillaExcel.Designer.cs">
       <DependentUpon>frmPlantillaExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio\frmInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inicio\frmInicio.Designer.cs">
+      <DependentUpon>frmInicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Oficina\frmCargoMovimientos.cs">
       <SubType>Form</SubType>
@@ -2122,6 +2131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Informes\frmPlantillaExcel.resx">
       <DependentUpon>frmPlantillaExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inicio\frmInicio.resx">
+      <DependentUpon>frmInicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Oficina\frmCargoMovimientos.resx">
       <DependentUpon>frmCargoMovimientos.cs</DependentUpon>

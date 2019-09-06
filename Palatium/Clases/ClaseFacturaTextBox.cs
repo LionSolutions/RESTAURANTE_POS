@@ -8,9 +8,6 @@ namespace Palatium.Clases
 {
     public class ClaseFacturaTextBox
     {
-        int iAnchoDePrecuenta = 30;
-        int iAnchoDeDescripcion = 20;
-        int iAnchoDePrecio = 8;
         string sTexto;
         string sSecuencial;
         string sSql;
@@ -19,7 +16,6 @@ namespace Palatium.Clases
         double dbPorcentajeIva;
 
         DataTable dtPagosClase;
-        //DataTable dtPreferencia;
         ConexionBD.ConexionBD conexion = new ConexionBD.ConexionBD();
         VentanasMensajes.frmMensajeOK ok = new VentanasMensajes.frmMensajeOK();
 

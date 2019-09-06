@@ -197,6 +197,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn razón_social;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAgregar;
-        private Controles.Auxiliares.DB_Ayuda dBAyudaPersonas;
+        private global::Controles.Auxiliares.DB_Ayuda dBAyudaPersonas;
     }
 }
