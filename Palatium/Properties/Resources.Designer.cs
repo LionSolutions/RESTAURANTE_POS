@@ -1433,6 +1433,26 @@ namespace Palatium.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fondo_inicio {
+            get {
+                object obj = ResourceManager.GetObject("fondo_inicio", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fondo_inicio1 {
+            get {
+                object obj = ResourceManager.GetObject("fondo_inicio1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fondo_pisos_1 {
             get {
                 object obj = ResourceManager.GetObject("fondo_pisos_1", resourceCulture);
@@ -2066,6 +2086,36 @@ namespace Palatium.Properties {
         internal static System.Drawing.Bitmap ingreso_materia_prima_menu {
             get {
                 object obj = ResourceManager.GetObject("ingreso_materia_prima_menu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap inicio_configuracion {
+            get {
+                object obj = ResourceManager.GetObject("inicio_configuracion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap inicio_punto_venta {
+            get {
+                object obj = ResourceManager.GetObject("inicio_punto_venta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap inicio_punto_venta_2 {
+            get {
+                object obj = ResourceManager.GetObject("inicio_punto_venta_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

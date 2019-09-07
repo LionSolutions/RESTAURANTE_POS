@@ -410,6 +410,24 @@
     <Compile Include="Inicio\frmInicio.Designer.cs">
       <DependentUpon>frmInicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\frmLoginPuntoVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmLoginPuntoVenta.Designer.cs">
+      <DependentUpon>frmLoginPuntoVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmMenuPrueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmMenuPrueba.Designer.cs">
+      <DependentUpon>frmMenuPrueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\frmNuevoMenuPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\frmNuevoMenuPos.Designer.cs">
+      <DependentUpon>frmNuevoMenuPos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Oficina\frmCargoMovimientos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2135,6 +2153,15 @@
     <EmbeddedResource Include="Inicio\frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmLoginPuntoVenta.resx">
+      <DependentUpon>frmLoginPuntoVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmMenuPrueba.resx">
+      <DependentUpon>frmMenuPrueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\frmNuevoMenuPos.resx">
+      <DependentUpon>frmNuevoMenuPos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Oficina\frmCargoMovimientos.resx">
       <DependentUpon>frmCargoMovimientos.cs</DependentUpon>
     </EmbeddedResource>
@@ -3146,6 +3173,8 @@
     <None Include="Resources\icono_cambio_orden.png" />
     <None Include="Resources\icono_cliente_empresarial.png" />
     <None Include="Resources\icono_mesa_menu_2.png" />
+    <None Include="Resources\fondo_inicio.jpg" />
+    <None Include="Resources\fondo_inicio.png" />
     <Content Include="Resources\icono_sri_2.png" />
     <None Include="Resources\impresoras_menu.png" />
     <None Include="Resources\impresiones_nuevo.png" />
@@ -3276,6 +3305,9 @@
     <None Include="Resources\remover_iva.png" />
     <None Include="Resources\movimiento_caja_menu.png" />
     <None Include="Resources\mail_default.png" />
+    <None Include="Resources\inicio_configuracion.png" />
+    <None Include="Resources\inicio_punto_venta.png" />
+    <None Include="Resources\inicio_punto_venta_2.png" />
     <Content Include="Resources\txt.png" />
     <None Include="Resources\txt1.png" />
     <None Include="Resources\visto_3.png" />

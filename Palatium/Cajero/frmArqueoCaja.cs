@@ -21,8 +21,9 @@ namespace Palatium.Cajero
         Clases.ClaseArqueoCaja2 arqueo2 = new Clases.ClaseArqueoCaja2();
         Clases.ClaseReporteVendido reporte = new Clases.ClaseReporteVendido();
         Clases.ClaseAbrirCajon abrir = new Clases.ClaseAbrirCajon();
+        Clases.ClaseValidarCaracteres caracteres = new Clases.ClaseValidarCaracteres();
                 
-        bool bRespuesta = false;
+        bool bRespuesta;
         bool bRespuestaEnvioMail;
         
         DataTable dtConsulta;
@@ -225,7 +226,7 @@ namespace Palatium.Cajero
                 if (iOp == 1)
                 {
                     sSql = "";
-                    sSql += "select estado_cierre_cajero" + Environment.NewLine;
+                    sSql += "select estado_cierre_cajero, isnull(ahorro_emergencia, ') ahorro_emergencia" + Environment.NewLine;
                     sSql += "from pos_cierre_cajero" + Environment.NewLine;
                     sSql += "where fecha_cierre = '" + sFecha + "'" + Environment.NewLine;
                     sSql += "and estado = 'A'" + Environment.NewLine;
@@ -240,7 +241,7 @@ namespace Palatium.Cajero
                     {
                         if (dtConsulta.Rows.Count > 0)
                         {
-                            if (dtConsulta.Rows[0][0].ToString() == "Cerrada")
+                            if (dtConsulta.Rows[0]["estado_cierre_cajero"].ToString() == "Cerrada")
                             {
                                 btnEnviarInforme.Visible = true;
                             }
@@ -249,6 +250,8 @@ namespace Palatium.Cajero
                             {
                                 btnEnviarInforme.Visible = false;
                             }
+
+                            txtAhorroManual.Text = Convert.ToDecimal(dtConsulta.Rows[0]["ahorro_emergencia"].ToString()).ToString("N2");
                         }
 
                         else
@@ -329,6 +332,7 @@ namespace Palatium.Cajero
                 dSumaCheques = 0;
                 dSumaEfectivo = 0;
                 dSumaTarjetas = 0;
+                dSumaTransferencias = 0;
 
                 dgvCheques.Rows.Clear();
                 dgvCheques.Refresh();
@@ -337,7 +341,7 @@ namespace Palatium.Cajero
                 dgvTarjetas.Refresh();
 
                 sSql = "";
-                sSql += "select NP.numero_pedido, FP.descripcion, FP.valor,FP.codigo " + Environment.NewLine;
+                sSql += "select NP.numero_pedido, FP.descripcion, FP.valor, FP.codigo " + Environment.NewLine;
                 sSql += "from cv403_cab_pedidos CP, cv403_numero_cab_pedido NP, pos_vw_pedido_forma_pago FP " + Environment.NewLine;
                 sSql += "where CP.fecha_pedido ='" + sFecha + "'" + Environment.NewLine;
                 //sSql += "and CP.id_pos_jornada = " + Program.iJORNADA + Environment.NewLine;
@@ -360,33 +364,33 @@ namespace Palatium.Cajero
                     {                        
                         for (int i = 0; i < dtConsulta.Rows.Count; i++)
                         {
-                            if (dtConsulta.Rows[i][3].ToString() == "CH")
+                            if (dtConsulta.Rows[i]["codigo"].ToString() == "CH")
                             {
-                                dTotal = Convert.ToDouble(dtConsulta.Rows[i][2].ToString());
+                                dTotal = Convert.ToDouble(dtConsulta.Rows[i]["valor"].ToString());
                                 dSumaCheques = dSumaCheques + dTotal;
                                 //dgvCheques.Rows.Add(false, dtConsulta.Rows[i][0].ToString(), dtConsulta.Rows[i][1].ToString(), iTotal.ToString("N2"));
-                                dgvCheques.Rows.Add(false, dtConsulta.Rows[i][0].ToString() + " - CHEQUE", dTotal.ToString("N2"));
+                                dgvCheques.Rows.Add(false, dtConsulta.Rows[i]["numero_pedido"].ToString() + " - CHEQUE", dTotal.ToString("N2"));
                             }
 
-                            else if (dtConsulta.Rows[i][3].ToString() == "EF")
+                            else if (dtConsulta.Rows[i]["codigo"].ToString() == "EF")
                             {
-                                dTotal = Convert.ToDouble(dtConsulta.Rows[i][2].ToString());
+                                dTotal = Convert.ToDouble(dtConsulta.Rows[i]["valor"].ToString());
                                 dSumaEfectivo = dSumaEfectivo + dTotal;
                                 //dgvCheques.Rows.Add(false, dtConsulta.Rows[i][0].ToString(), dtConsulta.Rows[i][1].ToString(), iTotal.ToString("N2"));
                                 //dgvCheques.Rows.Add(false, dtConsulta.Rows[i][1].ToString(), dTotal.ToString("N2"));
                             }
 
-                            else if ((dtConsulta.Rows[i][3].ToString() == "TC") || (dtConsulta.Rows[i][3].ToString() == "TD"))
+                            else if ((dtConsulta.Rows[i]["codigo"].ToString() == "TC") || (dtConsulta.Rows[i]["codigo"].ToString() == "TD"))
                             {
-                                dTotal = Convert.ToDouble(dtConsulta.Rows[i][2].ToString());
+                                dTotal = Convert.ToDouble(dtConsulta.Rows[i]["valor"].ToString());
                                 dSumaTarjetas = dSumaTarjetas + dTotal;
                                 //dgvTarjetas.Rows.Add(false, dtConsulta.Rows[i][0].ToString(), dtConsulta.Rows[i][1].ToString(), iTotal.ToString("N2"));
-                                dgvTarjetas.Rows.Add(false, dtConsulta.Rows[i][1].ToString(), dTotal.ToString("N2"));
+                                dgvTarjetas.Rows.Add(false, dtConsulta.Rows[i]["descripcion"].ToString(), dTotal.ToString("N2"));
                             }
 
-                            else if (dtConsulta.Rows[i][3].ToString() == "TR")
+                            else if (dtConsulta.Rows[i]["codigo"].ToString() == "TR")
                             {
-                                dTotal = Convert.ToDouble(dtConsulta.Rows[i][2].ToString());
+                                dTotal = Convert.ToDouble(dtConsulta.Rows[i]["valor"].ToString());
                                 dSumaTransferencias = dSumaTransferencias + dTotal;
                             }
                         }
@@ -395,9 +399,10 @@ namespace Palatium.Cajero
                         dgvTarjetas.ClearSelection();
 
                         txtCobradoEfectivo.Text = dSumaEfectivo.ToString("N2");
+                        txtTotalEfectivo.Text = dSumaEfectivo.ToString("N2");
                         txtCobradoTarjetas.Text = dSumaTarjetas.ToString("N2");
                         txtCobradoCheques.Text = dSumaCheques.ToString("N2");
-                        //AQUI CAJA DE TEXTO DE TRANSFERENCIAS
+                        txtCobradoTransferencia.Text = dSumaTransferencias.ToString("N2");
                     }
 
                     else
@@ -409,17 +414,19 @@ namespace Palatium.Cajero
                         dgvTarjetas.Refresh();
 
                         txtCobradoEfectivo.Text = dSumaEfectivo.ToString("N2");
+                        txtTotalEfectivo.Text = dSumaEfectivo.ToString("N2");
                         txtCobradoTarjetas.Text = dSumaTarjetas.ToString("N2");
                         txtCobradoCheques.Text = dSumaCheques.ToString("N2");
+                        txtCobradoTransferencia.Text = dSumaTransferencias.ToString("N2");
                     }
                                
-                    txtTotalVendido.Text = (dSumaCheques + dSumaTarjetas + dSumaEfectivo).ToString("N2");
+                    txtTotalVendido.Text = (dSumaCheques + dSumaTarjetas + dSumaEfectivo + dSumaTransferencias).ToString("N2");
                 }
 
             }
             catch (Exception)
             {
-                ok.LblMensaje.Text = "Error al cargar las tajertas y cheques.";
+                ok.LblMensaje.Text = "Error al cargar las transferencias, tajertas y cheques.";
                 ok.ShowInTaskbar = false;
                 ok.ShowDialog();
             }
@@ -506,7 +513,7 @@ namespace Palatium.Cajero
                 sSql += "cv401_nombre_productos NP ON DP.id_producto = NP.id_producto and NP.estado = 'A' INNER JOIN " + Environment.NewLine;
                 sSql += "pos_cortesia PC ON (DP.id_det_pedido = PC.id_det_pedido and PC.estado='A')" + Environment.NewLine;
                 sSql += "where CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                sSql += "and CP.estado_orden = 'Pagada'" + Environment.NewLine;
+                sSql += "and CP.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
                 sSql += "and CP.id_pos_jornada = " + iJornada; 
 
                 DataTable dtConsulta = new DataTable();
@@ -548,7 +555,7 @@ namespace Palatium.Cajero
         }
 
         //Función para calcular el total de personas que ocupan las mesas
-        private void calcularTotalPersonas()
+        private void calcularTotalPersonas(string sCodigo_P)
         {
             try
             {
@@ -559,11 +566,11 @@ namespace Palatium.Cajero
                 sSql += "and CP.id_pos_jornada = " + iJornada + Environment.NewLine;
                 sSql += "and CP.id_pedido = NP.id_pedido " + Environment.NewLine;
                 sSql += "and ORI.id_pos_origen_orden = CP.id_pos_origen_orden " + Environment.NewLine;
-                sSql += "and ORI.id_pos_origen_orden = 1" + Environment.NewLine;
+                sSql += "and ORI.codigo = '" + sCodigo_P + "'" + Environment.NewLine;
                 sSql += "and CP.estado = 'A'" + Environment.NewLine;
                 sSql += "and NP.estado = 'A'" + Environment.NewLine;
                 sSql += "and ORI.estado = 'A'" + Environment.NewLine;
-                sSql += "and CP.estado_orden = 'Pagada'";
+                sSql += "and CP.estado_orden in ('Pagada', 'Cerrada')";
 
                 DataTable dtConsulta = new DataTable();
                 dtConsulta.Clear();
@@ -597,7 +604,8 @@ namespace Palatium.Cajero
         }
 
         //Función para calcular el número de órdenes (Mesa, Llevar, Domicilio, Consumo, etc)
-        private int calcularNumeroOrdenes(int iIdPosOrigenOrden)
+        //private int calcularNumeroOrdenes(int iIdPosOrigenOrden)
+        private int calcularNumeroOrdenes(string sCodigo_P)
         {
             try
             {
@@ -605,7 +613,7 @@ namespace Palatium.Cajero
                 sSql += "select count(*) cuenta" + Environment.NewLine;
                 sSql += "from cv403_cab_pedidos" + Environment.NewLine;
                 sSql += "where fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
-                sSql += "and id_pos_origen_orden = " + iIdPosOrigenOrden + Environment.NewLine;
+                sSql += "and id_pos_origen_orden = '" + sCodigo_P + "'" + Environment.NewLine;
                 sSql += "and id_pos_jornada = " + iJornada + Environment.NewLine;
                 sSql += "and estado = 'A'" + Environment.NewLine;
                 sSql += "and estado_orden in ('Pagada', 'Cerrada')";
@@ -662,7 +670,7 @@ namespace Palatium.Cajero
                 sSql += "and CP.id_pos_jornada = " + iJornada + Environment.NewLine;
                 sSql += "and DP.estado='A'" + Environment.NewLine;
                 sSql += "and CP.estado='A'" + Environment.NewLine;
-                sSql += "and CP.estado_orden = 'Pagada'" + Environment.NewLine;
+                sSql += "and CP.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
                 sSql += "and DP.valor_dscto <> 0";
 
 
@@ -704,7 +712,7 @@ namespace Palatium.Cajero
 
 
         //Función para calcular el total de orden (Mesa, Llevar, Domicilio, Consumo, etc)
-        private double calcularTotalOrigenOrden(int iIdPosOrigenOrden)
+        private double calcularTotalOrigenOrden(string sCodigo_P)
         {
             try
             {
@@ -717,7 +725,7 @@ namespace Palatium.Cajero
                 sSql += "and CP.id_pedido = NP.id_pedido" + Environment.NewLine;
                 sSql += "and CP.id_pedido = FP.id_pedido" + Environment.NewLine;
                 sSql += "and ORI.id_pos_origen_orden = CP.id_pos_origen_orden" + Environment.NewLine;
-                sSql += "and ORI.id_pos_origen_orden = " + iIdPosOrigenOrden + Environment.NewLine;
+                sSql += "and ORI.codigo = '" + sCodigo_P + "'" + Environment.NewLine;
                 sSql += "and CP.estado = 'A'" + Environment.NewLine;
                 sSql += "and NP.estado = 'A'" + Environment.NewLine;
                 sSql += "and ORI.estado = 'A'" + Environment.NewLine;
@@ -844,6 +852,85 @@ namespace Palatium.Cajero
                     catchMensaje.ShowDialog();
                 }
             }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.ToString();
+                catchMensaje.ShowDialog();
+            }
+        }
+
+        //FUNCION PARA CARGAR EL VALOR COBRADO EN PRODUCTOS DE EMERGENCIA
+        private void consultaProductosAhorro()
+        { 
+            try
+            {
+                sSql = "";
+                sSql += "select ltrim(str(isnull(sum(DP.cantidad * (DP.precio_unitario - DP.valor_dscto)), 0), 10, 2)) suma_ahorro" + Environment.NewLine;
+                sSql += "from cv403_cab_pedidos CP INNER JOIN" + Environment.NewLine;
+                sSql += "cv403_det_pedidos DP ON CP.id_pedido = DP.id_pedido" + Environment.NewLine;
+                sSql += "and CP.estado = 'A'" + Environment.NewLine;
+                sSql += "and DP.estado = 'A' INNER JOIN" + Environment.NewLine;
+                sSql += "cv401_productos P ON P.id_producto = DP.id_producto" + Environment.NewLine;
+                sSql += "and P.estado = 'A' INNER JOIN" + Environment.NewLine;
+                sSql += "cv401_nombre_productos NP ON P.id_producto = NP.id_producto" + Environment.NewLine;
+                sSql += "and NP.estado = 'A'" + Environment.NewLine;
+                sSql += "and CP.fecha_pedido = '" + sFecha + "'" + Environment.NewLine;
+                sSql += "and P.ahorro_emergencia = 1" + Environment.NewLine;
+                sSql += "and CP.estado_orden in ('Pagada', 'Cerrada')" + Environment.NewLine;
+                sSql += "and CP.id_pos_jornada = " + iJornada + Environment.NewLine;
+                sSql += "and CP.id_localidad = " + Program.iIdLocalidad;
+
+                dtConsulta = new DataTable();
+                dtConsulta.Clear();
+
+                bRespuesta = conexion.GFun_Lo_Busca_Registro(dtConsulta, sSql);
+
+                if (bRespuesta == true)
+                {
+                    txtAhorroProductos.Text = dtConsulta.Rows[0][0].ToString();
+                }
+                else
+                {
+                    catchMensaje.LblMensaje.Text = "ERROR EN LA INSTRUCCIÓN:" + Environment.NewLine + sSql;
+                    catchMensaje.ShowDialog();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                catchMensaje.LblMensaje.Text = ex.ToString();
+                catchMensaje.ShowDialog();
+            }
+        }
+
+        //FUNCION PARA RECALCULO
+        private void recalcularValores()
+        {
+            try
+            {
+                Decimal dbEfectivoCobrado_P;
+                Decimal dbAhorroProducto_P;
+                Decimal dbAhorroManual_P;
+                Decimal dbEntradasManuales_P;
+                Decimal dbSalidasManuales_P;
+                //Decimal dbIvaCobrado_P;
+                Decimal dbTotal_P;
+
+                dbEfectivoCobrado_P = Convert.ToDecimal(txtTotalEfectivo.Text.Trim());
+                dbAhorroProducto_P = Convert.ToDecimal(txtAhorroProductos.Text.Trim());
+                dbAhorroManual_P = Convert.ToDecimal(txtAhorroManual.Text.Trim());
+                dbEntradasManuales_P = Convert.ToDecimal(txtEntradasManuales.Text.Trim());
+                dbSalidasManuales_P = Convert.ToDecimal(txtSalidasManuales.Text.Trim());
+                //dbIvaCobrado_P = Convert.ToDecimal(txtImpuestoIVA.Text.Trim());
+
+                //dbTotal_P = dbEfectivoCobrado_P - dbAhorroProducto_P - dbAhorroManual_P + dbEntradasManuales_P - dbSalidasManuales_P - dbIvaCobrado_P;
+                dbTotal_P = dbEfectivoCobrado_P - dbAhorroProducto_P - dbAhorroManual_P + dbEntradasManuales_P - dbSalidasManuales_P;
+
+                txtTotalCaja.Text = dbTotal_P.ToString("N2");
+                txtTotalCaja.Focus();
+            }
+
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
@@ -863,20 +950,23 @@ namespace Palatium.Cajero
             sumaEntradasSalidas(0);
             sumarProductosCortesia();
             extraerOtrosValoresCortesia("04");
-            calcularTotalPersonas();
+            calcularTotalPersonas("01");
             calcularDescuentos();
-            txtParaMesa.Text = calcularNumeroOrdenes(1).ToString();
-            txtParaLlevar.Text = calcularNumeroOrdenes(2).ToString();
-            txtParaDomicilio.Text = calcularNumeroOrdenes(3).ToString();
-            txtTotalParaMesa.Text = calcularTotalOrigenOrden(1).ToString("N2");
-            txtTotalParaLlevar.Text = calcularTotalOrigenOrden(2).ToString("N2");
-            txtTotalParaDomicilio.Text = calcularTotalOrigenOrden(3).ToString("N2");
+            txtParaMesa.Text = calcularNumeroOrdenes("01").ToString();
+            txtParaLlevar.Text = calcularNumeroOrdenes("02").ToString();
+            txtParaDomicilio.Text = calcularNumeroOrdenes("03").ToString();
+            txtTotalParaMesa.Text = calcularTotalOrigenOrden("01").ToString("N2");
+            txtTotalParaLlevar.Text = calcularTotalOrigenOrden("02").ToString("N2");
+            txtTotalParaDomicilio.Text = calcularTotalOrigenOrden("03").ToString("N2");
             txtTotalCortesias.Text = dTotalPagadoCortesiaP.ToString("N2");
-
+            consultaProductosAhorro();
             extraerIva();
-            txtTotalCaja.Text = (Convert.ToDouble(txtTotalVendido.Text) + Convert.ToDouble(txtEntradasManuales.Text) - Convert.ToDouble(txtSalidasManuales.Text)).ToString("N2");
-            txtCuentasPorCobrar.Text = "-" + txtTotalCaja.Text;
-            txtTotalEfectivo.Text = (Convert.ToDouble(txtCobradoEfectivo.Text) - Convert.ToDouble(txtSalidasManuales.Text) + Convert.ToDouble(txtEntradasManuales.Text)).ToString("N2");
+
+            recalcularValores();
+
+            //txtTotalCaja.Text = (Convert.ToDouble(txtTotalVendido.Text) + Convert.ToDouble(txtEntradasManuales.Text) - Convert.ToDouble(txtSalidasManuales.Text)).ToString("N2");
+            //txtCuentasPorCobrar.Text = "-" + txtTotalCaja.Text;
+            //txtTotalEfectivo.Text = (Convert.ToDouble(txtCobradoEfectivo.Text) - Convert.ToDouble(txtSalidasManuales.Text) + Convert.ToDouble(txtEntradasManuales.Text)).ToString("N2");
         }
 
         #endregion
@@ -924,8 +1014,7 @@ namespace Palatium.Cajero
             //movimiento.ShowInTaskbar = false;
             //movimiento.ShowDialog();
             //sumaEntradasSalidas(1);
-            Oficina.frmEntradasSalidasManuales movimiento = new Oficina.frmEntradasSalidasManuales(1, sFecha);
-            movimiento.ShowDialog();
+            
         }
 
         private void btnReporteVendido_Click(object sender, EventArgs e)
@@ -1170,6 +1259,33 @@ namespace Palatium.Cajero
         {
             Cajero.frmDetalleVentas detalle = new frmDetalleVentas(iJornada, sFecha);
             detalle.ShowDialog();
+        }
+
+        private void btnEntradas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Oficina.frmEntradasSalidasManuales movimiento = new Oficina.frmEntradasSalidasManuales(1, sFecha);
+            movimiento.ShowDialog();
+        }
+
+        private void btnSalidas_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Oficina.frmEntradasSalidasManuales movimiento = new Oficina.frmEntradasSalidasManuales(0, sFecha);
+            movimiento.ShowDialog();
+        }
+
+        private void txtAhorroManual_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            caracteres.soloDecimales(sender, e, 2);
+        }
+
+        private void txtAhorroManual_Leave(object sender, EventArgs e)
+        {
+            if (txtAhorroManual.Text.Trim() == "")
+            {
+                txtAhorroManual.Text = "0.00";
+            }
+
+            recalcularValores();
         }
     }
 }

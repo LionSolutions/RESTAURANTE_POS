@@ -790,7 +790,7 @@ namespace Palatium.Facturacion_Electronica
 
                 if (respuesta.Estado == "RECIBIDA")
                 {
-                    dgvDatos.Rows[iFila_P].Cells["colEstado"].Style.BackColor = Color.Cyan;
+                    dgvDatos.Rows[iFila_P].Cells["colEstado"].Style.BackColor = Color.Lime;
                 }
 
                 else
@@ -932,7 +932,6 @@ namespace Palatium.Facturacion_Electronica
             catch (Exception ex)
             {
                 catchMensaje.LblMensaje.Text = ex.ToString();
-                catchMensaje.ShowInTaskbar = false;
                 catchMensaje.ShowDialog();
             }
         }
@@ -1146,9 +1145,9 @@ namespace Palatium.Facturacion_Electronica
             try
             {
                 sMensajeEnviar = "";
-                sCodigoDocumento = dgvDatos.Rows[iFila_P].Cells["colTipo"].Value.ToString();
+                //sCodigoDocumento = dgvDatos.Rows[iFila_P].Cells["colTipo"].Value.ToString();
 
-                if (sCodigoDocumento == "FAC")
+                if (sCodigoDocumento == "01")
                 {
                     sTipoComprobante = "FACTURA";
                 }

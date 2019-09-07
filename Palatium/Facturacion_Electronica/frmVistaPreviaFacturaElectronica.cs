@@ -90,8 +90,7 @@ namespace Palatium.Facturacion_Electronica
                 dsReporte ds = new dsReporte();
                 DataTable dt = ds.Tables["dtRIDE"];
                 dt.Clear();
-
-                sCodigo = dtDatos.Rows[0]["codigo"].ToString();
+                
                 sNumeroRUC = dtDatos.Rows[0]["numeroruc"].ToString();
                 sRazonSocial = dtDatos.Rows[0]["razonsocial"].ToString();
                 sNombreComercial = dtDatos.Rows[0]["nombrecomercial"].ToString();
@@ -136,7 +135,8 @@ namespace Palatium.Facturacion_Electronica
 
                 for (int i = 0; i < dtDatos.Rows.Count; i++)
                 {
-                    sNombreProducto = dtDatos.Rows[0]["nombre"].ToString();
+                    sCodigo = dtDatos.Rows[i]["codigo"].ToString();
+                    sNombreProducto = dtDatos.Rows[i]["nombre"].ToString();
 
                     iPagaIVA = Convert.ToInt32(dtDatos.Rows[i]["paga_iva"].ToString());
                     iPagaICE = Convert.ToInt32(dtDatos.Rows[i]["paga_ice"].ToString());

@@ -16,7 +16,6 @@ namespace Palatium.Clases_Factura_Electronica
         VentanasMensajes.frmMensajeOK ok = new VentanasMensajes.frmMensajeOK();
         Facturacion_Electronica.dsFacturaElectronica ds = new Facturacion_Electronica.dsFacturaElectronica();
         
-        string sSql;
         string filename;
         string sCodigo;
         string sNumeroRUC;
@@ -81,8 +80,7 @@ namespace Palatium.Clases_Factura_Electronica
                 dsReporte ds = new dsReporte();
                 DataTable dt = ds.Tables["dtRIDE"];
                 dt.Clear();
-
-                sCodigo = dtDatos.Rows[0]["codigo"].ToString();
+                
                 sNumeroRUC = dtDatos.Rows[0]["numeroruc"].ToString();
                 sRazonSocial = dtDatos.Rows[0]["razonsocial"].ToString();
                 sNombreComercial = dtDatos.Rows[0]["nombrecomercial"].ToString();
@@ -90,6 +88,7 @@ namespace Palatium.Clases_Factura_Electronica
                 sDireccionSucursal = dtDatos.Rows[0]["direccionsucursal"].ToString();
                 sNumeroResolucion = dtDatos.Rows[0]["numeroresolucioncontribuyenteespecial"].ToString();
                 sObligadoContabilidad = dtDatos.Rows[0]["obligadollevarcontabilidad"].ToString();
+
                 sClaveAcceso = dtDatos.Rows[0]["clave_acceso"].ToString();
                 sFechaAutorizacion = dtDatos.Rows[0]["fecha_autorizacion"].ToString();
                 sHoraAutorizacion = dtDatos.Rows[0]["hora_autorizacion"].ToString();
@@ -99,8 +98,8 @@ namespace Palatium.Clases_Factura_Electronica
                     sHoraAutorizacion = DateTime.Now.ToString();
                 }
                 
-                sAmbiente = dtDatos.Rows[0]["ambiente"].ToString();
-                sEmision = dtDatos.Rows[0]["emision"].ToString();
+                sAmbiente = dtDatos.Rows[0]["ambiente"].ToString().ToUpper();
+                sEmision = dtDatos.Rows[0]["emision"].ToString().ToUpper();
                 sFechaFactura = dtDatos.Rows[0]["fecha_factura"].ToString();
                 sIdentificacion = dtDatos.Rows[0]["identificacion"].ToString();
                 sDireccion = dtDatos.Rows[0]["direccion_factura"].ToString();
@@ -127,6 +126,7 @@ namespace Palatium.Clases_Factura_Electronica
 
                 for (int i = 0; i < dtDatos.Rows.Count; i++)
                 {
+                    sCodigo = dtDatos.Rows[i]["codigo"].ToString();
                     sNombreProducto = dtDatos.Rows[i]["nombre"].ToString();
                     iPagaIVA = Convert.ToInt32(dtDatos.Rows[i]["paga_iva"].ToString());
                     iPagaICE = Convert.ToInt32(dtDatos.Rows[i]["paga_ice"].ToString());
